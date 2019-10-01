@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 방법 1] webapp - resources안에 다 넣어놓는다 -->
+	<!-- <resources mapping="/resources/**" location="/resources/" /> -->
+	<!-- 방법2] webapp아래 images,css,js폴더를 각자 만들어서 해당 카테고리별로 자료 넣어놓기 -->
+	<!-- <resources mapping="/temporary/**" location="/images/"/>
+	<resources mapping="/js/**" location="/js/"/>
+	<resources mapping="/css/**" location="/styles/"/> -->
+	<!-- 원래 위 설정때문에 webapp 아래 resources 넣어놓고 링크걸때 /resources 이거 붙여우야ㅕ 함 그래서 위 코드 주석처리 하고 아래 코드로 webapp어떤 곳에 넣어놔도 css매핑되게 -->
+	<!-- 방법 3] -->
+	<default-servlet-handler/>
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="order" value="2"/>   
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="team.sports.matching" />
+	<!-- tiles사용을 위한 bean등록-->
+	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	  <beans:property name="definitions">
+	   <beans:list>
+	    <beans:value>/WEB-INF/templates/layouts.xml</beans:value>
+	   </beans:list>	  
+	  </beans:property>
+	</beans:bean>
+	<!-- 타일즈 처리하는 빈 등록 -->
+	<beans:bean  class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	  <beans:property name="order" value="1"/>    
+	  <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+	  
+	</beans:bean>
+	<!-- 리소스파일 사용을 위한 설정 -->
+	<!-- <context:property-placeholder location="classpath:memo/memo.properties"/> -->
+	
+</beans:beans>
+

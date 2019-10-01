@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE configuration  
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 매퍼파일에서 dto객체 가져다 쓰려고 별칭 하는것 -->
+	<typeAliases>
+		<typeAlias alias="OneMemoDTO" type="team.sports.matching.OneMemoDTO"/>		
+	</typeAliases>
+	
+	
+	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->		
+	<mappers>
+		<mapper resource="mybatis/OneMemo.xml" />
+		<mapper resource="mybatis/MemoComment.xml" />
+	</mappers>
+</configuration>
