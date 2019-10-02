@@ -39,6 +39,10 @@ public class HomeController {
 	public String index() {
 		return "member/index.tiles";
 	}
+	@RequestMapping("/Team/Matching/Matching.do")
+	public String matching() {
+		return "member/index.tiles";
+	}
 	@RequestMapping("/Team/Matching/Betting.do")
 	public String betting() {
 		return "member/in-play.tiles";

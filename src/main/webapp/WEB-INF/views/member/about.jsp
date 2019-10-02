@@ -29,7 +29,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-6">
           <div class="about-thumb">
-            <img src="assets/images/about-img.png" alt="about-image">
+            <img src="<c:url value='/assets/images/about-img.png'/>" alt="about-image">
           </div>
         </div>
         <div class="col-lg-5 col-md-6">
@@ -92,7 +92,7 @@
         <div class="col-lg-3 col-sm-6">
           <div class="team-single">
             <div class="thumb">
-              <img src="assets/images/team/1.jpg" alt="team-image">
+              <img src="<c:url value='/assets/images/team/1.jpg'/>" alt="team-image">
             </div>
             <div class="content">
               <h5 class="name"><a href="#0">Lamar Collins</a></h5>
@@ -109,7 +109,7 @@
         <div class="col-lg-3 col-sm-6">
           <div class="team-single">
             <div class="thumb">
-              <img src="assets/images/team/2.jpg" alt="team-image">
+              <img src="<c:url value='/assets/images/team/2.jpg'/>" alt="team-image">
             </div>
             <div class="content">
               <h5 class="name"><a href="#0">Difa Kukia</a></h5>
@@ -126,7 +126,7 @@
         <div class="col-lg-3 col-sm-6">
           <div class="team-single">
             <div class="thumb">
-              <img src="assets/images/team/3.jpg" alt="team-image">
+              <img src="<c:url value='/assets/images/team/3.jpg'/>" alt="team-image">
             </div>
             <div class="content">
               <h5 class="name"><a href="#0">Chinnu Tatiya</a></h5>
@@ -143,7 +143,7 @@
         <div class="col-lg-3 col-sm-6">
           <div class="team-single">
             <div class="thumb">
-              <img src="assets/images/team/1.jpg" alt="team-image">
+              <img src="<c:url value='/assets/images/team/1.jpg'/>" alt="team-image">
             </div>
             <div class="content">
               <h5 class="name"><a href="#0">Ori Ow</a></h5>
