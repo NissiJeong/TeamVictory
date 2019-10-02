@@ -39,6 +39,7 @@
           <div class="result-item d-flex text-center align-items-center justify-content-center">
             <div class="team team--left">
               <span class="name">Uruguay</span>
+              
               <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
             </div>
             <div class="result-details">
@@ -252,12 +253,13 @@
                 <div class="team-block d-flex justify-content-center align-items-center">
                   <div class="team team--left">
                     <span class="name">Uruguay</span>
-                    <span class="flag"><img src="assets/images/flag/uruguay.jpg" alt="image"></span>
+                    
+                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                   </div>
                   <span class="vs-text">VS</span>
                   <div class="team team--right">
                     <span class="name">brazil</span>
-                    <span class="flag"><img src="assets/images/flag/brazil.jpg" alt="image"></span>
+                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                   </div>
                 </div>
                 <div class="result-block justify-content-center">
@@ -277,12 +279,12 @@
                 <div class="team-block d-flex justify-content-center align-items-center">
                   <div class="team team--left">
                     <span class="name">Argentina</span>
-                    <span class="flag"><img src="assets/images/flag/argentina.jpg" alt="image"></span>
+                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                   </div>
                   <span class="vs-text">VS</span>
                   <div class="team team--right">
                     <span class="name">swizarland</span>
-                    <span class="flag"><img src="assets/images/flag/swizerland.jpg" alt="image"></span>
+                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                   </div>
                 </div>
                 <div class="result-block justify-content-center">
@@ -302,12 +304,13 @@
                 <div class="team-block d-flex justify-content-center align-items-center">
                   <div class="team team--left">
                     <span class="name">england</span>
-                    <span class="flag"><img src="assets/images/flag/england.jpg" alt="image"></span>
+                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                   </div>
                   <span class="vs-text">VS</span>
                   <div class="team team--right">
                     <span class="name">germany</span>
-                    <span class="flag"><img src="assets/images/flag/germany.jpg" alt="image"></span>
+                    
+                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                   </div>
                 </div>
                 <div class="result-block justify-content-center">
@@ -327,12 +330,12 @@
                 <div class="team-block d-flex justify-content-center align-items-center">
                   <div class="team team--left">
                     <span class="name">USA</span>
-                    <span class="flag"><img src="assets/images/flag/usa.jpg" alt="image"></span>
+                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/></span>
                   </div>
                   <span class="vs-text">VS</span>
                   <div class="team team--right">
                     <span class="name">argentina</span>
-                    <span class="flag"><img src="assets/images/flag/argentina.jpg" alt="image"></span>
+                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                   </div>
                 </div>
                 <div class="result-block justify-content-center">
