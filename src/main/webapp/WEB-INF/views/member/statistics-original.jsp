@@ -73,12 +73,6 @@
                 </a>
               </li>
             </ul>
-            
-            
-            <h1>이제 시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-            
-            
-            
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
                 <div class="accordion" id="accordionExample-2">
