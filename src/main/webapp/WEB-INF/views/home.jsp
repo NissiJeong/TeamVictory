@@ -2,27 +2,7 @@
 <%@ page session="false" %>
 
 <h1>
-   bbbbbbbb
-	test teste testststststststs
-	Hello world!   nissi  
-
-
-
-
-
-
-	plz  plz 
-	git fu..c.....
-
-	adsfssd
-	ads
-	
-	
-	
-	sssssss nado halge
-
-	asdfasdfasd
-	git Fuck Fuck
+   LAST!!!!
 
 </h1>
 
