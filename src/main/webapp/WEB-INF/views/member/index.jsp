@@ -2093,7 +2093,7 @@
           </div>
         </div>
         <div class="thumb">
-          <img src="assets/images/elements/app.png" alt="image">
+          <img src="<c:url value='/assets/images/elements/app.png'/>" alt="image"/>
         </div>
       </div>
     </div>
@@ -2141,7 +2141,7 @@
   <!-- service-section start -->
   <section class="service-section section-padding section-bg">
     <div class="service-chart-image">
-      <img src="assets/images/elements/macbook.png" alt="image">
+      <img src="<c:url value='/assets/images/elements/macbook.png'/>" alt="image"/>
     </div>
     <div class="container">
       <div class="row justify-content-center">
@@ -2252,7 +2252,7 @@
         <div class="col-lg-6">
           <div class="testmonial-thumb-part">
             <div class="testmonial-thumb">
-              <img src="<c:url value='/assets/images/testmonial.jpg'/>" alt="image">
+              <img src="<c:url value='/assets/images/testmonial.jpg'/>" alt="image"/>
             </div>
           </div>
         </div>
@@ -2275,7 +2275,7 @@
       <div class="play-butlar-slider">
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/1.jpg" alt="image">
+            <img src="<c:url value='/assets/images/play/1.jpg'/>" alt="image"/>
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Casino Play</a></h3>
@@ -2284,7 +2284,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/2.jpg" alt="image">
+            <img src="<c:url value='/assets/images/play/2.jpg'/>" alt="image"/>
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Bingo Play</a></h3>
@@ -2293,7 +2293,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/3.jpg" alt="image">
+            <img src="<c:url value='/assets/images/play/3.jpg'/>" alt="image"/>
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Poker Play</a></h3>
@@ -2302,7 +2302,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/2.jpg" alt="image">
+            <img src="<c:url value='/assets/images/play/2.jpg'/>" alt="image"/>
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Bingo Play</a></h3>
@@ -2311,7 +2311,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/3.jpg" alt="image">
+            <img src="<c:url value='/assets/images/play/3.jpg'/>" alt="image"/>
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Poker Play</a></h3>
@@ -2346,7 +2346,7 @@
         <div class="col-lg-4 col-sm-6">
           <div class="post-item">
             <div class="thumb">
-              <img src="assets/images/blog/1.jpg" alt="image">
+              <img src="<c:url value='/assets/images/blog/1.jpg'/>" alt="image"/>
             </div>
             <div class="content">
               <ul class="post-meta">
@@ -2360,7 +2360,7 @@
         <div class="col-lg-4 col-sm-6">
           <div class="post-item">
             <div class="thumb">
-              <img src="assets/images/blog/2.jpg" alt="image">
+              <img src="<c:url value='/assets/images/blog/2.jpg'/>" alt="image"/>
             </div>
             <div class="content">
               <ul class="post-meta">
@@ -2374,7 +2374,7 @@
         <div class="col-lg-4 col-sm-6">
           <div class="post-item">
             <div class="thumb">
-              <img src="assets/images/blog/3.jpg" alt="image">
+              <img src="<c:url value='/assets/images/blog/3.jpg'/>" alt="image"/>
             </div>
             <div class="content">
               <ul class="post-meta">

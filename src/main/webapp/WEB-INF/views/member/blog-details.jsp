@@ -230,12 +230,12 @@
             <div class="widget widget-instagram">
               <h4 class="widget-title">instgram</h4>
               <ul class="instagram-list">
-                <li><a href="assets/images/blog/1.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="assets/images/blog/insta1.jpg" alt="image"></a></li>
-                <li><a href="assets/images/blog/2.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="assets/images/blog/insta2.jpg" alt="image"></a></li>
-                <li><a href="assets/images/blog/3.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="assets/images/blog/insta3.jpg" alt="image"></a></li>
-                <li><a href="assets/images/blog/1.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="assets/images/blog/insta4.jpg" alt="image"></a></li>
-                <li><a href="assets/images/blog/2.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="assets/images/blog/insta5.jpg" alt="image"></a></li>
-                <li><a href="assets/images/blog/3.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="assets/images/blog/insta6.jpg" alt="image"></a></li>
+                <li><a href="assets/images/blog/1.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="<c:url value='assets/images/blog/insta1.jpg'/>" alt="image"/></a></li>
+                <li><a href="assets/images/blog/2.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="<c:url value='assets/images/blog/insta2.jpg'/>" alt="image"/></a></li>
+                <li><a href="assets/images/blog/3.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="<c:url value='assets/images/blog/insta3.jpg'/>" alt="image"/></a></li>
+                <li><a href="assets/images/blog/1.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="<c:url value='assets/images/blog/insta4.jpg'/>" alt="image"/></a></li>
+                <li><a href="assets/images/blog/2.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="<c:url value='assets/images/blog/insta5.jpg'/>" alt="image"/></a></li>
+                <li><a href="assets/images/blog/3.jpg" data-rel="lightcase:myCollection:slideshow" title="Your title"><img src="<c:url value='assets/images/blog/insta6.jpg'/>" alt="image"/></a></li>
               </ul>
             </div>
           </div>

@@ -33,7 +33,7 @@
         <div class="col-lg-12">
           <div class="error-content text-center">
             <div class="parallax-container">
-              <div class="error-image"><img src="assets/images/404.png" alt=""></div>
+              <div class="error-image"><img src="<c:url value='assets/images/404.png'/>" alt=""/></div>
             </div>
             <h4 class="title">Opps! Page not found</h4>
             <p>The page you are looking is not available or has been removed.</p>

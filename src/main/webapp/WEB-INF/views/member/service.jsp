@@ -126,7 +126,7 @@
           <div class="testmonial-thumb-part">
             <div class="testmonial-thumb">
             
-              <img src="assets/images/testmonial.jpg" alt="image">
+              <img src="<c:url value='assets/images/testmonial.jpg'/>" alt="image/">
             </div>
           </div>
         </div>
@@ -149,7 +149,7 @@
       <div class="play-butlar-slider">
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/1.jpg" alt="image">
+            <img src="<c:url value='assets/images/play/1.jpg'/>" alt="image/">
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Casino Play</a></h3>
@@ -158,7 +158,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/2.jpg" alt="image">
+            <img src="<c:url value='assets/images/play/2.jpg'/>" alt="image/">
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Bingo Play</a></h3>
@@ -167,7 +167,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/3.jpg" alt="image">
+            <img src="<c:url value='assets/images/play/3.jpg'/>" alt="image/">
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Poker Play</a></h3>
@@ -176,7 +176,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/2.jpg" alt="image">
+            <img src="<c:url value='assets/images/play/2.jpg'/>" alt="image/">
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Bingo Play</a></h3>
@@ -185,7 +185,7 @@
         </div>
         <div class="play-item text-center">
           <div class="thumb">
-            <img src="assets/images/play/3.jpg" alt="image">
+            <img src="<c:url value='assets/images/play/3.jpg'/>" alt="image/">
           </div>
           <div class="content">
             <h3 class="title"><a href="#">Poker Play</a></h3>

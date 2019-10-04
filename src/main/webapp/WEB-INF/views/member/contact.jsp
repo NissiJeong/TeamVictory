@@ -109,7 +109,7 @@
               </div>
             </form>
             <div class="contact-thumb">
-              <img src="assets/images/contact.png" alt="image">
+              <img src="<c:url value='assets/images/contact.png'/>" alt="image"/>
             </div>
           </div>
         </div>
