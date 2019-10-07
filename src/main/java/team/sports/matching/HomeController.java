@@ -84,4 +84,12 @@ public class HomeController {
 	public String errors() {
 		return "member/error-404.tiles";
 	}
+	@RequestMapping("/Team/Matching/Blog.do")
+	public String blog() {
+		return "member/blog.tiles";
+	}
+	@RequestMapping("/Team/Matching/blog-details.do")
+	public String blogDtail() {
+		return "member/blog-details.tiles";
+	}
 }

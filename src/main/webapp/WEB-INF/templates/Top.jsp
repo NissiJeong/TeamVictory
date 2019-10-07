@@ -56,8 +56,8 @@
               </li>
               <li class="menu_has_children"><a href="#0">blog</a>
                 <ul class="sub-menu">
-                  <li><a href="blog.html">Blog page</a></li>
-                  <li><a href="blog-details.html">blog single</a></li>
+                  <li><a href="<c:url value='/Team/Matching/Blog.do'/>">Blog page</a></li>
+                  <li><a href="<c:url value='/Team/Matching/blog-details.do'/>">blog single</a></li>
                 </ul>
               </li>
               <li><a href="contact.html">contact us</a></li>
