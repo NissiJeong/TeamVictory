@@ -41,7 +41,7 @@ public class HomeController {
 	}
 	@RequestMapping("/Team/Matching/Matching.do")
 	public String matching() {
-		return "member/index.tiles";
+		return "member/matching.tiles";
 	}
 	
 	@RequestMapping("/Team/Matching/Promotion.do")
