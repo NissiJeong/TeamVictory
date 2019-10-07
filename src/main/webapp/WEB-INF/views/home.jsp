@@ -3,12 +3,21 @@
 
 <h1>
 <<<<<<< HEAD
-<!-- ì£¼ììë°ë°ë° -->
-<!-- 한글주석 -->
+
+	Hello world!   nissi  
+	plz  plz 
+	git fu..c.....
+	
+	git Fuck Fuck
+	
+	asfdsadfsdaff
+
+
 skajfslkdfjsdaklfjsdaklfjsadklfjsklfjkfsjklfsjdklfsadjklfsdfsafs
 
    LAST!!!!
 last!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 12345678910
 11122233344455566677788899911110000
@@ -17,6 +26,7 @@ asdfasdfasdfasdsadfsadsafdf
 
 push
 Branch
+
 </h1>
 
 
