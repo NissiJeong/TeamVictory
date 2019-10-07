@@ -3,9 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd">
+
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -46,6 +49,18 @@
 	</beans:bean>
 	<!-- 리소스파일 사용을 위한 설정 -->
 	<!-- <context:property-placeholder location="classpath:memo/memo.properties"/> -->
+	
+	<!-- WebSocket -->
+	<context:component-scan base-package="team.sports.matching" />
+	
+	 <websocket:handlers>
+		<websocket:mapping handler="chatServer" path="/chat-ws.do"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
+	<beans:bean id="chatServer" class="team.sports.matching.BasketballMatchingHandler"/> 
 	
 </beans:beans>
 

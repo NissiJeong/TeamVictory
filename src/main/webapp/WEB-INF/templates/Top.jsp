@@ -37,10 +37,12 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav main-menu ml-auto">
               <li class="active"><a href="<c:url value='/Team/Member/Index.do'/>">Home</a></li>
-              <li><a href="<c:url value='/Team/Matching/Betting.do'/>">In-play</a></li>
-              <li><a href="<c:url value='/Team/Matching/Promotion.do'/>">Promotion</a></li>
-              <li><a href="<c:url value='/Team/Matching/statostics.do'/>">Statistics</a></li>
-              <li><a href="<c:url value='/Team/Matching/result.do'/>">Results</a></li>
+              <li><a href="<c:url value='/Team/Matching/Matching.do'/>">Matching</a></li>
+              <li><a href="<c:url value='/Team/Matching/Betting.do'/>">Betting</a></li>
+              <li><a href="<c:url value='/Team/Matching/Team.do'/>">Team</a></li>
+              <li><a href="<c:url value='/Team/Matching/statostics.do'/>">Personal</a></li>
+              <li><a href="<c:url value='/Team/Matching/result.do'/>">Live</a></li>
+              <li><a href="<c:url value='/chat-ws.do'/>">Basketball</a>
               <li class="menu_has_children"><a href="#0">pages</a>
                 <ul class="sub-menu">
                   <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li>

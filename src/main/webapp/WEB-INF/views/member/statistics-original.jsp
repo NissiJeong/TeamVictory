@@ -73,12 +73,6 @@
                 </a>
               </li>
             </ul>
-            
-            
-            <h1>이제 시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-            
-            
-            
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
                 <div class="accordion" id="accordionExample-2">
@@ -97,35 +91,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -141,14 +135,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -164,14 +158,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -187,14 +181,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -210,14 +204,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -244,35 +238,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -288,14 +282,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -311,14 +305,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -334,14 +328,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -357,14 +351,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -396,35 +390,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -440,14 +434,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -463,14 +457,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -486,14 +480,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -509,14 +503,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -543,35 +537,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -587,14 +581,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -610,14 +604,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -633,14 +627,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -656,14 +650,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -690,35 +684,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -734,14 +728,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -757,14 +751,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -780,14 +774,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -803,14 +797,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -837,35 +831,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -881,14 +875,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -904,14 +898,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -927,14 +921,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -950,14 +944,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -989,35 +983,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -1033,14 +1027,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1056,14 +1050,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1079,14 +1073,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1102,14 +1096,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1136,35 +1130,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -1180,14 +1174,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1203,14 +1197,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1226,14 +1220,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1249,14 +1243,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1288,35 +1282,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -1332,14 +1326,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1355,14 +1349,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1378,14 +1372,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1401,14 +1395,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1435,35 +1429,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -1479,14 +1473,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1502,14 +1496,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1525,14 +1519,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1548,14 +1542,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1587,35 +1581,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -1631,14 +1625,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1654,14 +1648,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1677,14 +1671,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1700,14 +1694,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1734,35 +1728,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -1778,14 +1772,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1801,14 +1795,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1824,14 +1818,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1847,14 +1841,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1886,35 +1880,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -1930,14 +1924,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1953,14 +1947,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1976,14 +1970,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -1999,14 +1993,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2033,35 +2027,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -2077,14 +2071,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2100,14 +2094,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2123,14 +2117,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2146,14 +2140,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2185,35 +2179,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -2229,14 +2223,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2252,14 +2246,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2275,14 +2269,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2298,14 +2292,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2332,35 +2326,35 @@
                               <button type="button">All team<i class="fa fa-angle-down"></i></button>
                               <ul class="team-list">
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Brazil</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Uruguay</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                   <span class="team-name">USA</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                   <span class="team-name">Koria</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                   <span class="team-name">argentina</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                   <span class="team-name">swizerland</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                   <span class="team-name">england</span>
                                 </li>
                                 <li>
-                                  <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                  <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                   <span class="team-name">germany</span>
                                 </li>
                               </ul>
@@ -2376,14 +2370,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/brazil.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/brazil.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Brazil</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/uruguay.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/uruguay.jpg'/>" alt="image"/></span>
                                     <span class="team-name">Uruguay</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2399,14 +2393,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/usa.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/usa.jpg'/>" alt="image"/></span>
                                     <span class="team-name">USA</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/koria.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/koria.jpg'/>" alt="image"/></span>
                                     <span class="team-name">koria</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2422,14 +2416,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/argentina.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/argentina.jpg'/>" alt="image"/></span>
                                     <span class="team-name">argentina</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/swizerland.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/swizerland.jpg'/>" alt="image"/></span>
                                     <span class="team-name">swizerland</span>
                                   </div>
                                   <span class="result">1</span>
@@ -2445,14 +2439,14 @@
                               <div class="team-area">
                                 <div class="first-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/england.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/england.jpg'/>" alt="image"/></span>
                                     <span class="team-name">england</span>
                                   </div>
                                   <span class="result">3</span>
                                 </div>
                                 <div class="second-team d-flex align-items-center justify-content-between">
                                   <div class="team">
-                                    <span class="flag"><img src="<c:url value='assets/images/flag/germany.jpg'/>" alt="image"/>></span>
+                                    <span class="flag"><img src="<c:url value='/assets/images/flag/germany.jpg'/>" alt="image"/></span>
                                     <span class="team-name">germany</span>
                                   </div>
                                   <span class="result">1</span>
