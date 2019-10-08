@@ -41,7 +41,7 @@ public class HomeController {
 	}
 	@RequestMapping("/Team/Matching/Matching.do")
 	public String matching() {
-		return "member/matching.tiles";
+		return "member/matching2.tiles";
 	}
 	
 	@RequestMapping("/Team/Matching/Promotion.do")
@@ -91,5 +91,9 @@ public class HomeController {
 	@RequestMapping("/Team/Matching/blog-details.do")
 	public String blogDtail() {
 		return "member/blog-details.tiles";
+	}
+	@RequestMapping("/Team/Matching/contact.do")
+	public String contact() {
+		return "member/contact.tiles";
 	}
 }

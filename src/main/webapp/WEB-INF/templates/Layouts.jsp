@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
   <!-- responsive css file -->
   <link rel="stylesheet" href="<c:url value='/assets/css/responsive.css'/>">
+
 </head>
 <body>
   		<!-- 탑 부분  -->
