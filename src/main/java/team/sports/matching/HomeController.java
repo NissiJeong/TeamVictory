@@ -92,4 +92,8 @@ public class HomeController {
 	public String blogDtail() {
 		return "member/blog-details.tiles";
 	}
+	@RequestMapping("/Team/Matching/contact.do")
+	public String contact() {
+		return "member/contact.tiles";
+	}
 }
