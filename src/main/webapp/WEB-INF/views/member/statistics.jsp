@@ -369,7 +369,6 @@
 					      
 					      <h3>정보 입력/보여주기</h3>
 					      <table>
-					         
 					        <tr style="background-color:white">
 					            <th style="width:20%">출신고교</th>
 					            <td><input type="text" name="id" size="20" /></td>
