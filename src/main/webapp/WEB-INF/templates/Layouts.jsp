@@ -23,7 +23,7 @@
   <!-- lightcase css link -->
   <link rel="stylesheet" href="<c:url value='/assets/css/lightcase.css'/>">
   <!-- main style css link -->
-  <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
+  <link rel="stylesheet"  href="<c:url value='/assets/css/style.css'/>">
   <!-- responsive css file -->
   <link rel="stylesheet" href="<c:url value='/assets/css/responsive.css'/>">
 

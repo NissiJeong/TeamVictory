@@ -4,7 +4,7 @@
 
 
    <!-- banner-section start -->  
-  <section class="breadcum-section">
+  <section class="breadcum-section" style="margin-bottom: -70px">
     <div class="breadcum-area">
       <div class="container">
         <div class="row">
@@ -25,15 +25,15 @@
 
   <!-- statistics-section start -->
   <section class="statistics-section section-padding padding-top-95">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row justify-content-center">
       		<div class="col-lg-6">
 	          <div class="section-header text-center">
-	            <h2 class="section-title">Start Matching!</h2>
+	            <h2 class="section-title fadeIn"  style="color:black">Start Matching!</h2>
 	            <p>On insensible possession oh particular attachment at excellence in. The books arose but miles happy she.</p>
 	          </div>
 	        </div>
-        <div class="col-lg-10">
+        <div class="col-lg-12">
           <div class="statistics-table-result-part">
             <ul class="nav justify-content-around" id="myTab" role="tablist">
               <li class="nav-item">
@@ -70,89 +70,92 @@
                       </h2>
                     </div>
                     <div id="one-collapseOne" class="collapse show" aria-labelledby="one-world-cup" data-parent="#accordionExample-2">
-                      <section class="blog-section section-padding">
-	    <div class="container">
-	      <div class="row mt-mb-15">
-	        <div class="col-lg-4 col-sm-6">
-	          <div class="post-item">
-	            <div class="thumb">
-	              <img src="<c:url value='/assets/images/blog/1.jpg'/>" alt="image"/>
-	            </div>
-	            <div class="content">
-	              <ul class="post-meta">
-	                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-	              </ul>
-	              <h5 class="post-title"><a href="#0">Turn Your Bet Into A High Performing Machine</a></h5>
-	              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-	            </div>
-	          </div>
-	        </div><!-- post-item end -->
-	        <div class="col-lg-4 col-sm-6">
-	          <div class="post-item">
-	            <div class="thumb">
-	              <img src="<c:url value='/assets/images/blog/2.jpg'/>" alt="image"/>
-	            </div>
-	            <div class="content">
-	              <ul class="post-meta">
-	                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-	              </ul>
-	              <h5 class="post-title"><a href="#0">BET Is Crucial To Your Business. Learn Why!</a></h5>
-	              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-	            </div>
-	          </div>
-	        </div><!-- post-item end -->
-	        <div class="col-lg-4 col-sm-6">
-	          <div class="post-item">
-	            <div class="thumb">
-	              <img src="<c:url value='/assets/images/blog/3.jpg'/>" alt="image"/>
-	            </div>
-	            <div class="content">
-	              <ul class="post-meta">
-	                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-	              </ul>
-	              <h5 class="post-title"><a href="#0">Why Most People Will Never Be Great At BET</a></h5>
-	              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-	            </div>
-	          </div>
-	        </div><!-- post-item end -->
-	        <div class="col-lg-4 col-sm-6">
-	          <div class="post-item">
-	            <div class="thumb">
-	              <img src="<c:url value='/assets/images/blog/4.jpg'/>" alt="image"/>
-	            </div>
-	            <div class="content">
-	              <ul class="post-meta">
-	                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-	              </ul>
-	              <h5 class="post-title"><a href="#0">Turn Your Bet Into A High Performing Machine</a></h5>
-	              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-	            </div>
-	          </div>
-	        </div><!-- post-item end -->
-	        <div class="col-lg-4 col-sm-6">
-	          <div class="post-item">
-	            <div class="thumb">
-	              <img src="<c:url value='/assets/images/blog/5.jpg'/>" alt="image"/>
-	            </div>
-	            <div class="content">
-	              <ul class="post-meta">
-	                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-	              </ul>
-	              <h5 class="post-title"><a href="#0">BET Is Crucial To Your Business. Learn Why!</a></h5>
-	              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-	            </div>
-	          </div>
-	        </div><!-- post-item end -->
-	        
-	        
-	        
-	       
-	      </div>
-	      
-	    </div>
-	  </section>
-                    </div>
-                  </div><!-- card end -->
+                      <section class="blog-section section-padding" style="margin-top: -80px">
+					    <div class="container">
+					      <div class="row mt-mb-15">
+					        <div class="col-lg-4 col-sm-6">
+					          <div class="post-item">
+					            <div class="thumb">
+					              <img src="<c:url value='/assets/images/baseball1.png'/>" alt="image"/>
+					            </div>
+					            <div class="content">
+					              <ul class="post-meta">
+					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
+					              </ul>
+					              <h5 class="post-title"><a href="#0">한화 이글스</a></h5>
+					              <p>No depending be convinced in unfeeling he.</p>
+					              <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">
+								    Matching Start!
+								  </button>
+					            </div>
+					          </div>
+					        </div><!-- post-item end -->
+					        <div class="col-lg-4 col-sm-6">
+					          <div class="post-item">
+					            <div class="thumb">
+					              <img src="<c:url value='/assets/images/blog/2.jpg'/>" alt="image"/>
+					            </div>
+					            <div class="content">
+					              <ul class="post-meta">
+					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
+					              </ul>
+					              <h5 class="post-title"><a href="#0">BET Is Crucial To Your Business. Learn Why!</a></h5>
+					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
+					            </div>
+					          </div>
+					        </div><!-- post-item end -->
+					        <div class="col-lg-4 col-sm-6">
+					          <div class="post-item">
+					            <div class="thumb">
+					              <img src="<c:url value='/assets/images/blog/3.jpg'/>" alt="image"/>
+					            </div>
+					            <div class="content">
+					              <ul class="post-meta">
+					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
+					              </ul>
+					              <h5 class="post-title"><a href="#0">Why Most People Will Never Be Great At BET</a></h5>
+					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
+					            </div>
+					          </div>
+					        </div><!-- post-item end -->
+					        <div class="col-lg-4 col-sm-6">
+					          <div class="post-item">
+					            <div class="thumb">
+					              <img src="<c:url value='/assets/images/blog/4.jpg'/>" alt="image"/>
+					            </div>
+					            <div class="content">
+					              <ul class="post-meta">
+					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
+					              </ul>
+					              <h5 class="post-title"><a href="#0">Turn Your Bet Into A High Performing Machine</a></h5>
+					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
+					            </div>
+					          </div>
+					        </div><!-- post-item end -->
+					        <div class="col-lg-4 col-sm-6">
+					          <div class="post-item">
+					            <div class="thumb">
+					              <img src="<c:url value='/assets/images/blog/5.jpg'/>" alt="image"/>
+					            </div>
+					            <div class="content">
+					              <ul class="post-meta">
+					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
+					              </ul>
+					              <h5 class="post-title"><a href="#0">BET Is Crucial To Your Business. Learn Why!</a></h5>
+					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
+					            </div>
+					          </div>
+					        </div><!-- post-item end -->
+					        
+					        
+					        
+					       
+					      </div>
+					      
+					    </div>
+	 				 </section>
+                   </div>
+                 </div><!-- card end -->
                   
                 
               </div>
@@ -467,3 +470,112 @@
     </div>
   </section>
   <!-- statistics-section end -->
+  
+  
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Start Matching With Rival Team</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+         <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline">간단한 팀 정보</h3>
+                <p>최근 5경기 경기 결과</p>      
+                  <table class="table table-striped" style="margin-top: 10px">
+				    <thead>
+				      <tr>
+				        <th>4.18</th>
+				        <th>4.20</th>
+				        <th>4.22</th>
+				        <th>4.25</th>
+				        <th>4.30</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				      </tr>
+				      <tr>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				      </tr>
+				      <tr>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				        <td>두산전 승</td>
+				      </tr>
+				    </tbody>
+				  </table>
+				  </div>
+				   <div class="col-lg-12">
+                <hr style="border:solid 1px">
+                </div>
+                <div class="col-lg-8">
+                <!-- Icon Divider -->
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
+               	<form action="/action_page.php">
+			    <div class="form-group" style="margin-bottom:-10px ">
+			      <label for="sel1"  >Date</label>
+			      <select class="form-control" id="sel1" name="sellist1" >
+			        <option>1</option>
+			        <option>2</option>
+			        <option>3</option>
+			        <option>4</option>
+			      </select>
+			      <br>			   
+			    </div>
+			    <div class="form-group" style="margin-bottom:-10px ">
+			      <label for="sel2" >Time</label>
+			      <select class="form-control" id="sel2" name="sellist2" >
+			        <option>1</option>
+			        <option>2</option>
+			        <option>3</option>
+			        <option>4</option>
+			      </select>
+			      <br>			   
+			    </div>
+			     <div class="form-group" style="margin-bottom:10px ">
+			      <label for="sel3" >Stadium</label>
+			      <select class="form-control" id="sel3" name="sellist3" >
+			        <option>1</option>
+			        <option>2</option>
+			        <option>3</option>
+			        <option>4</option>
+			      </select>
+			      <br>			   
+			    </div>
+			    <button type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px">                  
+                  매칭 신청
+                </button>
+			  </form>
+			</div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

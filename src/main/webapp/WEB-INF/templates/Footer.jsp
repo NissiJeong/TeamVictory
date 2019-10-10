@@ -73,9 +73,9 @@
   <!-- footer-section end -->
 
   <!-- scroll-to-top start -->
-  <div class="scroll-to-top">
+  <a href="#"><div class="scroll-to-top">
     <span class="scroll-icon">
       <i class="fa fa-angle-up"></i>
     </span>
-  </div>
+  </div></a>
   <!-- scroll-to-top end -->
