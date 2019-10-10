@@ -34,7 +34,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcum-content text-center">
-						<h3 class="title">경기 잡힌기록을 넣을까 고민중</h3>
+						<h3 class="title">경기 잡힌기록을  넣을까 고민중</h3>
 					</div>
 				</div>
 			</div>
