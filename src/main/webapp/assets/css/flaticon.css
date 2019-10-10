@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 28/03/2019 13:11
+  	Creation date: 07/10/2019 11:31
   	*/
 
 @font-face {
@@ -25,28 +25,15 @@
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
   font-family: Flaticon;
-  font-style: normal;
+        
+font-style: normal;
+
 }
 
-.flaticon-shield:before { content: "\f100"; }
-.flaticon-presentation:before { content: "\f101"; }
-.flaticon-computer:before { content: "\f102"; }
-.flaticon-book:before { content: "\f103"; }
-.flaticon-one-finger-tap-gesture-of-outlined-hand-symbol:before { content: "\f104"; }
-.flaticon-discuss-issue:before { content: "\f105"; }
-.flaticon-football:before { content: "\f106"; }
-.flaticon-cricket:before { content: "\f107"; }
-.flaticon-tennis-racket:before { content: "\f108"; }
-.flaticon-basketball:before { content: "\f109"; }
-.flaticon-softball:before { content: "\f10a"; }
-.flaticon-menu:before { content: "\f10b"; }
-.flaticon-play-store:before { content: "\f10c"; }
-.flaticon-apple:before { content: "\f10d"; }
-.flaticon-nib:before { content: "\f10e"; }
-.flaticon-wallet:before { content: "\f10f"; }
-.flaticon-crown:before { content: "\f110"; }
-.flaticon-race-horse:before { content: "\f111"; }
-.flaticon-employee:before { content: "\f112"; }
-.flaticon-cricket-1:before { content: "\f113"; }
-.flaticon-development:before { content: "\f114"; }
-.flaticon-trophy:before { content: "\f115"; }
+.flaticon-soccer:before { content: "\f100"; }
+.flaticon-soccer-ball-variant:before { content: "\f101"; }
+.flaticon-trophy:before { content: "\f102"; }
+.flaticon-basketball:before { content: "\f103"; }
+.flaticon-bat:before { content: "\f104"; }
+.flaticon-match:before { content: "\f105"; }
+.flaticon-transparency:before { content: "\f106"; }
