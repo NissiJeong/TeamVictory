@@ -163,11 +163,10 @@ dd{
 									</div>
 									<div class="small-post-content">
 										<h6>
-											<a href="#0">Turn Your Bet Into A High Performing...</a>
+											<a href="#0">이름</a>
 										</h6>
 										<ul class="post-meta">
-											<li><a href="#"><i class="fa fa-calendar"></i>04,
-													March, 2019</a></li>
+											<li>기록</li>
 										</ul>
 									</div>
 								</div>
@@ -181,11 +180,10 @@ dd{
 									</div>
 									<div class="small-post-content">
 										<h6>
-											<a href="#0">Turn Your Bet Into A High Performing...</a>
+											<a href="#0">이름</a>
 										</h6>
 										<ul class="post-meta">
-											<li><a href="#"><i class="fa fa-calendar"></i>04,
-													March, 2019</a></li>
+											<li>기록</li>
 										</ul>
 									</div>
 								</div>
@@ -199,11 +197,10 @@ dd{
 									</div>
 									<div class="small-post-content">
 										<h6>
-											<a href="#0">Turn Your Bet Into A High Performing...</a>
+											<a href="#0">이름</a>
 										</h6>
 										<ul class="post-meta">
-											<li><a href="#"><i class="fa fa-calendar"></i>04,
-													March, 2019</a></li>
+											<li>기록</li>
 										</ul>
 									</div>
 								</div>
