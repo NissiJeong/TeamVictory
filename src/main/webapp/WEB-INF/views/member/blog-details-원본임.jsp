@@ -53,7 +53,7 @@
                 <i class="fa fa-share"></i>
                 <a href="#"><i class="fa fa-facebook-f"></i></a>
                 <a href="#"><i class="fa fa-google-plus"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>        
+                <a href="#"><i class="fa fa-twitter"></i></a>
                 <a href="#"><i class="fa fa-vimeo"></i></a>
               </div>
             </div>
