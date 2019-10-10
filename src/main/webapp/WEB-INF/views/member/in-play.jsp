@@ -124,20 +124,20 @@ $(function(){
               </li>
               -->
             </ul>
+            
             <div class="tab-content" id="myTabContent">
             <!--  전체 선택 -->
               <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                 <div class="play-table-part" >
                   <div class="play-table"  >
-                  
                     <table class="table table-bordered"  id="all-table" >
                       <thead id="th1">
-                        <tr>
-                          <th>번호</th>
-                          <th >경기일시</th>
+                        <tr >
+                          <th class="" >번호</th>
+                          <th style="width:15%">경기일시</th>
                           <th class="team-name ">팀명</th>
-                          
                           <th>경기결과</th>
+                          <th>비고</th>
                           <th class="choice-team">배팅</th>
                           <th class="bet-num">참여 인원</th>
                           <th class="">상세보기</th>
@@ -150,71 +150,155 @@ $(function(){
                        
                         <tr>
                           <td>
-                            <!-- <div class="team-name-part"> </div> -->  
+                          <!-- <div class="team-name-part"> </div> -->  
                              1  
                           </td>
-                          
-                          <td>  <!-- 경기 날짜  -->
-                       
-                          <span bat="1">2019-10-10</span>
+                           <!-- 경기 날짜  -->
+                          <td> <span bat="1">2019-10-10</span></td>
+                          <!--  팀 vs 팀  -->
+                          <td>  기아&nbsp;&nbsp;<span class="blue">3</span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp; 두산</td>
+                          <!-- 경기결과 --> 
+                          <td> <span class="badge badge-primary">승</span></td>
+               			   <!-- 비고 --> 
+               			  <td>우천</td>
+               			   <!-- 배팅--> 
+                          <td class="bettingTd">  
+                               <span id="bettingSpan" class="badge badge-warning" data-toggle="modal" data-target="#myModal">배팅</span>
                           </td>
-                          
-                          <td>  <!--  팀 vs 팀  -->
-                          	기아&nbsp;&nbsp;<span class="blue">3</span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp; 두산
-                          </td>
-                          <td>  <!-- 경기결과 --> 
-                               <span class="win">승</span>  
-                          </td>
-                          <td>  <!-- 배팅--> 
-                               배팅 
-                          </td>
-                          <td>  <!-- 참여인원 --> 
-                               20
-                          </td>
-                          <td>  <!-- 상세보기 --> 
-                               상세보기
-                          </td>
+                          <!-- 참여인원 --> 
+                          <td> 20</td>
+                          <!-- 상세보기 -->
+                          <td> 상세보기</td>
                         </tr>  <!-- 1행끝 -->
                         
                         
                            <tr>
-                          <td>
-                             2
+                           <!-- 번호 -->
+                          <td>2</td>
+                           <!-- 경기 날짜  -->
+                          <td><span bat="1">2019-10-10</span></td>
+                          <!--  팀 vs 팀  -->
+                          <td> 
+                          SK&nbsp;&nbsp;<span class="blue">2</span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp;롯데
                           </td>
-                          
-                          <td>  <!-- 경기 날짜  -->
-                       
-                          <span bat="1">2019-10-10</span>
+                          <!-- 경기결과 -->
+                          <td>  <span class="badge badge-secondary">무</span> 
                           </td>
-                          
-                          <td>  <!--  팀 vs 팀  -->
-                         SK&nbsp;&nbsp;<span class="blue">2</span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp;롯데
-                          </td>
-                          
-                          
-                          <td>  <!-- 경기결과 --> 
-                               <span class="win">무</span>  
-                          </td>
+                          <!-- 비고 --> 
+                          <td> 기타</td>
                           <td>  <!-- 배팅--> 
-                               배팅 
+                        <button type="button" class="btn btn-warning" style="height:33px;" data-toggle="modal" data-target="#myModal">
+ 							 배팅 <span class="badge badge-secondary" >15</span>
+						</button>
                           </td>
-                          <td>  <!-- 참여인원 --> 
-                              15
-                          </td>
-                          <td>  <!-- 상세보기 --> 
-                               상세보기
-                          </td>
-                        </tr>  <!-- 2행끝 -->
+                          <!-- 참여인원 --> 
+                          <td> 15</td>
+                          <!-- 상세보기 -->
+                          <td> 상세보기</td>
+                          </tr>  <!-- 2행끝 -->
                        
                         
+                        
+                           <tr>
+                           <!-- 번호 -->
+                          <td>3</td>
+                           <!-- 경기 날짜  -->
+                          <td><span bat="1">2019-10-10</span></td>
+                          <!--  팀 vs 팀  -->
+                          <td> 
+                          넥센&nbsp;&nbsp;<span class="blue"></span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red"></span>&nbsp;&nbsp;한화
+                          </td>
+                          <!-- 경기결과 -->
+                          <td>  <span class="badge badge-secondary"></span> 
+                          </td>
+                          <!-- 비고 --> 
+                          <td></td>
+                          <td>  <!-- 배팅--> 
+                        
+ 							 배팅
+					
+                          </td>
+                          <!-- 참여인원 --> 
+                          <td> 30</td>
+                          <!-- 상세보기 -->
+                          <td> 상세보기</td>
+                          </tr>  <!-- 3행끝 -->
                         
                       
                         
                       </tbody>
                     </table>
-                  </div>
+                    
+                  </div>  <!--  play-table end -->
+                  
                 </div>
               </div>  <!--  전체선택 끝  -->
+              
+     <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">승부 예측</h5>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+           <div>
+           	<ul>
+           	 <li >
+           	 <div  class="custom-control custom-radio" style="display:inline; ">
+          		<input type="radio" class="custom-control-input" id="homeTeam" >
+    			<label class="custom-control-label" for="homeTeam">기아1</label><span>&nbsp;(배당)</span>
+         	 </div>
+         	 <div class="progress" style="width:70%;float: right;margin:5px;">
+   				 <div class="progress-bar bg-danger progress-bar-striped" style="width:20%;"></div>
+  			</div>
+           	 </li>
+           	 </ul>
+           	 <ul>
+           	 <li style="margin-top:5px">
+	           	 <div  class="custom-control custom-radio" style=" display:inline; ">
+	          		<input type="radio" class="custom-control-input" id="awayTeam" >
+	    			<label class="custom-control-label" for="homeTeam">SK</label><span>&nbsp;(배당)</span>
+	         	 </div>
+	         	<div class="progress" style="width:70%;float: right;margin:5px;">
+	   				 <div class="progress-bar bg-danger progress-bar-striped" style="width:50%;"></div>
+	  			</div>
+           	 </li>
+           	 </ul>
+           	 <ul>
+           	  <li style="margin-top:5px">
+	           	 <div  class="custom-control custom-radio" style=" display:inline; ">
+	          		<input type="radio" class="custom-control-input" id="draw" >
+	    			<label class="custom-control-label" for="homeTeam">무승부</label><span>&nbsp;(배당)</span>
+	         	 </div>
+	         	<div class="progress" style="width:70%;float: right;margin:5px;">
+	   				 <div class="progress-bar bg-danger progress-bar-striped" style="width:30%;"></div>
+	  			</div>
+           	 </li>
+           	
+           	
+           	</ul>
+             </div>
+          
+          
+       
+         
+        </div>  <!--  body 끝 -->
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+              
               
               <!--  축구 선택  -->
 
@@ -1307,12 +1391,11 @@ $(function(){
                     </table>
                   </div>
                 </div>
-              </div>   <!--  야구끝 -->
-              
-            </div>
+              </div>  
+            </div>  
           </div><!-- online-play-tab-part end -->
         </div>
-      </div>
+      </div> <!--  row -->
     </div>
   </section>
   <!-- play-section end -->

@@ -663,6 +663,7 @@ span.is-active:after {
 
 .play-table tbody tr td {
   /* padding: 10px 0; */
+  font-size: 14px;
 }
 
 .team-name-part {
@@ -756,14 +757,28 @@ span.is-active:after {
 	 
 }
 
-.all-tbody  {
+.all-tbody td {
 	text-align: center;
 	
-}
-#all-table td,td >* {
-	font-family: 'Hanna', serif;
 	
 }
+
+#all-table td,td >* {
+	font-family: 'Hanna', serif;
+	font-size: 15px;
+	
+}
+.bettingTd{
+	
+}
+#all-table{
+	
+	
+}
+#bettingSpan{
+	cursor: pointer;
+}
+
 
 
 /* play-section css end */
