@@ -374,7 +374,6 @@
 					            <th style="width:20%">출신고교</th>
 					            <td><input type="text" name="id" size="20" /></td>
 					        </tr>
-					        
 					        <tr style="background-color:white">
 					            <th>투타구분</th>
 					            <td>
