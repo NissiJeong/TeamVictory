@@ -41,7 +41,7 @@ public class HomeController {
 	}
 	@RequestMapping("/Team/Matching/Matching.do")
 	public String matching() {
-		return "member/index.tiles";
+		return "member/matching2.tiles";
 	}
 	
 	@RequestMapping("/Team/Matching/Promotion.do")
@@ -84,8 +84,22 @@ public class HomeController {
 	public String errors() {
 		return "member/error-404.tiles";
 	}
+<<<<<<< HEAD
 	@RequestMapping("/Team/Matching/Team.do")
 	public String team() {
 		return "member/team.tiles";
+=======
+	@RequestMapping("/Team/Matching/Blog.do")
+	public String blog() {
+		return "member/blog.tiles";
+	}
+	@RequestMapping("/Team/Matching/blog-details.do")
+	public String blogDtail() {
+		return "member/blog-details.tiles";
+	}
+	@RequestMapping("/Team/Matching/contact.do")
+	public String contact() {
+		return "member/contact.tiles";
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 	}
 }
