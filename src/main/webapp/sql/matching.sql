@@ -268,7 +268,7 @@ BEGIN
 	INTO :new.bettingIndex
 	FROM dual;
 END;
-
+ 
 /
 
 CREATE OR REPLACE TRIGGER TRI_gameRecord_teamGameNo BEFORE INSERT ON gameRecord
