@@ -1,72 +1,56 @@
 
 /* Drop Triggers */
-/*
+
 DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
-*/
+
 
 
 /* Drop Tables */
-/*
---DROP TABLE baseHiter CASCADE CONSTRAINTS;
+
+DROP TABLE baseHitter CASCADE CONSTRAINTS;
 DROP TABLE basePitcher CASCADE CONSTRAINTS;
---DROP TABLE gameRecord CASCADE CONSTRAINTS;
+DROP TABLE gameRecord CASCADE CONSTRAINTS;
 DROP TABLE Gameschedule CASCADE CONSTRAINTS;
 DROP TABLE matching CASCADE CONSTRAINTS;
---DROP TABLE Betting CASCADE CONSTRAINTS;
+DROP TABLE Betting CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
---DROP TABLE baseteam CASCADE CONSTRAINTS;
---DROP TABLE basketteam CASCADE CONSTRAINTS;
---DROP TABLE futsalteam CASCADE CONSTRAINTS;
-*/
+DROP TABLE baseteam CASCADE CONSTRAINTS;
+DROP TABLE basketteam CASCADE CONSTRAINTS;
+DROP TABLE futsalteam CASCADE CONSTRAINTS;
+
 
 
 /* Drop Sequences */
-/*
-DROP SEQUENCE SEQ_baseteam;
-DROP SEQUENCE SEQ_Betting;
-DROP SEQUENCE SEQ_gameRecord;
-DROP SEQUENCE SEQ_Gameschedule;
-DROP SEQUENCE SEQ_matching;
-*/
+
+DROP SEQUENCE SEQ_baseteam_baseteamno;
+DROP SEQUENCE SEQ_Betting_bettingIndex;
+DROP SEQUENCE SEQ_gameRecord_teamGameNo;
+DROP SEQUENCE SEQ_Gameschedule_gameNo;
+DROP SEQUENCE SEQ_matching_matchingNo;
+
 
 
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_baseteam nocache nocycle;
-CREATE SEQUENCE SEQ_Betting  nocache nocycle;
-CREATE SEQUENCE SEQ_gameRecord  nocache nocycle;
-CREATE SEQUENCE SEQ_Gameschedule  nocache nocycle;
-CREATE SEQUENCE SEQ_matching nocache nocycle;
+CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
 
-/*alter sequence 1부터*/
-alter sequence SEQ_baseteam increment by -1 minvalue 0;
-alter sequence SEQ_Betting increment by -1 minvalue 0;
-alter sequence SEQ_gameRecord increment by -1 minvalue 0;
-alter sequence SEQ_Gameschedule increment by -1 minvalue 0;
-alter sequence SEQ_matching increment by -1 minvalue 0;
-
-
-
-alter sequence SEQ_baseteam increment by 1 minvalue 0;
-alter sequence SEQ_Betting increment by 1 minvalue 0;
-alter sequence SEQ_gameRecord increment by 1 minvalue 0;
-alter sequence SEQ_Gameschedule increment by 1 minvalue 0;
-alter sequence SEQ_matching increment by 1 minvalue 0;
 
 
 /* Create Tables */
 
-CREATE TABLE baseHitter
+CREATE TABLE KIM_baseHitter
 (
 	recordno number NOT NULL,
 	matchdate date DEFAULT SYSDATE NOT NULL,
-	g number DEFAULT 0,
-	avg number(10,4),
 	pa number,
 	ab number,
 	h number,
@@ -81,6 +65,9 @@ CREATE TABLE baseHitter
 	so number,
 	gdp number,
 	e number,
+	pos number,
+	Horder number,
+	awayteam nvarchar2(20),
 	PRIMARY KEY (recordno)
 );
 
@@ -90,15 +77,12 @@ CREATE TABLE basePitcher
 	recordno number NOT NULL,
 	matchdate date DEFAULT SYSDATE NOT NULL,
 	W number NOT NULL,
+	l number,
 	-- 블론1
 	-- 
 	blsv number,
 	ci number,
 	co number,
-	era number(10,4),
-	-- 출전하면 1
-	g number DEFAULT 0,
-	l number,
 	-- 세이브면 1
 	sv number,
 	-- 홀드 1
@@ -127,14 +111,14 @@ CREATE TABLE baseteam
 	PRIMARY KEY (baseteamno)
 );
 
-/*
+
 CREATE TABLE basketteam
 (
 	baseteamno number NOT NULL,
 	teamname nvarchar2(20) NOT NULL UNIQUE,
 	temaloc nvarchar2(20) NOT NULL,
 	PRIMARY KEY (baseteamno)
-);*/
+);
 
 
 CREATE TABLE Betting
@@ -146,14 +130,14 @@ CREATE TABLE Betting
 	PRIMARY KEY (bettingIndex)
 );
 
-/*
+
 CREATE TABLE futsalteam
 (
 	baseteamno number NOT NULL,
 	teamname nvarchar2(20) NOT NULL UNIQUE,
 	temaloc nvarchar2(20) NOT NULL,
 	PRIMARY KEY (baseteamno)
-);*/
+);
 
 
 CREATE TABLE gameRecord
@@ -170,10 +154,10 @@ CREATE TABLE Gameschedule
 (
 	gameNo number NOT NULL,
 	gameDate date NOT NULL,
+	baseteamno number NOT NULL,
 	AwayTeam nvarchar2(20) NOT NULL,
 	Stadium nvarchar2(20) NOT NULL,
 	gameStatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
-	baseteamno number NOT NULL,
 	homeScore number,
 	awayScore number,
 	PRIMARY KEY (gameNo)
@@ -250,7 +234,7 @@ ALTER TABLE Betting
 
 
 /* Create Triggers */
-/*
+
 CREATE OR REPLACE TRIGGER TRI_baseteam_baseteamno BEFORE INSERT ON baseteam
 FOR EACH ROW
 BEGIN
@@ -299,7 +283,7 @@ BEGIN
 	FROM dual;
 END;
 
-/*/
+/
 
 
 

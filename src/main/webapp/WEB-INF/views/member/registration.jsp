@@ -32,7 +32,7 @@
               <h3 class="title">Create a new account</h3>
               <form class="cmn-form registration-form">
                 <div class="frm-group">
-                  <input type="text" name="f-name" id="f-name" placeholder="First Name">
+                   <i class="flaticon-match" style></i><input type="text" name="f-name" id="f-name" placeholder="First Name">
                 </div>
                 <div class="frm-group">
                   <input type="text" name="l-name" id="l-name" placeholder="Last Name">
