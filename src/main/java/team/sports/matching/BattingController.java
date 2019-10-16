@@ -11,4 +11,13 @@ public class BattingController {
 	public String betting() {
 		return "member/in-play.tiles";
 	}
+	
+	@RequestMapping("/Team/Matching/BettingView.do")
+	public String bettingView() {
+		
+		return "member/BettingView.tiles";
+		
+	}
+	
+	
 }
