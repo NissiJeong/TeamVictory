@@ -88,9 +88,17 @@
 
 <style>
 
+#User_name{
+	background: url();
+	background-size: 18px;
+	background-position: 98%;
+	border-bottom: 1.5px solid orange;
+	width: 50%; 
+	box-shadow: 0 0 10px 2px rgba(0,0,0,0);
+}
 
-#f-name{
-	background: ;
+#User_id{
+	background: url();
 	background-size: 18px;
 	background-position: 98%;
 	border-bottom: 1.5px solid orange;
@@ -116,7 +124,7 @@
 	box-shadow: 0 0 10px 2px rgba(0,0,0,0);
 }
 
-#name{
+#email{
 	background-size: 18px;
 	background-position: 98%;
 	border-bottom: 1.5px solid orange;
@@ -198,17 +206,15 @@
         <div class="col-lg-10">
           <div class="registration-block text-center" style="width: 100%; background: none;box-shadow:none;">         
               <h3 class="title">Create a new account</h3>
-              <form class="cmn-form registration-form">
+              <form class="cmn-form registration-form" action="<c:url value='#'/>">
+              <div class="frm-group">
+                  	<input type="text" name="User_name" id="User_name" placeholder="Name">
+                </div> 
                <div class="frm-group">
-                <!-- <i class="flaticon-trophy" style="font-size: 2.5em"></i> -->
-                  	<input type="text" name="f-name" id="f-name" placeholder="User">
+                  	<input type="text" name="User_id" id="User_id" placeholder="User">
                 </div> 
                 <div class="frm-group">
-<<<<<<< HEAD
-                  <input type="email" name="name" id="name" placeholder="Your Email" style="width: 50%">
-=======
-                   <i class="flaticon-match" style></i><input type="text" name="f-name" id="f-name" placeholder="First Name">
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+                  <input type="email" name="email" id="email" placeholder="Your Email" style="width: 50%">
                 </div>
                 <div class="frm-group">
                   <input type="password" name="pass" id="pass" placeholder="Your Password" style="width: 50%">
@@ -221,7 +227,7 @@
                   <input type="password" name="re-pass" id="phone" placeholder="Your PhoneNumber" style="width: 50%">
                 </div>
                 <div class="frm-group">
-                  <select class="custom-select" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
+                  <select class="custom-select" name="gender" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
 				<option>성별</option>		
 				<option>Man</option>		
 				<option>Woman</option>		
@@ -257,8 +263,8 @@
 				
 				
 				</div>
-                <div class="frm-group">
-                    <button type="submit" class="submit-btn" style="margin-top: 100px">Sign Up</button>
+                <div class="frm-group text-center">
+                    <input type="submit" class="submit-btn" style="margin-top: 60px; width: 15%"  value="Sign Up"/>
                 </div>
               </form>
               </div>

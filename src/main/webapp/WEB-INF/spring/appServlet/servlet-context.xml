@@ -51,7 +51,7 @@
 	<!-- <context:property-placeholder location="classpath:memo/memo.properties"/> -->
 	
 	<!-- WebSocket -->
-	<context:component-scan base-package="team.sports.matching" />
+	<!-- <context:component-scan base-package="team.sports.matching" />
 	
 	 <websocket:handlers>
 		<websocket:mapping handler="chatServer" path="/chat-ws.do"/>
@@ -60,7 +60,7 @@
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
-	<beans:bean id="chatServer" class="team.sports.matching.BasketballMatchingHandler"/> 
+	<beans:bean id="chatServer" class="team.sports.matching.BasketballMatchingHandler"/>  -->
 	
 </beans:beans>
 
