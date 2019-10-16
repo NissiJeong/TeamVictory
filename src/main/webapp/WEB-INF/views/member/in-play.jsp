@@ -5,13 +5,15 @@
 <script>
 $(function(){
 	
-
-
-
-
+	$('#btnJoin').click(function(){
+		
+		if ( confirm($('#bettingPoint').val()+" 배팅하실?")){
+			alert('배팅완료');
+		}
+	  });
 });
 
- function scoreBold(){
+  function scoreBold(){
 	var blue = parseInt($('.blue').html());
 	var red = parseInt($('.red').html());
 	console.log(blue-red);
@@ -130,17 +132,16 @@ $(function(){
               <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                 <div class="play-table-part" >
                   <div class="play-table"  >
-                    <table class="table table-bordered"  id="all-table" >
+                    <table class="table table-bordered"  id="all-table"  style="table-layout: fixed">
                       <thead id="th1">
                         <tr >
-                          <th class="" >번호</th>
-                          <th style="width:15%">경기일시</th>
-                          <th class="team-name ">팀명</th>
-                          <th>경기결과</th>
-                          <th>비고</th>
-                          <th class="choice-team">배팅</th>
-                          <th class="bet-num">참여 인원</th>
-                          <th class="">상세보기</th>
+                          <th class=""  style="width: 10%;">번호</th>
+                          <th style="width: 13%;" >경기일시</th>
+                          <th class="team-name " style="width: 20%;">팀 명</th>
+                          <th style="width: 8%;">경기결과</th>
+                          <th style="width: 10%;">비고</th>
+                          <th class="choice-team" style="width: 12%;">배팅</th>
+                          <th class="" style="width: 13%;">상세보기</th>
                         </tr>
                       </thead>
                       <!-- 테이블 데이터 시작  -->
@@ -158,15 +159,17 @@ $(function(){
                           <!--  팀 vs 팀  -->
                           <td>  기아&nbsp;&nbsp;<span class="blue">3</span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp; 두산</td>
                           <!-- 경기결과 --> 
-                          <td> <span class="badge badge-primary">승</span></td>
+                          <td>
+                          <!--  <span class="badge badge-primary">승</span> -->
+                          <span style="width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px; ">승</span> </td>
+               			  </td>
                			   <!-- 비고 --> 
                			  <td>우천</td>
                			   <!-- 배팅--> 
                           <td class="bettingTd">  
                                <span id="bettingSpan" class="badge badge-warning" data-toggle="modal" data-target="#myModal">배팅</span>
                           </td>
-                          <!-- 참여인원 --> 
-                          <td> 20</td>
+                         
                           <!-- 상세보기 -->
                           <td> 상세보기</td>
                         </tr>  <!-- 1행끝 -->
@@ -182,19 +185,23 @@ $(function(){
                           SK&nbsp;&nbsp;<span class="blue">2</span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp;롯데
                           </td>
                           <!-- 경기결과 -->
-                          <td>  <span class="badge badge-secondary">무</span> 
+                          <td>
+                          <!-- <div style="background-color: #847d7e;-webkit-border-radius: 5px; color:white; border:1px red solid; flex: 0 0 calc(100% - 15px);">무</div> -->
+                          <span style="width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #CD2E57; border-radius:7px; ">패</span>
                           </td>
+                         
+                        
                           <!-- 비고 --> 
                           <td> 기타</td>
                           <td>  <!-- 배팅--> 
                         <button type="button" class="btn btn-warning" style="height:33px;" data-toggle="modal" data-target="#myModal">
- 							 배팅 <span class="badge badge-secondary" >15</span>
+ 							 배 팅 <span class="badge badge-secondary ml-2" >15</span>
 						</button>
                           </td>
-                          <!-- 참여인원 --> 
-                          <td> 15</td>
+                          
+                         
                           <!-- 상세보기 -->
-                          <td> 상세보기</td>
+                          <td><a href="<c:url value='/Team/Matching/BettingView.do'/>">상세보기</a></td>
                           </tr>  <!-- 2행끝 -->
                        
                         
@@ -209,7 +216,8 @@ $(function(){
                           넥센&nbsp;&nbsp;<span class="blue"></span>&nbsp;&nbsp; : &nbsp;&nbsp;<span class="red"></span>&nbsp;&nbsp;한화
                           </td>
                           <!-- 경기결과 -->
-                          <td>  <span class="badge badge-secondary"></span> 
+                          <td> 
+                         <span style="height:100%; width:75%;display:inline-block;color:#ffffff;line-height: 30px;background-color: #9a9798; border-radius:7px; ">무</span> 
                           </td>
                           <!-- 비고 --> 
                           <td></td>
@@ -218,8 +226,7 @@ $(function(){
  							 배팅
 					
                           </td>
-                          <!-- 참여인원 --> 
-                          <td> 30</td>
+                         
                           <!-- 상세보기 -->
                           <td> 상세보기</td>
                           </tr>  <!-- 3행끝 -->
@@ -230,71 +237,97 @@ $(function(){
                     </table>
                     
                   </div>  <!--  play-table end -->
-                  
-                </div>
+                 
               </div>  <!--  전체선택 끝  -->
+              
+             
+              
               
      <!-- The Modal -->
   <div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
       
         <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title">승부 예측</h5>
-          <button type="button" class="close" data-dismiss="modal">×</button>
+        <div class="modal-header text-center" style="background-color: #000040;">
+       
+          <h5 class="modal-title w-100" style="color:white">승부 예측</h5>
+         
+          <button type="button" class="close" data-dismiss="modal" style="color:white;font-weight: bold;">×</button>
+       
         </div>
         
-        <!-- Modal body -->
-        <div class="modal-body">
-           <div>
-           	<ul>
-           	 <li >
-           	 <div  class="custom-control custom-radio" style="display:inline; ">
-          		<input type="radio" class="custom-control-input" id="homeTeam" >
-    			<label class="custom-control-label" for="homeTeam">기아1</label><span>&nbsp;(배당)</span>
-         	 </div>
-         	 <div class="progress" style="width:70%;float: right;margin:5px;">
-   				 <div class="progress-bar bg-danger progress-bar-striped" style="width:20%;"></div>
-  			</div>
-           	 </li>
-           	 </ul>
-           	 <ul>
-           	 <li style="margin-top:5px">
-	           	 <div  class="custom-control custom-radio" style=" display:inline; ">
-	          		<input type="radio" class="custom-control-input" id="awayTeam" >
-	    			<label class="custom-control-label" for="homeTeam">SK</label><span>&nbsp;(배당)</span>
-	         	 </div>
-	         	<div class="progress" style="width:70%;float: right;margin:5px;">
-	   				 <div class="progress-bar bg-danger progress-bar-striped" style="width:50%;"></div>
-	  			</div>
-           	 </li>
-           	 </ul>
-           	 <ul>
-           	  <li style="margin-top:5px">
-	           	 <div  class="custom-control custom-radio" style=" display:inline; ">
-	          		<input type="radio" class="custom-control-input" id="draw" >
-	    			<label class="custom-control-label" for="homeTeam">무승부</label><span>&nbsp;(배당)</span>
-	         	 </div>
-	         	<div class="progress" style="width:70%;float: right;margin:5px;">
-	   				 <div class="progress-bar bg-danger progress-bar-striped" style="width:30%;"></div>
-	  			</div>
-           	 </li>
-           	
-           	
-           	</ul>
-             </div>
-          
-          
-       
+     <!--Body-->
+      <div class="modal-body">
+
+        <!-- Radio -->
+        <p class="text-center mb-4">
+          <strong>Your Choice</strong>
+        </p>
+        <div class="container">
          
-        </div>  <!--  body 끝 -->
-        
+          
+          <div class="row">
+			<div class="col-md mb-3" >
+				<div class="custom-control custom-radio" style="display: inline;">
+					  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="customRadio1" >HOME</label>
+				</div>
+				<div class="progress "  style="height:25px; width: 70%;float:right;">
+    			<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:40%;font-weight: bold;">40%</div>
+  			</div>
+		</div>
+		</div> <!--  row -->
+			
+			
+			<div class="row">
+			<div class="col-md mb-3" >
+				<div class="custom-control custom-radio" style="display: inline">
+					  <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label " for="customRadio2" >AWAY</label>
+				</div>
+				<div class="progress"  style="height:25px;width: 70%;float:right;">
+    				<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:30%;font-weight: bold;">30%</div>
+  				</div>
+  				
+  				
+			</div>
+			</div> <!--  row -->
+			
+			
+			<div class="row">
+			<div class="col-md" >
+				<div class="custom-control custom-radio" style="display: inline;">
+					  <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label " for="customRadio3" >DRAW</label>
+				</div>
+				<div class="progress"  style="height:25px;width: 70%;float:right;">
+    			<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:20%;font-weight: bold;">20%</div>
+  			</div>
+			</div>
+			</div> <!--  row -->	  
+
+        <!-- Radio -->  
+        <!--Basic textarea-->
+     <!--  <div class="row">
+          <textarea type="text" id="form79textarea" class="md-textarea form-control" rows="3"></textarea>
+        </div> --> 
+     <div class="row" >  
+			<div class="input-group input-group-sm mt-3 offset-md-8 offset-sm-7  col-md-4 col-sm-5">
+			  <input type="text" class="form-control text-right" style="border:1px solid gray" id="bettingPoint">
+			  <div class="input-group-append">
+			    <button class="btn btn-secondary " type="submit" id="btnJoin">참여</button>
+			  </div>
+			</div> 
+	</div><!--  row -->
+	
+      </div>  <!--  Container -->
+        </div><!--  Body -->
         <!-- Modal footer -->
-        <div class="modal-footer">
+        <div class="modal-footer" >
           <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
         </div>
-        
+     
       </div>
     </div>
   </div>
