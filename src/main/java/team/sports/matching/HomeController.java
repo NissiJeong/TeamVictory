@@ -64,10 +64,7 @@ public class HomeController {
 	public String service() {
 		return "member/service.tiles";
 	}
-	@RequestMapping("/Team/Matching/Login.do")
-	public String login() {
-		return "member/login.tiles";
-	}
+	
 	@RequestMapping("/Team/Matching/Register.do")
 	public String register() {
 		return "member/registration.tiles";

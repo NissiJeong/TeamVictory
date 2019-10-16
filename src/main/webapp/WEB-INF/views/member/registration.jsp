@@ -204,7 +204,11 @@
                   	<input type="text" name="f-name" id="f-name" placeholder="User">
                 </div> 
                 <div class="frm-group">
+<<<<<<< HEAD
                   <input type="email" name="name" id="name" placeholder="Your Email" style="width: 50%">
+=======
+                   <i class="flaticon-match" style></i><input type="text" name="f-name" id="f-name" placeholder="First Name">
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
                 </div>
                 <div class="frm-group">
                   <input type="password" name="pass" id="pass" placeholder="Your Password" style="width: 50%">

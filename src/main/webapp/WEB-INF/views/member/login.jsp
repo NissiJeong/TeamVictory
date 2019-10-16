@@ -30,17 +30,25 @@
           <div class="login-block text-center">
             <div class="login-block-inner">
               <h3 class="title">login your account </h3>
-              <form class="cmn-form login-form">
+              <c:if test="${! empty sessionScope.id }" var="isLogin">
+				<div class="alert alert-success col-md-5">${sessionScope.id}님 즐감하세요</div>
+			</c:if>
+			<c:if test="${not isLogin}">
+              <form class="cmn-form login-form" action="<c:url value='/Team/Matching/IsMember.do'/>">
+              
                 <div class="frm-group">
-                  <input type="text" name="f-name" id="f-name" placeholder="Your Name">
+                  <input type="text" name="id" id="f-name" placeholder="Your Name">
                 </div>
                 <div class="frm-group">
-                  <input type="password" name="pass" id="pass" placeholder="Your Password">
+                  <input type="password" name="pwd" id="pass" placeholder="Your Password">
                 </div>
                 <div class="frm-group">
                   <button type="submit" class="submit-btn">Sign In</button>
                 </div>
+                <span>${NotMember }</span>
+                
               </form>
+              </c:if>
               <p><a href="#0">Haven't your any account in here?</a><a href="#0">Forget password?</a></p>
             </div>
           </div>
