@@ -14,7 +14,7 @@ DROP TRIGGER TRI_matching_matchingNo;
 DROP TABLE baseHitter CASCADE CONSTRAINTS;
 DROP TABLE basePitcher CASCADE CONSTRAINTS;
 DROP TABLE gameRecord CASCADE CONSTRAINTS;
-DROP TABLE Gameschedule CASCADE CONSTRAINTS;
+DROP TABLE gameschedule CASCADE CONSTRAINTS;
 DROP TABLE matching CASCADE CONSTRAINTS;
 DROP TABLE Betting CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
@@ -37,12 +37,11 @@ DROP SEQUENCE SEQ_matching_matchingNo;
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
-
+CREATE SEQUENCE SEQ_baseteam INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_Betting INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_gameRecord INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_Gameschedule INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_matching INCREMENT BY 1 START WITH 1 nocache nocycle;
 
 
 /* Create Tables */
@@ -50,7 +49,7 @@ CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
 CREATE TABLE baseHitter
 (
 	recordno number NOT NULL,
-	matchdate date DEFAULT SYSDATE NOT NULL,
+	awayteam nvarchar2(20),
 	pa number,
 	ab number,
 	h number,
@@ -67,7 +66,9 @@ CREATE TABLE baseHitter
 	e number,
 	pos number,
 	Horder number,
-	awayteam nvarchar2(20),
+	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
 	PRIMARY KEY (recordno)
 );
 
@@ -97,6 +98,9 @@ CREATE TABLE basePitcher
 	so number,
 	r number,
 	er number,
+	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
 	PRIMARY KEY (recordno)
 );
 
@@ -144,23 +148,24 @@ CREATE TABLE gameRecord
 (
 	teamGameNo number NOT NULL,
 	opposingTeam nvarchar2(20) NOT NULL,
-	resultDate date NOT NULL,
-	gameNo number NOT NULL,
+	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
 	PRIMARY KEY (teamGameNo)
 );
 
 
-CREATE TABLE Gameschedule
+CREATE TABLE gameschedule
 (
-	gameNo number NOT NULL,
 	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
 	baseteamno number NOT NULL,
-	AwayTeam nvarchar2(20) NOT NULL,
-	Stadium nvarchar2(20) NOT NULL,
-	gameStatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
-	homeScore number,
-	awayScore number,
-	PRIMARY KEY (gameNo)
+	awayteam nvarchar2(20) NOT NULL,
+	gamestatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
+	homescore number,
+	awayscore number,
+	CONSTRAINT gameno primary (gameDate, stadium, time)
 );
 
 
@@ -179,13 +184,16 @@ CREATE TABLE matching
 CREATE TABLE member
 (
 	ID nvarchar2(15) NOT NULL,
+	name nvarchar2(20) NOT NULL,
+	gender nvarchar2(3) NOT NULL,
+	birth nvarchar2(10),
 	PWD varchar2(20) NOT NULL,
 	phone varchar2(11) NOT NULL,
 	email nvarchar2(50) NOT NULL,
 	regidate date DEFAULT SYSDATE,
 	location nvarchar2(50) NOT NULL,
 	height number,
-	point number,
+	point number DEFAULT 5000,
 	weight number,
 	fut_pos nvarchar2(10),
 	basket_pos nvarchar2(10),
@@ -202,7 +210,7 @@ CREATE TABLE member
 
 /* Create Foreign Keys */
 
-ALTER TABLE Gameschedule
+ALTER TABLE gameschedule
 	ADD FOREIGN KEY (baseteamno)
 	REFERENCES baseteam (baseteamno)
 ;
@@ -220,9 +228,21 @@ ALTER TABLE member
 ;
 
 
+ALTER TABLE baseHitter
+	ADD FOREIGN KEY (gameDate, stadium, time)
+	REFERENCES gameschedule (gameDate, stadium, time)
+;
+
+
+ALTER TABLE basePitcher
+	ADD FOREIGN KEY (gameDate, stadium, time)
+	REFERENCES gameschedule (gameDate, stadium, time)
+;
+
+
 ALTER TABLE gameRecord
-	ADD FOREIGN KEY (gameNo)
-	REFERENCES Gameschedule (gameNo)
+	ADD FOREIGN KEY (gameDate, stadium, time)
+	REFERENCES gameschedule (gameDate, stadium, time)
 ;
 
 
