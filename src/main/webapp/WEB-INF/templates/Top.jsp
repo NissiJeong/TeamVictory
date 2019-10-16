@@ -23,7 +23,8 @@
   <script src='<c:url value='/assets/js/TweenMax.min.js'/>'></script>
   <!-- main js file -->
   <script src="<c:url value='/assets/js/main.js'/>"></script>
-
+  <!-- postcode.v2 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <!-- preloader start -->
   <div id="preloader"></div>

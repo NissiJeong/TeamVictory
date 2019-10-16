@@ -86,6 +86,7 @@ public class HomeController {
 	public String team() {
 		return "member/team.tiles";
 	}
+
 	@RequestMapping("/Team/Matching/Blog.do")
 	public String blog() {
 		return "member/blog.tiles";
@@ -97,5 +98,6 @@ public class HomeController {
 	@RequestMapping("/Team/Matching/contact.do")
 	public String contact() {
 		return "member/contact.tiles";
+
 	}
 }
