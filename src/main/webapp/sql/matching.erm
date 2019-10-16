@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>75</y>
+	<y>0</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-10-04 19:12:14</creation_date>
-			<updated_date>2019-10-16 18:46:13</updated_date>
+			<updated_date>2019-10-16 18:46:57</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -4071,7 +4071,7 @@
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
-			<physical_name>gameschedule2</physical_name>
+			<physical_name>gameschedule</physical_name>
 			<logical_name>새 테이블</logical_name>
 			<description></description>
 			<constraint></constraint>
