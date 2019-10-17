@@ -64,27 +64,27 @@
        
         //년도 selectbox만들기               
         for(var sy = 1920 ; sy <= nyear ; sy++) {
-            $('#fd_year').append('<option value="' + sy + '">' + sy + '년</option>'+'</br>');    
+            $('#year').append('<option value="' + sy + '">' + sy + '</option>'+'</br>');    
         }
 
         // 월별 selectbox 만들기            
         for(var i=1; i <= 12; i++) {
             var sm = i > 9 ? i : "0"+i ;            
-            $('#fd_month').append('<option value="' + sm + '">' + sm + '월</option>');    
+            $('#month').append('<option value="' + sm + '">' + sm + '</option>');    
          }  
         
         // 일별 selectbox 만들기
         for(var i=1; i <=31; i++){
-        	
-        	$('#fd_day').append('<option value="' + i + '">' + i  + '일</option>');
+        	var dd = i > 9 ? i : "0"+i ; 
+        	$('#day').append('<option value="' + dd + '">' + dd  + '</option>');
         }
         
         //jQuery("#fd_year  > option[value="+nyear+"]").attr("selected", "true");    
         //jQuery("#fd_month  > option[value="+nmon+"]").attr("selected", "true");                 
     })
 
-    
 </script>
+
 
 <style>
 
@@ -206,7 +206,9 @@
         <div class="col-lg-10">
           <div class="registration-block text-center" style="width: 100%; background: none;box-shadow:none;">         
               <h3 class="title">Create a new account</h3>
-              <form class="cmn-form registration-form" action="<c:url value='#'/>">
+              
+              <form class="cmn-form registration-form" id="regi" method="post" action="<c:url value='/Team/Matching/Registration.do'/>">
+              
               <div class="frm-group">
                   	<input type="text" name="User_name" id="User_name" placeholder="Name">
                 </div> 
@@ -224,7 +226,7 @@
                 </div>
                 <div>
                 <div class="frm-group">
-                  <input type="password" name="re-pass" id="phone" placeholder="Your PhoneNumber" style="width: 50%">
+                  <input type="text" name="phone" id="phone" placeholder="Your PhoneNumber" style="width: 50%">
                 </div>
                 <div class="frm-group">
                   <select class="custom-select" name="gender" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
@@ -233,38 +235,35 @@
 				<option>Woman</option>		
 					</select>
                 </div>
-                <div>
-               		<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" id="fd_year" >
+                <div class="frm-group">
+               		<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" name="year" id="year" >
               	<option >년도</option>	
                		</select>
-					<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" id="fd_month">
+					<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" name="month" id="month">
 				<option>월</option>	
 					</select>	
-					<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" id="fd_day">
+					<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" name="day" id="day">
 				<option>일</option>		
 					</select>
 				</div>
 				
 				<div class="frm-group mt-4">
-                  <input type="text" id="sample4_postcode" placeholder="우편번호" style="width: 25%;">
+                  <input type="text" id="sample4_postcode" placeholder="우편번호" name="addr" style="width: 25%;">
                   <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" style="width: 15%;margin-left: 9.5%;">
                 </div>
                 <div class="frm-group mt-1">
-                  <input type="text" id="sample4_roadAddress" placeholder="도로명주소" style="width: 50%">
+                  <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="addr_road" style="width: 50%">
                 </div>
                 <div class="frm-group mt-1">
-                  <input type="text" id="sample4_detailAddress" placeholder="상세주소" style="width: 50%">
+                  <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="addr_detail" style="width: 50%">
                 </div>
 				<!-- <span id="guide" style="color:#999;display:none"></span>
 				<input type="text" id="sample4_detailAddress" placeholder="상세주소" style="width: 50%">
 				<input type="text" id="sample4_extraAddress" placeholder="참고항목" style="width: 50%">
 				-->
-				
-				
-				
 				</div>
                 <div class="frm-group text-center">
-                    <input type="submit" class="submit-btn" style="margin-top: 60px; width: 15%"  value="Sign Up"/>
+                    <input type="submit" class="submit-btn" style="margin-top: 60px; width: 15%" value="Sign Up" id="btnRegist"/>
                 </div>
               </form>
               </div>
