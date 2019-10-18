@@ -14,7 +14,7 @@ public class MatchDAO {
 	private SqlSessionTemplate template;
 	
 	//매칭페이지 글 뿌려주기
-	public List<TeamDTO> selectList(Map map) {
+	public List<BaseTeamDTO> selectList(Map map) {
 		return template.selectList("teamSelectList", map);
 	}
 	
@@ -23,4 +23,7 @@ public class MatchDAO {
 		return template.insert("matchInsert",map);
 	}
 	
+	public BaseTeamDTO selectOne(Map map) {
+		return template.selectOne("oneSelect", map);
+	}
 }

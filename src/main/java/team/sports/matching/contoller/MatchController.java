@@ -2,9 +2,11 @@ package team.sports.matching.contoller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import team.sports.matching.service.MatchDAO;
-import team.sports.matching.service.TeamDTO;
+import team.sports.matching.service.BaseTeamDTO;
 
 
 @Controller
@@ -26,7 +28,8 @@ public class MatchController {
 	//매칭 페이지로 이동
 	@RequestMapping("/Team/Matching/Matching.do")
 	public String matching(@RequestParam Map map,Model model) {
-		List<TeamDTO> list = dao.selectList(map);
+		List<BaseTeamDTO> list = dao.selectList(map);
+		
 		model.addAttribute("list",list);
 		return "member/matching2.tiles";
 	}
@@ -42,5 +45,20 @@ public class MatchController {
 			ass="신청완료";
 		}
 		return ass;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/Team/Matching/modal.do",produces = "text/html; charset=UTF-8")
+	public String upModal(@RequestParam Map map,Model model) {
+		JSONObject json = new JSONObject();
+		for(Object key:map.keySet()) {
+			System.out.println(key+":"+map.get(key).toString());
+		}
+		BaseTeamDTO dto = new BaseTeamDTO();
+		dto = dao.selectOne(map);
+		json.put("team", dto);
+		System.out.println(dto.getTeamName()+"받아온 팀 이름");
+		System.out.println("json.toJSONString():"+json.toJSONString());
+		return json.toJSONString();
 	}
 }

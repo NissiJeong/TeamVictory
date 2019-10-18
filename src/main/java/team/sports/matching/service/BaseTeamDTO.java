@@ -1,6 +1,6 @@
 package team.sports.matching.service;
 
-public class TeamDTO {
+public class BaseTeamDTO {
 	
 	private String baseTeamNo;
 	private String teamName;

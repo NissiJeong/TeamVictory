@@ -9,6 +9,22 @@
 $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+   
+    
+   
+    $(".upModal").click(function(){
+    	$.ajax({
+    		url:"<c:url value='/Team/Matching/modal.do'/>",
+    		type:'post',
+    		dataType:'json',
+    		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title")},	
+    		success:function(data){
+    			console.log(data);
+
+    		}
+    	});
+    });    
+    
     
     $("#match").click(function(){
     	$.ajax({
@@ -21,7 +37,8 @@ $( function() {
     			alert(data);
     		}
     	});
-    });
+    });    
+   
  });
 </script>
 
@@ -106,10 +123,10 @@ $( function() {
 						              <ul class="post-meta">
 						                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
 						              </ul>
-						              <h3 class="post-title"><a href="#0">${item.teamName }</a></h3>
+						              <h3 class="post-title"><a href="#0"><label class="teamName" title="${item.teamName }" >${item.teamName }</label></a></h3>
 						             	 지역 <span style="font-size: 1.3em; color: navy; font-weight: bold"> ${item.teamLoc }</span>
 						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.baseRating }</span> </p>
-						              <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">
+						              <button  type="button" class="btn btn-primary upModal"  data-toggle="modal" data-target="#myModal" title="${loop.index }">
 									    Matching Start!
 									  </button>
 						            </div>
@@ -460,7 +477,7 @@ $( function() {
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title -->
                 <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
-                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline">간단한 팀 정보</h3>
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline">${team.teamName }asdfasd</h3>
                 <p>최근 5경기 경기 결과</p>      
                   <table class="table table-striped" style="margin-top: 10px">
 				    <thead>
@@ -505,7 +522,7 @@ $( function() {
                 <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
                	<form id="frm">
                	
-               	<input name="awayteam" type="hidden" value='${item }'/>
+               	<input name="awayteam" type="hidden" value='sdfg'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel1">Date</label>
 			      <p><input name='date' type="text" id="datepicker" style="width:100%"></p>
