@@ -198,17 +198,17 @@
         <div class="col-lg-10">
           <div class="registration-block text-center" style="width: 100%; background: none;box-shadow:none;">         
               <h3 class="title">Create a new account</h3>
-              <form class="cmn-form registration-form">
+              <form class="cmn-form registration-form" action="<c:url value='/sports/join.do'/>" method="post">
                <div class="frm-group">
                 <!-- <i class="flaticon-trophy" style="font-size: 2.5em"></i> -->
                   	<input type="text" name="f-name" id="f-name" placeholder="User">
                 </div> 
                 <div class="frm-group">
-<<<<<<< HEAD
-                  <input type="email" name="name" id="name" placeholder="Your Email" style="width: 50%">
-=======
+
+                  <input type="email" name="email" id="name" placeholder="Your Email" style="width: 50%">
+
                    <i class="flaticon-match" style></i><input type="text" name="f-name" id="f-name" placeholder="First Name">
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
                 </div>
                 <div class="frm-group">
                   <input type="password" name="pass" id="pass" placeholder="Your Password" style="width: 50%">
@@ -218,7 +218,7 @@
                 </div>
                 <div>
                 <div class="frm-group">
-                  <input type="password" name="re-pass" id="phone" placeholder="Your PhoneNumber" style="width: 50%">
+                  <input type="password"  id="phone" placeholder="Your PhoneNumber" style="width: 50%">
                 </div>
                 <div class="frm-group">
                   <select class="custom-select" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
@@ -228,7 +228,7 @@
 					</select>
                 </div>
                 <div>
-               		<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" id="fd_year" >
+               		<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" id="fd_year" name="year">
               	<option >년도</option>	
                		</select>
 					<select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" id="fd_month">
@@ -258,7 +258,7 @@
 				
 				</div>
                 <div class="frm-group">
-                    <button type="submit" class="submit-btn" style="margin-top: 100px">Sign Up</button>
+                    <input type="submit" class="submit-btn" style="margin-top: 100px"/>
                 </div>
               </form>
               </div>

@@ -37,11 +37,12 @@ DROP SEQUENCE SEQ_matching_matchingNo;
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_baseteam INCREMENT BY 1 START WITH 1 nocache nocycle;
-CREATE SEQUENCE SEQ_Betting INCREMENT BY 1 START WITH 1 nocache nocycle;
-CREATE SEQUENCE SEQ_gameRecord INCREMENT BY 1 START WITH 1 nocache nocycle;
-CREATE SEQUENCE SEQ_Gameschedule INCREMENT BY 1 START WITH 1 nocache nocycle;
-CREATE SEQUENCE SEQ_matching INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
+
 
 
 /* Create Tables */
@@ -109,7 +110,7 @@ CREATE TABLE baseteam
 (
 	baseteamno number NOT NULL,
 	teamname nvarchar2(20) NOT NULL UNIQUE,
-	temaloc nvarchar2(20) NOT NULL,
+	teamloc nvarchar2(20) NOT NULL,
 	baserating number(10,4) DEFAULT 1500 NOT NULL,
 	manager_id nvarchar2(20) NOT NULL,
 	PRIMARY KEY (baseteamno)
@@ -120,7 +121,7 @@ CREATE TABLE basketteam
 (
 	baseteamno number NOT NULL,
 	teamname nvarchar2(20) NOT NULL UNIQUE,
-	temaloc nvarchar2(20) NOT NULL,
+	teamloc nvarchar2(20) NOT NULL,
 	PRIMARY KEY (baseteamno)
 );
 
@@ -139,7 +140,7 @@ CREATE TABLE futsalteam
 (
 	baseteamno number NOT NULL,
 	teamname nvarchar2(20) NOT NULL UNIQUE,
-	temaloc nvarchar2(20) NOT NULL,
+	teamloc nvarchar2(20) NOT NULL,
 	PRIMARY KEY (baseteamno)
 );
 
@@ -165,7 +166,7 @@ CREATE TABLE gameschedule
 	gamestatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
 	homescore number,
 	awayscore number,
-	CONSTRAINT gameno primary key (gameDate, stadium, time)
+	CONSTRAINT gameno UNIQUE (gameDate, stadium, time)
 );
 
 
@@ -177,6 +178,7 @@ CREATE TABLE matching
 	reqDate date NOT NULL,
 	matchStatus nvarchar2(20) DEFAULT 'wating' NOT NULL,
 	baseteamno number NOT NULL,
+	time number NOT NULL,
 	PRIMARY KEY (matchingNo)
 );
 

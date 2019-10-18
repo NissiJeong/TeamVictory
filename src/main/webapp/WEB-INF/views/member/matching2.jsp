@@ -1,7 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  	<link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+    $( "#datepicker" ).datepicker();
+    $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    
+    $("#match").click(function(){
+    	$.ajax({
+    		url:"<c:url value='/Team/Matching/matching.do'/>",
+    		type:'post',
+    		dataType:'text',
+    		data:$('#frm').serialize(),	
+    		success:function(data){
+    			console.log(data);
+    			alert(data);
+    		}
+    	});
+    });
+ });
+</script>
 
    <!-- banner-section start -->  
   <section class="breadcum-section" style="margin-bottom: -70px">
@@ -73,79 +95,27 @@
                       <section class="blog-section section-padding" style="margin-top: -80px">
 					    <div class="container">
 					      <div class="row mt-mb-15">
-					        <div class="col-lg-4 col-sm-6">
-					          <div class="post-item">
-					            <div class="thumb">
-					              <img src="<c:url value='/assets/images/baseball1.png'/>" alt="image"/>
-					            </div>
-					            <div class="content">
-					              <ul class="post-meta">
-					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-					              </ul>
-					              <h5 class="post-title"><a href="#0">한화 이글스</a></h5>
-					              <p>No depending be convinced in unfeeling he.</p>
-					              <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">
-								    Matching Start!
-								  </button>
-					            </div>
-					          </div>
-					        </div><!-- post-item end -->
-					        <div class="col-lg-4 col-sm-6">
-					          <div class="post-item">
-					            <div class="thumb">
-					              <img src="<c:url value='/assets/images/blog/2.jpg'/>" alt="image"/>
-					            </div>
-					            <div class="content">
-					              <ul class="post-meta">
-					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-					              </ul>
-					              <h5 class="post-title"><a href="#0">BET Is Crucial To Your Business. Learn Why!</a></h5>
-					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-					            </div>
-					          </div>
-					        </div><!-- post-item end -->
-					        <div class="col-lg-4 col-sm-6">
-					          <div class="post-item">
-					            <div class="thumb">
-					              <img src="<c:url value='/assets/images/blog/3.jpg'/>" alt="image"/>
-					            </div>
-					            <div class="content">
-					              <ul class="post-meta">
-					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-					              </ul>
-					              <h5 class="post-title"><a href="#0">Why Most People Will Never Be Great At BET</a></h5>
-					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-					            </div>
-					          </div>
-					        </div><!-- post-item end -->
-					        <div class="col-lg-4 col-sm-6">
-					          <div class="post-item">
-					            <div class="thumb">
-					              <img src="<c:url value='/assets/images/blog/4.jpg'/>" alt="image"/>
-					            </div>
-					            <div class="content">
-					              <ul class="post-meta">
-					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-					              </ul>
-					              <h5 class="post-title"><a href="#0">Turn Your Bet Into A High Performing Machine</a></h5>
-					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-					            </div>
-					          </div>
-					        </div><!-- post-item end -->
-					        <div class="col-lg-4 col-sm-6">
-					          <div class="post-item">
-					            <div class="thumb">
-					              <img src="<c:url value='/assets/images/blog/5.jpg'/>" alt="image"/>
-					            </div>
-					            <div class="content">
-					              <ul class="post-meta">
-					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-					              </ul>
-					              <h5 class="post-title"><a href="#0">BET Is Crucial To Your Business. Learn Why!</a></h5>
-					              <p>No depending be convinced in unfeeling he. Excellence she unaffected and too sentiments her.</p>
-					            </div>
-					          </div>
-					        </div><!-- post-item end -->
+					        
+					        <c:forEach var="item" items="${list}" varStatus="loop">
+						        <div class="col-lg-4 col-sm-6"><!-- post-item start -->
+						          <div class="post-item">
+						            <div class="thumb">
+						              <img src="<c:url value='/assets/images/baseball1.png'/>" alt="image"/>
+						            </div>
+						            <div class="content">
+						              <ul class="post-meta">
+						                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
+						              </ul>
+						              <h3 class="post-title"><a href="#0">${item.teamName }</a></h3>
+						             	 지역 <span style="font-size: 1.3em; color: navy; font-weight: bold"> ${item.teamLoc }</span>
+						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.baseRating }</span> </p>
+						              <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">
+									    Matching Start!
+									  </button>
+						            </div>
+						          </div>
+						        </div><!-- post-item end -->
+					        </c:forEach>
 					        
 					        
 					        
@@ -533,30 +503,46 @@
                 <div class="col-lg-8">
                 <!-- Icon Divider -->
                 <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
-               	<form action="/action_page.php">
+               	<form id="frm">
+               	
+               	<input name="awayteam" type="hidden" value='${item }'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
-			      <label for="sel1"  >Date</label>
-			      <select class="form-control" id="sel1" name="sellist1" >
-			        <option>1</option>
-			        <option>2</option>
-			        <option>3</option>
-			        <option>4</option>
-			      </select>
+			      <label for="sel1">Date</label>
+			      <p><input name='date' type="text" id="datepicker" style="width:100%"></p>
 			      <br>			   
 			    </div>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel2" >Time</label>
-			      <select class="form-control" id="sel2" name="sellist2" >
-			        <option>1</option>
-			        <option>2</option>
-			        <option>3</option>
-			        <option>4</option>
+			      <select class="form-control" id="sel2" name="time" >
+			        <option>00</option>
+			        <option>01</option>
+			        <option>02</option>
+			        <option>04</option>
+			        <option>05</option>
+			        <option>06</option>
+			        <option>07</option>
+			        <option>08</option>
+			        <option>09</option>
+			        <option>10</option>
+			        <option>11</option>
+			        <option>12</option>
+			        <option>13</option>
+			        <option>14</option>
+			        <option>15</option>
+			        <option>16</option>
+			        <option>17</option>
+			        <option>18</option>
+			        <option>19</option>
+			        <option>20</option>
+			        <option>21</option>
+			        <option>22</option>
+			        <option>23</option>
 			      </select>
 			      <br>			   
 			    </div>
 			     <div class="form-group" style="margin-bottom:10px ">
 			      <label for="sel3" >Stadium</label>
-			      <select class="form-control" id="sel3" name="sellist3" >
+			      <select class="form-control" id="sel3" name="stadium" >
 			        <option>1</option>
 			        <option>2</option>
 			        <option>3</option>
@@ -564,8 +550,8 @@
 			      </select>
 			      <br>			   
 			    </div>
-			    <button type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px">                  
-                  매칭 신청
+			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px">                  
+                  	매칭 신청
                 </button>
 			  </form>
 			</div>

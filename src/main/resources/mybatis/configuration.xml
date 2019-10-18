@@ -6,12 +6,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<!-- 매퍼파일에서 dto객체 가져다 쓰려고 별칭 하는것 -->
 	<typeAliases>
-		<typeAlias alias="OneMemoDTO" type="team.sports.matching.OneMemoDTO"/>		
+		<typeAlias alias="TeamDTO" type="team.sports.matching.service.TeamDTO"/>		
 	</typeAliases>
 	
 	
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->		
 	<mappers>
 		<mapper resource="mybatis/Member.xml" />
+		<mapper resource="mybatis/Match.xml" />
 	</mappers>
 </configuration>

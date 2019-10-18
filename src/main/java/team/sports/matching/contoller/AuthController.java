@@ -42,4 +42,14 @@ public class AuthController {
 		status.setComplete();
 		return "member/login.tiles";
 	}
+	@RequestMapping("/sports/join.do")
+	public String join(@RequestParam Map map,Model moel) {
+		System.out.println("11111");
+		System.out.println(map.get("year").toString());
+		for(Object key:map.keySet()) {
+			System.out.println(key+":"+map.get(key).toString());
+			
+		}
+		return "member/registration.tiles";
+	}
 }
