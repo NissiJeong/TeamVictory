@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-  <!-- banner-section start  -->
+  <!-- banner-section start -->
   <section class="breadcum-section">
     <div class="breadcum-area">
       <div class="container">
