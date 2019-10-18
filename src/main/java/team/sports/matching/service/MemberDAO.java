@@ -16,4 +16,11 @@ public class MemberDAO {
 	public boolean isLogin(Map map) {
 		return (Integer)template.selectOne("memberIsLogin",map)==0?false:true;
 	}///isLogin
-}
+	//로그아웃
+	public int memberRegi(Map map) {
+		
+		return template.insert("memberRegi", map);
+		
+	}///memberRegi
+	
+}/////class

@@ -52,4 +52,31 @@ public class AuthController {
 		}
 		return "member/registration.tiles";
 	}
+
+	//회원가입
+	@RequestMapping("/Team/Matching/Registration.do")
+
+	public String registration(@RequestParam Map map, Model model) {
+
+		
+		String year = map.get("year").toString();
+		String month = map.get("month").toString();
+		String day = map.get("day").toString();
+		String location = map.get("addr_road").toString();
+		map.put("birth", year+month+day); //생년월일
+		map.put("location", location); // 지역 
+		  for(Object key : map.keySet()) {
+		  
+		  String value = map.get(key).toString();
+		  
+		  System.out.println(key+":"+value);
+		  
+		  }
+		  
+		int affected = dao.memberRegi(map);
+		System.out.println("affected:" +affected);
+		return "member/login.tiles";
+
+		}
+
 }
