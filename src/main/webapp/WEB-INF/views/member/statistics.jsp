@@ -2,22 +2,112 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
 <script>
 
-/* $(function() {
+ $(function() {
 
+	 
     var count=1;
     
     //$(window).scroll(function() { });
     
     //문서가 로드되면 20 row 생성 그리고 생성이 완료되면 scroll 이벤트 바인딩
-    for(var i = 1; i <= 20; i++) {
+    for(var i = 1; i <= 5; i++) {
         count = i;
         
-        $("<h1>"+count+" line scroll</h1>").appendTo("#test1");
-
-      
-        if(count == 20) {
+        
+        $('<div class="play-table-part" style="border:1px solid green">').appendTo("#all");
+        $('<div class="play-table">').appendTo("#all");
+        $('<div>').appendTo("#all");
+        $('<div class="summary">').appendTo("#all");
+        $('<dl class="info">').appendTo("#all");
+        $('<dt>01.07(토) 09:00</dt>').appendTo("#all");
+        $('<dd>에이스볼파크</dd>').appendTo("#all");
+        $('</dl>').appendTo("#all");
+        $('<div style="float: left; width: 50%">').appendTo("#all");
+        $('<dl>').appendTo("#all");
+        $('<dt><a href="/club/?club_idx=14322" target="_blank"><img data-original="//file.clubone.kr/symbol/club/symbol14322.jpg" class="lazy_image" src="//file.clubone.kr/symbol/club/symbol14322.jpg" style="float:left" ><span class="cover"></span></a></dt>').appendTo("#all");
+        $('<dd>').appendTo("#all");
+        $('<span class="result ">패</span>').appendTo("#all");
+        $('<span class="name">누리TLC</span>').appendTo("#all");
+        $('<span class="add_info" style="height:13px"></span>').appendTo("#all");
+        $('</dd>').appendTo("#all");
+        $('<dd><span class="score">5</span></dd>').appendTo("#all");
+        $('</dl>').appendTo("#all");
+        $('</div>').appendTo("#all");
+        $('<div style="float: left; width: 50%">').appendTo("#all");
+        $('<dl>').appendTo("#all");
+        $('<dt><a href="/club/?club_idx=19031" target="_blank"><img data-original="//file.clubone.kr/symbol/club/symbol14322.jpg" class="lazy_image" src="//file.clubone.kr/symbol/club/symbol14322.jpg" style=float:left"><span class="cover"></span></a></dt>').appendTo("#all");
+        $('<dd>').appendTo("#all");
+        $('<span class="result win">승</span>').appendTo("#all");
+        $('<span class="name">포켓스터야구단</span>').appendTo("#all");
+        $('<span class="add_info" style="height:13px"></span>').appendTo("#all");
+        $('</dd><!--mm-->').appendTo("#all");
+        $('<dd><span class="score">14</span></dd>').appendTo("#all");
+        $('</dl>').appendTo("#all");
+        $('</div>').appendTo("#all");
+        $('<p>').appendTo("#all");
+        $('<strong>1번 타자</strong>').appendTo("#all");
+        $('<span class="add_info">(유격수)</span>').appendTo("#all");
+        $('<strong>임지성</strong>(69)').appendTo("#all");
+        $('</p>').appendTo("#all");
+        $('</div>').appendTo("#all");
+        $('</div>').appendTo("#all");
+        $('<table>').appendTo("#all");
+        $('<thead>').appendTo("#all");
+        $('<tr>').appendTo("#all");
+        $('<th>타자기록</th>').appendTo("#all");
+        $('<th>타수</th>').appendTo("#all");
+        $('<th>안타</th>').appendTo("#all");
+        $('<th>타점</th>').appendTo("#all");
+        $('<th>득점</th>').appendTo("#all");
+        $('<th>도루</th>').appendTo("#all");
+        $('<th>타율</th>').appendTo("#all");
+        $('</tr>').appendTo("#all");
+        $('</thead>').appendTo("#all");
+        $('<tbody>').appendTo("#all");
+        $('<tr>').appendTo("#all");
+        $('<td></td>').appendTo("#all");
+        $('<td>5</td>').appendTo("#all");
+        $('<td>4</td>').appendTo("#all");
+        $('<td>3</td>').appendTo("#all");
+        $('<td>2</td>').appendTo("#all");
+        $('<td>1</td>').appendTo("#all");
+        $('<td>0.800</td>').appendTo("#all");
+        $('</tr>').appendTo("#all");
+        $('</tbody>').appendTo("#all");
+        $('</table>').appendTo("#all");
+        $('<table>').appendTo("#all");
+        $('<thead>').appendTo("#all");
+        $('<tr>').appendTo("#all");
+        $('<th>시즌기록</th>').appendTo("#all");
+        $('<th>타수</th>').appendTo("#all");
+        $('<th>안타</th>').appendTo("#all");
+        $('<th>타점</th>').appendTo("#all");
+        $('<th>득점</th>').appendTo("#all");
+        $('<th>타율</th>').appendTo("#all");
+        $('</tr>').appendTo("#all");
+        $('</thead>').appendTo("#all");
+        $('</thead>').appendTo("#all");
+        $('<tbody>').appendTo("#all");
+        $('<tr>').appendTo("#all");
+        $('<td></td>').appendTo("#all");
+        $('<td>195</td>').appendTo("#all");
+        $('<td>83</td>').appendTo("#all");
+        $('<td>32</td>').appendTo("#all");
+        $('<td>33</td>').appendTo("#all");
+        $('<td>25</td>').appendTo("#all");
+        $('<td>0.461</td>').appendTo("#all");
+        $('</tr>').appendTo("#all");
+        $('</tbody>').appendTo("#all");
+        $('</table>').appendTo("#all");
+        $('</div>').appendTo("#all");
+        $('</div>').appendTo("#all");
+       
+        
+        if(count == 5) {
             $(window).bind("scroll",infinityScrollFunction);
         }
     }
@@ -42,20 +132,112 @@
         console.log("scrollHeight : " + scrollHeight);
             
         if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가 
-            for(var i = 0; i<10; i++) {
+            for(var i = 0; i<3; i++) {
                 //count = count + 1;
                 count++;
-                //$("<h1> infinity scroll </h>").appendTo("body");
-                $("<h1>"+count+" line scroll</h1>").appendTo("#test1");
+                
+                $('<div class="play-table-part" style="border:1px solid green">').appendTo("#all");
+                $('<div class="play-table">').appendTo("#all");
+                $(' <div>').appendTo("#all");
+                $('<div class="summary">').appendTo("#all");
+                $('<dl class="info">').appendTo("#all");
+                $('<dt>01.07(토) 09:00</dt>').appendTo("#all");
+                $('<dd>에이스볼파크</dd>').appendTo("#all");
+                $('</dl>').appendTo("#all");
+                $('<div style="float: left; width: 50%">').appendTo("#all");
+                $('<dl>').appendTo("#all");
+                $('<dt><a href="/club/?club_idx=14322" target="_blank"><img data-original="//file.clubone.kr/symbol/club/symbol14322.jpg" class="lazy_image" src="//file.clubone.kr/symbol/club/symbol14322.jpg" style="float:left" ><span class="cover"></span></a></dt>').appendTo("#all");
+                $('<dd>').appendTo("#all");
+                $('<span class="result ">패</span>').appendTo("#all");
+                $('<span class="name">누리TLC</span>').appendTo("#all");
+                $('<span class="add_info" style="height:13px"></span>').appendTo("#all");
+                $('</dd>').appendTo("#all");
+                $('<dd><span class="score">5</span></dd>').appendTo("#all");
+                $('</dl>').appendTo("#all");
+                $('</div>').appendTo("#all");
+                $('<div style="float: left; width: 50%">').appendTo("#all");
+                $('<dl>').appendTo("#all");
+                $('<dt><a href="/club/?club_idx=19031" target="_blank"><img data-original="//file.clubone.kr/symbol/club/symbol14322.jpg" class="lazy_image" src="//file.clubone.kr/symbol/club/symbol14322.jpg" style=float:left"><span class="cover"></span></a></dt>').appendTo("#all");
+                $('<dd>').appendTo("#all");
+                $('<span class="result win">승</span>').appendTo("#all");
+                $('<span class="name">포켓스터야구단</span>').appendTo("#all");
+                $('<span class="add_info" style="height:13px"></span>').appendTo("#all");
+                $('</dd><!--mm-->').appendTo("#all");
+                $('<dd><span class="score">14</span></dd>').appendTo("#all");
+                $('</dl>').appendTo("#all");
+                $('</div>').appendTo("#all");
+                $('<p>').appendTo("#all");
+                $('<strong>1번 타자</strong>').appendTo("#all");
+                $('<span class="add_info">(유격수)</span>').appendTo("#all");
+                $('<strong>임지성</strong>(69)').appendTo("#all");
+                $('</p>').appendTo("#all");
+                $('</div>').appendTo("#all");
+                $('</div>').appendTo("#all");
+                $('<table>').appendTo("#all");
+                $('<thead>').appendTo("#all");
+                $('<tr>').appendTo("#all");
+                $('<th>타자기록</th>').appendTo("#all");
+                $('<th>타수</th>').appendTo("#all");
+                $('<th>안타</th>').appendTo("#all");
+                $('<th>타점</th>').appendTo("#all");
+                $('<th>득점</th>').appendTo("#all");
+                $('<th>도루</th>').appendTo("#all");
+                $('<th>타율</th>').appendTo("#all");
+                $('</tr>').appendTo("#all");
+                $('</thead>').appendTo("#all");
+                $('<tbody>').appendTo("#all");
+                $('<tr>').appendTo("#all");
+                $('<td></td>').appendTo("#all");
+                $('<td>5</td>').appendTo("#all");
+                $('<td>4</td>').appendTo("#all");
+                $('<td>3</td>').appendTo("#all");
+                $('<td>2</td>').appendTo("#all");
+                $('<td>1</td>').appendTo("#all");
+                $('<td>0.800</td>').appendTo("#all");
+                $('</tr>').appendTo("#all");
+                $('</tbody>').appendTo("#all");
+                $('</table>').appendTo("#all");
+                $('<table>').appendTo("#all");
+                $('<thead>').appendTo("#all");
+                $('<tr>').appendTo("#all");
+                $('<th>시즌기록</th>').appendTo("#all");
+                $('<th>타수</th>').appendTo("#all");
+                $('<th>안타</th>').appendTo("#all");
+                $('<th>타점</th>').appendTo("#all");
+                $('<th>득점</th>').appendTo("#all");
+                $('<th>타율</th>').appendTo("#all");
+                $('</tr>').appendTo("#all");
+                $('</thead>').appendTo("#all");
+                $('</thead>').appendTo("#all");
+                $('<tbody>').appendTo("#all");
+                $('<tr>').appendTo("#all");
+                $('<td></td>').appendTo("#all");
+                $('<td>195</td>').appendTo("#all");
+                $('<td>83</td>').appendTo("#all");
+                $('<td>32</td>').appendTo("#all");
+                $('<td>33</td>').appendTo("#all");
+                $('<td>25</td>').appendTo("#all");
+                $('<td>0.461</td>').appendTo("#all");
+                $('</tr>').appendTo("#all");
+                $('</tbody>').appendTo("#all");
+                $('</table>').appendTo("#all");
+                $('</div>').appendTo("#all");
+                $('</div>').appendTo("#all");
             }
         }
     }//function infinityScrollFunction()
 
 
-}); */
+});
 
-
+ 
+ 
+ 
+ 
+ 
 </script>
+  
+
 
   <!-- banner-section start -->
   <section class="breadcum-section">
@@ -84,19 +266,19 @@
         <div class="col-lg-10">
           <div class="statistics-table-result-part">
             <ul class="nav justify-content-around" id="myTab" role="tablist">
-              
               <li class="nav-item">
-                <a class="nav-link active" id="football-tab" data-toggle="tab" href="#football" role="tab" aria-controls="football" aria-selected="true">
+                <a class="nav-link active" id="football-tab" data-toggle="tab" href="#football" role="tab" aria-controls="football" aria-selected="false">
                   <i class="flaticon-football"></i>
                   <span>적절한 쓰레드형 게시판</span>
                 </a>
               </li>
+             
               
              
               <li class="nav-item">
-                <a class="nav-link" id="bascketball-tab" data-toggle="tab" href="#bascketball" role="tab" aria-controls="bascketball" aria-selected="false">
+                <a class="nav-link" id="bascketball-tab" data-toggle="tab" href="#bascketball" role="tab" aria-controls="bascketball" aria-selected="true">
                   <i class="flaticon-basketball"></i>
-                  <span>적절한 쓰레드형 히스토리</span>
+                  <span>데이터 입력 폼</span>
                 </a>
               </li>
               
@@ -118,7 +300,7 @@
             <div class="tab-content" id="myTabContent">
 			  <div class="tab-pane fade show active" id="football" role="tabpanel" aria-labelledby="football-tab">
                 <div class="accordion" id="accordionExample-1">
-                  <div class="card" id="test1" >
+                  <div class="card" id="test1"  style="text-align:center" >
                     
                     <!-- blog-details-section start -->
 					  <section class="blog-details-section section-padding">
@@ -127,134 +309,10 @@
 					     	<div class="col-lg-2" >
 					     	</div>
 					        <div class="col-lg-8"  style="border:1px solid gold"  >
-					          
-					          <div class="comment-form-wrap" >
-					            <h3 class="title"></h3>
-					              <form class="cmn-form comment-form">
-					                <div class="row">
-					                  <div class="col-md-12">
-					                    <div class="frm-group">
-					                      <textarea name="message" id="message" placeholder="글 쓰기"></textarea>
-					                    </div>
-					                  </div>
-					                  <div class="col-md-12">
-					                    <div class="frm-group">
-					                      <button type="submit" class="submit-btn">게시</button>
-					                    </div>
-					                  </div>
-					                </div>
-					             </form>
-					          </div>
-					        
-					          
-					          <div class="blog-details-wrapper" >
-					            
-					            <div class="blog-details-content" >
-					            
-					              <ul class="post-meta">
-					                <li><a href="#"><i class="fa fa-user"></i>04, March, 2019</a></li>
-					                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-					              </ul>
-					              <h2 class="blog-details-title">적절한 제목</h2>
-					              <p> 적절하지 못한 내용 </p>
-					              <p> 적절한 내용 </p>
-					            </div>
-					            <div class="blog-details-footer d-flex justify-content-between">
-					              <div class="post-tags">
-					                <i class="fa fa-tags"></i>
-					                <a href="#">Bet</a>
-					                <a href="#">football</a>
-					                <a href="#">casino</a>
-					                <a href="#">news</a>
-					              </div>
-					              <div class="meta-share">
-					                <i class="fa fa-share"></i>
-					                <a href="#"><i class="fa fa-facebook-f"></i></a>
-					                <a href="#"><i class="fa fa-google-plus"></i></a>
-					                <a href="#"><i class="fa fa-twitter"></i></a>
-					                <a href="#"><i class="fa fa-vimeo"></i></a>
-					              </div>
-					            </div>
-					          </div><!-- blog-details-wrapper end -->
-					          <div class="comment-area">
-					            <h3 class="title">3 Comments</h3>
-					            <ul class="comment-list">
-					              <li>
-					                <div class="single-comment-wrap">
-					                  <div class="thumb">
-					                    <img src="<c:url value='/assets/images/blog/rp1.jpg'/>" alt="comment-thumb"/>
-					                  </div>
-					                  <div class="content">
-					                    <h6 class="name">David Jacson</h6>
-					                    <span class="reply-time">02 Hours Ago</span>
-					                    <a href="#" class="reply"><i class="fa fa-reply"></i></a>
-					                    <p>practice practice</p>
-					                  </div>
-					                </div>
-					              </li>
-					              <li class="has-children">
-					                <ul>
-					                  <li>
-					                    <div class="single-comment-wrap">
-					                      <div class="thumb">
-					                        <img src="<c:url value='/assets/images/blog/rp2.jpg'/>" alt="comment-thumb"/>
-					                      </div>
-					                      <div class="content">
-					                        <h6 class="name">David Jacson</h6>
-					                        <span class="reply-time">02 Hours Ago</span>
-					                        <a href="#" class="reply"><i class="fa fa-reply"></i></a>
-					                        <p>연습 </p>
-					                      </div>
-					                    </div>
-					                  </li>
-					                </ul>
-					              </li>
-					              
-					            </ul>
-					          </div><!-- comment-area end -->
-					          <div class="comment-form-wrap">
-					            <h3 class="title">Leave a reply</h3>
-					            <form class="cmn-form comment-form">
-					                <div class="row">
-					                  
-					                  <div class="col-md-12">
-					                    <div class="frm-group">
-					                      <textarea name="message" id="message" placeholder="Write Message"></textarea>
-					                    </div>
-					                  </div>
-					                  <div class="col-md-12">
-					                    <div class="frm-group">
-					                      <button type="submit" class="submit-btn">Comment</button>
-					                    </div>
-					                  </div>
-					                </div>
-					              </form>
-					          </div>
-					        </div>
-					      </div>  
-					    
-					    </div>
-					  </section>
-					  <!-- blog-details-section end -->
-					   
-                  </div>	
-                </div>
-              </div>
-              
-
-			  <div class="tab-pane fade" id="bascketball" role="tabpanel" aria-labelledby="bascketball-tab">
-                <div class="accordion" id="accordionExample-2">
-                  <div class="card" style="text-align:center">
-                    
-                    <!-- blog-details-section start -->
-					  <section class="blog-details-section section-padding">
-					    <div class="container">
-					     <div class="row">
-					     	<div class="col-lg-2" >
-					     	</div>
-					        <div class="col-lg-8"  style="border:1px solid gold"  >
-							   <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-				                <div class="play-table-part">
+					          <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+				                
+				                
+				                <div class="play-table-part" style="border:1px solid green">
 				                  <div class="play-table">
 						              <div>
 						                <div class="summary">
@@ -262,23 +320,23 @@
 												<dt>01.07(토) 09:00</dt>
 												<dd>에이스볼파크</dd>
 											</dl>
-											<div style="display:inline">
+											<div style="float: left; width: 50%">
 												<dl>
 													<dt><a href="/club/?club_idx=14322" target="_blank"><img data-original="//file.clubone.kr/symbol/club/symbol14322.jpg" class="lazy_image" src="//file.clubone.kr/symbol/club/symbol14322.jpg" style="float:left" ><span class="cover"></span></a></dt>
 													<dd>
 														<span class="result ">패</span>
-														<span class="name" style="width: 80px; margin-left: 5px;">누리TLC</span>
+														<span class="name">누리TLC</span>
 														<span class="add_info" style="height:13px"></span>
 													</dd><!--mm-->
 													<dd><span class="score">5</span></dd>
 												</dl>
 											</div>
-											<div style="display:inline">
+											<div style="float: left; width: 50%">
 												<dl>
-													<dt><a href="/club/?club_idx=19031" target="_blank"><img data-original="//file.clubone.kr/symbol/club/symbol19031.jpg" class="lazy_image" src="//file.clubone.kr/symbol/club/symbol19031.jpg" style=float:left"><span class="cover"></span></a></dt>
+													<dt><a href="/club/?club_idx=19031" target="_blank"><img data-original="//file.clubone.kr/symbol/club/symbol14322.jpg" class="lazy_image" src="//file.clubone.kr/symbol/club/symbol14322.jpg" style=float:left"><span class="cover"></span></a></dt>
 													<dd>
 														<span class="result win">승</span>
-														<span class="name">포켓몬스터야구단</span>
+														<span class="name">포켓스터야구단</span>
 														<span class="add_info" style="height:13px"></span>
 													</dd><!--mm-->
 													<dd><span class="score">14</span></dd>
@@ -341,18 +399,144 @@
 				                    </table>
 				                  </div>
 				                </div>
+				                
+				                
+				     
+				                
 				              </div>
+					          
+					          
+					          
+					          
 					        </div>
 					      </div>  
 					    </div>
 					  </section>
 					  <!-- blog-details-section end -->
-					  
                   </div>	
                 </div>
               </div>
 
 
+
+			  <div class="tab-pane fade" id="bascketball" role="tabpanel" aria-labelledby="bascketball-tab">
+                <div class="accordion" id="accordionExample-2">
+                  <div class="card">
+                    
+                    <!-- blog-details-section start -->
+					  <section class="blog-details-section section-padding">
+					    <div class="container">
+					     <div class="row">
+					     	<div class="col-lg-2" >
+					     	</div>
+					        <div class="col-lg-8"  style="border:1px solid gold">
+							   
+							   <form class="cmn-form registration-form" id="submit" method="post" action="<c:url value='/Team/Matching/InsertHitter.do'/>">
+				                 
+				                <div class="frm-group">
+				                  <h1 style="color:white">　　　</h1>
+				                  
+				                  <select class="game-select" name="baseball_key" id="baseball_key"  style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
+									<option>경기 선택</option>		
+									<option>2019-10-17 / 키움-SK / 고척  / 1830</option>		
+									<option>2019-10-16 / SK-키움  / 문학  / 2000</option>
+								  </select>
+				                  
+				                  <select class="position-select" name="baseball_pos" id="baseball_pos" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
+									<option>포지션</option>		
+									<option>투수</option>		
+									<option>포수</option>
+									<option>1루수</option>
+									<option>2루수</option>
+									<option>3루수</option>
+									<option>유격수</option>
+									<option>좌익수</option>
+									<option>중견수</option>
+									<option>우익수</option>
+									<option>지명타자</option>	
+								  </select>
+				                </div>
+				                 <div class="frm-group">
+				                  <select class="baseball_start" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
+									<option>선발</option>
+									<option>교체</option>
+									<option>미출전</option>		
+								  </select>
+				                </div>
+				                
+				                <div class="frm-group">
+				                  <select class="baseball_horder" name="baseball_horder" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid orange;">
+									<option>타순</option>
+									<option>1</option>		
+									<option>2</option>		
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+								  </select>
+				                </div>
+				                
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_pa" id="baseball_pa" style="width:50%;" placeholder="타석">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_ab" id="baseball_ab" style="width:50%;" placeholder="타수">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_h" id="baseball_h" style="width:50%;" placeholder="안타">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_b2" id="baseball_b2" style="width:50%;" placeholder="2루타">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_b3" id="baseball_b3" style="width:50%;" placeholder="3루타">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_hr" id="baseball_hr" style="width:50%;" placeholder="홈런">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_rbi" id="baseball_rbi" style="width:50%;" placeholder="타점">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_sb" id="baseball_sb" style="width:50%;" placeholder="도루">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_cs" id="baseball_cs" style="width:50%;" placeholder="도루실패">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_bb" id="baseball_bb" style="width:50%;" placeholder="볼넷">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_hbp" id="baseball_hbp" style="width:50%;" placeholder="몸에맞는볼">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_so" id="baseball_so" style="width:50%;" placeholder="삼진">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_gdp" id="baseball_gdp" style="width:50%;" placeholder="병살">
+				                </div>
+				                <div class="frm-group">
+				                  	<input type="text" name="baseball_e" id="baseball_e" style="width:50%;" placeholder="실책">
+				                </div>
+				                
+								
+				                <div class="frm-group">
+				                    <button type="submit" class="submit-btn" style="margin-top: 100px">전송</button>
+				                </div>
+				              </form>
+						   
+							   
+					        </div>
+					      </div>  
+					    </div>
+					  </section>
+					  <!-- blog-details-section end -->
+                  </div>	
+                </div>
+              </div>
 
               <div class="tab-pane fade" id="baseball" role="tabpanel" aria-labelledby="baseball-tab">
                 <div class="accordion" id="accordionExample-3">
@@ -388,7 +572,6 @@
 					                <input type="radio" name="gender" value="man" />비선출
 					                <input type="radio" name="gender" value="woman" />중출
 					                <input type="radio" name="gender" value="trans" />고출 이상
-					                
 					            </td>
 					        </tr>
 					        <tr style="background-color:white">
@@ -416,7 +599,6 @@
 		     <div class="tab-pane fade" id="test" role="tabpanel" aria-labelledby="test-tab">
                 <div class="accordion" id="accordionExample-3">
                   <div class="card">
-                  	
                 	<div class="row">
 				     	<div class="col-lg-2" >
 				     	</div>
@@ -425,11 +607,10 @@
 				          <h1>사진수정을 위한 div</h1>
 				          <img src="http://file.clubone.kr/player/member_default.jpg"/>
 				          
-				          <h1>비밀번호변경 하는척</h1>
+				          
 				          <h1>휴대폰번호</h1>
 				          <h1>연고지</h1>
 				          <h1>기타 등등</h1>
-					        
 					   </div>
 					</div>  
                  </div>
@@ -442,4 +623,9 @@
     </div>
    </div>
   </section>
+  
+  
+
+  
+  
   <!-- statistics-section end -->
