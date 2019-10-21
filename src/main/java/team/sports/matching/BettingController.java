@@ -31,13 +31,9 @@ public class BettingController {
 			 System.out.println(String.format(
 					 "홈팀 : %s 경기일자  : %s 경기장 : %s 경기시간 : %s 팀번호 : %s 어웨이 : %s  게임상태 : %s  홈스코어 : %s  어웨이스코어 : %s" , 
 				dto.getHomeTeam(),dto.getGameDate(),dto.getStadium(),dto.getTime(),dto.getBaseTeamNo(),dto.getAwayTeam(),dto.getGameStatus(),dto.getHomeScore(),dto.getAwayScore()   
-					 
 					 ));
 		 }
-		 
 		 model.addAttribute("list",list);
-		
-		
 		return "member/in-play.tiles";
 	}
 	
