@@ -166,7 +166,7 @@ CREATE TABLE gameschedule
 	gamestatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
 	homescore number,
 	awayscore number,
-	CONSTRAINT gameno UNIQUE (gameDate, stadium, time)
+	CONSTRAINT gameno primary key (gameDate, stadium, time)
 );
 
 
