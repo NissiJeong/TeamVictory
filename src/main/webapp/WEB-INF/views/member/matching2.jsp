@@ -20,7 +20,6 @@ $( function() {
     		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title")},	
     		success:function(data){
     			console.log(data);
-
     		}
     	});
     });    

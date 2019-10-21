@@ -53,6 +53,7 @@
               <li class="menu_has_children"><a href="#0">pages</a>
                 <ul class="sub-menu">
                   <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li>
+                  <li><a href="<c:url value='/Team/Matching/createTeam.do'/>">Create Team</a></li>
                   <li><a href="<c:url value='/Team/Matching/service.do'/>">Services</a></li>
                   <li><a href="<c:url value='/Team/Matching/Login.do'/>">Login</a></li>
                   <li><a href="<c:url value='/Team/Matching/Register.do'/>">Registration</a></li>

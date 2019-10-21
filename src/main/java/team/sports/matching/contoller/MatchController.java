@@ -56,7 +56,9 @@ public class MatchController {
 		}
 		BaseTeamDTO dto = new BaseTeamDTO();
 		dto = dao.selectOne(map);
-		json.put("team", dto);
+		json.put("teamName", dto.getTeamName());
+		json.put("teamRating", dto.getTeamRating());
+		json.put("category", dto.getCategory());
 		System.out.println(dto.getTeamName()+"받아온 팀 이름");
 		System.out.println("json.toJSONString():"+json.toJSONString());
 		return json.toJSONString();

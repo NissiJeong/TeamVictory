@@ -11,9 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO matching VALUES(SEQ_MATCHING.NEXTVAL,#{awayteam},#{stadium},#{date},default,1,#{time})
 	</insert>
 	<select id="teamSelectList" parameterType="java.util.Map" resultType="TeamDTO">
-		SELECT * from baseteam
+		SELECT * from team
 	</select>
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
-		SELECT * FROM baseteam WHERE teamname = '${teamName}'
+		SELECT * FROM team WHERE teamname = '${teamName}'
 	</select>
 </mapper>
