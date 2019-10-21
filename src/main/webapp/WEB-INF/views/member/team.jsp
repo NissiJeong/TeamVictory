@@ -1173,7 +1173,7 @@ input:checked+label {
 								<!--  play-table end -->
 							</div>
 						</div>
-					</div>
+					</div> 
 					<!-- guinness-list end -->
 				</div>
 			</div>
