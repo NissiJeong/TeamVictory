@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
   
   <!-- banner-section start -->
   <section class="breadcum-section">
@@ -28,8 +27,8 @@
 	  <section class="feature-section section-padding">
 	    <div class="container">
 	      <div class="row justify-content-center">
-	        <div class="col-lg-6">
-	          <div class="section-header text-center">
+	        <div class="col-lg-6" style="padding-top: 100px;">
+	          <div class="section-header text-center" >
 	            <h2 class="section-title">Start Matching!</h2>
 	            <p>On insensible possession oh particular attachment at excellence in. The books arose but miles happy she.</p>
 	          </div>

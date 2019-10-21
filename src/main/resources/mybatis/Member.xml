@@ -11,4 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM member WHERE id=#{id} AND pwd=#{pwd}
 	</select>
 	
+	<insert id="memberRegi" parameterType="java.util.Map">
+		INSERT INTO member(id, pwd, name, birth, gender, phone, location, email, regidate) 
+		VALUES(#{User_id}, #{pass}, #{User_name}, #{birth}, #{gender}, #{phone}, #{location}, #{email}, SYSDATE)
+	</insert>
+	
 </mapper>

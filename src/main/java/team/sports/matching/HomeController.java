@@ -39,10 +39,7 @@ public class HomeController {
 	public String index() {
 		return "member/index.tiles";
 	}
-	@RequestMapping("/Team/Matching/Matching.do")
-	public String matching() {
-		return "member/matching2.tiles";
-	}
+	
 	
 	@RequestMapping("/Team/Matching/Promotion.do")
 	public String promotion() {
@@ -86,6 +83,7 @@ public class HomeController {
 	public String team() {
 		return "member/team.tiles";
 	}
+
 	@RequestMapping("/Team/Matching/Blog.do")
 	public String blog() {
 		return "member/blog.tiles";
@@ -97,5 +95,6 @@ public class HomeController {
 	@RequestMapping("/Team/Matching/contact.do")
 	public String contact() {
 		return "member/contact.tiles";
+
 	}
 }

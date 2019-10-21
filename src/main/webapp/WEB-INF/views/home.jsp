@@ -3,22 +3,22 @@
 
 <h1>
 <<<<<<< HEAD
-
+    
 	Hello world!   nissi  
 	plz  plz 
-	git fu..c......
+	git fu..c.......
 	   aaaa.
 	git Fuck Fuck
 	
 	asfdsadfsdaffaaaa11
 
-
+ 
 skajfslkdfjsdaklfjsdaklfjsadklfjsklfjkfsjklfsjdklfsadjklfsdfsafs
 
-   LAST!!!!       
+   LAST!!!!        
 last!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
+ 
 12345678910
 11122233344455566677788899911110000
 asdfasdfasdfasdsadfsadsafdf
