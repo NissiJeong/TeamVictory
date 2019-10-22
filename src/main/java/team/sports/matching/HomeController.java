@@ -83,10 +83,7 @@ public class HomeController {
 		return "member/error-404.tiles";
 	}
 
-	@RequestMapping("/Team/Matching/Team.do")
-	public String team() {
-		return "member/team.tiles";
-	}
+	
 
 	@RequestMapping("/Team/Matching/Blog.do")
 	public String blog() {

@@ -19,7 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import team.sports.matching.service.MatchDAO;
 import team.sports.matching.service.BaseTeamDTO;
 
-
+@SessionAttributes("id")
 @Controller
 public class MatchController {
 	@Resource(name="match")
@@ -27,7 +27,8 @@ public class MatchController {
 	
 	//매칭 페이지로 이동
 	@RequestMapping("/Team/Matching/Matching.do")
-	public String matching(@RequestParam Map map,Model model) {
+	public String matching(@RequestParam Map map,Model model,@ModelAttribute("id") String id) {
+		map.put("id", id);
 		List<BaseTeamDTO> list = dao.selectList(map);
 		
 		model.addAttribute("list",list);
@@ -36,7 +37,8 @@ public class MatchController {
 	
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/matching.do",produces = "text/html; charset=UTF-8")
-	public String match(@RequestParam Map map) {
+	public String match(@RequestParam Map map,@ModelAttribute("id") String id) {
+		map.put("id", id);
 		System.out.println("들어옴");
 		//map에 내 팀 no 입력해야함 
 		String ass= "no";
@@ -49,8 +51,9 @@ public class MatchController {
 	
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/modal.do",produces = "text/html; charset=UTF-8")
-	public String upModal(@RequestParam Map map,Model model) {
+	public String upModal(@RequestParam Map map,Model model,@ModelAttribute("id") String id) {
 		JSONObject json = new JSONObject();
+		map.put("id", id);
 		for(Object key:map.keySet()) {
 			System.out.println(key+":"+map.get(key).toString());
 		}

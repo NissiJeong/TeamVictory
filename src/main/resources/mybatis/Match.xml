@@ -8,10 +8,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mybatis.Match">
 	<insert id="matchInsert" parameterType="java.util.Map" >
-		INSERT INTO matching VALUES(SEQ_MATCHING.NEXTVAL,#{awayteam},#{stadium},#{date},default,1,#{time})
+		INSERT INTO matching VALUES(SEQ_MATCHING.NEXTVAL,(select teamname from team where manager_id=#{id}),#{awayteam},#{stadium},#{date},#{time},default)
 	</insert>
 	<select id="teamSelectList" parameterType="java.util.Map" resultType="TeamDTO">
-		SELECT * from team
+		SELECT * from team where not manager_id=#{id} 
 	</select>
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
 		SELECT * FROM team WHERE teamname = '${teamName}'

@@ -196,9 +196,24 @@ input:checked+label {
 }
 
 </style>
-
+<script>
+ function selectTeam(team){
+	 var teamName = team;
+	 $.ajax({
+ 		url:"<c:url value='/Team/Matching/teamSelect.do'/>",
+ 		type:'post',
+ 		dataType:'text',
+ 		data:{'teamName':teamName},	
+ 		success:function(data){
+ 			console.log(data);
+ 			alert(data);
+ 		}
+ 	});
+ };
+</script>
 <!-- banner-section start -->
 <section class="breadcum-section">
+	
 	<div class="breadcum-area">
 		<div class="container">
 			<div class="row">
@@ -220,9 +235,21 @@ input:checked+label {
 
 <!-- blog-details-section start -->
 <section class="blog-details-section section-padding">
+	
 	<div class="container">
 		<div class="row">
+			<div class="form" style="margin-bottom:10px ">			      
+			      <select class="form" id="teamName" name="stadium" onchange="selectTeam(this.value)">
+			        <option value="">팀선택</option>
+			        <c:forEach var="item" items="${teams}" varStatus="loop">
+			        	<option value="${item }">${item }</option>
+			        </c:forEach>
+			      </select>			    			   
+	    	</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-3">
+			
 				<div class="sidebar">
 					<!-- left-menu start -->
 					<div class="widget widget-categories">
