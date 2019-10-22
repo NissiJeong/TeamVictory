@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -78,5 +79,29 @@ public class AuthController {
 		return "member/login.tiles";
 
 		}
+	
+	@ResponseBody
+	@RequestMapping(value="/Team/Matching/CheckId.do",produces = "text/html; charset=UTF-8")
+	public String checkId(@RequestParam Map map) {
+		System.out.println("asdf");
+		int duple = dao.isDuplicate(map);
+		String isdu = "중벅";
+		if(duple==0) {
+			isdu = "가능";
+		}
+		return isdu;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value ="/Team/Matching/CheckMail.do", produces = "text/html; charset=UTF-8")
+	public String checkMail(@RequestParam Map map) {
+		System.out.println("들어왔음");
+		int duplicated = dao.mIsDuplicate(map);
+		String reject = "중복";
+		if(duplicated == 0) {
+			reject = "가능";
+		}
+		return reject;
+	}
 
 }
