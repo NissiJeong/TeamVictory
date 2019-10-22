@@ -57,6 +57,7 @@
                   <li><a href="<c:url value='/Team/Matching/service.do'/>">Services</a></li>
                   <li><a href="<c:url value='/Team/Matching/Login.do'/>">Login</a></li>
                   <li><a href="<c:url value='/Team/Matching/Register.do'/>">Registration</a></li>
+                  <li><a href="<c:url value='/Team/Matching/Board.do'/>">Board</a></li>
                   <li><a href="<c:url value='/Team/Matching/FAQ.do'/>">FAQ</a></li>
                   <li><a href="<c:url value='/Team/Matching/Privacy.do'/>">Privacy</a></li>
                   <li><a href="<c:url value='/Team/Matching/Error.do'/>">ERROR Page</a></li>
