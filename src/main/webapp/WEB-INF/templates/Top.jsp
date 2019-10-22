@@ -49,7 +49,7 @@
               <li><a href="<c:url value='/Team/Matching/Team.do'/>">Team</a></li>
               <li><a href="<c:url value='/Team/Matching/statostics.do'/>">Personal</a></li>
               <li><a href="<c:url value='/Team/Matching/result.do'/>">Live</a></li>
-              <li><a href="<c:url value='/chat-ws.do'/>">Basketball</a>
+              <li><a href="<c:url value='/Team/Matching/chat-ws.do'/>">Basketball</a>
               <li class="menu_has_children"><a href="#0">pages</a>
                 <ul class="sub-menu">
                   <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li>

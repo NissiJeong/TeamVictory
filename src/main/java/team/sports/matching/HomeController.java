@@ -100,8 +100,4 @@ public class HomeController {
 	public String contact() {
 		return "member/contact.tiles";
 	}
-	@RequestMapping("/chat-ws.do")
-	public String basketball() {
-		return "member/WebProtoType.tiles";
-	}
 }
