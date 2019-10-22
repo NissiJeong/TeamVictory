@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO member(id, pwd, name, birth, gender, phone, location, email, regidate) 
 		VALUES(#{User_id}, #{pass}, #{User_name}, #{birth}, #{gender}, #{phone}, #{location}, #{email}, SYSDATE)
 	</insert>
+
 	<insert id="teamInsert" parameterType="java.util.Map">
 		INSERT INTO team values(#{teamName},#{category},#{teamLoc},1500,#{manager_id},#{teamInfo},SYSDATE)
 	</insert>
@@ -27,4 +28,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectTeamName" parameterType="java.lang.String" resultType="Map">
 		SELECT teamname FROM teammember where id=#{id}
 	</select>
+
+	
+	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="isDuplicate">
+	SELECT COUNT(*) FROM member WHERE id=#{id}
+	 </select>
+
+	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="mIsDuplicate">
+	SELECT COUNT(*) FROM member WHERE email=#{email}
+	 </select>
+	
+
 </mapper>

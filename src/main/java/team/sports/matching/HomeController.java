@@ -66,6 +66,10 @@ public class HomeController {
 	public String register() {
 		return "member/registration.tiles";
 	}
+	@RequestMapping("/Team/Matching/Board.do")
+	public String board() {
+		return "member/Board.tiles";
+	}
 	@RequestMapping("/Team/Matching/FAQ.do")
 	public String faq() {
 		return "member/faq.tiles";
@@ -92,6 +96,9 @@ public class HomeController {
 	@RequestMapping("/Team/Matching/contact.do")
 	public String contact() {
 		return "member/contact.tiles";
-
+	}
+	@RequestMapping("/chat-ws.do")
+	public String basketball() {
+		return "member/WebProtoType.tiles";
 	}
 }
