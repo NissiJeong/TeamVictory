@@ -84,7 +84,7 @@
   			
   			$('#enterBtn').one('click',function(){
   				// 웹 소켓 객체로 서버에 연결하기
-  				wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws'/>");
+  				wsocket = new WebSocket("ws://localhost:8080<c:url value='/Team/Matching/chat-ws'/>");
   				wsocket.onopen = open;
   				wsocket.onclose=function(){appendMessage('연결이 끊어졌어요')};
   				wsocket.addEventListener('message',message);
