@@ -51,6 +51,7 @@
               <li><a href="<c:url value='/Team/Matching/result.do'/>">Live</a></li>
               <li><a href="<c:url value='/chat-ws.do'/>">Basketball</a>
               <li class="menu_has_children"><a href="#0">pages</a>
+              
                 <ul class="sub-menu">
                   <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li>
                   <li><a href="<c:url value='/Team/Matching/createTeam.do'/>">Create Team</a></li>
@@ -70,7 +71,11 @@
                   
                 </ul>
               </li>
-              <li><a href="<c:url value='/Team/Matching/contact.do'/>">contact us</a></li>
+              <li><a href="<c:url value='/Team/Matching/contact.do'/>">contact us</a>
+              </li>
+              <c:if test="${! empty sessionScope.id }" var="isLogin">
+              	<li><a href="<c:url value='/Team/Matching/Logout.do'/>">Sign out</a></li>
+			  </c:if>
             </ul>
           </div>
         </nav>

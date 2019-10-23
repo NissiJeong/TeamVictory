@@ -35,10 +35,10 @@ public class AuthController {
 		else {
 			model.addAttribute("NotMember", "아이디와 비밀번호가 일치하지 않습니다");
 		}
-		return "member/login.tiles";
+		return "member/index.tiles";
 	}/////isMember
 	//로그아웃 처리
-	@RequestMapping("/Team/Matching/Louout.do")
+	@RequestMapping("/Team/Matching/Logout.do")
 	public String logout(SessionStatus status) {
 		status.setComplete();
 		return "member/login.tiles";

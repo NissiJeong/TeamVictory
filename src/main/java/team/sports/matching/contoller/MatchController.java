@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpSessionRequiredException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,13 @@ import team.sports.matching.service.BaseTeamDTO;
 public class MatchController {
 	@Resource(name="match")
 	private MatchDAO dao;
+	//로그인 하지 않고 매칭 페이지로 이동시키면 로그인 페이지로 이동
+	@ExceptionHandler(HttpSessionRequiredException.class)
+	public String isNotMember(Model model) {
+		model.addAttribute("NotMember", "로그인 후 이용하세요");
+		//로그인이 안된 경우 로그인 페이지로
+		return "member/login.tiles";
+	}
 	
 	//매칭 페이지로 이동
 	@RequestMapping("/Team/Matching/Matching.do")
@@ -63,6 +72,8 @@ public class MatchController {
 		json.put("teamRating", dto.getTeamRating());
 		json.put("category", dto.getCategory());
 		System.out.println(dto.getTeamName()+"받아온 팀 이름");
+		map.put("teamName", dto.getTeamName());
+		dao.selectGamefive(map);
 		System.out.println("json.toJSONString():"+json.toJSONString());
 		return json.toJSONString();
 	}
