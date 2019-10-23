@@ -19,7 +19,10 @@ $( function() {
     		dataType:'json',
     		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title")},	
     		success:function(data){
-    			console.log(data);
+    			console.log(data['teamName']);
+    			$("#teamName").html(data['teamName']);
+    			$("#teamRating").html(data['teamRating']);
+    			$('#awayteam').prop('value',data['teamName']);
     		}
     	});
     });    
@@ -124,7 +127,7 @@ $( function() {
 						              </ul>
 						              <h3 class="post-title"><a href="#0"><label class="teamName" title="${item.teamName }" >${item.teamName }</label></a></h3>
 						             	 지역 <span style="font-size: 1.3em; color: navy; font-weight: bold"> ${item.teamLoc }</span>
-						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.baseRating }</span> </p>
+						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.teamRating }</span> </p>
 						              <button  type="button" class="btn btn-primary upModal"  data-toggle="modal" data-target="#myModal" title="${loop.index }">
 									    Matching Start!
 									  </button>
@@ -132,10 +135,6 @@ $( function() {
 						          </div>
 						        </div><!-- post-item end -->
 					        </c:forEach>
-					        
-					        
-					        
-					       
 					      </div>
 					      
 					    </div>
@@ -476,7 +475,8 @@ $( function() {
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title -->
                 <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
-                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline">${team.teamName }asdfasd</h3>
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName"></h2>
+                <h5 id="teamRating"></h5>
                 <p>최근 5경기 경기 결과</p>      
                   <table class="table table-striped" style="margin-top: 10px">
 				    <thead>
@@ -521,7 +521,7 @@ $( function() {
                 <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
                	<form id="frm">
                	
-               	<input name="awayteam" type="hidden" value='sdfg'/>
+               	<input name="awayteam" id="awayteam" type="hidden" value='sdfg'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel1">Date</label>
 			      <p><input name='date' type="text" id="datepicker" style="width:100%"></p>

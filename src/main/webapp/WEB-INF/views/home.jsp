@@ -3,7 +3,7 @@
 
 <h1>
 <<<<<<< HEAD
-    
+    why?
 	Hello world!   nissi  
 	plz  plz 
 	git fu..c.......
@@ -11,10 +11,10 @@
 	git Fuck Fuck dd
 	
 	asfdsadfsdaffaaaa11 
-
+as
  
 skajfslkdfjsdaklfjsdaklfjsadklfjsklfjkfsjklfsjdklfsadjklfsdfsafs
-
+adsa
    LAST!!!!        
 last!!!!!!!!!!!!!!!!!!!!!!!!!
 

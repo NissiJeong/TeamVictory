@@ -26,4 +26,8 @@ public class MatchDAO {
 	public BaseTeamDTO selectOne(Map map) {
 		return template.selectOne("oneSelect", map);
 	}
+	///스케줄에서 최근 5경기 가져오기
+	public List<Map> selectGamefive(Map map){
+		return template.selectList("selectGamefive",map);
+	}
 }

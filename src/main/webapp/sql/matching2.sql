@@ -17,6 +17,7 @@ DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
 DROP TABLE matching CASCADE CONSTRAINTS;
+DROP TABLE TeamMember CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
 DROP TABLE Team CASCADE CONSTRAINTS;
 
@@ -26,6 +27,7 @@ DROP TABLE Team CASCADE CONSTRAINTS;
 
 DROP SEQUENCE SEQ_baseteam_baseteamno;
 DROP SEQUENCE SEQ_Betting_bettingIndex;
+DROP SEQUENCE SEQ_betting_no;
 DROP SEQUENCE SEQ_gameRecord_teamGameNo;
 DROP SEQUENCE SEQ_Gameschedule_gameNo;
 DROP SEQUENCE SEQ_matching_matchingNo;
@@ -69,7 +71,7 @@ CREATE TABLE gameschedule
 	homescore number,
 	awayscore number,
 	teamName nvarchar2(20) NOT NULL,
-	CONSTRAINT gameno primary key (gameDate, stadium, time)
+	CONSTRAINT gameno UNIQUE (gameDate, stadium, time)
 );
 
 
@@ -95,7 +97,7 @@ CREATE TABLE hitter
 	e number,
 	pos number,
 	horder number,
-	CONSTRAINT pk_hitter primary key (gameDate, time, ID)
+	CONSTRAINT pk UNIQUE (gameDate, time, ID)
 );
 
 
@@ -132,7 +134,6 @@ CREATE TABLE member
 	base_mainhand nvarchar2(10),
 	-- 선택하면 1
 	basket_ltmatch number DEFAULT 0,
-	teamName nvarchar2(20) NOT NULL,
 	PRIMARY KEY (ID)
 );
 
@@ -159,7 +160,7 @@ CREATE TABLE pitcher
 	so number,
 	r number,
 	er number,
-	CONSTRAINT pk_pitcher primary key (gameDate, time, ID)
+	CONSTRAINT pk_pitcher UNIQUE (gameDate, time, ID)
 );
 
 
@@ -170,7 +171,17 @@ CREATE TABLE Team
 	teamloc nvarchar2(50) NOT NULL,
 	teamRating number(10,4) NOT NULL,
 	manager_id nvarchar2(20) NOT NULL,
+	teamInfo nvarchar2(2000) NOT NULL,
+	regidate date DEFAULT SYSDATE,
 	PRIMARY KEY (teamName)
+);
+
+
+CREATE TABLE TeamMember
+(
+	teamName nvarchar2(20) NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	CONSTRAINT pk_teamMember UNIQUE (teamName, ID)
 );
 
 
@@ -213,6 +224,12 @@ ALTER TABLE pitcher
 ;
 
 
+ALTER TABLE TeamMember
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
 ALTER TABLE gameschedule
 	ADD FOREIGN KEY (teamName)
 	REFERENCES Team (teamName)
@@ -225,7 +242,7 @@ ALTER TABLE matching
 ;
 
 
-ALTER TABLE member
+ALTER TABLE TeamMember
 	ADD FOREIGN KEY (teamName)
 	REFERENCES Team (teamName)
 ;

@@ -3,25 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-  <!-- banner-section start -->
-  <section class="breadcum-section">
-    <div class="breadcum-area">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="breadcum-content text-center">
-              <h3 class="title">Login</h3>
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">home</a></li>
-                <li class="breadcrumb-item active">Login</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- banner-section end -->
+  
 
   <section class="login-section section-padding">
     <div class="container">
@@ -32,6 +14,9 @@
               <h3 class="title">login your account </h3>
               <c:if test="${! empty sessionScope.id }" var="isLogin">
 				<div class="alert alert-success col-md-5">${sessionScope.id}님 즐감하세요</div>
+				<form class="cmn-form login-form" action="<c:url value='/Team/Matching/Logout.do'/>">
+					<button type="submit" class="submit-btn">Sign out</button>
+				</form>
 			</c:if>
 			<c:if test="${not isLogin}">
               <form class="cmn-form login-form" action="<c:url value='/Team/Matching/IsMember.do'/>">
