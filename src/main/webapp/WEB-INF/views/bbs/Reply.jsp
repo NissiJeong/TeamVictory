@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal" method="post"
-				action="<c:url value='/BBS/Reply.bbs'/>">
+				action="<c:url value='/bbs/Reply.bbs'/>">
 				<!-- 원본글의 REFER/STEP/DEPTH 설정  -->
 				<input type="hidden" name="refer" value="${record.refer}" /> <input
 					type="hidden" name="step" value="${record.step}" /> <input

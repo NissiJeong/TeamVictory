@@ -4,6 +4,7 @@
 DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_betting_no;
+DROP TRIGGER TRI_board_no;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
@@ -13,6 +14,7 @@ DROP TRIGGER TRI_matching_matchingNo;
 /* Drop Tables */
 
 DROP TABLE betting CASCADE CONSTRAINTS;
+DROP TABLE board CASCADE CONSTRAINTS;
 DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
@@ -28,6 +30,7 @@ DROP TABLE Team CASCADE CONSTRAINTS;
 DROP SEQUENCE SEQ_baseteam_baseteamno;
 DROP SEQUENCE SEQ_Betting_bettingIndex;
 DROP SEQUENCE SEQ_betting_no;
+DROP SEQUENCE SEQ_board_no;
 DROP SEQUENCE SEQ_gameRecord_teamGameNo;
 DROP SEQUENCE SEQ_Gameschedule_gameNo;
 DROP SEQUENCE SEQ_matching_matchingNo;
@@ -40,6 +43,7 @@ DROP SEQUENCE SEQ_matching_matchingNo;
 CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_board INCREMENT BY 1 START WITH 1 nocache nocycle;
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
@@ -57,6 +61,17 @@ CREATE TABLE betting
 	ID nvarchar2(15) NOT NULL,
 	selectTeam nvarchar2(20) NOT NULL,
 	mileage number NOT NULL,
+	PRIMARY KEY (no)
+);
+
+
+CREATE TABLE board
+(
+	no number NOT NULL,
+	title nvarchar2(50) NOT NULL,
+	content nvarchar2(2000) NOT NULL,
+	postDate date DEFAULT SYSDATE,
+	ID nvarchar2(15) NOT NULL,
 	PRIMARY KEY (no)
 );
 
@@ -213,6 +228,12 @@ ALTER TABLE betting
 ;
 
 
+ALTER TABLE board
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
 ALTER TABLE hitter
 	ADD FOREIGN KEY (ID)
 	REFERENCES member (ID)
@@ -276,6 +297,16 @@ CREATE OR REPLACE TRIGGER TRI_betting_no BEFORE INSERT ON betting
 FOR EACH ROW
 BEGIN
 	SELECT SEQ_betting_no.nextval
+	INTO :new.no
+	FROM dual;
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER TRI_board_no BEFORE INSERT ON board
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_board_no.nextval
 	INTO :new.no
 	FROM dual;
 END;

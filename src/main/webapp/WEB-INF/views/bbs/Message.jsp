@@ -12,7 +12,7 @@
 	<c:otherwise>
 		<c:set var="successMsg" value="삭제 성공했어요"/>
 		<c:set var="failMsg" value="삭제 실패했어요"/>
-		<c:set var="successUrl" value="/BBS/Board.bbs?nowPage=${nowPage}"/>	
+		<c:set var="successUrl" value="/bbs/Board.bbs?nowPage=${nowPage}"/>	
 	</c:otherwise>
 </c:choose>
 <script>

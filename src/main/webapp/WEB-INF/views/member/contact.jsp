@@ -80,12 +80,15 @@
               <div class="card">
                 <div class="card-header" id="headingFour">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><i class="fa fa-question-circle"></i></button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><i class="fa fa-question-circle"></i>농구 매칭 안내</button>
                   </h2>
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="card-body">
-                      <p></p>
+                      <p><h5>매칭 안내</h5></br>
+                      로그인 하시고 매칭을 눌러주세요</br>
+                      
+                      </p>
                   </div>
                 </div>
               </div><!-- card end -->
@@ -152,12 +155,15 @@ E-mail : cshappy@gameone.kr</p>
               <div class="card">
                 <div class="card-header" id="headingEight">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight"><i class="fa fa-question-circle"></i>Brunch 3 wolf moon tempor, sunt aliqua.</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight"><i class="fa fa-question-circle"></i>등업 관련</button>
                   </h2>
                 </div>
                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample2">
                   <div class="card-body">
-                      <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p> 
+                      <p><h5>등업 관련 내용 </h5></br>
+                      ..................</br>
+                      ..................</br>
+                      </p> 
                   </div>
                 </div>
               </div><!-- card end -->

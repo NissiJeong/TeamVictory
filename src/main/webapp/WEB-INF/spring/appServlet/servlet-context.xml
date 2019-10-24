@@ -61,6 +61,8 @@
 	</websocket:handlers>
 	
 	<beans:bean class="team.sports.matching.BasketballMatchingHandler" id="chatServer"/>
+	
+	<context:property-placeholder location="classpath:board/board.properties"/>
 		
 	</beans:beans>
 
