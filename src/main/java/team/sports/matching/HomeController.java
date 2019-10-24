@@ -45,10 +45,7 @@ public class HomeController {
 	public String promotion() {
 		return "member/promotion.tiles";
 	}
-	@RequestMapping("/Team/Matching/statostics.do")
-	public String statistic() {
-		return "member/statistics.tiles";
-	}
+	
 	@RequestMapping("/Team/Matching/result.do")
 	public String results() {
 		return "member/result.tiles";

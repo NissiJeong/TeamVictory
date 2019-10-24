@@ -7,7 +7,26 @@ public class BaseBall_HitterDTO {
 	int recordNo;
 	int pa, ab, h, b2, b3, hr, rbi, sb, cs, bb, hbp, so, gdp, e, horder;
 	String pos, awayTeam, stadium;
-	Date gameDate, time;
+	Date gameDate;
+	int time;
+	
+	
+	double avg, totalAvg;
+	
+	
+	
+	public double getAvg() {
+		return avg;
+	}
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+	public double getTotalAvg() {
+		return totalAvg;
+	}
+	public void setTotalAvg(double totalAvg) {
+		this.totalAvg = totalAvg;
+	}
 	
 	
 	
@@ -131,10 +150,10 @@ public class BaseBall_HitterDTO {
 	public void setGameDate(Date gameDate) {
 		this.gameDate = gameDate;
 	}
-	public Date getTime() {
+	public int getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 	
