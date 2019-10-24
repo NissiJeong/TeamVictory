@@ -63,6 +63,10 @@ public class HomeController {
 	public String register() {
 		return "member/registration.tiles";
 	}
+	@RequestMapping("/Team/Matching/Board.do")
+	public String board() {
+		return "bbs/Board.tiles";
+	}
 	@RequestMapping("/Team/Matching/FAQ.do")
 	public String faq() {
 		return "member/faq.tiles";
@@ -76,10 +80,7 @@ public class HomeController {
 		return "member/error-404.tiles";
 	}
 
-	@RequestMapping("/Team/Matching/Team.do")
-	public String team() {
-		return "member/team.tiles";
-	}
+	
 
 	@RequestMapping("/Team/Matching/Blog.do")
 	public String blog() {
@@ -92,6 +93,9 @@ public class HomeController {
 	@RequestMapping("/Team/Matching/contact.do")
 	public String contact() {
 		return "member/contact.tiles";
-
+	}
+	@RequestMapping("/Team/fcm.do")
+	public String fcm1() {
+		return "member/fcn";
 	}
 }

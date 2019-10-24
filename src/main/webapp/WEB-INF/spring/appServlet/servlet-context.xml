@@ -51,16 +51,18 @@
 	<!-- <context:property-placeholder location="classpath:memo/memo.properties"/> -->
 	
 	<!-- WebSocket -->
-	<!-- <context:component-scan base-package="team.sports.matching" />
+	<context:component-scan base-package="team.sports.matching" />
 	
-	 <websocket:handlers>
-		<websocket:mapping handler="chatServer" path="/chat-ws.do"/>
+	<websocket:handlers>
+		<websocket:mapping path="/Team/Matching/chat-ws" handler="chatServer"/>
 		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
-	<beans:bean id="chatServer" class="team.sports.matching.BasketballMatchingHandler"/>  -->
+	<beans:bean class="team.sports.matching.BasketballMatchingHandler" id="chatServer"/>
 	
-</beans:beans>
+	<context:property-placeholder location="classpath:board/board.properties"/>
+		
+	</beans:beans>
 

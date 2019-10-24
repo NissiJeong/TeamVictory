@@ -49,16 +49,20 @@
               <li><a href="<c:url value='/Team/Matching/Team.do'/>">Team</a></li>
               <li><a href="<c:url value='/Team/Matching/statostics.do'/>">Personal</a></li>
               <li><a href="<c:url value='/Team/Matching/result.do'/>">Live</a></li>
-              <li><a href="<c:url value='/chat-ws.do'/>">Basketball</a>
+              <li><a href="<c:url value='/Team/Matching/chat-ws.do'/>">Basketball</a>
               <li class="menu_has_children"><a href="#0">pages</a>
+              
                 <ul class="sub-menu">
                   <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li>
+                  <li><a href="<c:url value='/Team/Matching/createTeam.do'/>">Create Team</a></li>
                   <li><a href="<c:url value='/Team/Matching/service.do'/>">Services</a></li>
                   <li><a href="<c:url value='/Team/Matching/Login.do'/>">Login</a></li>
                   <li><a href="<c:url value='/Team/Matching/Register.do'/>">Registration</a></li>
-                  <li><a href="<c:url value='/Team/Matching/FAQ.do'/>">FAQ</a></li>
+                  <li><a href="<c:url value='/bbs/Board.bbs'/>">Board</a></li>
+                
                   <li><a href="<c:url value='/Team/Matching/Privacy.do'/>">Privacy</a></li>
                   <li><a href="<c:url value='/Team/Matching/Error.do'/>">ERROR Page</a></li>
+                  <li><a href="<c:url value='/Team/fcm.do'/>">fcm</a></li>
                 </ul>
               </li>
               <li class="menu_has_children"><a href="#0">blog</a>
@@ -68,7 +72,11 @@
                   
                 </ul>
               </li>
-              <li><a href="<c:url value='/Team/Matching/contact.do'/>">contact us</a></li>
+              <li><a href="<c:url value='/Team/Matching/contact.do'/>">contact us</a>
+              </li>
+              <c:if test="${! empty sessionScope.id }" var="isLogin">
+              	<li><a href="<c:url value='/Team/Matching/Logout.do'/>">Sign out</a></li>
+			  </c:if>
             </ul>
           </div>
         </nav>

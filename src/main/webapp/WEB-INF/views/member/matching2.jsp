@@ -5,14 +5,21 @@
   	<link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+ 
+
 <script>
+
 $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-   
     
-   
+
+    
     $(".upModal").click(function(){
+    	$('#datepicker').val("");
+		$('#sel2').val("ti");
+		$('#sel3').val("stadium");
     	$.ajax({
     		url:"<c:url value='/Team/Matching/modal.do'/>",
     		type:'post',
@@ -20,9 +27,22 @@ $( function() {
     		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title")},	
     		success:function(data){
     			console.log(data);
-
+    			$("#teamName").html(data['teamName']);
+    			$("#teamRating").html(data['teamRating']);
+    			$('#awayteam').prop('value',data['teamName']);
+    			$('#date0').html(data['gameDate4']);
+    			$('#date1').html(data['gameDate3']);
+    			$('#date2').html(data['gameDate2']);
+    			$('#date3').html(data['gameDate1']);
+    			$('#date4').html(data['gameDate0']);
+    			$('#result0').html(data['gameResult4']+'</br>'+data['score4']);
+    			$('#result1').html(data['gameResult3']+'</br>'+data['score3']);
+    			$('#result2').html(data['gameResult2']+'</br>'+data['score2']);
+    			$('#result3').html(data['gameResult1']+'</br>'+data['score1']);
+    			$('#result4').html(data['gameResult0']+'</br>'+data['score0']);
+    			
     		}
-    	});
+   		});
     });    
     
     
@@ -33,6 +53,9 @@ $( function() {
     		dataType:'text',
     		data:$('#frm').serialize(),	
     		success:function(data){
+    			$('#datepicker').val("");
+    			$('#sel2').val("ti");
+    			$('#sel3').val("stadium");
     			console.log(data);
     			alert(data);
     		}
@@ -40,6 +63,52 @@ $( function() {
     });    
    
  });
+
+ function checkDateTime(time){
+	if(time.length == 2){
+		console.log("222222");
+		var path = "<c:url value='/Team/Matching/CheckDateTime.do'/>";
+	}
+	else{
+		console.log("333333");
+		var path = "<c:url value='/Team/Matching/CheckDateTimeStadium.do'/>";
+	}
+	var gameTime = $('#sel2').val();
+	var gameDate = $('#datepicker').val();
+	var stadium = $('#sel3').val();
+	console.log(gameTime+":"+gameDate+":"+stadium);
+	$.ajax({
+		url:path,
+		type:'post',
+		dataType:'text',
+		data:{'gameTime':gameTime,'gameDate':gameDate,'stadium':stadium},	
+		success:function(data){
+			console.log(data);
+			if(data == "no"){
+				$("#timeError").html("해당 팀은 동일한 날짜와 시간에 매칭이 예약되어 있습니다");
+				$("#match").prop("disabled",true);
+				$("#sel3").prop("disabled",true);
+			}
+			else if(data =="yes"){
+				$("#timeError").html("");
+				
+				$("#sel3").prop("disabled",false);
+			}
+			else if(data=="stadiumNo"){
+				$("#stadiumError").html("해당 경기장은 동일한 날짜와 시간에 매칭이 예약되어 있습니다");
+				$("#match").prop("disabled",true);
+			}
+			else if(data=="stadiumYes"){
+				console.log("왜???")
+				$("#stadiumError").html("");
+				$("#match").prop("disabled",false);
+			}
+			
+		}
+	});
+	//$('#datepicker').val("");
+	//$('#sel2').val("time");
+ }
 </script>
 
    <!-- banner-section start -->  
@@ -125,7 +194,7 @@ $( function() {
 						              </ul>
 						              <h3 class="post-title"><a href="#0"><label class="teamName" title="${item.teamName }" >${item.teamName }</label></a></h3>
 						             	 지역 <span style="font-size: 1.3em; color: navy; font-weight: bold"> ${item.teamLoc }</span>
-						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.baseRating }</span> </p>
+						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.teamRating }</span> </p>
 						              <button  type="button" class="btn btn-primary upModal"  data-toggle="modal" data-target="#myModal" title="${loop.index }">
 									    Matching Start!
 									  </button>
@@ -133,10 +202,6 @@ $( function() {
 						          </div>
 						        </div><!-- post-item end -->
 					        </c:forEach>
-					        
-					        
-					        
-					       
 					      </div>
 					      
 					    </div>
@@ -477,40 +542,29 @@ $( function() {
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title -->
                 <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
-                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline">${team.teamName }asdfasd</h3>
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName"></h2>
+                <h5 id="teamRating"></h5>
                 <p>최근 5경기 경기 결과</p>      
                   <table class="table table-striped" style="margin-top: 10px">
 				    <thead>
 				      <tr>
-				        <th>4.18</th>
-				        <th>4.20</th>
-				        <th>4.22</th>
-				        <th>4.25</th>
-				        <th>4.30</th>
+				        <th id="date0"></th>
+				        <th id="date1"></th>
+				        <th id="date2"></th>
+				        <th id="date3"></th>
+				        <th id="date4"></th>
 				      </tr>
 				    </thead>
 				    <tbody>
 				      <tr>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
+				        <td id="result0"></td>
+				        <td id="result1"></td>
+				        <td id="result2"></td>
+				        <td id="result3"></td>
+				        <td id="result4"></td>
 				      </tr>
-				      <tr>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				      </tr>
-				      <tr>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				      </tr>
+				      
+				      
 				    </tbody>
 				  </table>
 				  </div>
@@ -522,52 +576,57 @@ $( function() {
                 <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
                	<form id="frm">
                	
-               	<input name="awayteam" type="hidden" value='sdfg'/>
+               	<input name="awayteam" id="awayteam" type="hidden" value='sdfg'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel1">Date</label>
-			      <p><input name='date' type="text" id="datepicker" style="width:100%"></p>
+			      <p><input name='date' type="text" id="datepicker" style="width:100%" ></p>
 			      <br>			   
 			    </div>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel2" >Time</label>
-			      <select class="form-control" id="sel2" name="time" >
-			        <option>00</option>
-			        <option>01</option>
-			        <option>02</option>
-			        <option>04</option>
-			        <option>05</option>
-			        <option>06</option>
-			        <option>07</option>
-			        <option>08</option>
-			        <option>09</option>
-			        <option>10</option>
-			        <option>11</option>
-			        <option>12</option>
-			        <option>13</option>
-			        <option>14</option>
-			        <option>15</option>
-			        <option>16</option>
-			        <option>17</option>
-			        <option>18</option>
-			        <option>19</option>
-			        <option>20</option>
-			        <option>21</option>
-			        <option>22</option>
-			        <option>23</option>
+			      <select class="form-control" id="sel2" name="time" onchange="checkDateTime(this.value)" >
+			        <option selected="selected" value="ti">시간</option>
+			        <option value="00">00</option>
+			        <option value="01">01</option>
+			        <option value="02">02</option>
+			        <option value="03">03</option>
+			        <option value="04">04</option>
+			        <option value="05">05</option>
+			        <option value="06">06</option>
+			        <option value="07">07</option>
+			        <option value="08">08</option>
+			        <option value="09">09</option>
+			        <option value="10">10</option>
+			        <option value="11">11</option>
+			        <option value="12">12</option>
+			        <option value="13">13</option>
+			        <option value="14">14</option>
+			        <option value="15">15</option>
+			        <option value="16">16</option>
+			        <option value="17">17</option>
+			        <option value="18">18</option>
+			        <option value="19">19</option>
+			        <option value="20">20</option>
+			        <option value="21">21</option>
+			        <option value="22">22</option>
+			        <option value="23">23</option>
 			      </select>
+			      <span id="timeError" style="color:red; font-size: 0.8em"></span>
 			      <br>			   
 			    </div>
 			     <div class="form-group" style="margin-bottom:10px ">
 			      <label for="sel3" >Stadium</label>
-			      <select class="form-control" id="sel3" name="stadium" >
-			        <option>1</option>
-			        <option>2</option>
-			        <option>3</option>
-			        <option>4</option>
+			      <select class="form-control" id="sel3" name="stadium" onchange="checkDateTime(this.value)" disabled="true"  >
+			        <option value="stadium">경기장</option>
+			        <option value="1">1</option>
+			        <option value="2">2</option>
+			        <option value="3">3</option>
+			        <option value="4">4</option>
 			      </select>
+			      <span id="stadiumError" style="color:red; font-size: 0.8em"></span>
 			      <br>			   
 			    </div>
-			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px">                  
+			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px" disabled="true" >                  
                   	매칭 신청
                 </button>
 			  </form>

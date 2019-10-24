@@ -1,8 +1,9 @@
 
 /* Drop Triggers */
-/*
+
 DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
+DROP TRIGGER TRI_betting_no;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
@@ -11,16 +12,13 @@ DROP TRIGGER TRI_matching_matchingNo;
 
 /* Drop Tables */
 
-DROP TABLE baseHitter CASCADE CONSTRAINTS;
-DROP TABLE basePitcher CASCADE CONSTRAINTS;
-DROP TABLE gameRecord CASCADE CONSTRAINTS;
+DROP TABLE betting CASCADE CONSTRAINTS;
+DROP TABLE hitter CASCADE CONSTRAINTS;
+DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
 DROP TABLE matching CASCADE CONSTRAINTS;
-DROP TABLE Betting CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
-DROP TABLE baseteam CASCADE CONSTRAINTS;
-DROP TABLE basketteam CASCADE CONSTRAINTS;
-DROP TABLE futsalteam CASCADE CONSTRAINTS;
+DROP TABLE Team CASCADE CONSTRAINTS;
 
 
 
@@ -31,7 +29,7 @@ DROP SEQUENCE SEQ_Betting_bettingIndex;
 DROP SEQUENCE SEQ_gameRecord_teamGameNo;
 DROP SEQUENCE SEQ_Gameschedule_gameNo;
 DROP SEQUENCE SEQ_matching_matchingNo;
-*/
+
 
 
 
@@ -39,18 +37,48 @@ DROP SEQUENCE SEQ_matching_matchingNo;
 
 CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
-
+CREATE SEQUENCE SEQ_
 
 
 /* Create Tables */
 
-CREATE TABLE baseHitter
+CREATE TABLE betting
 (
-	recordno number NOT NULL,
-	awayteam nvarchar2(20),
+	no number NOT NULL,
+	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	selectTeam nvarchar2(20) NOT NULL,
+	mileage number NOT NULL,
+	PRIMARY KEY (no)
+);
+
+
+CREATE TABLE gameschedule
+(
+	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
+	awayteam nvarchar2(20) NOT NULL,
+	gamestatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
+	homescore number,
+	awayscore number,
+	teamName nvarchar2(20) NOT NULL,
+	CONSTRAINT gameno primary key (gameDate, stadium, time)
+);
+
+
+CREATE TABLE hitter
+(
+	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
+	ID nvarchar2(15) NOT NULL,
 	pa number,
 	ab number,
 	h number,
@@ -66,107 +94,8 @@ CREATE TABLE baseHitter
 	gdp number,
 	e number,
 	pos number,
-	Horder number,
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	PRIMARY KEY (recordno)
-);
-
-
-CREATE TABLE basePitcher
-(
-	recordno number NOT NULL,
-	matchdate date DEFAULT SYSDATE NOT NULL,
-	W number NOT NULL,
-	l number,
-	-- 블론1
-	-- 
-	blsv number,
-	ci number,
-	co number,
-	-- 세이브면 1
-	sv number,
-	-- 홀드 1
-	hol number,
-	-- 상대타자수
-	tbf number,
-	ip number,
-	h number,
-	hr number,
-	bb number,
-	hbp number,
-	so number,
-	r number,
-	er number,
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	PRIMARY KEY (recordno)
-);
-
-
-CREATE TABLE baseteam
-(
-	baseteamno number NOT NULL,
-	teamname nvarchar2(20) NOT NULL UNIQUE,
-	teamloc nvarchar2(20) NOT NULL,
-	baserating number(10,4) DEFAULT 1500 NOT NULL,
-	manager_id nvarchar2(20) NOT NULL,
-	PRIMARY KEY (baseteamno)
-);
-
-
-CREATE TABLE basketteam
-(
-	baseteamno number NOT NULL,
-	teamname nvarchar2(20) NOT NULL UNIQUE,
-	teamloc nvarchar2(20) NOT NULL,
-	PRIMARY KEY (baseteamno)
-);
-
-
-CREATE TABLE Betting
-(
-	bettingIndex number NOT NULL,
-	Ateam nvarchar2(20) NOT NULL,
-	Bteam nvarchar2(20) NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	PRIMARY KEY (bettingIndex)
-);
-
-
-CREATE TABLE futsalteam
-(
-	baseteamno number NOT NULL,
-	teamname nvarchar2(20) NOT NULL UNIQUE,
-	teamloc nvarchar2(20) NOT NULL,
-	PRIMARY KEY (baseteamno)
-);
-
-
-CREATE TABLE gameRecord
-(
-	teamGameNo number NOT NULL,
-	opposingTeam nvarchar2(20) NOT NULL,
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	PRIMARY KEY (teamGameNo)
-);
-
-
-CREATE TABLE gameschedule
-(
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	baseteamno number NOT NULL,
-	awayteam nvarchar2(20) NOT NULL,
-	gamestatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
-	homescore number,
-	awayscore number,
-	CONSTRAINT gameno primary key (gameDate, stadium, time)
+	horder number,
+	CONSTRAINT pk_hitter primary key (gameDate, time, ID)
 );
 
 
@@ -177,8 +106,7 @@ CREATE TABLE matching
 	stadium nvarchar2(20) NOT NULL,
 	reqDate date NOT NULL,
 	matchStatus nvarchar2(20) DEFAULT 'wating' NOT NULL,
-	baseteamno number NOT NULL,
-	time number NOT NULL,
+	teamName nvarchar2(20) NOT NULL,
 	PRIMARY KEY (matchingNo)
 );
 
@@ -204,53 +132,102 @@ CREATE TABLE member
 	base_mainhand nvarchar2(10),
 	-- 선택하면 1
 	basket_ltmatch number DEFAULT 0,
-	baseteamno number,
+	teamName nvarchar2(20) NOT NULL,
 	PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE pitcher
+(
+	gameDate date NOT NULL,
+	stadium nvarchar2(20) NOT NULL,
+	time number NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	W number,
+	L number,
+	blsv number,
+	ci number,
+	co number,
+	sv number,
+	hol number,
+	tbf number,
+	ip number,
+	h number,
+	hr number,
+	bb number,
+	hbp number,
+	so number,
+	r number,
+	er number,
+	CONSTRAINT pk_pitcher primary key (gameDate, time, ID)
+);
+
+
+CREATE TABLE Team
+(
+	teamName nvarchar2(20) NOT NULL,
+	category nvarchar2(20) NOT NULL,
+	teamloc nvarchar2(50) NOT NULL,
+	teamRating number(10,4) NOT NULL,
+	manager_id nvarchar2(20) NOT NULL,
+	PRIMARY KEY (teamName)
 );
 
 
 
 /* Create Foreign Keys */
 
+ALTER TABLE betting
+	ADD FOREIGN KEY (gameDate, stadium, time)
+	REFERENCES gameschedule (gameDate, stadium, time)
+;
+
+
+ALTER TABLE hitter
+	ADD FOREIGN KEY (gameDate, stadium, time)
+	REFERENCES gameschedule (gameDate, stadium, time)
+;
+
+
+ALTER TABLE pitcher
+	ADD FOREIGN KEY (gameDate, stadium, time)
+	REFERENCES gameschedule (gameDate, stadium, time)
+;
+
+
+ALTER TABLE betting
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
+ALTER TABLE hitter
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
+ALTER TABLE pitcher
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
 ALTER TABLE gameschedule
-	ADD FOREIGN KEY (baseteamno)
-	REFERENCES baseteam (baseteamno)
+	ADD FOREIGN KEY (teamName)
+	REFERENCES Team (teamName)
 ;
 
 
 ALTER TABLE matching
-	ADD FOREIGN KEY (baseteamno)
-	REFERENCES baseteam (baseteamno)
+	ADD FOREIGN KEY (teamName)
+	REFERENCES Team (teamName)
 ;
 
 
 ALTER TABLE member
-	ADD FOREIGN KEY (baseteamno)
-	REFERENCES baseteam (baseteamno)
-;
-
-
-ALTER TABLE baseHitter
-	ADD FOREIGN KEY (gameDate, stadium, time)
-	REFERENCES gameschedule (gameDate, stadium, time)
-;
-
-
-ALTER TABLE basePitcher
-	ADD FOREIGN KEY (gameDate, stadium, time)
-	REFERENCES gameschedule (gameDate, stadium, time)
-;
-
-
-ALTER TABLE gameRecord
-	ADD FOREIGN KEY (gameDate, stadium, time)
-	REFERENCES gameschedule (gameDate, stadium, time)
-;
-
-
-ALTER TABLE Betting
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+	ADD FOREIGN KEY (teamName)
+	REFERENCES Team (teamName)
 ;
 
 
@@ -272,6 +249,16 @@ FOR EACH ROW
 BEGIN
 	SELECT SEQ_Betting_bettingIndex.nextval
 	INTO :new.bettingIndex
+	FROM dual;
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER TRI_betting_no BEFORE INSERT ON betting
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_betting_no.nextval
+	INTO :new.no
 	FROM dual;
 END;
 

@@ -26,4 +26,20 @@ public class MatchDAO {
 	public BaseTeamDTO selectOne(Map map) {
 		return template.selectOne("oneSelect", map);
 	}
+	///스케줄에서 최근 5경기 가져오기
+	public List<Map> selectGamefive(Map map){
+		System.out.println("teamName: "+map.get("teamName2").toString());
+		return template.selectList("selectGamefive",map);
+	}
+	///해당 팀의 같은 날짜 시간에 경기가 잡혀 있는지 확인
+	public int checkDateTime(Map map) {
+		for(Object key:map.keySet()) {
+			System.out.println(key+":"+map.get(key));
+		}
+		return template.selectOne("checkDateTime", map);
+	}
+	//해당 경기장의 같은 시간 같은 날짜에 경기가 잡혀있는지 확인 
+	public int checkDateTimeStadium(Map map) {
+		return template.selectOne("checkDateTimeStadium", map);
+	}
 }

@@ -4,14 +4,15 @@
 <h1>
 <<<<<<< HEAD
     dddd
+    why?
 	Hello world!   nissi  
 	plz  plz 
 	git fu..c.......
-	   aaaa.
-	git Fuck Fuck
+	   aaaa. a
+	git Fuck Fuck dd
 	
-	asfdsadfsdaffaaaa11
-
+	asfdsadfsdaffaaaa11 
+as
  
 skajfslkdfjsdaklfjsdaklfjsadklfjsklfjkfsjklfsjdklfsadjklfsdfsafs
 
