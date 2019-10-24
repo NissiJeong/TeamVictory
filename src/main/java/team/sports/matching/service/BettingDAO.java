@@ -20,6 +20,9 @@ public class BettingDAO {
 		return template.selectList("bettingList",map);
 	}
 	
+	public  List<Map> selectListTeamInfo(Map map){
+		return template.selectList("selectListTeamInfo",map);
+	}
 	
 
 }

@@ -97,4 +97,11 @@ public class HomeController {
 		return "member/contact.tiles";
 
 	}
+	/*
+	@RequestMapping("/Team/Matching/Betting.do")
+	public String betting() {
+		return "member/in-play.tiles";
+
+	}
+	*/
 }
