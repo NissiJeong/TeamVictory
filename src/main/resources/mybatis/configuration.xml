@@ -6,15 +6,15 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<!-- 매퍼파일에서 dto객체 가져다 쓰려고 별칭 하는것 -->
 	<typeAliases>
-<<<<<<< HEAD
+
 		<typeAlias alias="TeamDTO" type="team.sports.matching.service.BaseTeamDTO"/>		
 		<typeAlias alias="BettingDTO" type="team.sports.matching.service.BettingDTO"/>
 		<typeAlias alias="BoardDTO" type="team.sports.matching.service.BoardDTO"/>	
-=======
+
 		<typeAlias alias="TeamDTO" type="team.sports.matching.service.BaseTeamDTO"/>
 		<typeAlias alias="TeamBoardDTO" type="team.sports.matching.service.TeamBoardDTO"/>		
 		<typeAlias alias="BettingDTO" type="team.sports.matching.service.BettingDTO"/>	
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
 	</typeAliases>
 	
 	
@@ -23,10 +23,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Member.xml" />
 		<mapper resource="mybatis/Match.xml" />
 		<mapper resource="mybatis/Betting.xml" />
-<<<<<<< HEAD
+
 		<mapper resource="mybatis/Board.xml" />
-=======
+
 		<mapper resource="mybatis/Team.xml" />
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
 	</mappers>
 </configuration>
