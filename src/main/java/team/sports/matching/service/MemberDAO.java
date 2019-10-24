@@ -54,7 +54,7 @@ public class MemberDAO {
 	
 	//이메일 중복확인
 	public int mIsDuplicate(Map map) {
-		
+
 		return template.selectOne("mIsDuplicate",map);
 	}
 	
