@@ -10,9 +10,9 @@
 		<right_margin>30</right_margin>
 	</page_setting>
 	<category_index>0</category_index>
-	<zoom>0.75</zoom>
+	<zoom>1.0</zoom>
 	<x>0</x>
-	<y>43</y>
+	<y>-24</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-10-04 19:12:14</creation_date>
-			<updated_date>2019-10-23 19:24:56</updated_date>
+			<updated_date>2019-10-24 23:00:10</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -2107,7 +2107,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>65</word_id>
+					<word_id>64</word_id>
 					<id>19</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2140,7 +2140,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>72</word_id>
+					<word_id>73</word_id>
 					<id>20</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2940,7 +2940,7 @@
 			<width>213</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>840</x>
+			<x>841</x>
 			<y>72</y>
 			<color>
 				<r>128</r>
@@ -3467,7 +3467,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>31</word_id>
+					<word_id>30</word_id>
 					<id>54</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3694,7 +3694,7 @@
 			<width>229</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>240</x>
+			<x>252</x>
 			<y>192</y>
 			<color>
 				<r>128</r>
@@ -3988,7 +3988,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>64</word_id>
+					<word_id>65</word_id>
 					<id>65</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4054,7 +4054,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>73</word_id>
+					<word_id>72</word_id>
 					<id>67</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4727,7 +4727,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>30</word_id>
+					<word_id>31</word_id>
 					<id>85</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4888,8 +4888,8 @@
 			<width>225</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>1320</x>
-			<y>540</y>
+			<x>1092</x>
+			<y>556</y>
 			<color>
 				<r>128</r>
 				<g>128</g>

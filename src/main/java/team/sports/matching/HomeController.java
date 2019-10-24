@@ -97,4 +97,8 @@ public class HomeController {
 	public String contact() {
 		return "member/contact.tiles";
 	}
+	@RequestMapping("/Team/fcm.do")
+	public String fcm1() {
+		return "member/fcn";
+	}
 }

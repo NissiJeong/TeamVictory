@@ -62,6 +62,7 @@
                   <li><a href="<c:url value='/Team/Matching/FAQ.do'/>">FAQ</a></li>
                   <li><a href="<c:url value='/Team/Matching/Privacy.do'/>">Privacy</a></li>
                   <li><a href="<c:url value='/Team/Matching/Error.do'/>">ERROR Page</a></li>
+                  <li><a href="<c:url value='/Team/fcm.do'/>">fcm</a></li>
                 </ul>
               </li>
               <li class="menu_has_children"><a href="#0">blog</a>
