@@ -195,6 +195,10 @@ input:checked+label {
 	display: block;	
 }
 
+#team-name{
+	padding-left: 14px;
+}
+
 </style>
 
 <script>
@@ -215,12 +219,21 @@ function selectTeam(team) {
 };
 
 /* $(function() {
-	$('#playerlist').click(function() {
-		console.log('asdfsadfsaf');
-	});
 	
+	$("#position2").click(function(){
+		console.log('safsafsaf');
+		$.ajax({
+			url : "<c:url value='/Team/Matching/teamSelect.do'/>",
+			type : 'post',
+			dataType : 'text',
+			data : {'teamName' : teamName},
+			success : function(data) {
+				console.log(data);
+				alert(data);
+			}
+		});
+	});
 }); */
-
 
 </script>
 
@@ -249,7 +262,7 @@ function selectTeam(team) {
 <section class="blog-details-section section-padding">
 	
 	<div class="container">
-		<div class="row">
+		<div class="row" id="team-name">
 			<div class="form" style="margin-bottom:10px ">			      
 			      <select class="form" id="teamName" name="stadium" onchange="selectTeam(this.value)">
 			        <option value="">팀선택</option>
@@ -265,12 +278,12 @@ function selectTeam(team) {
 				<div class="sidebar">
 					<!-- left-menu start -->
 					<div class="widget widget-categories">
-						<h4 class="widget-title">팀이름 넣는곳</h4>
+						<h4 class="widget-title">팀이름넣는곳</h4>
 						<ul class="nav flex-column">
 							<li class="nav-item"><a class="nav-link active"
 								data-toggle="tab" href="#teamprofile">팀소개</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="<c:url value='/Team/Matching/playerlist.do'/>" id="playerlist">선수단</a></li>
+								href="#player" id="playerlist">선수단</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
 								href="#schedule">일정/결과</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
@@ -313,8 +326,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s2.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s2.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -328,8 +341,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s3.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s3.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -364,8 +377,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s2.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -379,8 +392,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s3.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -414,8 +427,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s2.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s2.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -429,8 +442,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s3.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s3.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -463,8 +476,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s2.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s2.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -478,8 +491,8 @@ function selectTeam(team) {
 
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img
-										src="<c:url value='/assets/images/blog/s3.jpg" alt="image'/>" />
+									<img src="<c:url value='/assets/images/blog/s3.jpg'/>"
+										alt="image" />
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -556,201 +569,40 @@ function selectTeam(team) {
 							<div class="container">
 								<div class="position">
 									<input id="position1" type="radio" name="positions" checked>
-									<label for="position1">전체</label> <input id="position2"
-										type="radio" name="positions"> <label for="position2">투수</label>
+									<label for="position1">전체</label>
+									
+									<!-- <input id="position2" type="radio" name="positions">
+									<label for="position2" id="label-positin2">투수</label>
 
-									<input id="position3" type="radio" name="positions"> <label
-										for="position3">포수</label> <input id="position4" type="radio"
-										name="positions"> <label for="position4">내야수</label> <input
-										id="position5" type="radio" name="positions"> <label
-										for="position5">외야수</label>
+									<input id="position3" type="radio" name="positions">
+									<label for="position3">타자</label>
+									
+									<input id="position4" type="radio" name="positions">
+									<label for="position4">포수</label>
+									
+									<input id="position5" type="radio" name="positions">
+									<label for="position5">내야수</label> 
+									
+									<input id="position6" type="radio" name="positions">
+									<label for="position6">외야수</label> -->
 								</div>
 
 								<div class="row mt-mb-15" id="player-border-top">
+								<c:forEach var="item" items="${list}" varStatus="loop">
 									<div class="col-lg-3">
 										<div class="post-item">
 											<div class="thumb">
 												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
 											</div>
 											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
+												<h4 class="post-title">${item.name}</h4>
 												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
+													<li style="font-size: 14px;">${item.base_mainhand}</li>
 												</ul>
 											</div>
 										</div>
 									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-3">
-										<div class="post-item">
-											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
-											</div>
-											<div class="content" id="player-list-member">
-												<h4 class="post-title">선수이름</h4>
-												<ul class="post-meta">
-													<li style="font-size: 14px;">포지션</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-12">
-										<nav class="d-pagination" aria-label="Page navigation example">
-											<ul class="pagination justify-content-center">
-												<li class="page-item"><a class="page-link" href="#"><i
-														class="fa fa-angle-left"></i></a></li>
-												<li class="page-item active"><a class="page-link"
-													href="#">1</a></li>
-												<li class="page-item"><a class="page-link" href="#">2</a></li>
-												<li class="page-item"><a class="page-link" href="#">3</a></li>
-												<li class="page-item"><a class="page-link" href="#">4</a></li>
-												<li class="page-item"><a class="page-link" href="#"><i
-														class="fa fa-angle-right"></i></a></li>
-											</ul>
-										</nav>
-									</div>
+								</c:forEach>
 								</div>
 							</div>
 						</section>

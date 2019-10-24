@@ -8,6 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mybatis.Team">
 	<select id="TeamBoardList" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT m.name, m.base_mainhand FROM member m JOIN teammember t ON m.id = t.id;
+		SELECT * FROM member m JOIN teammember t ON m.id = t.id
 	</select>
+	
+	<!-- <select id="PitcherList" parameterType="java.util.Map" resultType="TeamBoardDTO">
+		SELECT * FROM member m JOIN teammember t ON m.id = t.id where base_mainhand='${}'
+	</select> -->
+	
 </mapper>

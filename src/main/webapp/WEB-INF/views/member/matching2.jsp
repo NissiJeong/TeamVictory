@@ -20,6 +20,8 @@ $( function() {
     		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title")},	
     		success:function(data){
     			console.log(data['teamName']);
+    			$("#teamName").html(data['teamName']);
+    			$("#teamRating").html(data['teamRating']);
     			$('#awayteam').prop('value',data['teamName']);
     		}
     	});
@@ -473,7 +475,8 @@ $( function() {
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title -->
                 <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
-                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline">${team.teamName }asdfasd</h3>
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName"></h2>
+                <h5 id="teamRating"></h5>
                 <p>최근 5경기 경기 결과</p>      
                   <table class="table table-striped" style="margin-top: 10px">
 				    <thead>

@@ -16,4 +16,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
 		SELECT * FROM team WHERE teamname = '${teamName}'
 	</select>
+	
 </mapper>
