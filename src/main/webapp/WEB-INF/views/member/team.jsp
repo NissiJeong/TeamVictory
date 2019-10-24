@@ -198,7 +198,7 @@ input:checked+label {
 #team-name{
 	padding-left: 14px;
 }
-
+ 
 </style>
 
 <script>
