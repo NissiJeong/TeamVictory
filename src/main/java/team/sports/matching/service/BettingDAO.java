@@ -15,7 +15,6 @@ public class BettingDAO {
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
-	
 	public  List<BettingDTO> selectList(Map map){
 		return template.selectList("bettingList",map);
 	}
