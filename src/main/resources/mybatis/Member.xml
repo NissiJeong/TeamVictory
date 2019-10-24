@@ -31,12 +31,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="isDuplicate">
-	SELECT COUNT(*) FROM member WHERE id=#{id}
+		SELECT COUNT(*) FROM member WHERE id=#{id}
 	 </select>
 
 	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="mIsDuplicate">
-	SELECT COUNT(*) FROM member WHERE email=#{email}
-	 </select>
-	
-
+		SELECT COUNT(*) FROM member WHERE email=#{email}
+	</select>
 </mapper>

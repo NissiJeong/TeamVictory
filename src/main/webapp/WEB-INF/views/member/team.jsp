@@ -196,21 +196,34 @@ input:checked+label {
 }
 
 </style>
+
 <script>
- function selectTeam(team){
-	 var teamName = team;
-	 $.ajax({
- 		url:"<c:url value='/Team/Matching/teamSelect.do'/>",
- 		type:'post',
- 		dataType:'text',
- 		data:{'teamName':teamName},	
- 		success:function(data){
- 			console.log(data);
- 			alert(data);
- 		}
- 	});
- };
+function selectTeam(team) {
+	var teamName = team;
+	$.ajax({
+		url : "<c:url value='/Team/Matching/teamSelect.do'/>",
+		type : 'post',
+		dataType : 'text',
+		data : {
+			'teamName' : teamName
+		},
+		success : function(data) {
+			console.log(data);
+			alert(data);
+		}
+	});
+};
+
+/* $(function() {
+	$('#playerlist').click(function() {
+		console.log('asdfsadfsaf');
+	});
+	
+}); */
+
+
 </script>
+
 <!-- banner-section start -->
 <section class="breadcum-section">
 	
@@ -231,7 +244,6 @@ input:checked+label {
 	</div>
 </section>
 <!-- banner-section end -->
-
 
 <!-- blog-details-section start -->
 <section class="blog-details-section section-padding">
@@ -258,7 +270,7 @@ input:checked+label {
 							<li class="nav-item"><a class="nav-link active"
 								data-toggle="tab" href="#teamprofile">팀소개</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#player">선수단</a></li>
+								href="<c:url value='/Team/Matching/playerlist.do'/>" id="playerlist">선수단</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
 								href="#schedule">일정/결과</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"

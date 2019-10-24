@@ -1,5 +1,6 @@
 package team.sports.matching.contoller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import team.sports.matching.service.MatchDAO;
 import team.sports.matching.service.MemberDAO;
+import team.sports.matching.service.TeamBoardDAO;
+import team.sports.matching.service.TeamBoardDTO;
 import team.sports.matching.service.BaseTeamDTO;
 
 @SessionAttributes("id")
@@ -28,6 +31,7 @@ import team.sports.matching.service.BaseTeamDTO;
 public class TeamController {
 	@Resource(name="member")
 	private MemberDAO dao;
+	private TeamBoardDAO teamDao;
 	
 	//팀 만들기 페이지로 이동
 	@RequestMapping("/Team/Matching/createTeam.do")
@@ -36,13 +40,14 @@ public class TeamController {
 		return "member/CreateTeam.tiles";
 	}
 	//로그인 하지 않은 상태에서 게시판 url요청시]
-		@ExceptionHandler(HttpSessionRequiredException.class)
-		public String notAllowed(Model model) {
-			//에러 메세지 저장]
-			model.addAttribute("NotMember", "로그인 후 이용하세요");
-			//무조건 로그인 페이지
-			return "/login/Login.tiles";
-		}
+	@ExceptionHandler(HttpSessionRequiredException.class)
+	public String notAllowed(Model model) {
+		//에러 메세지 저장]
+		model.addAttribute("NotMember", "로그인 후 이용하세요");
+		//무조건 로그인 페이지
+		return "/login/Login.tiles";
+	}
+		
 	//팀 만들기 
 	@RequestMapping("/Team/matching/teamJoin.do")
 	public String createTeam(@RequestParam Map map,Model model,@ModelAttribute("id") String id) {
@@ -60,6 +65,7 @@ public class TeamController {
 		model.addAttribute("SUCFAIL", affected);
 		return "member/Message";
 	}///
+	
 	//팀페이지로 이동
 	@RequestMapping("/Team/Matching/Team.do")
 	public String team(@ModelAttribute("id") String id,Model model) {
@@ -81,9 +87,18 @@ public class TeamController {
 		System.out.println("들어옴");
 		dao.selectTeam(map);
 		//map에 내 팀 no 입력해야함 
-		String ass= "no";
-		
-		
+		String ass= "no";	
 		return ass;
+	}
+	
+	@RequestMapping(value="/Team/Matching/playerlist.do")
+	public String playerList(Model model) {
+		System.out.println("safsfsafsfsaf");
+		List<TeamBoardDTO> list = teamDao.selectList(new HashMap());
+		for(TeamBoardDTO dto : list) {
+			System.out.println(String.format("이름:%s, 포지션:%s, 팀명:%s", dto.getName(), dto.getBase_mainhand(), dto.getTeamName()));
+		}
+		model.addAttribute("list", list);
+		return "member/team.tiles";
 	}
 }
