@@ -478,7 +478,7 @@ function selectTeam(team) {
 								<div class="row mt-mb-15" id="player-border-top"> 
 								<c:forEach var="item" items="${list2}" varStatus="loop">
 									<div class="col-lg-3">
-										<div class="post-item">
+										<div class="post-item"> 
 											<div class="thumb">
 												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
 											</div>

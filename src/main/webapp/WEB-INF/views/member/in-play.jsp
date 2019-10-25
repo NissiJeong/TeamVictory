@@ -99,62 +99,105 @@ $('#viewTarget').css('display','none');
 	var  bettingView = function(data,veiwIndex,home,away) {
 		 //var json =JSON.stringify(data);
 	
-		
+		  var homeContent;
+		  var awayContent;
 		 var top ="<tr><td colspan='7'><div class='row'><div class='col-md-12'><div class='d-flex bg-light justify-content-center pt-4 w-100' style='height:150px'>"
 		 "<div class='p-2 border w-25'>"+home+"</div>"
 		 +"<div class='p-2 border mx-5 align-self-center'>VS</div>"
 		 +"<div class='p-2 border w-25'>B팀</div>"
 		 +"</div></div></div></td></tr>";
-		 var topBar ="<div class='col-md-12 text-center mt-3 bg-info' style='font-weight: bold;height: 50px;line-height: 50px;'>최근 10경기 전적</div>";
+		 
+		 var topBar ="<tr><td colspan='7'>"+
+		 "<div class='col-md-12 text-center mt-3 bg-info' style='font-weight: bold;height: 50px;line-height: 50px;font-size: 20px'>"
+		 +"최근 10경기 전적</div>";
 			 
-      var  homeContent="<div class='row mt-3'><div class='col-6'><table class='table table-bordered'><thead>"+
+ /*        homeContent="<div class='row mt-3'><div class='col-6'><table class='table'><thead>"+
        "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+home+"</th></tr>"+
-       "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>";
-      var  awayContent='';
+       "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>"; */
+     
+/*          awayContent="<div class='col-6'><table class='table'><thead>"+
+      "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+away+"</th></tr>"+
+      "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>"; */
       console.log ( '서버로부터 받은 데이터 =>', data);
 		$.each(data,function(key,value){
 			if(key == 'home') {
-				console.log ( '홈팀의 레코드 개수',Object.keys(value).length);
-				if ( value.length < 10){   // 최근 10경기를 보여줘야하니까 체크
-				      if(value.length ==0 ){  // 새로등록한 팀의 첫매치인경우 기록이 없음
+				  homeContent="<div class='row mt-3'><div class='col-6'><table class='table'><thead>"+
+			       "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+home+"</th></tr>"+
+			       "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>";
+				var hRecord =  Object.keys(value).length;
+				//console.log ( '홈팀의 레코드 개수',hRecord);
+					if ( value.length < 10){   // 최근 10경기를 보여줘야하니까 체크
+				      	if(value.length ==0 ){  // 새로등록한 팀의 첫매치인경우 기록이 없음
 				    	   // 등록된 경기가 없음을 표시해준다.
-				      }//if
-				      else{
+				     		}//if
+				     	else{
 					//  등록된경기가 한개이상 있지만 10경기가 안된다면
-					 $.each(value,function(i,element){ //  db에 등록된 경기만  넣어준다
-						 //element가  홈팀에 관한 하나의  데이터 레코드
-							//console.log(element['RESULT']=='lose')
-							//console.log('인덱스 %s  |  배열 : %s',i,element.GAMEDATE); // 홈스코어 표시
-							homeContent +="<tr class='text-center'>";
-							homeContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td>"+element.HOMESCORE+" : "+element.AWAYSCORE+"</td>";
-						  if(element.HOMESCORE > element.AWAYSCORE ){
-							  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px;'>승</span></td></tr>";
-						  }
-						  else if( element.HOMESCORE < element.AWAYSCORE){
-							  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #cd2e57; border-radius:7px;'>패</span></td></tr>";
-						  }
-						  else {
-							  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #9a9798; border-radius:7px;'>패</span></td></tr>";
-						  }
-					 });   //////////////
-					// 여기서부터는 10 -  value.length 한 값만큼 for문을 돌려서<td>. </td> 점으로 표시한다.
-					      for(var i = 10- value.length; i=0; i--){
-					    	  homeContent +="<tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>";
-					      }
-					      homeContent+="</tbody></table></div>";
-				      } //else 
+					 		$.each(value,function(i,element){ //  db에 등록된 경기만  넣어준다
+								 //element가  홈팀에 관한 하나의  데이터 레코드
+									//console.log(element['RESULT']=='lose')
+									//console.log('인덱스 %s  |  배열 : %s',i,element.GAMEDATE); // 홈스코어 표시
+									homeContent +="<tr class='text-center'>";
+									homeContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td>"+element.HOMESCORE+" : "+element.AWAYSCORE+"</td>";
+								  if(element.HOMESCORE > element.AWAYSCORE ){
+									  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px;'>승</span></td></tr>";
+								  }
+								  else if( element.HOMESCORE < element.AWAYSCORE){
+									  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #cd2e57; border-radius:7px;'>패</span></td></tr>";
+								  }
+								  else {
+									  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #9a9798; border-radius:7px;'>무</span></td></tr>";
+								  }
+							 });   //////////////
+								// 여기서부터는 10 -  value.length 한 값만큼 for문을 돌려서<td>. </td> 점으로 표시한다.
+								      for(var i=0; i<10-hRecord; i++){
+								    	  homeContent +="<tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>";
+								      }
+								      homeContent+="</tbody></table></div>";
+				      		} //else 
 				
 					
-				}//if 
+						}//if 
 			
-			
-			} //if 
+					} //if 
+					
 			else {  // away팀
-				
-				
-				
-				
-			}
+				var aRecord =  Object.keys(value).length;
+			awayContent="<div class='col-6'><table class='table'><thead>"+
+		      "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+away+"</th></tr>"+
+		      "<tr class='text-center'><th class='w-25'>경기일시</th>"
+		     +"<th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>";
+		      
+				console.log ( '어웨이팀의 레코드 개수',aRecord);
+				if ( value.length < 10){ 
+					if(value.length ==0 ){
+						
+					}//if
+			     	else{
+			     		$.each(value,function(i,element){ //  db에 등록된 경기만  넣어준다
+			     	
+						 //element가  홈팀에 관한 하나의  데이터 레코드
+						//console.log(element['RESULT']=='lose')
+						//console.log('인덱스 %s  |  배열 : %s',i,element.GAMEDATE); // 홈스코어 표시
+						awayContent +="<tr class='text-center'>";
+						awayContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td>"+element.HOMESCORE+" : "+element.AWAYSCORE+"</td>";
+					  if(element.HOMESCORE > element.AWAYSCORE ){
+						  awayContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px;'>승</span></td></tr>";
+					  }
+					  else if( element.HOMESCORE < element.AWAYSCORE){
+						  awayContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #cd2e57; border-radius:7px;'>패</span></td></tr>";
+					  }
+					  else {
+						  awayContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #9a9798; border-radius:7px;'>무</span></td></tr>";
+					  }
+				 });   //////////////
+					// 여기서부터는 10 -  value.length 한 값만큼 for문을 돌려서<td>. </td> 점으로 표시한다.
+					      for(var i=0; i<10-aRecord; i++){
+					    	  awayContent +="<tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>";
+					      }
+					      awayContent+="</tbody></table></div>";
+	      		} //else 
+			  }
+			}//else
 		});//// 바깥 each (k,v)
 		
 		
@@ -167,13 +210,16 @@ $('#viewTarget').css('display','none');
 		
 			
 		 //선택한 상세보기 행의 바로밑에 <tr>추가 
-		$('.view').eq(veiwIndex).parent().parent().after("<tr><td colspan='7'>"+topBar+homeContent+"</div></div></td</tr>");
-			
-	
-	
-			
-			
+		$('.view').eq(veiwIndex).parent().parent().after(topBar+homeContent+awayContent+"</div></td</tr>");
 	}; /// bettingView
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	function scoreStyle(){ 
@@ -244,7 +290,7 @@ $('#viewTarget').css('display','none');
 
 <!-- play-section start -->
 <section class="play-section section-padding section-bg">
-	<div class="container" style="border:1px solid red">
+	<div class="container">
 
 		<div class="row justify-content-center">
 			<div class="col-lg-6">
@@ -386,99 +432,12 @@ $('#viewTarget').css('display','none');
     									
     									
     									
-											<!--  1행 -->
-
-											<tr>
-												<td>
-													<!-- <div class="team-name-part"> </div> --> 1
-												</td>
-												<!-- 경기 날짜  -->
-												<td><span bat="1">2019-10-10</span></td>
-												<!--  팀 vs 팀  -->
-												<td>기아&nbsp;&nbsp;<span class="blue">3</span>&nbsp;&nbsp;
-													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp; 두산
-												</td>
-												<!-- 경기결과 -->
-												<td>
-													<!--  <span class="badge badge-primary">승</span> --> <span
-													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">승</span>
-												</td>
-												</td>
-												<!-- 비고 -->
-												<td>우천</td>
-												<!-- 배팅-->
-												<td class="bettingTd"><span id="bettingSpan"
-													class="badge badge-warning" data-toggle="modal"
-													data-target="#myModal">배팅</span></td>
-
-												<!-- 상세보기 -->
-												<td>상세보기</td>
-											</tr>
-											<!-- 1행끝 -->
-
-
-											<tr>
-												<!-- 번호 -->
-												<td>2</td>
-												<!-- 경기 날짜  -->
-												<td><span bat="1">2019-10-10</span></td>
-												<!--  팀 vs 팀  -->
-												<td>SK&nbsp;&nbsp;<span class="blue">2</span>&nbsp;&nbsp;
-													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp;롯데
-												</td>
-												<!-- 경기결과 -->
-												<td>
-													<!-- <div style="background-color: #847d7e;-webkit-border-radius: 5px; color:white; border:1px red solid; flex: 0 0 calc(100% - 15px);">무</div> -->
-													<span
-													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">패</span>
-												</td>
-
-
-												<!-- 비고 -->
-												<td>기타</td>
-												<td>
-													<!-- 배팅-->
-													<button type="button" class="btn btn-warning"
-														style="height: 33px;" data-toggle="modal"
-														data-target="#myModal">
-														배 팅 <span class="badge badge-secondary ml-2">15</span>
-													</button>
-												</td>
-
-
-												<!-- 상세보기 -->
-												<td><a href="<c:url value='/Team/Matching/BettingView.do'/>">상세보기</a></td>
-											</tr>
-											<!-- 2행끝 -->
-
-
-											<!-- 3행 시작 -->
-
-												<tr >
-												<!-- 번호 -->
-												<td>3</td>
-												<!-- 경기 날짜  -->
-												<td><span bat="1">2019-10-10</span></td>
-												<!--  팀 vs 팀  -->
-												<td>넥센&nbsp;&nbsp;<span class="blue"></span>&nbsp;&nbsp;
-													: &nbsp;&nbsp;<span class="red"></span>&nbsp;&nbsp;한화
-												</td>
-												<!-- 경기결과 -->
-												<td><!-- <span style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #9a9798; border-radius: 7px;">무</span> -->
-												</td>
-												<!-- 비고 -->
-												<td></td>
-												<td>
-													<!-- 배팅--> 배팅
-
-												</td>
-
-												<!-- 상세보기 -->
-												<td><span class="aa" style="cursor: pointer;">상세보기</span></td>
-											</tr>
-											<!-- 3행끝 -->
 											
-											<!-- 상세보기 <tr> 안에 시작 -->
+											
+											
+											
+											<!--  상세보기 tr 시작  -->
+											<!-- 
 											<tr>
 											
 												<td  colspan="7">
@@ -493,11 +452,11 @@ $('#viewTarget').css('display','none');
 															</div>
 												 		
 												 		</div>  
-												</div>    <!-- row --> 
+												</div>    
 												
 											       
-													<div class="col-md-12 text-center mt-3 bg-info" style="font-weight: bold;height: 50px;line-height: 50px;">
- 													최근 10경기 전적 
+													<div class="col-md-12 text-center mt-3 bg-info" style="font-weight: bold;height: 50px;line-height: 50px;font-size: 20px">
+ 													최근 10경기 전적
  													</div>
  													
  														<div class="row mt-2" style="border:1px solid red">
@@ -523,7 +482,7 @@ $('#viewTarget').css('display','none');
 																	         <td>3 : 0 </td>
 																	         <td ><span style="width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px; ">승</span></td>
 																	       </tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	       <tr ><td rowspan="4">.</td><td>.</td><td>.</td><td>.</td></tr>
 																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
 																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
 																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
@@ -547,13 +506,13 @@ $('#viewTarget').css('display','none');
  																
  																</table>
  															
- 															</div>  <!-- table 감싸는 div -->
+ 															</div>  
  														
  														
  														
  														
  														
- 														<!-- AWAY 테이블 -->
+ 													
  														
  															<div class="col-6 ml-0">
  																<table class="table table-bordered">
@@ -584,17 +543,17 @@ $('#viewTarget').css('display','none');
  																
  																</table>
  															
- 															</div>  <!-- table 감싸는 div -->
+ 															</div>  
  														
  														
  														
  														
  														
- 														</div><!-- row -->
+ 														</div>
  													</td>
  													
-											</tr>
-	                                         
+											</tr> 
+	                                         -->
 
 
 

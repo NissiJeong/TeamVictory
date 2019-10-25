@@ -54,12 +54,11 @@
 	<context:component-scan base-package="team.sports.matching" />
 	
 	<websocket:handlers>
-		<websocket:mapping path="/Team/Matching/chat-ws" handler="chatServer"/>
+		<websocket:mapping path="/chat-ws.do" handler="chatServer"/>
 		<websocket:handshake-interceptors>
 		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
-	
 	<beans:bean class="team.sports.matching.BasketballMatchingHandler" id="chatServer"/>
 	
 	<context:property-placeholder location="classpath:board/board.properties"/>

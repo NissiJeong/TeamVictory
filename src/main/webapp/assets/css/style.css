@@ -640,7 +640,7 @@ span.is-active:after {
   padding: 15px 0;
   background-color: var(--second-color);
    color: #ffffff; 
- text-transform: capitalize;
+ /* text-transform: capitalize; */
   /* 추가 */ 
   text-align: center;
 }

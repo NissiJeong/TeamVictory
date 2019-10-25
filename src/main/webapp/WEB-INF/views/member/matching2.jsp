@@ -539,7 +539,7 @@ $( function() {
         <div class="modal-body">
          <div class="container">
             <div class="row justify-content-center">
-              <div class="col-lg-8">
+              <div class="col-lg-10">
                 <!-- Portfolio Modal - Title -->
                 <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName"></h2>

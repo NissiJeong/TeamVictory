@@ -4,7 +4,8 @@
 <h1>
 <<<<<<< HEAD
     dddd
-    why?
+    GO
+    why??
 	Hello world!   nissi  
 	plz  plz 
 	git fu..c.......

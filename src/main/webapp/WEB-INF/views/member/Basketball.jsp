@@ -1,31 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" session="false"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
 <script>
   		//웹소켓 객체 저장용
   		var wsocket;
   		//닉 네임 저장용
   		var nickname;
+  		var user;
   		
   		$(function(){
+  			//var user = $("#session").val();
+  			//console.log(user)
+  			//if(user =! null){
+  			//	wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
+  			//	wsocket.onopen = open;
+  			//}
+  			//console.log(user)
   			//입장버튼 클릭시 ]-서버와 연결된 웹소켓 클라이언트 생성
-  			
+  			//wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
+  			//wsocket.onopen = open;
+  			//console.log(sessionScope.id)
+  			//사용자가 입력한 닉네임 저장
+  			//nickname= $('#nickname').val();
+  			user = $("#session").val()
+  			nickname= $('#nickname').val();
   			$('#enterBtn').one('click',function(){
   				// 웹 소켓 객체로 서버에 연결하기
-  				/* wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws'/>"); */
+  				console.log(user)
+  				if(user != null){
+  				wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
   				wsocket.onopen = open;
-  				wsocket.onclose=function(){appendMessage('연결이 끊어졌어요')};
+  				wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
+  				
   				wsocket.addEventListener('message',message);
-  				//사용자가 입력한 닉네임 저장
-  				nickname= $('#nickname').val();
-  			
-  			});
-  			
-  			//퇴장버튼 클릭시]
-  			$('#exitBtn').one('click',function(){
-  				wsocket.send('msg:'+nickname+'가(이) 퇴장했어요');
-  				wsocket.close();
+  			}
+  			else{
+  				
+  			}
   			});
   			//전송버튼 클릭시]
   			$('#sendBtn').click(function(){
@@ -33,7 +46,6 @@
   			});
   			//메시지 입력후 전송 버튼 클릭이 아닌 엔터키처리
   			$('#message').on('keypress',function(e){
-  				
   				console.log('e.keyCode:%s,e.which:%s',e.keyCode,e.which);
   				var keyValue = e.keyCode ? e.keyCode:e.which;
   				if(keyValue == 13){//엔터 입력
@@ -49,26 +61,44 @@
   		var open = function(){
   			//서버로 연결한 사람의 정보(닉네임) 전송
   			//msg:kim가(이) 입장했어요
-  			wsocket.send('msg:'+nickname+'가(이) 입장했어요');
-  			appendMessage('연결되었습니다');
+  			wsocket.send('client'+user+'님이 입장하였습니다.');
+  			joinUser("채팅방에 입장하였습니다.");
   		};
+  		
   		//서버에서 메시지를 받을때마다 호출되는 함수
     	var message= function(e){
     		//서버로부터 받은 데이타는 이벤트객체(e).data속성에 저장되어 있다
     		var receiveData = e.data;
-    		if(receiveData.substring(0,4) =='msg:')
-    			appendMessage(receiveData.substring(4));
-  			
+    		if(receiveData.substring(0,4) =='msg:'){
+    			clientMsg(receiveData.substring(4));
+    		}
+    		else{
+
+    			joinUser(receiveData.substring(6))
+
+    		}
   		};
+  		//
+  		var joinUser = function(msg){///유저접속하면용
+
+        	$("#join").append(msg+"<br/>")
+
+        }
+  		 var clientMsg = function(msg){
+
+         	$('#chatMessage1').append(msg+"<br/>");
+
+         }
   		//메시지를 DIV태그에 뿌려주기 위한 함수]
-  		var appendMessage=function(msg){
+  		var appendMessage=function(msg1){
   			//메시지출력
-  			$('#chatMessage').append(msg+"<br/>");
+  			$('#chatMessage').append(msg1+"<br/>");
   		};
   		//서버로 메시지 전송하는 함수]
   		function send_message(){
+  			
   			//서버로 메시지 전송
-  			wsocket.send('msg:'+nickname+':'+$('#message').val());//msg:KIM:안녕
+  			wsocket.send('msg:'+user+':'+$('#message').val());//msg:KIM:안녕
   			//DIV(대화영역)에 메시지 출력
   			appendMessage($('#message').val());
   			//기존 메시지 클리어
@@ -275,10 +305,22 @@ background-repeat: no-repeat;
 .response .text {
   background-color: #e3effd !important;
 }
+#join{
+  font-family: 'Jua', sans-serif;
+  margin-right: 0px !important;
+  margin-left:auto; /* flexbox alignment rule */
+  background-color: #1E90FF !important;
+  opacity: 0.7;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  width: 50%
+}
+
 
 </style>
 
 <!-- banner-section start -->
+
 <section class="breadcum-section">
 	<div class="breadcum-area">
 		<div class="container">
@@ -307,6 +349,7 @@ background-repeat: no-repeat;
              <a data-toggle="modal" data-target="#myModal">
              <div class="photo" style="background-image:url(https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg);">
              <div class="online"></div>
+             <input type="hidden" value="${id}" id="session" >
           </div>
           </a>
           <div class="desc-contact">
@@ -345,32 +388,34 @@ background-repeat: no-repeat;
 				<div class="comment-area" style="overflow: auto; height: 720px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);" >
 				<!-- Chatting Start -->
 			<section class="chat" >
-        
+        	
         <div class="messages-chat" >
-          <div class="message" >
+        			<div style="text-align: center;">
+       				<span id="join" style="text-align: center;"></span>
+       				</div>
+          <div class="message">
+          		
             <div class="photo" style="background-image:">
               <div class="online"></div>
             </div>
-            <p class="text">
-           		상대방 채팅내용
-            </p>
+            <p class="text" id="chatMessage1"></p>
+           		<!-- <div id="chatMessage"></div> -->
           </div>
           <div class="message text-only">
             <div class="response" style="margin-left: auto;float: right;margin-right: 0px">
-              <p class="text">
-              	본인 채팅내용
+              <p class="text" id="chatMessage">
+              	<!-- 서버로부터 받은 메세지 -->
               </p>
             </div>
           </div>
-          
         </div>
         <!-- Chatting End -->
         
         <!-- Insert Text Start -->
         <div class="footer-chat">
           <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
-          <input type="text" class="write-message" placeholder="Type your message here"></input>
-          <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i>
+          <input id="message" type="text" class="write-message" placeholder="Type your message here"></input>
+          <button id="sendBtn"><i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i></button>
         </div>
         <!-- Insert Text End -->
         
@@ -411,7 +456,8 @@ background-repeat: no-repeat;
              						</div>
 									<div class="small-post-content">
 										<h6>
-											<a href="#0">Room Title</a>
+										<!-- <a href="#0">Room Title</a> -->
+											<button id="enterBtn">Room Title</button>
 										</h6>
 										<ul class="post-meta">
 											<li><a href="#"><i class="fa fa-calendar"></i>방생성일자</a></li>

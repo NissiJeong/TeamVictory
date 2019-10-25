@@ -80,10 +80,22 @@ public class BettingController {
           List<Map> awayeList = bettingDao.selectListTeamInfo(map);
           
           for(Map homemap : homeList) {
-        	  for (Object key : homemap.keySet() ) {
+        	if (  homemap.get("AWAYTEAM").equals(map.get("hometeam"))){
+        		  String temp="";
+        		  temp= homemap.get("AWAYTEAM").toString();
+        		homemap.put("AWAYTEAM", homemap.get("HOMETEAM").toString());
+        		homemap.put("HOMETEAM", temp);
+        		  
+        	  }
+        	
+        	  for (Object key : homemap.keySet() ) { //맵이 하나의 레코드  key가 컬럼명
         		    if(key.toString().equals("GAMEDATE")) {
         		    	homemap.put(key,homemap.get(key).toString().split(" ")[0].trim());
         		    }
+        		   
+        		         		    
+        		    
+        		    
         		  System.out.println(String.format("컬럼명 : %s  , 데이터 : %s", key,homemap.get(key).toString()));
         	  }
         	 
@@ -91,6 +103,17 @@ public class BettingController {
           json.put("home", homeList);
          
          for(Map awaymap : awayeList) {
+        	 
+        	 if (  awaymap.get("AWAYTEAM").equals(map.get("awayteam"))){
+        		 
+       		  String temp="";
+       		 temp= awaymap.get("AWAYTEAM").toString();
+       		awaymap.put("AWAYTEAM", awaymap.get("HOMETEAM").toString());
+       		awaymap.put("HOMETEAM", temp);
+       		  
+       	  }
+        	 
+        	 
        	  for (Object key : awaymap.keySet() ) {
        		    if(key.toString().equals("GAMEDATE")) {
        		    	awaymap.put(key,awaymap.get(key).toString().split(" ")[0].trim());
