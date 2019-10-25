@@ -32,7 +32,7 @@
   				if(user != null){
   				wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
   				wsocket.onopen = open;
-  				wsocket.onclose=function(){joinUser("연결이 끊어졌어요.")};
+  				wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
   				
   				wsocket.addEventListener('message',message);
   			}
@@ -61,7 +61,7 @@
   		var open = function(){
   			//서버로 연결한 사람의 정보(닉네임) 전송
   			//msg:kim가(이) 입장했어요
-  			wsocket.send('msg:'+user+'님이 입장하였습니다.');
+  			wsocket.send('client'+user+'님이 입장하였습니다.');
   			joinUser("채팅방에 입장하였습니다.");
   		};
   		
@@ -70,22 +70,25 @@
     		//서버로부터 받은 데이타는 이벤트객체(e).data속성에 저장되어 있다
     		var receiveData = e.data;
     		if(receiveData.substring(0,4) =='msg:'){
-    			client(receiveData.substring(4));
-    		}
-    		else if(receiveData.substring(0,5) =='clMsg'){
-    			client(receiveData.substring(5));
+    			clientMsg(receiveData.substring(4));
     		}
     		else{
-    			
+
+    			joinUser(receiveData.substring(6))
+
     		}
   		};
   		//
-  		var client = function(clMsg){
-  			$("#clientMessage").append(clMsg+"<br/>")
-  		}
-  		var joinUser = function(msg){
-  			$("#joinUser").append(msg+"<br/>");
-  		}
+  		var joinUser = function(msg){///유저접속하면용
+
+        	$("#join").append(msg+"<br/>")
+
+        }
+  		 var clientMsg = function(msg){
+
+         	$('#chatMessage1').append(msg+"<br/>");
+
+         }
   		//메시지를 DIV태그에 뿌려주기 위한 함수]
   		var appendMessage=function(msg1){
   			//메시지출력
@@ -302,7 +305,7 @@ background-repeat: no-repeat;
 .response .text {
   background-color: #e3effd !important;
 }
-#joinUser{
+#join{
   font-family: 'Jua', sans-serif;
   margin-right: 0px !important;
   margin-left:auto; /* flexbox alignment rule */
@@ -388,19 +391,19 @@ background-repeat: no-repeat;
         	
         <div class="messages-chat" >
         			<div style="text-align: center;">
-       				<span id="joinUser" style="text-align: center;"></span>
+       				<span id="join" style="text-align: center;"></span>
        				</div>
           <div class="message">
           		
             <div class="photo" style="background-image:">
               <div class="online"></div>
             </div>
-            <p class="text" id="chatMessage"></p>
+            <p class="text" id="chatMessage1"></p>
            		<!-- <div id="chatMessage"></div> -->
           </div>
           <div class="message text-only">
             <div class="response" style="margin-left: auto;float: right;margin-right: 0px">
-              <p class="text" id="clientMessage">
+              <p class="text" id="chatMessage">
               	<!-- 서버로부터 받은 메세지 -->
               </p>
             </div>
