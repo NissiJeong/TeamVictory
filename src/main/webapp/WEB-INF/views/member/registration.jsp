@@ -450,7 +450,10 @@ function checkMail(){
     	}
     	else{
     		$("#btnRegist").css("background-color", "#FF3952").prop("disabled", false)
+<<<<<<< HEAD
+=======
     		
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
     	}
     }
    
@@ -593,7 +596,7 @@ span{
                   	</div>
                 </div> 
                <div class="frm-group">
-                  	<input type="text" name="User_id" id="User_id" placeholder="User" value="${param.User_id }" title="${param.User_id }" oninput="checkId()">
+                  	<input type="text" name="User_id" id="User_id" placeholder="User Id" value="${param.User_id }" title="${param.User_id }" oninput="checkId()">
                   	<div>
                   	<span id="iError">${idError }</span>
                   	</div>

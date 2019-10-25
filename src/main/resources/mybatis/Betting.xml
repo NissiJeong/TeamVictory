@@ -27,10 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    ELSE 'yet'  END RESULT
    <!--  홈팀 정보 가져올떄 -->
   <if test="home != null">
-   from team t join gameschedule g on t.teamname = g.teamname and t.teamname = #{hometeam} and not g.homescore is null order by g.gamedate
+   from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{hometeam} or g.awayteam=#{hometeam}) and not g.homescore is null order by g.gamedate
 	</if>
 	 <if test="home == null">
-	 from team t join gameschedule g on t.teamname = g.teamname and t.teamname = #{awayteam} and not g.homescore is null order by g.gamedate
+	 from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{awayteam} or g.awayteam=#{awayteam}) and not g.homescore is null order by g.gamedate
 	</if>
 	</select>
 	
