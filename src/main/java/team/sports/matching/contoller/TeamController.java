@@ -42,13 +42,11 @@ public class TeamController {
 	}
 	//로그인 하지 않은 상태에서 게시판 url요청시]
 	@ExceptionHandler(HttpSessionRequiredException.class)
-	public String notAllowed(Model model) {
-		//에러 메세지 저장]
+	public String isNotMember(Model model) {
 		model.addAttribute("NotMember", "로그인 후 이용하세요");
-		//무조건 로그인 페이지
-		return "/login/Login.tiles";
+		//로그인이 안된 경우 로그인 페이지로
+		return "member/login.tiles";
 	}
-		
 	//팀 만들기 
 	@RequestMapping("/Team/matching/teamJoin.do")
 	public String createTeam(@RequestParam Map map,Model model,@ModelAttribute("id") String id) {

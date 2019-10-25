@@ -45,10 +45,7 @@ public class HomeController {
 	public String promotion() {
 		return "member/promotion.tiles";
 	}
-	@RequestMapping("/Team/Matching/statostics.do")
-	public String statistic() {
-		return "member/statistics.tiles";
-	}
+	
 	@RequestMapping("/Team/Matching/result.do")
 	public String results() {
 		return "member/result.tiles";
@@ -68,7 +65,7 @@ public class HomeController {
 	}
 	@RequestMapping("/Team/Matching/Board.do")
 	public String board() {
-		return "member/Board.tiles";
+		return "bbs/Board.tiles";
 	}
 	@RequestMapping("/Team/Matching/FAQ.do")
 	public String faq() {
@@ -97,4 +94,15 @@ public class HomeController {
 	public String contact() {
 		return "member/contact.tiles";
 	}
+	@RequestMapping("/Team/fcm.do")
+	public String fcm1() {
+		return "member/fcn";
+	}
+	/*
+	@RequestMapping("/Team/Matching/Betting.do")
+	public String betting() {
+		return "member/in-play.tiles";
+
+	}
+	*/
 }
