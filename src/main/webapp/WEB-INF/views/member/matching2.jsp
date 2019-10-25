@@ -5,24 +5,44 @@
   	<link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+ 
+
 <script>
+
 $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-   
     
-   
+
+    
     $(".upModal").click(function(){
+    	$('#datepicker').val("");
+		$('#sel2').val("ti");
+		$('#sel3').val("stadium");
     	$.ajax({
     		url:"<c:url value='/Team/Matching/modal.do'/>",
     		type:'post',
     		dataType:'json',
     		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title")},	
     		success:function(data){
-    			console.log(data['teamName']);
+    			console.log(data);
+    			$("#teamName").html(data['teamName']);
+    			$("#teamRating").html(data['teamRating']);
     			$('#awayteam').prop('value',data['teamName']);
+    			$('#date0').html(data['gameDate4']);
+    			$('#date1').html(data['gameDate3']);
+    			$('#date2').html(data['gameDate2']);
+    			$('#date3').html(data['gameDate1']);
+    			$('#date4').html(data['gameDate0']);
+    			$('#result0').html(data['gameResult4']+'</br>'+data['score4']);
+    			$('#result1').html(data['gameResult3']+'</br>'+data['score3']);
+    			$('#result2').html(data['gameResult2']+'</br>'+data['score2']);
+    			$('#result3').html(data['gameResult1']+'</br>'+data['score1']);
+    			$('#result4').html(data['gameResult0']+'</br>'+data['score0']);
+    			
     		}
-    	});
+    	}); 
     });    
     
     
@@ -33,6 +53,9 @@ $( function() {
     		dataType:'text',
     		data:$('#frm').serialize(),	
     		success:function(data){
+    			$('#datepicker').val("");
+    			$('#sel2').val("ti");
+    			$('#sel3').val("stadium");
     			console.log(data);
     			alert(data);
     		}
@@ -40,6 +63,52 @@ $( function() {
     });    
    
  });
+
+ function checkDateTime(time){
+	if(time.length == 2){
+		console.log("222222");
+		var path = "<c:url value='/Team/Matching/CheckDateTime.do'/>";
+	}
+	else{
+		console.log("333333");
+		var path = "<c:url value='/Team/Matching/CheckDateTimeStadium.do'/>";
+	}
+	var gameTime = $('#sel2').val();
+	var gameDate = $('#datepicker').val();
+	var stadium = $('#sel3').val();
+	console.log(gameTime+":"+gameDate+":"+stadium);
+	$.ajax({
+		url:path,
+		type:'post',
+		dataType:'text',
+		data:{'gameTime':gameTime,'gameDate':gameDate,'stadium':stadium},	
+		success:function(data){
+			console.log(data);
+			if(data == "no"){
+				$("#timeError").html("해당 팀은 동일한 날짜와 시간에 매칭이 예약되어 있습니다");
+				$("#match").prop("disabled",true);
+				$("#sel3").prop("disabled",true);
+			}
+			else if(data =="yes"){
+				$("#timeError").html("");
+				
+				$("#sel3").prop("disabled",false);
+			}
+			else if(data=="stadiumNo"){
+				$("#stadiumError").html("해당 경기장은 동일한 날짜와 시간에 매칭이 예약되어 있습니다");
+				$("#match").prop("disabled",true);
+			}
+			else if(data=="stadiumYes"){
+				console.log("왜???")
+				$("#stadiumError").html("");
+				$("#match").prop("disabled",false);
+			}
+			
+		}
+	});
+	//$('#datepicker').val("");
+	//$('#sel2').val("time");
+ }
 </script>
 
    <!-- banner-section start -->  
@@ -473,40 +542,29 @@ $( function() {
               <div class="col-lg-8">
                 <!-- Portfolio Modal - Title -->
                 <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
-                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline">${team.teamName }asdfasd</h3>
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName"></h2>
+                <h5 id="teamRating"></h5>
                 <p>최근 5경기 경기 결과</p>      
                   <table class="table table-striped" style="margin-top: 10px">
 				    <thead>
 				      <tr>
-				        <th>4.18</th>
-				        <th>4.20</th>
-				        <th>4.22</th>
-				        <th>4.25</th>
-				        <th>4.30</th>
+				        <th id="date0"></th>
+				        <th id="date1"></th>
+				        <th id="date2"></th>
+				        <th id="date3"></th>
+				        <th id="date4"></th>
 				      </tr>
 				    </thead>
 				    <tbody>
 				      <tr>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
+				        <td id="result0"></td>
+				        <td id="result1"></td>
+				        <td id="result2"></td>
+				        <td id="result3"></td>
+				        <td id="result4"></td>
 				      </tr>
-				      <tr>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				      </tr>
-				      <tr>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				        <td>두산전 승</td>
-				      </tr>
+				      
+				      
 				    </tbody>
 				  </table>
 				  </div>
@@ -521,12 +579,13 @@ $( function() {
                	<input name="awayteam" id="awayteam" type="hidden" value='sdfg'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel1">Date</label>
-			      <p><input name='date' type="text" id="datepicker" style="width:100%"></p>
+			      <p><input name='date' type="text" id="datepicker" style="width:100%" ></p>
 			      <br>			   
 			    </div>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel2" >Time</label>
-			      <select class="form-control" id="sel2" name="time" >
+			      <select class="form-control" id="sel2" name="time" onchange="checkDateTime(this.value)" >
+			        <option selected="selected" value="ti">시간</option>
 			        <option value="00">00</option>
 			        <option value="01">01</option>
 			        <option value="02">02</option>
@@ -552,19 +611,22 @@ $( function() {
 			        <option value="22">22</option>
 			        <option value="23">23</option>
 			      </select>
+			      <span id="timeError" style="color:red; font-size: 0.8em"></span>
 			      <br>			   
 			    </div>
 			     <div class="form-group" style="margin-bottom:10px ">
 			      <label for="sel3" >Stadium</label>
-			      <select class="form-control" id="sel3" name="stadium" >
+			      <select class="form-control" id="sel3" name="stadium" onchange="checkDateTime(this.value)" disabled="true"  >
+			        <option value="stadium">경기장</option>
 			        <option value="1">1</option>
 			        <option value="2">2</option>
 			        <option value="3">3</option>
 			        <option value="4">4</option>
 			      </select>
+			      <span id="stadiumError" style="color:red; font-size: 0.8em"></span>
 			      <br>			   
 			    </div>
-			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px">                  
+			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px" disabled="true" >                  
                   	매칭 신청
                 </button>
 			  </form>

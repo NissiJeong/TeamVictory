@@ -80,12 +80,15 @@
               <div class="card">
                 <div class="card-header" id="headingFour">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><i class="fa fa-question-circle"></i></button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><i class="fa fa-question-circle"></i>농구 매칭 안내</button>
                   </h2>
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="card-body">
-                      <p></p>
+                      <p><h5>매칭 안내</h5></br>
+                      로그인 하시고 매칭을 눌러주세요</br>
+                      
+                      </p>
                   </div>
                 </div>
               </div><!-- card end -->
@@ -152,12 +155,15 @@ E-mail : cshappy@gameone.kr</p>
               <div class="card">
                 <div class="card-header" id="headingEight">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight"><i class="fa fa-question-circle"></i>Brunch 3 wolf moon tempor, sunt aliqua.</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight"><i class="fa fa-question-circle"></i>등업 관련</button>
                   </h2>
                 </div>
                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample2">
                   <div class="card-body">
-                      <p>Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p> 
+                      <p><h5>등업 관련 내용 </h5></br>
+                      ..................</br>
+                      ..................</br>
+                      </p> 
                   </div>
                 </div>
               </div><!-- card end -->
@@ -181,7 +187,7 @@ E-mail : cshappy@gameone.kr</p>
             </div>
             <div class="content">
               <h5 class="title">Address</h5>
-              <p>2 Country Club Street<br> Vienna, VA 22180</p>
+              <p>서울시 금천구 가산동 426-5 <br>  월드메르디앙 2차 410호</p>
             </div>
           </div>
         </div><!-- contact-item end -->
@@ -192,8 +198,8 @@ E-mail : cshappy@gameone.kr</p>
             </div>
             <div class="content">
               <h5 class="title">Phone Number</h5>
-              <p>+1-202-555-0108</p>
-              <p>+1-202-555-0109</p>
+              <p>TEL : 02-2025-8523</p>
+              <p> FAX : 02-2025-4113</p>
             </div>
           </div>
         </div><!-- contact-item end -->
@@ -204,7 +210,7 @@ E-mail : cshappy@gameone.kr</p>
             </div>
             <div class="content">
               <h5 class="title">Email Address</h5>
-              <p>random1@example.com</p>
+              <p>intotheakira@naver.com</p>
               <p>random2@example.com</p>
             </div>
           </div>
@@ -212,37 +218,33 @@ E-mail : cshappy@gameone.kr</p>
       </div>
       <div class="row">
         <div class="col-lg-8">
-          <div class="contact-form-area">
+          <div class="contact-form-area" style="background-color:#336666">
             <form class="cmn-form contact-form">
               <div class="row">
                 <div class="col-md-6">
                   <div class="frm-group">
-                    <input type="text" name="c_fname" id="c_fname" placeholder="First Name*">
+                    <input type="text" name="c_fname" id="c_fname" placeholder="이름*">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="frm-group">
-                    <input type="text" name="c_lname" id="c_lname" placeholder="Last Name*">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="frm-group">
-                    <input type="tel" name="c_phone" id="c_phone" placeholder="Phone Number*">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="frm-group">
-                    <input type="email" name="c_email" id="c_email" placeholder="Email Address*">
+                    <input type="text" name="c_lname" id="c_lname" placeholder="연락처 및 메일*">
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="frm-group">
-                    <textarea name="c_message" id="c_message" placeholder="Write Message"></textarea>
+                    <input type="tel" name="c_phone" id="c_phone" placeholder="제목*">
+                  </div>
+                </div>
+               
+                <div class="col-md-12">
+                  <div class="frm-group">
+                    <textarea name="c_message" id="c_message" style="height: 300px" placeholder="내용"></textarea>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="frm-group text-center">
-                    <button type="submit" class="submit-btn">Comment</button>
+                    <button type="submit" class="submit-btn">보내기</button>
                   </div>
                 </div>
               </div>

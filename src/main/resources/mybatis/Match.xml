@@ -16,4 +16,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
 		SELECT * FROM team WHERE teamname = '${teamName}'
 	</select>
+	<!-- 해당 팀의 최근 5경기 뽑아오는 쿼리문 -->
+	<select id="selectGamefive" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule order by gamedate desc) where teamname = #{teamName2} and  
+		<![CDATA[
+		rownum <= 5 and gamestatus = 'finish'
+		]]> 
+	</select>
+	<!-- 해당 팀의 같은 날짜 같은 시간에 경기가 잡혀있는지 확인하는 쿼리문 -->
+	<select id="checkDateTime" parameterType="java.util.Map" resultType="int">
+		select count(*) from matching where teamname = (select teamname from team where manager_id = '${id}') and reqdate = '${gameDate}' and time='${gameTime}' 
+	</select>
+	<!-- 해당 경기장의 같은 날짜 같은 시간에 매칭이 잡혀있는지 확인하는 쿼리문 -->
+	<select id="checkDateTimeStadium" parameterType="java.util.Map" resultType="int">
+		select count(*) from matching where stadium = #{stadium} and reqdate=#{gameDate} and time=#{gameTime}
+	</select>
 </mapper>

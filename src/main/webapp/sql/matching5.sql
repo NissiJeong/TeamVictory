@@ -1,6 +1,6 @@
 
 /* Drop Triggers */
-
+/*
 DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
@@ -31,7 +31,7 @@ DROP SEQUENCE SEQ_Betting_bettingIndex;
 DROP SEQUENCE SEQ_gameRecord_teamGameNo;
 DROP SEQUENCE SEQ_Gameschedule_gameNo;
 DROP SEQUENCE SEQ_matching_matchingNo;
-
+*/
 
 
 

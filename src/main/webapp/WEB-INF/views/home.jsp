@@ -3,12 +3,13 @@
 
 <h1>
 <<<<<<< HEAD
-    why?
+    dddd
+    why??
 	Hello world!   nissi  
 	plz  plz 
 	git fu..c.......
 	   aaaa. a
-	git Fuck Fuck dd
+	git Fuck Fuck dde
 	
 	asfdsadfsdaffaaaa11 
 as

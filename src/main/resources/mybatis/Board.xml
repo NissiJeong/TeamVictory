@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mybatis.Board">
+  <select id="boardIsLogin" parameterType="java.util.Map" resultType="int">
+  	SELECT COUNT(*) FROM member WHERE id=#{id} AND pwd=#{pwd}
+  </select>
+  <select id="boardSelectList" parameterType="java.util.Map" resultType="BoardDTO">
+  	select * from (select t.*,rownum r from (select * from board order by no desc) t) where r between #{start} and #{end}
+  	<!-- SELECT * FROM (SELECT T.*,ROWNUM R FROM(SELECT o.*,name,(SELECT COUNT(*) FROM board WHERE no=o.no ) commentCount FROM board o JOIN member m ON o.id=m.id
+  	<if test="searchColumn != null">
+  		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+  	</if>
+  	ORDER BY no DESC) T)
+  	WHERE R BETWEEN #{start} AND #{end} -->
+  	<!-- SELECT * FROM board -->
+  </select>
+  <select id="boardTotal" parameterType="java.util.Map" resultType="int">
+  	SELECT COUNT(*) FROM board
+  	<if test="searchColumn != null">
+  		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+  	</if>
+  </select>
+  
+  
+  <insert id="boardInsert" parameterType="java.util.Map">
+  	INSERT INTO board(no,title,content,id)
+  	VALUES(SEQ_BOARD.NEXTVAL,#{title},#{content},#{id})
+  </insert>
+  <select id="boardSelectOne" parameterType="java.util.Map" resultType="BoardDTO">
+  	SELECT o.*,name FROM board o JOIN member m ON o.id=m.id
+  	WHERE no = #{no}
+  </select>
+  <select id="boardUpdate" parameterType="java.util.Map">
+  	UPDATE board SET title=#{title},content=#{content} WHERE no=#{no}
+  
+  </select>
+  <delete id="boardDelete" parameterType="java.util.Map">
+  	DELETE board WHERE no=#{no}
+  </delete>
+</mapper>
