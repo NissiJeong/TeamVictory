@@ -41,7 +41,6 @@ public class WebsocketController {
 	public String basketball(@ModelAttribute("id") String id, Model model, HttpServletRequest req) throws Exception {
 	
 		//mv.setViewName("chat/chattingview");
-		
 		//시큐리티 적용해도 세션의 값을 User로 불러올 수 있음.
 		//User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//System.out.println("user name : "+user.getUsername());

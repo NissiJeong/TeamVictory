@@ -33,7 +33,6 @@
   				wsocket = new WebSocket("ws://192.168.0.63:8080<c:url value='/chat-ws.do'/>");
   				wsocket.onopen = open;
   				wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
-  				
   				wsocket.addEventListener('message',message);
   			}
   			else{

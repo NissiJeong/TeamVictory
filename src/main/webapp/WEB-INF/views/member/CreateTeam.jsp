@@ -80,7 +80,7 @@ $(function(){
                 <div class="col-md-6">
                   <div class="frm-group">
                   <label for="sel3" >팀장 ID</label>
-                    <input type="text" name="manager_id" id="manager_id" placeholder="Manager_ID*">
+                    <input type="text" name="manager_id" id="manager_id" placeholder="${id }" disabled value="${id }">
                   </div>
                 </div>
                 <div class="col-md-6" >
