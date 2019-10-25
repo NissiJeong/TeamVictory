@@ -5,7 +5,17 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-​
+​<style>
+
+.play-table tbody tr td {
+	padding : 10px 0;
+	font-size : 14px;
+
+}
+
+
+
+</style>
 
 
 
