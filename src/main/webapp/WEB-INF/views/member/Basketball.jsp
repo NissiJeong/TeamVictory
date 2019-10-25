@@ -30,7 +30,7 @@
   				// 웹 소켓 객체로 서버에 연결하기
   				console.log(user)
   				if(user != null){
-  				wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
+  				wsocket = new WebSocket("ws://192.168.0.63:8080<c:url value='/chat-ws.do'/>");
   				wsocket.onopen = open;
   				wsocket.onclose=function(){joinUser("연결이 끊어졌어요.")};
   				
