@@ -67,7 +67,7 @@ public class TeamController {
 	
 	//팀페이지로 이동
 	@RequestMapping("/Team/Matching/Team.do")
-	public String team(@ModelAttribute("id") String id,Model model, Model model2, @RequestParam Map map, @RequestParam Map map2) {
+	public String team(@ModelAttribute("id") String id,Model model, Model model2, Model model3, Model model4, Model model5, Model model6, @RequestParam Map map, @RequestParam Map map2, @RequestParam Map map3, @RequestParam Map map4, @RequestParam Map map5, @RequestParam Map map6) {
 		List<Map> list = new Vector<Map>();
 		list = dao.selectTeamName(id);
 		List<String> teams = new Vector<String>();
@@ -79,21 +79,31 @@ public class TeamController {
 		//선수목록 보내기
 		map2.put("id", id);
 		List<TeamBoardDTO> list2 = teamDao.selectList(map2);
-		model2.addAttribute("list",list2);
+		model2.addAttribute("list2",list2);
+		
+		//최다득점 목록
+		map3.put("id", id);
+		List<TeamBoardDTO> list3 = teamDao.bestrbiPlayer(map3);
+		model3.addAttribute("list3",list3);
+		
+		//최다삼진 목록
+		map4.put("id", id);
+		List<TeamBoardDTO> list4 = teamDao.bestsoPlayer(map4);
+		model4.addAttribute("list4",list4);
+		
+		//최다삼진 목록
+		map5.put("id", id);
+		List<TeamBoardDTO> list5 = teamDao.besthrPlayer(map5);
+		model5.addAttribute("list5",list5);
+		
+		//최다도루 목록
+		map6.put("id", id);
+		List<TeamBoardDTO> list6 = teamDao.bestsbPlayer(map6);
+		model6.addAttribute("list6",list6);
 		
 		return "member/team.tiles";
 	}
-	
-	
-	@RequestMapping("/Team/Matching/Teampitcher.do")
-	public String playerlist(@RequestParam Map map,Model model,@ModelAttribute("id") String id) {
-		System.out.println("safasf");
-		map.put("id", id);
-		List<TeamBoardDTO> list = teamDao.pitcherList(map);
 		
-		model.addAttribute("list",list);
-		return "member/team.tiles";
-	}
 	
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/teamSelect.do",produces = "text/html; charset=UTF-8")
