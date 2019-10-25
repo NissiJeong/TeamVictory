@@ -10,15 +10,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="matchInsert" parameterType="java.util.Map" >
 		INSERT INTO matching VALUES(SEQ_MATCHING.NEXTVAL,(select teamname from team where manager_id=#{id}),#{awayteam},#{stadium},#{date},#{time},default)
 	</insert>
+	<!-- 팀에 속했는지 확인 하기 위한 쿼리문 -->
+	<select id="selectTeam2" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM teammember WHERE id=#{id}
+	</select>
 	<select id="teamSelectList" parameterType="java.util.Map" resultType="TeamDTO">
-		SELECT * from team where not manager_id=#{id} 
+		<if test="team == 0">
+			SELECT * FROM team
+		</if>
+		<if test="team != 0">
+			SELECT t.* from team t join teammember m on t.teamname = m.teamname where not m.teamname = (select teamname from teammember where id=#{id})
+		</if> 
 	</select>
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
 		SELECT * FROM team WHERE teamname = '${teamName}'
 	</select>
 	<!-- 해당 팀의 최근 5경기 뽑아오는 쿼리문 -->
 	<select id="selectGamefive" parameterType="java.util.Map" resultType="Map">
-		select * from (select * from gameschedule order by gamedate desc) where teamname = #{teamName2} and  
+		select * from (select * from gameschedule order by gamedate desc) where (teamname = #{teamName2} or awayteam=#{teamName2}) and
 		<![CDATA[
 		rownum <= 5 and gamestatus = 'finish'
 		]]> 
@@ -30,5 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 해당 경기장의 같은 날짜 같은 시간에 매칭이 잡혀있는지 확인하는 쿼리문 -->
 	<select id="checkDateTimeStadium" parameterType="java.util.Map" resultType="int">
 		select count(*) from matching where stadium = #{stadium} and reqdate=#{gameDate} and time=#{gameTime}
+	</select>
+	<select id="checkManager" parameterType="java.util.Map" resultType="int">
+		select count(*) from team where manager_id =#{id}
 	</select>
 </mapper>

@@ -28,14 +28,17 @@ public class AuthController {
 	//로그인 처리
 	@RequestMapping("/Team/Matching/IsMember.do")
 	public String isMember(@RequestParam Map map,Model model) {
+		String path;
 		boolean isLogin = dao.isLogin(map);
 		if(isLogin) {
 			model.addAllAttributes(map);
+			path = "member/index.tiles";
 		}
 		else {
 			model.addAttribute("NotMember", "아이디와 비밀번호가 일치하지 않습니다");
+			path="member/login.tiles";
 		}
-		return "member/index.tiles";
+		return path;
 	}/////isMember
 	//로그아웃 처리
 	@RequestMapping("/Team/Matching/Logout.do")

@@ -13,7 +13,6 @@
 	<zoom>1.0</zoom>
 	<x>0</x>
 	<y>-24</y>
-	<y>247</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -42,7 +41,7 @@
 		<suspend_validator>false</suspend_validator>
 		<export_setting>
 			<export_ddl_setting>
-				<output_path>src\main\webapp\sql\matching1.sql</output_path>
+				<output_path>src\main\webapp\sql\matching8.sql</output_path>
 				<encoding>UTF-8</encoding>
 				<line_feed>CR+LF</line_feed>
 				<is_open_after_saved>true</is_open_after_saved>
@@ -136,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-10-04 19:12:14</creation_date>
-			<updated_date>2019-10-24 23:00:10</updated_date>
+			<updated_date>2019-10-25 00:46:14</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -2108,7 +2107,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>64</word_id>
+					<word_id>65</word_id>
 					<id>19</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2379,28 +2378,6 @@
 			<connections>
 				<relation>
 					<id>1</id>
-					<source>0</source>
-					<target>2</target>
-						<source_xp>-1</source_xp>
-						<source_yp>-1</source_yp>
-						<target_xp>-1</target_xp>
-						<target_yp>-1</target_yp>
-						<color>
-							<r>0</r>
-							<g>0</g>
-							<b>0</b>
-						</color>
-					<child_cardinality>1..n</child_cardinality>
-					<parent_cardinality>1</parent_cardinality>
-					<reference_for_pk>true</reference_for_pk>
-					<name></name>
-					<on_delete_action>RESTRICT</on_delete_action>
-					<on_update_action>RESTRICT</on_update_action>
-					<referenced_column>null</referenced_column>
-					<referenced_complex_unique_key>null</referenced_complex_unique_key>
-				</relation>
-				<relation>
-					<id>2</id>
 					<source>1</source>
 					<target>2</target>
 						<source_xp>-1</source_xp>
@@ -2420,6 +2397,28 @@
 					<on_update_action>RESTRICT</on_update_action>
 					<referenced_column>null</referenced_column>
 					<referenced_complex_unique_key>0</referenced_complex_unique_key>
+				</relation>
+				<relation>
+					<id>2</id>
+					<source>0</source>
+					<target>2</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>1..n</child_cardinality>
+					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
 			</connections>
 			<physical_name>betting</physical_name>
@@ -2465,7 +2464,7 @@
 				<normal_column>
 					<id>27</id>
 					<referenced_column>18</referenced_column>
-					<relation>2</relation>
+					<relation>1</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2499,7 +2498,7 @@
 				<normal_column>
 					<id>28</id>
 					<referenced_column>19</referenced_column>
-					<relation>2</relation>
+					<relation>1</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2533,7 +2532,7 @@
 				<normal_column>
 					<id>29</id>
 					<referenced_column>20</referenced_column>
-					<relation>2</relation>
+					<relation>1</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2567,7 +2566,7 @@
 				<normal_column>
 					<id>30</id>
 					<referenced_column>0</referenced_column>
-					<relation>1</relation>
+					<relation>2</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3435,7 +3434,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>10</word_id>
+					<word_id>9</word_id>
 					<id>53</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3501,7 +3500,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>62</word_id>
+					<word_id>63</word_id>
 					<id>55</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3989,7 +3988,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>65</word_id>
+					<word_id>64</word_id>
 					<id>65</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4695,7 +4694,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>9</word_id>
+					<word_id>10</word_id>
 					<id>84</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4761,7 +4760,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>63</word_id>
+					<word_id>62</word_id>
 					<id>86</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5154,6 +5153,21 @@
 			<decimal_size>0</decimal_size>
 		</sequence>
 		<sequence>
+			<name>SEQ_board_no</name>
+			<schema></schema>
+			<increment>1</increment>
+			<min_value></min_value>
+			<max_value></max_value>
+			<start>1</start>
+			<cache></cache>
+			<nocache>false</nocache>
+			<cycle>false</cycle>
+			<order>false</order>
+			<description></description>
+			<data_type></data_type>
+			<decimal_size>0</decimal_size>
+		</sequence>
+		<sequence>
 			<name>SEQ_gameRecord_teamGameNo</name>
 			<schema></schema>
 			<increment>1</increment>
@@ -5198,21 +5212,6 @@
 			<data_type></data_type>
 			<decimal_size>0</decimal_size>
 		</sequence>
-		<sequence>
-			<name>SEQ_board_no</name>
-			<schema></schema>
-			<increment>1</increment>
-			<min_value></min_value>
-			<max_value></max_value>
-			<start>1</start>
-			<cache></cache>
-			<nocache>false</nocache>
-			<cycle>false</cycle>
-			<order>false</order>
-			<description></description>
-			<data_type></data_type>
-			<decimal_size>0</decimal_size>
-		</sequence>
 	</sequence_set>
 	<trigger_set>
 		<trigger>
@@ -5234,6 +5233,12 @@
 			<description></description>
 		</trigger>
 		<trigger>
+			<name>TRI_board_no</name>
+			<schema></schema>
+			<sql>BEFORE INSERT ON board&#x0D;&#x0A;FOR EACH ROW&#x0D;&#x0A;BEGIN&#x0D;&#x0A;&#x09;SELECT SEQ_board_no.nextval&#x0D;&#x0A;&#x09;INTO :new.no&#x0D;&#x0A;&#x09;FROM dual;&#x0D;&#x0A;END</sql>
+			<description></description>
+		</trigger>
+		<trigger>
 			<name>TRI_gameRecord_teamGameNo</name>
 			<schema></schema>
 			<sql>BEFORE INSERT ON gameRecord&#x0D;&#x0A;FOR EACH ROW&#x0D;&#x0A;BEGIN&#x0D;&#x0A;&#x09;SELECT SEQ_gameRecord_teamGameNo.nextval&#x0D;&#x0A;&#x09;INTO :new.teamGameNo&#x0D;&#x0A;&#x09;FROM dual;&#x0D;&#x0A;END</sql>
@@ -5249,12 +5254,6 @@
 			<name>TRI_matching_matchingNo</name>
 			<schema></schema>
 			<sql>BEFORE INSERT ON matching&#x0D;&#x0A;FOR EACH ROW&#x0D;&#x0A;BEGIN&#x0D;&#x0A;&#x09;SELECT SEQ_matching_matchingNo.nextval&#x0D;&#x0A;&#x09;INTO :new.matchingNo&#x0D;&#x0A;&#x09;FROM dual;&#x0D;&#x0A;END</sql>
-			<description></description>
-		</trigger>
-		<trigger>
-			<name>TRI_board_no</name>
-			<schema></schema>
-			<sql>BEFORE INSERT ON board&#x0D;&#x0A;FOR EACH ROW&#x0D;&#x0A;BEGIN&#x0D;&#x0A;&#x09;SELECT SEQ_board_no.nextval&#x0D;&#x0A;&#x09;INTO :new.no&#x0D;&#x0A;&#x09;FROM dual;&#x0D;&#x0A;END</sql>
 			<description></description>
 		</trigger>
 	</trigger_set>
