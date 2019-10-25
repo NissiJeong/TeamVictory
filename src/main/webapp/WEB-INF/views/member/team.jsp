@@ -475,7 +475,7 @@ function selectTeam(team) {
 									<label for="position6">외야수</label> -->
 								</div>
 
-								<div class="row mt-mb-15" id="player-border-top">
+								<div class="row mt-mb-15" id="player-border-top"> 
 								<c:forEach var="item" items="${list2}" varStatus="loop">
 									<div class="col-lg-3">
 										<div class="post-item">
