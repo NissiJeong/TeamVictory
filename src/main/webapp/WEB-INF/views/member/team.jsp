@@ -299,16 +299,20 @@ function selectTeam(team) {
 						<h4 class="widget-title">TOP3 플레이어</h4>
 
 						<input id="top3-player-score-tab" type="radio" name="tabs" checked>
-						<label for="top3-player-score-tab">최다득점</label> <input
-							id="top3-player-out-tab" type="radio" name="tabs"> <label
-							for="top3-player-out-tab">최다삼진</label> <input
-							id="top3-player-hit-tab" type="radio" name="tabs"> <label
-							for="top3-player-hit-tab">최다안타</label> <input
-							id="top3-player-run-tab" type="radio" name="tabs"> <label
-							for="top3-player-run-tab">최다도루</label>
+						<label for="top3-player-score-tab">최다득점</label> 
+						
+						<input id="top3-player-out-tab" type="radio" name="tabs"> 
+						<label for="top3-player-out-tab">최다삼진</label> 
+						
+						<input id="top3-player-hit-tab" type="radio" name="tabs"> 
+						<label for="top3-player-hit-tab">최다홈런</label> 
+						
+						<input id="top3-player-run-tab" type="radio" name="tabs"> 
+						<label for="top3-player-run-tab">최다도루</label>
 
 						<!-- score start -->
 						<section class="top3-player-score" id="top3-player-score">
+						<c:forEach var="item" items="${list3}" varStatus="loop">
 							<div class="small-post-item">
 								<div class="small-post-thumb">
 									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
@@ -316,193 +320,77 @@ function selectTeam(team) {
 								</div>
 								<div class="small-post-content">
 									<h6>
-										<a href="#0">이름</a>
+										<a href="#0">${item.name }</a>
 									</h6>
 									<ul class="post-meta">
-										<li>득점</li>
+										<li style="font-weight: bold;">${item.rbi}점</li>
 									</ul>
 								</div>
 							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s2.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>득점</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s3.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>득점</li>
-									</ul>
-								</div>
-							</div>
-
+						</c:forEach>
 						</section>
 						<!-- score end -->
 
 						<!-- out start -->
 						<section class="top3-player-out" id="top3-player-out">
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-										alt="image" />
+							<c:forEach var="item" items="${list4}" varStatus="loop">
+								<div class="small-post-item">
+									<div class="small-post-thumb">
+										<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
+											alt="image" />
+									</div>
+									<div class="small-post-content">
+										<h6>
+											<a href="#0">${item.name }</a>
+										</h6>
+										<ul class="post-meta">
+											<li style="font-weight: bold;">${item.so}개</li>
+										</ul>
+									</div>
 								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>삼진</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>삼진</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>삼진</li>
-									</ul>
-								</div>
-							</div>
-
+							</c:forEach>
 						</section>
 						<!-- out end -->
 
 						<!-- hit start -->
 						<section class="top3-player-hit" id="top3-player-hit">
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-										alt="image" />
+							<c:forEach var="item" items="${list5}" varStatus="loop">
+								<div class="small-post-item">
+									<div class="small-post-thumb">
+										<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
+											alt="image" />
+									</div>
+									<div class="small-post-content">
+										<h6>
+											<a href="#0">${item.name }</a>
+										</h6>
+										<ul class="post-meta">
+											<li style="font-weight: bold;">${item.hr}개</li>
+										</ul>
+									</div>
 								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>안타</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s2.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>안타</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s3.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>안타</li>
-									</ul>
-								</div>
-							</div>
+							</c:forEach>
 						</section>
 						<!-- hit end -->
 
 						<!-- run start -->
 						<section class="top3-player-run" id="top3-player-run">
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-										alt="image" />
+							<c:forEach var="item" items="${list6}" varStatus="loop">
+								<div class="small-post-item">
+									<div class="small-post-thumb">
+										<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
+											alt="image" />
+									</div>
+									<div class="small-post-content">
+										<h6>
+											<a href="#0">${item.name }</a>
+										</h6>
+										<ul class="post-meta">
+											<li style="font-weight: bold;">${item.sb}개</li>
+										</ul>
+									</div>
 								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>도루</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s2.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>도루</li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s3.jpg'/>"
-										alt="image" />
-								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">이름</a>
-									</h6>
-									<ul class="post-meta">
-										<li>도루</li>
-									</ul>
-								</div>
-							</div>
+							</c:forEach>
 						</section>
 						<!-- run end -->
 					</div>
@@ -587,10 +475,10 @@ function selectTeam(team) {
 									<label for="position6">외야수</label> -->
 								</div>
 
-								<div class="row mt-mb-15" id="player-border-top">
-								<c:forEach var="item" items="${list}" varStatus="loop">
+								<div class="row mt-mb-15" id="player-border-top"> 
+								<c:forEach var="item" items="${list2}" varStatus="loop">
 									<div class="col-lg-3">
-										<div class="post-item">
+										<div class="post-item"> 
 											<div class="thumb">
 												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
 											</div>
@@ -711,7 +599,7 @@ function selectTeam(team) {
 									</div>
 									<!--  전체선택 끝  -->
 								</div>
-								<div class="row">
+								<!-- <div class="row">
 									<div class="col-lg-12">
 										<nav class="d-pagination" aria-label="Page navigation example">
 											<ul class="pagination justify-content-center">
@@ -727,7 +615,7 @@ function selectTeam(team) {
 											</ul>
 										</nav>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</section>
 					</div>
@@ -951,7 +839,7 @@ function selectTeam(team) {
 										</div>
 									</section>
 								</div>
-								<div class="row">
+								<!-- <div class="row">
 									<div class="col-lg-12">
 										<nav class="d-pagination" aria-label="Page navigation example">
 											<ul class="pagination justify-content-center">
@@ -967,7 +855,7 @@ function selectTeam(team) {
 											</ul>
 										</nav>
 									</div>
-								</div>
+								</div> -->
 							</div>
 						</section>
 					</div>

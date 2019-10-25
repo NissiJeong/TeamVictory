@@ -5,6 +5,10 @@ public class TeamBoardDTO {
 	String name;
 	String base_mainhand;
 	String teamName;
+	String so;
+	String rbi;
+	String sb;
+	String hr;
 	
 	//게터
 	public String getName() {
@@ -16,4 +20,18 @@ public class TeamBoardDTO {
 	public String getTeamName() {
 		return teamName;
 	}
+	public String getSo() {
+		return so;
+	}
+	public String getRbi() {
+		return rbi;
+	}
+	public String getSb() {
+		return sb;
+	}
+	public String getHr() {
+		return hr;
+	}
+	
+	
 }

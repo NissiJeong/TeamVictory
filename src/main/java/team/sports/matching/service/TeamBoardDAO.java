@@ -14,12 +14,28 @@ public class TeamBoardDAO {
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
+	//선수목록(아직개편중)
 	public List<TeamBoardDTO> selectList(Map map) {
 		return template.selectList("TeamBoardList", map);
 	}
 	
-	public List<TeamBoardDTO> pitcherList(Map map) { 
-		return template.selectList("PitcherList", map); 
+	//최다득점 TOP3
+	public List<TeamBoardDTO> bestrbiPlayer(Map map) { 
+		return template.selectList("BestrbiPlayer", map); 
 	}
 	
+	//최다삼진 TOP3
+	public List<TeamBoardDTO> bestsoPlayer(Map map) { 
+		return template.selectList("BestsoPlayer", map); 
+	}
+	
+	//최다홈런 TOP3
+	public List<TeamBoardDTO> besthrPlayer(Map map) { 
+		return template.selectList("BesthrPlayer", map); 
+	}
+
+	//최다도루 TOP3
+	public List<TeamBoardDTO> bestsbPlayer(Map map) { 
+		return template.selectList("BestsbPlayer", map); 
+	}
 }
