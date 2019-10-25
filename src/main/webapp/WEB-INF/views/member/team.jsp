@@ -299,13 +299,16 @@ function selectTeam(team) {
 						<h4 class="widget-title">TOP3 플레이어</h4>
 
 						<input id="top3-player-score-tab" type="radio" name="tabs" checked>
-						<label for="top3-player-score-tab">최다득점</label> <input
-							id="top3-player-out-tab" type="radio" name="tabs"> <label
-							for="top3-player-out-tab">최다삼진</label> <input
-							id="top3-player-hit-tab" type="radio" name="tabs"> <label
-							for="top3-player-hit-tab">최다안타</label> <input
-							id="top3-player-run-tab" type="radio" name="tabs"> <label
-							for="top3-player-run-tab">최다도루</label>
+						<label for="top3-player-score-tab">최다득점</label> 
+						
+						<input id="top3-player-out-tab" type="radio" name="tabs"> 
+						<label for="top3-player-out-tab">최다삼진</label> 
+						
+						<input id="top3-player-hit-tab" type="radio" name="tabs"> 
+						<label for="top3-player-hit-tab">최다안타</label> 
+						
+						<input id="top3-player-run-tab" type="radio" name="tabs"> 
+						<label for="top3-player-run-tab">최다도루</label>
 
 						<!-- score start -->
 						<section class="top3-player-score" id="top3-player-score">
