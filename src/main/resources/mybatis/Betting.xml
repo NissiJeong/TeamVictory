@@ -9,7 +9,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mybatis.Betting">
 	
 	<select id="bettingList" parameterType="java.util.Map" resultType="BettingDTO">
-		select teamname as  hometeam , g.* from gameschedule g join baseteam b  on g.baseteamno=b.baseteamno
+		  select gameschedule.* from gameschedule  join team  on gameschedule.teamname = team.teamname
+	</select>
+	
+	<select id="selectListTeamInfo" parameterType="java.util.Map" resultType="java.util.Map">
+	 select g.gamedate , g.time , t.teamname as hometeam , g.awayteam  , g.homescore , g.awayscore ,
+  
+    CASE 
+<![CDATA[   
+   WHEN g.homescore > g.awayscore 
+   THEN 'win'
+   WHEN  g.homescore < g.awayscore  
+   THEN 'lose'
+   WHEN  g.homescore = g.awayscore 
+   THEN 'draw'
+     ]]>
+   ELSE 'yet'  END RESULT
+   <!--  홈팀 정보 가져올떄 -->
+  <if test="home != null">
+   from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{hometeam} or g.awayteam=#{hometeam}) and not g.homescore is null order by g.gamedate
+	</if>
+	 <if test="home == null">
+	 from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{awayteam} or g.awayteam=#{awayteam}) and not g.homescore is null order by g.gamedate
+	</if>
 	</select>
 	
 </mapper>

@@ -5,20 +5,12 @@ public class BettingDTO {
 	private java.sql.Date gameDate;
 	private String stadium;
 	private String time;
-	private String baseTeamNo;
+	private String teamname;
 	private String awayTeam;
 	private String gameStatus;
 	private String homeScore;
 	private String awayScore;
 	
-	private String homeTeam;
-	
-	public String getHomeTeam() {
-		return homeTeam;
-	}
-	public void setHomeTeam(String homeTeam) {
-		this.homeTeam = homeTeam;
-	}
 	public java.sql.Date getGameDate() {
 		return gameDate;
 	}
@@ -37,11 +29,11 @@ public class BettingDTO {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public String getBaseTeamNo() {
-		return baseTeamNo;
+	public String getTeamname() {
+		return teamname;
 	}
-	public void setBaseTeamNo(String baseTeamNo) {
-		this.baseTeamNo = baseTeamNo;
+	public void setTeamname(String teamname) {
+		this.teamname = teamname;
 	}
 	public String getAwayTeam() {
 		return awayTeam;
@@ -67,6 +59,9 @@ public class BettingDTO {
 	public void setAwayScore(String awayScore) {
 		this.awayScore = awayScore;
 	}
+	
+	
+	
 	
 	
 

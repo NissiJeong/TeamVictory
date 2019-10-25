@@ -1,22 +1,25 @@
 
 /* Drop Triggers */
-
+/*
 DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_betting_no;
+DROP TRIGGER TRI_board_no;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
-
+*/
 
 
 /* Drop Tables */
 
 DROP TABLE betting CASCADE CONSTRAINTS;
+DROP TABLE board CASCADE CONSTRAINTS;
 DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
 DROP TABLE matching CASCADE CONSTRAINTS;
+DROP TABLE TeamMember CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
 DROP TABLE Team CASCADE CONSTRAINTS;
 
@@ -24,24 +27,27 @@ DROP TABLE Team CASCADE CONSTRAINTS;
 
 /* Drop Sequences */
 
-DROP SEQUENCE SEQ_baseteam_baseteamno;
-DROP SEQUENCE SEQ_Betting_bettingIndex;
-DROP SEQUENCE SEQ_gameRecord_teamGameNo;
-DROP SEQUENCE SEQ_Gameschedule_gameNo;
-DROP SEQUENCE SEQ_matching_matchingNo;
+DROP SEQUENCE SEQ_baseteam;
+DROP SEQUENCE SEQ_Betting;
+DROP SEQUENCE SEQ_betting;
+DROP SEQUENCE SEQ_board;
+DROP SEQUENCE SEQ_gameRecord;
+DROP SEQUENCE SEQ_Gameschedule;
+DROP SEQUENCE SEQ_matching;
 
 
 
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_
+CREATE SEQUENCE SEQ_baseteam INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_Betting INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_betting INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_board INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_gameRecord INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_Gameschedule INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_matching INCREMENT BY 1 START WITH 1 nocache nocycle;
+
 
 
 /* Create Tables */
@@ -55,6 +61,17 @@ CREATE TABLE betting
 	ID nvarchar2(15) NOT NULL,
 	selectTeam nvarchar2(20) NOT NULL,
 	mileage number NOT NULL,
+	PRIMARY KEY (no)
+);
+
+
+CREATE TABLE board
+(
+	no number NOT NULL,
+	title nvarchar2(50) NOT NULL,
+	content nvarchar2(2000) NOT NULL,
+	postDate date DEFAULT SYSDATE,
+	ID nvarchar2(15) NOT NULL,
 	PRIMARY KEY (no)
 );
 
@@ -95,18 +112,19 @@ CREATE TABLE hitter
 	e number,
 	pos number,
 	horder number,
-	CONSTRAINT pk_hitter primary key (gameDate, time, ID)
+	CONSTRAINT pk primary key (gameDate, time, ID)
 );
 
 
 CREATE TABLE matching
 (
 	matchingNo number NOT NULL,
+	teamName nvarchar2(20) NOT NULL,
 	enemyTeam varchar2(20) NOT NULL,
 	stadium nvarchar2(20) NOT NULL,
 	reqDate date NOT NULL,
+	time number NOT NULL,
 	matchStatus nvarchar2(20) DEFAULT 'wating' NOT NULL,
-	teamName nvarchar2(20) NOT NULL,
 	PRIMARY KEY (matchingNo)
 );
 
@@ -115,7 +133,7 @@ CREATE TABLE member
 (
 	ID nvarchar2(15) NOT NULL,
 	name nvarchar2(20) NOT NULL,
-	gender nvarchar2(5) NOT NULL,
+	gender nvarchar2(3) NOT NULL,
 	birth nvarchar2(10),
 	PWD varchar2(20) NOT NULL,
 	phone varchar2(11) NOT NULL,
@@ -132,7 +150,6 @@ CREATE TABLE member
 	base_mainhand nvarchar2(10),
 	-- 선택하면 1
 	basket_ltmatch number DEFAULT 0,
-	teamName nvarchar2(20) NOT NULL,
 	PRIMARY KEY (ID)
 );
 
@@ -169,8 +186,18 @@ CREATE TABLE Team
 	category nvarchar2(20) NOT NULL,
 	teamloc nvarchar2(50) NOT NULL,
 	teamRating number(10,4) NOT NULL,
-	manager_id nvarchar2(20) NOT NULL,
+	manager_id nvarchar2(20) NOT NULL UNIQUE,
+	teamInfo nvarchar2(2000) NOT NULL,
+	regidate date DEFAULT SYSDATE,
 	PRIMARY KEY (teamName)
+);
+
+
+CREATE TABLE TeamMember
+(
+	teamName nvarchar2(20) NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	CONSTRAINT pk_teamMember UNIQUE (teamName, ID)
 );
 
 
@@ -201,6 +228,12 @@ ALTER TABLE betting
 ;
 
 
+ALTER TABLE board
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
 ALTER TABLE hitter
 	ADD FOREIGN KEY (ID)
 	REFERENCES member (ID)
@@ -208,6 +241,12 @@ ALTER TABLE hitter
 
 
 ALTER TABLE pitcher
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
+ALTER TABLE TeamMember
 	ADD FOREIGN KEY (ID)
 	REFERENCES member (ID)
 ;
@@ -225,7 +264,7 @@ ALTER TABLE matching
 ;
 
 
-ALTER TABLE member
+ALTER TABLE TeamMember
 	ADD FOREIGN KEY (teamName)
 	REFERENCES Team (teamName)
 ;
@@ -233,7 +272,7 @@ ALTER TABLE member
 
 
 /* Create Triggers */
-
+/*
 CREATE OR REPLACE TRIGGER TRI_baseteam_baseteamno BEFORE INSERT ON baseteam
 FOR EACH ROW
 BEGIN
@@ -258,6 +297,16 @@ CREATE OR REPLACE TRIGGER TRI_betting_no BEFORE INSERT ON betting
 FOR EACH ROW
 BEGIN
 	SELECT SEQ_betting_no.nextval
+	INTO :new.no
+	FROM dual;
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER TRI_board_no BEFORE INSERT ON board
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_board_no.nextval
 	INTO :new.no
 	FROM dual;
 END;
@@ -292,7 +341,7 @@ BEGIN
 	FROM dual;
 END;
 
-/
+/*/
 
 
 

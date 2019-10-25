@@ -640,13 +640,14 @@ span.is-active:after {
   padding: 15px 0;
   background-color: var(--second-color);
    color: #ffffff; 
-  text-transform: capitalize;
+ /* text-transform: capitalize; */
   /* 추가 */ 
   text-align: center;
 }
 .play-table th.team-name {
   padding-left: 20px;
   text-align: center;
+ 
 }
 .play-table th.choice-team {
   text-align: center;

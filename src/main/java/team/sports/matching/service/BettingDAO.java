@@ -18,4 +18,10 @@ public class BettingDAO {
 	public  List<BettingDTO> selectList(Map map){
 		return template.selectList("bettingList",map);
 	}
+	
+	public  List<Map> selectListTeamInfo(Map map){
+		return template.selectList("selectListTeamInfo",map);
+	}
+	
+
 }

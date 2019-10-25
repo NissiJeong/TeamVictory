@@ -15,4 +15,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM member m JOIN teammember t ON m.id = t.id where base_mainhand='${}'
 	</select> -->
 	
+	<!-- 최다득점 TOP3 -->
+	<select id="BestrbiPlayer" parameterType="java.util.Map" resultType="TeamBoardDTO">
+		SELECT m.name, h.rbi FROM member m JOIN hitter h ON m.id = h.id WHERE 
+		<![CDATA[ 
+		 rownum<=3 
+		]]> 
+		ORDER BY h.rbi DESC
+	</select>
+	
+	<!-- 최다삼진 TOP3 -->
+	<select id="BestsoPlayer" parameterType="java.util.Map" resultType="TeamBoardDTO">
+		SELECT m.name, p.so FROM member m JOIN pitcher p ON m.id = p.id WHERE 
+		<![CDATA[  
+		 rownum<=3 
+		]]> 
+		ORDER BY p.so DESC
+	</select>
+	
+	<!-- 최다홈런 TOP3 -->
+	<select id="BesthrPlayer" parameterType="java.util.Map" resultType="TeamBoardDTO">
+		SELECT m.name, h.hr FROM member m JOIN hitter h ON m.id = h.id WHERE 
+		<![CDATA[ 
+		 rownum<=3 
+		]]> 
+		ORDER BY h.hr DESC
+	</select>
+	
+	<!-- 최다도루 TOP3 -->
+	<select id="BestsbPlayer" parameterType="java.util.Map" resultType="TeamBoardDTO">
+		SELECT m.name, h.sb FROM member m JOIN hitter h ON m.id = h.id WHERE 
+		<![CDATA[ 
+		 rownum<=3 
+		]]> 
+		ORDER BY h.sb DESC
+	</select>
+	
 </mapper>

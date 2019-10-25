@@ -105,35 +105,34 @@
             dataType:'text',
             data:{id:id},   
             success:function(data){
-               console.log(data);
-               if(data == duplicate){
-             	  $("#User_id").css("background-color", "#FFCECE");
-             	  $("#iError").text("이미 등록된 아이디입니다").css({"font-weight":"bold"})
-             	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
-               }
-               else if(id == ""){
-             	  $("#iError").text("필수항목입니다.").css({"font-weight":"bold"})
-             	  $("#User_id").css("background-color", "#FFCECE");
-             	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
-             	  
-               }
-               else if(pattern_kor.test(id)){
-              	  $("#User_id").css("background-color", "#FFCECE");
-              	  $("#iError").text("아이디에 한글은 포함하실 수 없습니다").css({"font-weight":"bold"})
-              	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
-                }
-                else if(id.length < 5 || id.length > 15){
-              	  console.log("5자이상")
-              	  $("#User_id").css("background-color", "#FFCECE");
-              	  $("#iError").text("아이디는 5자이상 혹은 15자 이하로 입력해주세요").css({"font-weight":"bold"})
-              	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
-                }
-              else{
-            	  $("#User_id").css("background-color", "#FFFFFF");
-            	  $("#iError").text("사용가능한 아이디입니다").css({"font-weight":"bold"})
-            	 /*  $("#btnRegist").css("background-color","#FF3952").prop("disabled",false) */
-            	 regiComplete();
-                }
+                console.log(data);
+                if(data == duplicate){
+               	  $("#User_id").css("background-color", "#FFCECE");
+               	  $("#iError").text("이미 등록된 아이디입니다").css({"font-weight":"bold"})
+               	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
+                 }
+                 else if(id == ""){
+               	  $("#iError").text("필수항목입니다.").css({"font-weight":"bold"})
+               	  $("#User_id").css("background-color", "#FFCECE");
+               	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
+                 }
+                 else if(pattern_kor.test(id)){
+                	  $("#User_id").css("background-color", "#FFCECE");
+                	  $("#iError").text("아이디에 한글은 포함하실 수 없습니다").css({"font-weight":"bold"})
+                	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
+                  }
+                  else if(id.length < 5 || id.length > 15){
+                	  console.log("5자이상")
+                	  $("#User_id").css("background-color", "#FFCECE");
+                	  $("#iError").text("아이디는 5자이상 혹은 15자 이하로 입력해주세요").css({"font-weight":"bold"})
+                	  $("#btnRegist").css("background-color","#808080").prop("disabled",true)
+                  }
+                else{
+              	  $("#User_id").css("background-color", "#FFFFFF");
+              	  $("#iError").text("사용가능한 아이디입니다").css({"font-weight":"bold"})
+              	 /*  $("#btnRegist").css("background-color","#FF3952").prop("disabled",false) */
+              	 regiComplete();
+                 }
               
             }
             
@@ -451,7 +450,10 @@ function checkMail(){
     	}
     	else{
     		$("#btnRegist").css("background-color", "#FF3952").prop("disabled", false)
-    		alert("가입하시겠습니까?")
+<<<<<<< HEAD
+=======
+    		
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
     	}
     }
    
@@ -594,7 +596,7 @@ span{
                   	</div>
                 </div> 
                <div class="frm-group">
-                  	<input type="text" name="User_id" id="User_id" placeholder="User" value="${param.User_id }" title="${param.User_id }" oninput="checkId()">
+                  	<input type="text" name="User_id" id="User_id" placeholder="User Id" value="${param.User_id }" title="${param.User_id }" oninput="checkId()">
                   	<div>
                   	<span id="iError">${idError }</span>
                   	</div>
