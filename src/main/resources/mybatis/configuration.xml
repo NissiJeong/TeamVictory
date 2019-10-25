@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="BoardDTO" type="team.sports.matching.service.BoardDTO"/>			
 		<typeAlias alias="BaseBall_HitterDTO" type="team.sports.printdb.baseball.BaseBall_HitterDTO"/>
 		<typeAlias alias="TeamBoardDTO" type="team.sports.matching.service.TeamBoardDTO"/>		
-		<typeAlias alias="BettingDTO" type="team.sports.matching.service.BettingDTO"/>	
+
 
 	</typeAliases>
 	

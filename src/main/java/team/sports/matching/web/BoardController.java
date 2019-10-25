@@ -45,7 +45,7 @@ public class BoardController {
 	
 	
 	//목록 처리]
-	@RequestMapping("/bbs/Board.bbs")
+	@RequestMapping("/community/bbs/Board.bbs")
 	public String list(
 			@ModelAttribute("id") String id,//스프링 씨큐리티를 사용하지 않을때
 			@RequestParam Map map,
@@ -69,7 +69,7 @@ public class BoardController {
 		List<BoardDTO> list=boardService.selectList(map);	
 		//데이타 저장]
 		
-		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount,pageSize, blockPage, nowPage,req.getContextPath()+"/bbs/Board.bbs?");
+		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount,pageSize, blockPage, nowPage,req.getContextPath()+"/community/bbs/Board.bbs?");
 		//데이타 저장]
 		for(BoardDTO dto:list) {
 			System.out.println(dto.getTitle());
@@ -83,7 +83,7 @@ public class BoardController {
 		model.addAttribute("pageSize", pageSize);
 		
 		//뷰정보 반환]
-		return "bbs/Board.tiles";
+		return "community/bbs/Board.tiles";
 	}
 	//작성폼으로 이동]
 	@ExceptionHandler({HttpSessionRequiredException.class})
@@ -93,15 +93,15 @@ public class BoardController {
 		//무조건 록인 페이지로 이동]
 		return "member/login.tiles";
 	}	
-	@RequestMapping(value = "/bbs/Write.bbs"/* ,method=RequestMethod.GET */)
+	@RequestMapping(value = "/community/bbs/Write.bbs"/* ,method=RequestMethod.GET */)
 	public String write(
 			@ModelAttribute("id") String id//스프링 씨큐리티를 사용하지 않을때
 			) {
 		//뷰정보 반환]
-		return "bbs/Write.tiles";
+		return "community/bbs/Write.tiles";
 	}
 	//작성처리]
-	@RequestMapping(value="/bbs/Write.bbs",method=RequestMethod.POST)
+	@RequestMapping(value="/community/bbs/Write.bbs",method=RequestMethod.POST)
 	public String writeOk(
 			@ModelAttribute("id") String id,//스프링 씨큐리티를 사용하지 않을때
 			@RequestParam Map map,
@@ -124,10 +124,10 @@ public class BoardController {
 		
 		
 		//뷰정보 반환:목록으로 이동
-		return "forward:/bbs/Board.bbs";
+		return "forward:community/bbs/Board.bbs";
 	}/////////////////////
 	//상세보기]
-	@RequestMapping("/bbs/View.bbs")
+	@RequestMapping("/community/bbs/View.bbs")
 	public String view(@RequestParam Map map,Model model) {
 		//서비스 호출]
 		BoardDTO record=boardService.selectOne(map);
@@ -136,10 +136,10 @@ public class BoardController {
 		record.setContent(record.getContent().replace("\r\n", "<br/>"));
 		model.addAttribute("record", record);
 		//뷰정보 반환:
-		return "bbs/View.tiles";
+		return "community/bbs/View.tiles";
 	}//////////////
 	//수정폼으로 이동 및 수정처리]
-	@RequestMapping("/bbs/Edit.bbs")
+	@RequestMapping("/community/bbs/Edit.bbs")
 	public String edit(HttpServletRequest req,@RequestParam Map map) {
 		if(req.getMethod().equals("GET")) {//수정폼으로 이동
 			//서비스 호출]
@@ -147,22 +147,22 @@ public class BoardController {
 			//데이타 저장]
 			req.setAttribute("record", record);
 			//수정 폼으로 이동]
-			return "bbs/Edit.tiles";
+			return "community/bbs/Edit.tiles";
 		}
 		//수정처리후 메시지 뿌려주는 페이지(Message.jsp)로 이동
 		int sucFail=boardService.update(map);
 		req.setAttribute("WHERE", "EDT");
 		req.setAttribute("SUCFAIL", sucFail);
-		return "bbs/Message";
+		return "community/bbs/Message";
 	}//////////////////
 	//삭제처리]
-	@RequestMapping("/bbs/Delete.bbs")
+	@RequestMapping("/community/bbs/Delete.bbs")
 	public String delete(@RequestParam Map map,Model model) {
 		//서비스 호출]
 		int sucFail=boardService.delete(map);
 		//데이타 저장]
 		model.addAttribute("SUCFAIL", sucFail);
 		//뷰정보 반환]
-		return "bbs/Message";
+		return "community/bbs/Message";
 	}
 }
