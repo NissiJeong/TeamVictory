@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal" method="post"
-				action="<c:url value='/bbs/Write.bbs'/>">
+				action="<c:url value='/community/bbs/Write.bbs'/>">
 				
 				<div class="form-group">
 					<label class="col-md-2 control-label">제목</label>
