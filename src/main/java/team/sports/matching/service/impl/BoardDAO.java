@@ -7,11 +7,13 @@ import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import team.sports.matching.service.BoardDTO;
 import team.sports.matching.service.BoardService;
 
 @Repository
+@Service("boardServiceDAO")
 public class BoardDAO implements BoardService {
 	
 	//SqlSessionTemplate객체 주입]
@@ -28,6 +30,11 @@ public class BoardDAO implements BoardService {
 	public List<BoardDTO> selectList(Map map) {		
 		return template.selectList("boardSelectList",map);
 	}
+	//조회수 올리는 메소드]
+	public int getCountNo(Map map) {
+		return template.update("updateboardcount",map);
+	}
+	
 
 	@Override
 	public int getTotalRecord(Map map) {		
@@ -62,5 +69,7 @@ public class BoardDAO implements BoardService {
 	public int update(Map map) {		
 		return template.update("boardUpdate",map);
 	}
-
+	
+	
+	
 }

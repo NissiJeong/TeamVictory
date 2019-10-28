@@ -11,14 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	SELECT COUNT(*) FROM member WHERE id=#{id} AND pwd=#{pwd}
   </select>
   <select id="boardSelectList" parameterType="java.util.Map" resultType="BoardDTO">
-  	select * from (select t.*,rownum r from (select * from board order by no desc) t) where r between #{start} and #{end}
-  	<!-- SELECT * FROM (SELECT T.*,ROWNUM R FROM(SELECT o.*,name,(SELECT COUNT(*) FROM board WHERE no=o.no ) commentCount FROM board o JOIN member m ON o.id=m.id
-  	<if test="searchColumn != null">
-  		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
-  	</if>
-  	ORDER BY no DESC) T)
-  	WHERE R BETWEEN #{start} AND #{end} -->
-  	<!-- SELECT * FROM board -->
+  	select * from (select t.*,rownum r from (select * from board order by no desc) t) where r between #{start} and #{end}  	
   </select>
   <select id="boardTotal" parameterType="java.util.Map" resultType="int">
   	SELECT COUNT(*) FROM board
@@ -26,11 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
   	</if>
   </select>
-  
+	<update id="updateboardcount" parameterType="java.util.Map">
+        UPDATE board
+              SET countNo = countNo + 1
+         WHERE no=#{no}
+	</update>
   
   <insert id="boardInsert" parameterType="java.util.Map">
-  	INSERT INTO board(no,title,content,id)
-  	VALUES(SEQ_BOARD.NEXTVAL,#{title},#{content},#{id})
+  	INSERT INTO board(no,title,content,id,countNo)
+  	VALUES(SEQ_BOARD.NEXTVAL,#{title},#{content},#{id},default)
   </insert>
   <select id="boardSelectOne" parameterType="java.util.Map" resultType="BoardDTO">
   	SELECT o.*,name FROM board o JOIN member m ON o.id=m.id
