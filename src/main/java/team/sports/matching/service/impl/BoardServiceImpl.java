@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import team.sports.matching.service.BoardDTO;
 import team.sports.matching.service.BoardService;
 
-@Service("boardService")
 public class BoardServiceImpl implements BoardService {
 
-	//OneMemoDAO객체 주입]
+	//DAO객체 주입]
 	@Resource(name="boardDAO")
 	private BoardDAO dao;
 	
@@ -25,6 +24,7 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDTO> selectList(Map map) {		
 		return dao.selectList(map);
 	}
+	
 	@Override
 	public int getTotalRecord(Map map) {		
 		return dao.getTotalRecord(map);
