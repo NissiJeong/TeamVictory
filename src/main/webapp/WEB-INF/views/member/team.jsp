@@ -210,7 +210,7 @@ function selectTeam(team) {
 		type : 'post',
 		dataType : 'text',
 		data : {
-			'teamName' : teamName,,'_csrf':'${_csrf.token}'
+			'teamName' : teamName,'_csrf':'${_csrf.token}'
 		},
 		success : function(data) {
 			console.log(data);
