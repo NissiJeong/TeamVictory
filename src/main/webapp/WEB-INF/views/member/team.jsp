@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -209,7 +210,7 @@ function selectTeam(team) {
 		type : 'post',
 		dataType : 'text',
 		data : {
-			'teamName' : teamName
+			'teamName' : teamName,,'_csrf':'${_csrf.token}'
 		},
 		success : function(data) {
 			console.log(data);

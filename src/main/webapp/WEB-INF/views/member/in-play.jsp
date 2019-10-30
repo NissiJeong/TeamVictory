@@ -69,7 +69,7 @@ $('#viewTarget').css('display','none');
 			   
 			$.ajax({
 				url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
-				data : { hometeam :  home, awayteam : away},
+				data : { hometeam :  home, awayteam : away,'_csrf':'${_csrf.token}'},
 				type : 'post',
 				 dataType: 'json',
 				 // 서버로부터 받은 데이터와 클릭한 <span>태그의 인덱스를  함수의 매개변수로 넘긴다.

@@ -24,7 +24,7 @@ $( function() {
     		url:"<c:url value='/Team/Matching/modal.do'/>",
     		type:'post',
     		dataType:'json',
-    		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title")},	
+    		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title"),'_csrf':'${_csrf.token}'},	
     		success:function(data){
     			console.log(data);
     			$("#teamName").html(data['teamName']);
@@ -40,7 +40,6 @@ $( function() {
     			$('#result2').html(data['gameResult2']+'</br>'+data['score2']);
     			$('#result3').html(data['gameResult1']+'</br>'+data['score1']);
     			$('#result4').html(data['gameResult0']+'</br>'+data['score0']);
-    			
     		}
     	}); 
     });    
@@ -81,7 +80,7 @@ $( function() {
 		url:path,
 		type:'post',
 		dataType:'text',
-		data:{'gameTime':gameTime,'gameDate':gameDate,'stadium':stadium},	
+		data:{'gameTime':gameTime,'gameDate':gameDate,'stadium':stadium,'_csrf':'${_csrf.token}'},	
 		success:function(data){
 			console.log(data);
 			if(data == "no"){
@@ -575,7 +574,7 @@ $( function() {
                 <!-- Icon Divider -->
                 <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
                	<form id="frm">
-               	
+               	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                	<input name="awayteam" id="awayteam" type="hidden" value='sdfg'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel1">Date</label>

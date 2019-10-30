@@ -15,9 +15,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO member(id, pwd, name, birth, gender, phone, location, email, regidate) 
 		VALUES(#{User_id}, #{pass}, #{User_name}, #{birth}, #{gender}, #{phone}, #{location}, #{email}, SYSDATE)
 	</insert>
-
+	<!-- 회원가입 후 auth_security에 등록 -->
+	<insert id="regiAuth">
+		INSERT INTO auth_security VALUES(SEQ_AUTH_SECURITY.NEXTVAL,DEFAULT,'ROLE_USER',#{User_id})
+	</insert>
+	<!-- auth_security에 등록 안됐을 경우 member테이블에 등록된 행 삭제 -->
+	<delete id="deleteMember">
+		DELETE MEMBER WHERE id=#{User_id}
+	</delete>
+	<!-- 팀장 중복 확인 -->
+	<select id="checkManagerId" parameterType="java.lang.String" resultType="int">
+		SELECT COUNT(*) FROM team WHERE manager_id =#{id}
+	</select>
+	<!-- 팀 이름 중복 확인 -->
+	<select id="checkTeamName" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM team WHERE teamname = #{teamName}
+	</select>
+	<!-- 팀 생성 인서트 -->
 	<insert id="teamInsert" parameterType="java.util.Map">
-		INSERT INTO team values(#{teamName},#{category},#{teamLoc},1500,#{manager_id},#{teamInfo},SYSDATE)
+		INSERT INTO team values(#{teamName},#{category},#{teamLoc},1500,#{id},#{teamInfo},SYSDATE)
 	</insert>
 	<insert id="teamMemberInsert" parameterType="java.util.Map">
 		INSERT INTO teammember values(#{teamName},#{id})
