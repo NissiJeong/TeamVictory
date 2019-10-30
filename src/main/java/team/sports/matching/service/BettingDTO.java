@@ -10,9 +10,16 @@ public class BettingDTO {
 	private String gameStatus;
 	private String homeScore;
 	private String awayScore;
+	private String gameDay;
 	
 	public java.sql.Date getGameDate() {
 		return gameDate;
+	}
+	public String getGameDay() {
+		return gameDay;
+	}
+	public void setGameDay(String gameDay) {
+		this.gameDay = gameDay;
 	}
 	public void setGameDate(java.sql.Date gameDate) {
 		this.gameDate = gameDate;

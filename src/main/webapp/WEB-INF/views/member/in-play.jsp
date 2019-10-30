@@ -7,14 +7,17 @@
 <script>
 
 $(function(){
+	const es6 ='es6';
+	console.log(es6);
+	console.log("64" > 27);
+	console.log( Number("64") > 54);
 	
-	
-	scoreStyle();
+	scoreStyle('main');
 	
 	$('#btnJoin').click(function() {
 
-		if (confirm($('#bettingPoint').val() + " 배팅허쉴?")) {
-			alert('배팅완료');
+		if (confirm($('#bettingPoint').val() + " 배팅허쉴?????")) {
+			alert('배팅완료!!!!');
 		}
 	}); 
 	
@@ -24,15 +27,15 @@ $(function(){
 		
 $('#viewTarget').css('display','none');
 
- $('#viewTarget').hide();
+ //$('#viewTarget').hide();
 		
 
 
 		 
  		var toggle=false;
-   		var  content =$('#viewTarget');
+   		//var  content =$('#viewTarget');
    		
-   		console.log(content.html());
+   		//console.log(content.html());
     
 		  $('.aa').click(function(){
 			 if(!toggle){
@@ -54,6 +57,7 @@ $('#viewTarget').css('display','none');
 		  //상세보기 클릭시 3번째 열에 있는 값 읽어오기 
 		
 		var  clickView = $('.view').click(function(){
+	
 			//console.log($(this).parent().siblings(':eq(2)').text());
 			//console.log($(this).parent().siblings(':eq(2)').find('#hs').text());
 			//console.log($(this).parent().siblings(':eq(2)').find('.ht').text());
@@ -61,44 +65,68 @@ $('#viewTarget').css('display','none');
 			var home= $(this).parent().siblings(':eq(2)').find('.ht').text() ;  //클릭한 행의 홈팀명
 			var away= $(this).parent().siblings(':eq(2)').find('.at').text() ;  // 클릭한 행의 어웨이팀명
 			//선택된 <span>태그중에서  클릭한 <span>태그의 인덱스 
-			var veiwIndex =clickView.index(this);
+			var viewIndex =clickView.index(this);
 			console.log('홈팀 : %s , 어웨이 : %s',home,away);
 			 console.log ('클릭한 상세보기의 인덱스', 	clickView.index(this) ); 
 			 
 		   if ($(this).text()=='상세보기'){
 			   
-			$.ajax({
-				url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
-				data : { hometeam :  home, awayteam : away},
-				type : 'post',
-				 dataType: 'json',
-				 // 서버로부터 받은 데이터와 클릭한 <span>태그의 인덱스를  함수의 매개변수로 넘긴다.
-				success : function(data){bettingView(data,veiwIndex,home,away);},
-				error:function(data){
-					console.log('에러 : '+data); // 에러코드 출력 
-					console.log('에러 : '+data.responseText); //  에러내용 출력
-				}
-			}); // ajax 
-			$(this).text('접기')  // 문자열 변경
+					$.ajax({
+						url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
+						data : { hometeam :  home, awayteam : away, '_csrf' : '${_csrf.token}'},
+						type : 'post',
+						 dataType: 'json',
+						 // 서버로부터 받은 데이터와 클릭한 <span>태그의 인덱스를  함수의 매개변수로 넘긴다.
+						success : function(data){
+							if(data != null) {
+							bettingView(data,viewIndex,home,away);
+							}
+						 	if ( $('.tenViewHome').is(':visible')  &&  $('.tenViewAway').is(':visible')  ) {
+								var tenView = ['.tenViewHome','.tenViewAway'];
+									scoreStyle(tenView);
+									
+									// 셀 높이 55로 맞추기
+									$('.tenViewHome tr, .tenViewAway tr').each(function(){
+										$(this).css('height','55px');
+									});
+								//선택한 상세보기의  tr 
+							  var base =  $('.view').eq(viewIndex).parent().parent();
+								console.log( base.next().find('.tenViewHome tr:last').find('th').text().match("경기전적"));
+							 if (base.next().find('.tenViewHome tr:last').find('th').text().match("경기전적") !=null  ){
+								 base.next().find('.tenViewHome tr:last').find('th').css({color : 'black' , 'font-size': '18px'});
+								} 
+							 if (base.next().find('.tenViewAway tr:last').find('th').text().match("경기전적") !=null  ){
+								 base.next().find('.tenViewAway tr:last').find('th').css({color : 'black' , 'font-size': '18px'});
+								} 
+								
+						 	}//// if
+						
+						}, //success
+						error:function(data){
+							console.log('에러 : '+data); // 에러코드 출력 
+							console.log('에러 : '+data.responseText); //  에러내용 출력
+						}
+					}); // ajax 
+					
+					
+					
+					$(this).text('접기')  // 문자열 변경
 		   }  // if
 		   else{
-			   $(this).parent().parent().next().remove();
+			 $(this).parent().parent().next().remove();
 			   $(this).text('상세보기');
-			   
 		   }
 		});  
-		  
-		  
-		  
-		
-		  
 		  
 	});/////////  onload
    
 	//상세보기
-	var  bettingView = function(data,veiwIndex,home,away) {
+	var  bettingView = function(data,viewIndex,home,away) {
 		 //var json =JSON.stringify(data);
-	
+		  
+	     var tenRecord ={
+	    		 win : 0, draw : 0, lose : 0 
+	     };
 		  var homeContent;
 		  var awayContent;
 		 var top ="<tr><td colspan='7'><div class='row'><div class='col-md-12'><div class='d-flex bg-light justify-content-center pt-4 w-100' style='height:150px'>"
@@ -107,8 +135,8 @@ $('#viewTarget').css('display','none');
 		 +"<div class='p-2 border w-25'>B팀</div>"
 		 +"</div></div></div></td></tr>";
 		 
-		 var topBar ="<tr><td colspan='7'>"+
-		 "<div class='col-md-12 text-center mt-3 bg-info' style='font-weight: bold;height: 50px;line-height: 50px;font-size: 20px'>"
+		 var topBar ="<tr class='tenViewTR'><td colspan='7'>"+
+		 "<div class='col-md-12 text-center mt-3 bg-info' style='height: 50px;line-height: 50px;font-size:20px'>"
 		 +"최근 10경기 전적</div>";
 			 
  /*        homeContent="<div class='row mt-3'><div class='col-6'><table class='table'><thead>"+
@@ -121,108 +149,144 @@ $('#viewTarget').css('display','none');
       console.log ( '서버로부터 받은 데이터 =>', data);
 		$.each(data,function(key,value){
 			if(key == 'home') {
-				  homeContent="<div class='row mt-3'><div class='col-6'><table class='table'><thead>"+
+				  homeContent="<div class='row mt-3'><div class='col-6'><table class='table homeViewTable'><thead>"+
 			       "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+home+"</th></tr>"+
-			       "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>";
+			       "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody class='tenViewHome'>";
 				var hRecord =  Object.keys(value).length;
-				//console.log ( '홈팀의 레코드 개수',hRecord);
-					if ( value.length < 10){   // 최근 10경기를 보여줘야하니까 체크
-				      	if(value.length ==0 ){  // 새로등록한 팀의 첫매치인경우 기록이 없음
+				console.log ( '홈팀의 레코드 개수',hRecord);
+				console.log ( 'value 개수 ',value.length);
+				      	if(hRecord== 0 ){  // 새로등록한 팀의 첫매치인경우 기록이 없음
 				    	   // 등록된 경기가 없음을 표시해준다.
+					    	   for (var i=0; i<10; i++){
+					    		 //  if (i == 0) homeContent += "<tr class='text-center'><td colspan='4'>경기전적이 존재하지 않습니다.</td></tr>";
+					    		 
+					    			   homeContent += "<tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>";
+					    		 
+					    	   }
+					    	  //homeContent += "</tbody></table></div>";
+					    	 
 				     		}//if
 				     	else{
-					//  등록된경기가 한개이상 있지만 10경기가 안된다면
+					//  등록된경기가 한개이상인경우 
 					 		$.each(value,function(i,element){ //  db에 등록된 경기만  넣어준다
 								 //element가  홈팀에 관한 하나의  데이터 레코드
 									//console.log(element['RESULT']=='lose')
 									//console.log('인덱스 %s  |  배열 : %s',i,element.GAMEDATE); // 홈스코어 표시
 									homeContent +="<tr class='text-center'>";
-									homeContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td>"+element.HOMESCORE+" : "+element.AWAYSCORE+"</td>";
+									homeContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td><span class='tenHS'>"+element.HOMESCORE+"</span> : <span class='tenAS'>"+element.AWAYSCORE+"</span></td>";
 								  if(element.HOMESCORE > element.AWAYSCORE ){
 									  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px;'>승</span></td></tr>";
+									   tenRecord.win = tenRecord.win+1;
 								  }
 								  else if( element.HOMESCORE < element.AWAYSCORE){
 									  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #cd2e57; border-radius:7px;'>패</span></td></tr>";
+									  tenRecord.lose = tenRecord.lose+1;
 								  }
 								  else {
 									  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #9a9798; border-radius:7px;'>무</span></td></tr>";
+									  tenRecord.draw = tenRecord.draw+1;
 								  }
 							 });   //////////////
+							 
+							
+							  //  1경기 이상 10경기보다 이하인경우 
+							 if (hRecord !=0 && 10 - hRecord >=1){
 								// 여기서부터는 10 -  value.length 한 값만큼 for문을 돌려서<td>. </td> 점으로 표시한다.
 								      for(var i=0; i<10-hRecord; i++){
 								    	  homeContent +="<tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>";
 								      }
-								      homeContent+="</tbody></table></div>";
+							 }
+							 /*
+							   <tr class="text-center"> 
+					            <th style="background-color: #c6c8ca" colspan="4">10전  3승  3무  4패</th>
+					        </tr>
+					        */
+							
 				      		} //else 
-				
-					
-						}//if 
+				      		 homeContent += "<tr class='text-center'><th style='background-color: #99b8da' colspan='4'>";
+						      homeContent+= tenMatchtString(tenRecord,value);
+							 homeContent+="</th></tr></tbody></table></div>";
+				       
+				      	console.log(JSON.stringify(tenRecord));
+				      
+				      	
 			
 					} //if 
 					
+					
 			else {  // away팀
 				var aRecord =  Object.keys(value).length;
-			awayContent="<div class='col-6'><table class='table'><thead>"+
+			awayContent="<div class='col-6'><table class='table awayViewTable'><thead>"+
 		      "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+away+"</th></tr>"+
 		      "<tr class='text-center'><th class='w-25'>경기일시</th>"
-		     +"<th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>";
+		     +"<th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody class='tenViewAway'>";
 		      
 				console.log ( '어웨이팀의 레코드 개수',aRecord);
-				if ( value.length < 10){ 
-					if(value.length ==0 ){
+			
+					if(value.length ==0 ){   //경기전적이 없는 경우
+						for (var i=0; i<10; i++){
+				    		  // if (i == 0) awayContent += "<tr class='text-center'><td colspan='4'>경기전적이 존재하지 않습니다.</td></tr>";
+				    		
+				    			   awayContent += "<tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>";
+				    		 
+				    	   }// if
+						//awayContent += "</tbody></table></div>";
 						
 					}//if
-			     	else{
+			     	else{   // 1경기 이상 있는경우
 			     		$.each(value,function(i,element){ //  db에 등록된 경기만  넣어준다
 			     	
 						 //element가  홈팀에 관한 하나의  데이터 레코드
 						//console.log(element['RESULT']=='lose')
 						//console.log('인덱스 %s  |  배열 : %s',i,element.GAMEDATE); // 홈스코어 표시
 						awayContent +="<tr class='text-center'>";
-						awayContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td>"+element.HOMESCORE+" : "+element.AWAYSCORE+"</td>";
+						awayContent +="<td>"+element.GAMEDATE+"</td><td>"+element['AWAYTEAM']+"</td><td><span class='tenHS'>"+element.HOMESCORE+"</span> : <span class='tenAS'>"+element.AWAYSCORE+"</span></td>";
 					  if(element.HOMESCORE > element.AWAYSCORE ){
 						  awayContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px;'>승</span></td></tr>";
+						  tenRecord.win = tenRecord.win+1;
 					  }
-					  else if( element.HOMESCORE < element.AWAYSCORE){
+					  else if( element.HOMESCORE < element['AWAYSCORE']){
 						  awayContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #cd2e57; border-radius:7px;'>패</span></td></tr>";
+						  tenRecord.lose = tenRecord.lose+1;
 					  }
 					  else {
 						  awayContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #9a9798; border-radius:7px;'>무</span></td></tr>";
+						  tenRecord.draw = tenRecord.draw+1;
 					  }
 				 });   //////////////
+				   
+				  if(10- aRecord >0) {
 					// 여기서부터는 10 -  value.length 한 값만큼 for문을 돌려서<td>. </td> 점으로 표시한다.
 					      for(var i=0; i<10-aRecord; i++){
 					    	  awayContent +="<tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>";
 					      }
-					      awayContent+="</tbody></table></div>";
+				  }// if
+			
 	      		} //else 
-			  }
+	      			
+	      	  awayContent += "<tr class='text-center'><th style='background-color: #99b8da' colspan='4'>";
+			  awayContent+= tenMatchtString(tenRecord,value);
+			  awayContent+="</tbody></table></div>";
+				
+	      			tenRecord.win=0;
+	      			tenRecord.draw=0;
+	      			tenRecord.lose=0;
+					
 			}//else
 		});//// 바깥 each (k,v)
 		
-		
-		
-		 
-		 console.log ( ' [ 함수안 ] 클릭한 상세보기 인덱스 '+veiwIndex);
+		 console.log ( ' [ 함수안 ] 클릭한 상세보기 인덱스 '+viewIndex);
 		 var content="<tr><td colspan='7'> 동적으로 추가한 행 </td></tr>";
-		console.log( $('.view').eq(veiwIndex).text()+veiwIndex);  // 상세보기 + 인덱스
-		console.log ($('.view').eq(veiwIndex).parent().parent().get(0).tagName); //tr
+		console.log( $('.view').eq(viewIndex).text()+viewIndex);  // 상세보기 + 인덱스
+		console.log ($('.view').eq(viewIndex).parent().parent().get(0).tagName); //tr
 		
 			
 		 //선택한 상세보기 행의 바로밑에 <tr>추가 
-		$('.view').eq(veiwIndex).parent().parent().after(topBar+homeContent+awayContent+"</div></td</tr>");
+		$('.view').eq(viewIndex).parent().parent().after(topBar+homeContent+awayContent+"</div></td></tr>");
+	
 	}; /// bettingView
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	function scoreStyle(){ 
+	function scoreStyle(position){ 
 		
 		//console.log(  $('.all-tbody > tr').length);
 		//console.log($('.all-tbody tr:gt(0)').length)
@@ -230,6 +294,7 @@ $('#viewTarget').css('display','none');
 		//$('.all-tbody > tr:eq(0) td:eq(0)').css('background-color','red');
 			
 		/// =====   승리팀 글자색 , 글자크기 변경 
+		if (position == 'main'){
 				$('.all-tbody tr').each(function(){
 			
 				 //홈스코어 
@@ -250,12 +315,63 @@ $('#viewTarget').css('display','none');
 							color : 'red'
 						});
 				 }
-			 });  
+			 }); 
+		} /// if
+		
+		else {
+			console.log('매개변수가 main이 아닐떄 : ',position[0], position[1] );
+			
+			for(var i=0; i<position.length; i++){
+				console.log(position[i]+' tr');
+			$(position[i]+' tr').each(function(){
+				
+			  // .tenViewHome tr  또는 .tenViewAway tr	
+				 //홈스코어 
+				 var homeScore = Number($(this).children(':eq(2)').find('.tenHS').text());
+				 //어웨이 스코어
+				 var awayScore = Number($(this).children(':eq(2)').find('.tenAS').text());
+				 if(homeScore > awayScore) {
+					 $(this).children(':eq(2)').find('.tenHS').css({
+							//'font-weight' : 'bold',
+							color : 'blue'
+						});
+					 }
+				 else if(homeScore < awayScore) {
+					 $(this).children(':eq(2)').find('.tenAS').css({
+							//'font-weight' : 'bold',
+							color : 'red'
+						});
+					 }
+				 });  //each
+			}////for
+			
+		}///else 
 	  
 	}	///////  scoreStyle
 	
 
-
+	
+	
+ function tenMatchtString(obj,val){
+		var content='';
+			if (val.length != 0) {
+					content+="<span class='pr-2'>"+val.length+"전</span>";
+				}
+			else {
+				content +="경기전적이 존재하지않습니다.";
+				return content;
+			}
+	 	if(obj.win > 0 )
+	 		content +="<span  class='pr-2' style='color: blue'>"+obj.win+"승</span>";
+		if(obj.draw >0)
+			content +="<span class='pr-2' style='color:white'>"+obj.draw+"무</span>";
+		if(obj.lose >0)
+				content +="<span style='color: red'>"+obj.lose+"패</span>";
+				
+				
+		  return content;
+		
+	}
 </script>
 <style>
  .slash  td{
@@ -263,15 +379,21 @@ $('#viewTarget').css('display','none');
 	background-size: 100% 100%;
 }
 
+.table td, .table th {
+  
+    vertical-align: middle;
+   }
+   
+  
 </style>
 
 <!-- banner-section start -->
-<section class="breadcum-section">
+<section class="breadcum-section" >
 	<div class="breadcum-area">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="breadcum-content text-center">
+					<div class="breadcum-content text-center"  >
 
 						<h3 class="title">In Play</h3>
 						<ol class="breadcrumb">
@@ -290,7 +412,7 @@ $('#viewTarget').css('display','none');
 
 <!-- play-section start -->
 <section class="play-section section-padding section-bg">
-	<div class="container">
+	<div class="container" style="border:1px solid red">
 
 		<div class="row justify-content-center">
 			<div class="col-lg-6">
@@ -390,8 +512,12 @@ $('#viewTarget').css('display','none');
 		    							        
     										<tr>
 	    										<td>${loop.count}</td>
-	    										<td>${item.gameDate}</td>
 	    										
+
+	    										<td><span class="pr-1">
+	    										<fmt:formatDate value="${item.gameDate}" pattern="yy.MM.dd"/></span><span class="pr-1">${item.gameDay}</span><span>${item.time}</span>
+	    										</td>
+	    										 
 	    										<td><span class="pr-2 ht" >${item.teamname}</span><span class="pr-2 hs" >${item.homeScore == -1 ? '':item.homeScore}</span>:<span class="px-2 as" >${item.awayScore == -1 ? '':item.awayScore}</span><span class="at">${item.awayTeam}</span>
 	    										
 	    										<td>
@@ -399,7 +525,7 @@ $('#viewTarget').css('display','none');
 	    										<c:if test="${item.homeScore  >= 0 && item.awayScore >= 0  }" var="isScore">
 	    							            	 <c:choose>
 		    							             	<c:when test="${homeScore  > awayScore}">
-		    							             		<span style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">홈승</span>
+		    							             		<span style="width: 75%; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">홈승</span>
 		    							             	</c:when>
 		    							             	<c:when test="${homeScore < awayScore}">
 		    							             		<span style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">홈패</span>
@@ -432,12 +558,99 @@ $('#viewTarget').css('display','none');
     									
     									
     									
+											<!--  1행 -->
+
+											<tr>
+												<td>
+													<!-- <div class="team-name-part"> </div> --> 1
+												</td>
+												<!-- 경기 날짜  -->
+												<td><span bat="1">2019-10-10</span></td>
+												<!--  팀 vs 팀  -->
+												<td>기아&nbsp;&nbsp;<span class="blue">3</span>&nbsp;&nbsp;
+													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp; 두산
+												</td>
+												<!-- 경기결과 -->
+												<td>
+													<!--  <span class="badge badge-primary">승</span> --> <span
+													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">승</span>
+												</td>
+												</td>
+												<!-- 비고 -->
+												<td>우천</td>
+												<!-- 배팅-->
+												<td class="bettingTd"><span id="bettingSpan"
+													class="badge badge-warning" data-toggle="modal"
+													data-target="#myModal">배팅</span></td>
+
+												<!-- 상세보기 -->
+												<td id="oneView">상세보기</td>
+											</tr>
+											<!-- 1행끝 -->
+
+
+											<tr>
+												<!-- 번호 -->
+												<td>2</td>
+												<!-- 경기 날짜  -->
+												<td><span bat="1">2019-10-10</span></td>
+												<!--  팀 vs 팀  -->
+												<td>SK&nbsp;&nbsp;<span class="blue">2</span>&nbsp;&nbsp;
+													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp;롯데
+												</td>
+												<!-- 경기결과 -->
+												<td>
+													<!-- <div style="background-color: #847d7e;-webkit-border-radius: 5px; color:white; border:1px red solid; flex: 0 0 calc(100% - 15px);">무</div> -->
+													<span
+													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">패</span>
+												</td>
+
+
+												<!-- 비고 -->
+												<td>기타</td>
+												<td>
+													<!-- 배팅-->
+													<button type="button" class="btn btn-warning"
+														style="height: 33px;" data-toggle="modal"
+														data-target="#myModal">
+														배 팅 <span class="badge badge-secondary ml-2">15</span>
+													</button>
+												</td>
+
+
+												<!-- 상세보기 -->
+												<td><a href="<c:url value='/Team/Matching/BettingView.do'/>">상세보기</a></td>
+											</tr>
+											<!-- 2행끝 -->
+
+
+											<!-- 3행 시작 -->
+
+												<tr >
+												<!-- 번호 -->
+												<td>3</td>
+												<!-- 경기 날짜  -->
+												<td><span bat="1">2019-10-10</span></td>
+												<!--  팀 vs 팀  -->
+												<td>넥센&nbsp;&nbsp;<span class="blue"></span>&nbsp;&nbsp;
+													: &nbsp;&nbsp;<span class="red"></span>&nbsp;&nbsp;한화
+												</td>
+												<!-- 경기결과 -->
+												<td><!-- <span style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #9a9798; border-radius: 7px;">무</span> -->
+												</td>
+												<!-- 비고 -->
+												<td></td>
+												<td>
+													<!-- 배팅--> 배팅
+
+												</td>
+
+												<!-- 상세보기 -->
+												<td><span class="aa" style="cursor: pointer;">상세보기</span></td>
+											</tr>
+											<!-- 3행끝 -->
 											
-											
-											
-											
-											<!--  상세보기 tr 시작  -->
-											<!-- 
+											<!-- 상세보기 <tr> 안에 시작 -->
 											<tr>
 											
 												<td  colspan="7">
@@ -452,11 +665,11 @@ $('#viewTarget').css('display','none');
 															</div>
 												 		
 												 		</div>  
-												</div>    
+												</div>    <!-- row --> 
 												
 											       
-													<div class="col-md-12 text-center mt-3 bg-info" style="font-weight: bold;height: 50px;line-height: 50px;font-size: 20px">
- 													최근 10경기 전적
+													<div class="col-md-12 text-center mt-3 bg-info" style="font-weight: bold;height: 50px;line-height: 50px;">
+ 													최근 10경기 전적 
  													</div>
  													
  														<div class="row mt-2" style="border:1px solid red">
@@ -466,7 +679,7 @@ $('#viewTarget').css('display','none');
 																	    <tr class="text-center">
 																	      <th style="background-color: #000040;color:white;" colspan="4">Home</th>
 																	    </tr>
-																	         
+																	       
 																	   	<tr class="text-center">  
 																	   	    
 																	    	<th class="w-25">경기일시</th> 
@@ -476,22 +689,27 @@ $('#viewTarget').css('display','none');
 																	   	</tr>
 																	   </thead> 
 																	   <tbody>
-																		 <tr class="text-center"> 
-																	         <td>2019-10-08</td>  
+																		 <!-- <tr class="text-center"> 
+																	         <td><span>19.10.08</span><small style="">07:20</small></td>  
 																	         <td>SK</td>
 																	         <td>3 : 0 </td>
 																	         <td ><span style="width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px; ">승</span></td>
-																	       </tr>
-																	       <tr ><td rowspan="4">.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
-																	       <tr ><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	       </tr> -->
+																	      <tr ><td colspan="4">경기가 존재하지 않습니다.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	      <tr><td>.</td><td>.</td><td>.</td><td>.</td></tr>
+																	  
 																	      
+																	       
+																	       
+																	       
 																	       
 																	       
 																	       
@@ -506,13 +724,13 @@ $('#viewTarget').css('display','none');
  																
  																</table>
  															
- 															</div>  
+ 															</div>  <!-- table 감싸는 div -->
  														
  														
  														
  														
  														
- 													
+ 														<!-- AWAY 테이블 -->
  														
  															<div class="col-6 ml-0">
  																<table class="table table-bordered">
@@ -531,7 +749,7 @@ $('#viewTarget').css('display','none');
 																	   </thead> 
 																	   <tbody>
 																		 <tr class="text-center"> 
-																	         <td>2019-10-08</td>  
+																	         <td style="height: 15px;overflow: hidden;">2019-10-08</td>  
 																	         <td>SK</td>
 																	         <td>3 : 0 </td>
 																	         <td ><span style="width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #cd2e57; border-radius:7px; ">승</span></td>
@@ -543,17 +761,17 @@ $('#viewTarget').css('display','none');
  																
  																</table>
  															
- 															</div>  
+ 															</div>  <!-- table 감싸는 div -->
  														
  														
  														
  														
  														
- 														</div>
+ 														</div><!-- row -->
  													</td>
  													
-											</tr> 
-	                                         -->
+											</tr> <!--  상세보기 tr끝 -->
+	                                         
 
 
 
@@ -577,7 +795,7 @@ $('#viewTarget').css('display','none');
 
 <div class="table-responsive col-md-6 ml-0">
   <!--  A팀 테이블 -->
-    <table class="table table-bordered" class="A_tableMatchTen" >
+    <table class="table  table-bordered " class="A_tableMatchTen" >
     <thead>
     <tr class="text-center">
       <th style="background-color: #000040;color:white;" colspan="4">Home</th>
