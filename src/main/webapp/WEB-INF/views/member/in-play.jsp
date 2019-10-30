@@ -71,6 +71,7 @@ $('#viewTarget').css('display','none');
 			 
 		   if ($(this).text()=='상세보기'){
 			   
+<<<<<<< HEAD
 					$.ajax({
 						url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
 						data : { hometeam :  home, awayteam : away, '_csrf' : '${_csrf.token}'},
@@ -111,6 +112,21 @@ $('#viewTarget').css('display','none');
 					
 					
 					$(this).text('접기')  // 문자열 변경
+=======
+			$.ajax({
+				url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
+				data : { hometeam :  home, awayteam : away,'_csrf':'${_csrf.token}'},
+				type : 'post',
+				 dataType: 'json',
+				 // 서버로부터 받은 데이터와 클릭한 <span>태그의 인덱스를  함수의 매개변수로 넘긴다.
+				success : function(data){bettingView(data,veiwIndex,home,away);},
+				error:function(data){
+					console.log('에러 : '+data); // 에러코드 출력 
+					console.log('에러 : '+data.responseText); //  에러내용 출력
+				}
+			}); // ajax 
+			$(this).text('접기')  // 문자열 변경
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 		   }  // if
 		   else{
 			 $(this).parent().parent().next().remove();

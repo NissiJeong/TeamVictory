@@ -24,10 +24,24 @@ public class MemberDAO {
 		return template.insert("memberRegi", map);
 		
 	}///memberRegi
-
+	//회원 가입 후 auth_security테이블에 사용자 권한 추가
+	public int regiAuth(Map map) {
+		return template.insert("regiAuth", map);
+	}
+	//회원가입후 auth_sequrity에 등록 안됐을 경우 member에 등록된 행 제거
+	public int deleteMember(Map map) {
+		return template.delete("deleteMember", map);
+	}
+	public int checkManagerId(String id) {
+		return template.selectOne("checkManagerId", id);
+	}
 	///팀 만들기
 	public int teamInsert(Map map) {
 		return template.insert("teamInsert",map);
+	}
+	//팀 이름 중복 확인
+	public int checkTemanName(Map map) {
+		return template.selectOne("checkTeamName", map);
 	}
 	//팀멤버 테이블에 팀 insert
 	public int insertTeamMember(Map map) {

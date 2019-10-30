@@ -72,7 +72,8 @@ CREATE TABLE board
 	content nvarchar2(2000) NOT NULL,
 	postDate date DEFAULT SYSDATE,
 	ID nvarchar2(15) NOT NULL,
-	PRIMARY KEY (no)
+	PRIMARY KEY (no),
+	countNo number default 0
 );
 
 

@@ -7,12 +7,12 @@
 	<c:when test="${WHERE=='EDT' }">
 		<c:set var="successMsg" value="수정 성공했어요"/>
 		<c:set var="failMsg" value="수정 실패했어요"/>
-		<c:set var="successUrl" value="/community/BBS/View.bbs?no=${param.no}&nowPage=${nowPage}"/>
+		<c:set var="successUrl" value="/Team/Matching/View.do?no=${param.no}&nowPage=${nowPage}"/>
 	</c:when>
 	<c:otherwise>
 		<c:set var="successMsg" value="삭제 성공했어요"/>
 		<c:set var="failMsg" value="삭제 실패했어요"/>
-		<c:set var="successUrl" value="/community/bbs/Board.bbs?nowPage=${nowPage}"/>	
+		<c:set var="successUrl" value="/Team/Matching/Board.do?nowPage=${nowPage}"/>	
 	</c:otherwise>
 </c:choose>
 <script>

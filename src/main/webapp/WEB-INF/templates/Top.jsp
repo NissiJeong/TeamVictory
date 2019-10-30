@@ -52,9 +52,8 @@
               <li><a href="<c:url value='/Team/Matching/chat-ws.do'/>">Basketball</a>
               <li class="menu_has_children"><a href="#0">Community</a>              
                 <ul class="sub-menu">                 
-                  <li><a href="<c:url value='/community/bbs/Board.bbs'/>">자유게시판</a></li>                
-                  <li><a href="<c:url value='/community/sales/Sales.bbs'/>">벼룩시장</a></li>
-                  <li><a href="<c:url value='/community/event/Event.bbs'/>">이벤트</a></li>
+                  <li><a href="<c:url value='/Team/Matching/Board.do'/>">자유게시판</a></li>                
+                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>                 
                 </ul>
               </li>
               <li class="menu_has_children"><a href="#0">pages</a>
@@ -78,8 +77,7 @@
                   
                 </ul>
               </li>
-              <li><a href="<c:url value='/Team/Matching/contact.do'/>">contact us</a>
-              </li>
+             
               <c:if test="${! empty sessionScope.id }" var="isLogin">
               	<li><a href="<c:url value='/Team/Matching/Logout.do'/>">Sign out</a></li>
 			  </c:if>
