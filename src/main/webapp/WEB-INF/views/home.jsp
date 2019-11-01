@@ -3,8 +3,12 @@
 
 <h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
+    
+=======
     dddd
     GO
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
     why??
 	Hello world!   ni ssi  
 	plz  plz 
