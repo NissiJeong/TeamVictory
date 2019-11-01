@@ -29,7 +29,7 @@
 		<beans:property name="maxUploadSize" value="2000000"/>
 	</beans:bean>
 	
-	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<!-- <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<beans:property name="defaultErrorView" value="/Exception12/DefaultErrorView.jsp"/>
 		<beans:property name="exceptionMappings">
 			<beans:props>
@@ -39,7 +39,7 @@
 			</beans:props>		
 		</beans:property>
 		
-	</beans:bean>
+	</beans:bean> -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
