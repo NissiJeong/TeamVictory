@@ -46,10 +46,16 @@
               <li class="active"><a href="<c:url value='/Team/Member/Index.do'/>">Home</a></li>
               <li><a href="<c:url value='/Team/Matching/Matching.do'/>">Matching</a></li>
               <li><a href="<c:url value='/Team/Matching/Betting.do'/>">Betting</a></li>
-              <li><a href="<c:url value='/Team/Matching/Team.do'/>">Team</a></li>
+              <li><a href="<c:url value='/Team/Matching/Team.do'/>">Team</a></li>              
               <li><a href="<c:url value='/Team/Matching/statostics.do'/>">Personal</a></li>
               <li><a href="<c:url value='/Team/Matching/result.do'/>">Live</a></li>
               <li><a href="<c:url value='/Team/Matching/chat-ws.do'/>">Basketball</a>
+              <li class="menu_has_children"><a href="#0">Community</a>              
+                <ul class="sub-menu">                 
+                  <li><a href="<c:url value='/Team/Matching/Board.do'/>">자유게시판</a></li>                
+                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>                 
+                </ul>
+              </li>
               <li class="menu_has_children"><a href="#0">pages</a>
               
                 <ul class="sub-menu">
@@ -58,7 +64,6 @@
                   <li><a href="<c:url value='/Team/Matching/service.do'/>">Services</a></li>
                   <li><a href="<c:url value='/Team/Matching/Login.do'/>">Login</a></li>
                   <li><a href="<c:url value='/Team/Matching/Register.do'/>">Registration</a></li>
-                  <li><a href="<c:url value='/bbs/Board.bbs'/>">Board</a></li>
                 
                   <li><a href="<c:url value='/Team/Matching/Privacy.do'/>">Privacy</a></li>
                   <li><a href="<c:url value='/Team/Matching/Error.do'/>">ERROR Page</a></li>
@@ -72,8 +77,7 @@
                   
                 </ul>
               </li>
-              <li><a href="<c:url value='/Team/Matching/contact.do'/>">contact us</a>
-              </li>
+             
               <c:if test="${! empty sessionScope.id }" var="isLogin">
               	<li><a href="<c:url value='/Team/Matching/Logout.do'/>">Sign out</a></li>
 			  </c:if>

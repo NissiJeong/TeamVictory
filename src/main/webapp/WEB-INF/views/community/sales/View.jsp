@@ -42,11 +42,11 @@
     			<ul id="pillMenu" class="nav nav-pills center-block" style="width:280px">
     				<li><a class="btn btn-success" href="javascript:fnMovePage()" >답변</a></li>
     				<c:if test="${sessionScope.id == record.id }">
-    					<li><a class="btn btn-success" href="<c:url value='/bbs/Edit.bbs?no=${record.no}'/>" >수정</a></li>    				
+    					<li><a class="btn btn-success" href="<c:url value='/community/bbs/Edit.bbs?no=${record.no}'/>" >수정</a></li>    				
     					<li><a class="btn btn-success" href="javascript:isDelete()" >삭제</a></li>
     				</c:if>
     				
-    				<li><a class="btn btn-success" href="<c:url value='/bbs/Board.bbs?nowPage=${param.nowPage}'/>">목록</a></li>
+    				<li><a class="btn btn-success" href="<c:url value='/community/bbs/Board.bbs?nowPage=${param.nowPage}'/>">목록</a></li>
     			</ul>   		
     		</div>
     	</div><!-- row --> 
@@ -56,13 +56,13 @@
     
 	<!-- 실제 내용 끝 -->    
    	<!-- 답변폼으로 이동을 POST방식으로 전송하기 -->
-   	<form id="form" method="post" action="<c:url value='/bbs/ReplyForm.bbs'/>">
+   	<form id="form" method="post" action="<c:url value='/community/bbs/ReplyForm.bbs'/>">
    		<input type="hidden" name="no" value="${record.no}"/>
    	</form>
    	<script>
    		function isDelete(){
    			if(confirm("정말로 삭제 하시겠습니까?")){
-   				location.replace("<c:url value='/bbs/Delete.bbs?no=${record.no}'/>");
+   				location.replace("<c:url value='/community/bbs/Delete.bbs?no=${record.no}'/>");
    			}
    		}
    		function fnMovePage(){

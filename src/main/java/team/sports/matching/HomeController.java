@@ -63,10 +63,11 @@ public class HomeController {
 	public String register() {
 		return "member/registration.tiles";
 	}
-	@RequestMapping("/Team/Matching/Board.do")
-	public String board() {
-		return "bbs/Board.tiles";
-	}
+
+	/*
+	 * @RequestMapping("/Team/Matching/Board.do") public String board() { return
+	 * "community/bbs/Board.tiles"; }
+	 */
 	@RequestMapping("/Team/Matching/FAQ.do")
 	public String faq() {
 		return "member/faq.tiles";

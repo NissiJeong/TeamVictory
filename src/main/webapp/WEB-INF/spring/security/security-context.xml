@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+	<!-- 보안과 관련된 설정파일 -->
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/Team/Matching/Login.do" access="permitAll"/>
+		<security:intercept-url pattern="/Team/Matching/Register.do" access="permitAll"/>
+		<security:intercept-url pattern="/Team/Matching/CheckId.do" access="permitAll"/>
+		<security:intercept-url pattern="/Team/Matching/CheckMail.do" access="permitAll"/>
+		<security:intercept-url pattern="/Team/Matching/Registration.do" access="permitAll"/>
+		
+		<security:intercept-url pattern="/Team/Matching/**" access="hasAnyRole('USER','ADMIN')"/>
+		<security:intercept-url pattern="/**" access="permitAll"/>
+		
+		
+		<security:form-login
+			login-page="/Team/Matching/Login.do"
+			default-target-url="/Team/Matching/Login.do"
+			authentication-failure-url="/Team/Matching/Login.do?error"
+			login-processing-url="/Team/Matching/IsMember.do"
+			username-parameter="id"
+			password-parameter="pwd"
+		/>
+		<security:csrf disabled="false"/>
+		<!-- 중복 로그인 방지용 -->
+		<security:session-management invalid-session-url="/Team/Matching/Login.do">
+			<security:concurrency-control max-sessions="1" expired-url="/Team/Matching/Login.do"/>		
+		</security:session-management>
+	</security:http>
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service 
+			role-prefix=""
+			data-source-ref="datasource" 			
+			users-by-username-query="SELECT m.id as username,m.pwd as password,enabled FROM member m JOIN auth_security a ON m.id=a.id WHERE m.id=?"
+			authorities-by-username-query="SELECT m.id as username,authority as authority  FROM member m JOIN auth_security a ON m.id=a.id WHERE m.id=?"
+			/>
+		</security:authentication-provider>	
+	</security:authentication-manager>
+
+</beans>

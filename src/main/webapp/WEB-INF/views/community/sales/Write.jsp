@@ -7,20 +7,14 @@
 	<!-- 점보트론(Jumbotron) -->
 	<div class="jumbotron">
 		<h1>
-			자유 게시판<small>답변 페이지</small>
+			자유 게시판<small>등록 페이지</small>
 		</h1>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal" method="post"
-				action="<c:url value='/bbs/Reply.bbs'/>">
-				<!-- 원본글의 REFER/STEP/DEPTH 설정  -->
-				<input type="hidden" name="refer" value="${record.refer}" /> <input
-					type="hidden" name="step" value="${record.step}" /> <input
-					type="hidden" name="depth" value="${record.depth}" />
-				<!-- 답변 작성 실패시 다시 현재 페이지로 오기위한 no값 설정 -->
-				<input type="hidden" name="no" value="${record.no}" />
-
+				action="<c:url value='/community/bbs/Write.bbs'/>">
+				
 				<div class="form-group">
 					<label class="col-md-2 control-label">제목</label>
 					<div class="col-md-5">
@@ -33,11 +27,7 @@
 					<label class="col-md-2 control-label">내용</label>
 					<div class="col-md-5">
 						<textarea rows="10" name="content" id="content"
-							class="form-control" placeholder="내용을 입력하세요">
-
-==============${record.name}이 작성한 글============
-${record.content}
-</textarea>
+							class="form-control" placeholder="내용을 입력하세요"></textarea>
 					</div>
 				</div>
 				<div class="form-group">

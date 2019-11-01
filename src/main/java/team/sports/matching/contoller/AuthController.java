@@ -25,18 +25,23 @@ public class AuthController {
 	public String login() {
 		return "member/login.tiles";
 	}
+	/*
 	//로그인 처리
 	@RequestMapping("/Team/Matching/IsMember.do")
 	public String isMember(@RequestParam Map map,Model model) {
+		String path;
 		boolean isLogin = dao.isLogin(map);
 		if(isLogin) {
 			model.addAllAttributes(map);
+			path = "member/index.tiles";
 		}
 		else {
 			model.addAttribute("NotMember", "아이디와 비밀번호가 일치하지 않습니다");
+			path="member/login.tiles";
 		}
-		return "member/index.tiles";
-	}/////isMember
+		return path;
+	}/////isMember*/
+	/*
 	//로그아웃 처리
 	@RequestMapping("/Team/Matching/Logout.do")
 	public String logout(SessionStatus status) {
@@ -52,13 +57,12 @@ public class AuthController {
 			
 		}
 		return "member/registration.tiles";
-	}
+	}*/
 
 	//회원가입
 	@RequestMapping("/Team/Matching/Registration.do")
-
 	public String registration(@RequestParam Map map, Model model) {
-
+		
 		
 		String year = map.get("year").toString();
 		String month = map.get("month").toString();
@@ -73,8 +77,18 @@ public class AuthController {
 		  System.out.println(key+":"+value);
 		  
 		  }
-		  
+		int comple= 0;
 		int affected = dao.memberRegi(map);
+		if(affected==1) {
+			comple = dao.regiAuth(map);
+			System.out.println("가입됐다");
+			System.out.println(comple);
+		}
+		if(comple == 0 ) {
+			System.out.println("???");
+			dao.deleteMember(map);
+		}
+		
 		System.out.println("affected:" +affected);
 		return "member/login.tiles";
 
@@ -84,6 +98,9 @@ public class AuthController {
 	@RequestMapping(value="/Team/Matching/CheckId.do",produces = "text/html; charset=UTF-8")
 	public String checkId(@RequestParam Map map) {
 		System.out.println("asdf");
+		for(Object key : map.keySet()) {
+			System.out.println(key+":"+map.get(key));
+		}
 		int duple = dao.isDuplicate(map);
 		String isdu = "중벅";
 		if(duple==0) {

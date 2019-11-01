@@ -245,6 +245,7 @@ E-mail : cshappy@gameone.kr</p>
                 <div class="col-md-12">
                   <div class="frm-group text-center">
                     <button type="submit" class="submit-btn">보내기</button>
+                    <!-- 웹알림 서비스 구현할것 (web notification api)  -->
                   </div>
                 </div>
               </div>

@@ -1,8 +1,15 @@
 package team.sports.matching;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.annotation.Resource;
@@ -17,8 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
+import team.sports.matching.contoller.MatchController;
 import team.sports.matching.service.BettingDAO;
 import team.sports.matching.service.BettingDTO;
 
@@ -35,20 +41,25 @@ public class BettingController {
 		List<BettingDTO> list = bettingDao.selectList(new HashMap());
 
 		// 경기예정일경우 HomeScore 와 awayScore가 null이므로
-		// EL표현식에서는 0으로 처리되므로 yet 변경해준다.
+		// EL표현식에서는 0으로 처리되므로 -1로 변경해준다.
 		for (BettingDTO dto : list) {
 			if (dto.getHomeScore() == null && dto.getAwayScore() == null) {
 				dto.setHomeScore("-1");
 				dto.setAwayScore("-1");
 			}
-
+             //요일 세팅 
+		     dto.setGameDay(dayString(dto.getGameDate()));	
+		     //시간  00:00 으로 맞추기 
+		     dto.setTime(timeColon(dto.getTime().trim()));
+			
+			
 			System.out.print("[" + (list.indexOf(dto) + 1) + "] ");
 			System.out.println(
-					String.format("홈팀 : %s 경기일자  : %"
-							+ "s 경기장 : %s 경기시간 : %s  어웨이 : %s  게임상태 : %s  홈스코어 : %s  어웨이스코어 : %s",
-							dto.getTeamname(), dto.getGameDate(), dto.getStadium(), dto.getTime(), dto.getAwayTeam(),
+					String.format("홈팀 : %s 경기일자  : %s 요일 :  %s " 
+							+ "경기장 : %s 경기시간 : %s  어웨이 : %s  게임상태 : %s  홈스코어 : %s  어웨이스코어 : %s",
+							dto.getTeamname(), dto.getGameDate(),dto.getGameDay(), dto.getStadium(), dto.getTime(), dto.getAwayTeam(),
 							dto.getGameStatus(), dto.getHomeScore(), dto.getAwayScore()));
-		}
+		} //for
 
 		model.addAttribute("list", list);
 
@@ -70,44 +81,97 @@ public class BettingController {
 	public String bettingViewAjax(@RequestParam Map map, HttpServletRequest req) {
 		
 		JSONObject json  = new JSONObject();
-          for(Object key : map.keySet())
-        	  System.out.println(String.format("%s : %s ",key,map.get(key).toString()));
+        for(Object key : map.keySet())
+      	  System.out.println(String.format("%s : %s ",key,map.get(key).toString()));
+        
+        map.put("home", "h");
+        List<Map> homeList =  bettingDao.selectListTeamInfo(map);
+        map.remove("home");
+        
+        List<Map> awayeList = bettingDao.selectListTeamInfo(map);
+        
+        for(Map homemap : homeList) {
+      	if (  homemap.get("AWAYTEAM").equals(map.get("hometeam"))){
+      		  String temp="";
+      		  
+      		  temp= homemap.get("AWAYTEAM").toString();
+      		homemap.put("AWAYTEAM", homemap.get("HOMETEAM").toString());
+      		homemap.put("HOMETEAM", temp);
+      		
+				
+				  temp = homemap.get("AWAYSCORE").toString();
+				  homemap.put("AWAYSCORE",Integer.parseInt(homemap.get("HOMESCORE").toString()) );
+				  homemap.put("HOMESCORE", Integer.parseInt(temp));
+				 
+      		  
+      	  }
+      	
+      	  for (Object key : homemap.keySet() ) { //맵이 하나의 레코드  key가 컬럼명
+      		    if(key.toString().equals("GAMEDATE")) {
+      		    	homemap.put(key,homemap.get(key).toString().split(" ")[0].trim());
+      		    }
+      		   
+      		         		    
+      		    
+      		    
+      		  System.out.println(String.format("컬럼명 : %s  , 데이터 : %s", key,homemap.get(key).toString()));
+      	  }
+      	 
+        }
+        json.put("home", homeList);
+        
+        
+        
+       
+       for(Map awaymap : awayeList) {
+      	 
+      	 if (  awaymap.get("AWAYTEAM").equals(map.get("awayteam"))){
+      		 
+     		  String temp="";
+     		 temp= awaymap.get("AWAYTEAM").toString();
+     		awaymap.put("AWAYTEAM", awaymap.get("HOMETEAM").toString());
+     		awaymap.put("HOMETEAM", temp);
+     		
+				
+				  temp = awaymap.get("AWAYSCORE").toString(); 
+				  awaymap.put("AWAYSCORE",Integer.valueOf(awaymap.get("HOMESCORE").toString()) );
+				 awaymap.put("HOMESCORE", Integer.parseInt(temp));
+				 
+     		  
+     	  }
+      	 
+      	 
+     	  for (Object key : awaymap.keySet() ) {
+     		    if(key.toString().equals("GAMEDATE")) {
+     		    	awaymap.put(key,awaymap.get(key).toString().split(" ")[0].trim());
+     		    }
+     		  System.out.println(String.format("컬럼명 : %s  , 데이터 : %s", key,awaymap.get(key).toString()));
+     	  }
+     	 
+       }
+        
+       json.put("away", awayeList);  
+       
+       
+		//키, 값 출력하기 
+		 Set keys =json.keySet();
+		 for (Object key : json.keySet()) {
+			
+			System.out.println(String.format("키 : %s 카운트 : %s",key.toString(),((List)json.get(key)).size()   ));
+			
+			for(int i=0; i<((List)json.get(key)).size(); i++) {
+				System.out.print("["+((List)json.get(key)).indexOf(((List)json.get(key)).get(i))+"] ");
+			System.out.println(((List)json.get(key)).get(i));
+			}
+			
+		  
+		 }
+		
+ 		System.out.println(json.toJSONString());
           
-          map.put("home", "h");
-          List<Map> homeList =  bettingDao.selectListTeamInfo(map);
-          map.remove("home");
-          
-          List<Map> awayeList = bettingDao.selectListTeamInfo(map);
-          
-          for(Map homemap : homeList) {
-        	  for (Object key : homemap.keySet() ) {
-        		    if(key.toString().equals("GAMEDATE")) {
-        		    	homemap.put(key,homemap.get(key).toString().split(" ")[0].trim());
-        		    }
-        		  System.out.println(String.format("컬럼명 : %s  , 데이터 : %s", key,homemap.get(key).toString()));
-        	  }
-        	 
-          }
-          json.put("home", homeList);
-         
-         for(Map awaymap : awayeList) {
-       	  for (Object key : awaymap.keySet() ) {
-       		    if(key.toString().equals("GAMEDATE")) {
-       		    	awaymap.put(key,awaymap.get(key).toString().split(" ")[0].trim());
-       		    }
-       		  System.out.println(String.format("컬럼명 : %s  , 데이터 : %s", key,awaymap.get(key).toString()));
-       	  }
-       	 
-         }
-          
-         json.put("away", awayeList);  
-   
-  
-         
-       System.out.println(json.toJSONString());
-           
-          
+        
 		return json.toJSONString();
+
 
 	}///
 	
@@ -143,4 +207,50 @@ public class BettingController {
 	 * }///////////// ajaxJsonArray
 	 */
 
+	
+	public static  String dayString(java.sql.Date date) {
+		    
+		    Calendar cal = Calendar.getInstance() ;
+		    cal.setTime(date);
+		  
+		     
+		    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+		     String day="";
+		      
+		     
+		    switch(dayNum){
+		        case 1:
+		            day = "(일)";break ;
+		        case 2:
+		            day = "(월)";break ;
+		        case 3:
+		            day = "(화)";break ;
+		        case 4:
+		            day = "(수)";break ;
+		        case 5:
+		            day = "(목)";break ;
+		        case 6:
+		            day = "(금)";break ;
+		        case 7:
+		            day = "(토)";break ;
+		             
+		    }
+		    
+		    return day ;
+	}//////////////
+	
+	
+	public static String timeColon(String time) {
+		StringBuffer buf = new StringBuffer();
+		if (time.length() ==4) {
+			buf.append(time.substring(0,2)+":"+time.substring(2,4));
+			}
+			else {
+				buf.append("0"+time.substring(0,1)+":"+time.substring(1,3));
+			}
+		return buf.toString();
+		
+	}/////////
+	
+	
 }

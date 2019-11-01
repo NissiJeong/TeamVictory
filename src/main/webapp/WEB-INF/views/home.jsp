@@ -3,13 +3,18 @@
 
 <h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+    dddd
+    GO
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
     why??
-	Hello world!   nissi  
+	Hello world!   ni ssi  
 	plz  plz 
 	git fu..c.......
 	   aaaa. a
-	git Fuck Fuck dde
+	git Fuck Fuck dd e
 	
 	asfdsadfsdaffaaaa11 
 as

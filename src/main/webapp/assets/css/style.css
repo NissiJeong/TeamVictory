@@ -34,7 +34,7 @@ Table of content
 @import url('reset.css');
 @import url('global.css');
 
-@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css); 
 
 /*  header-section css start */
 
@@ -640,7 +640,7 @@ span.is-active:after {
   padding: 15px 0;
   background-color: var(--second-color);
    color: #ffffff; 
- text-transform: capitalize;
+ /* text-transform: capitalize; */
   /* 추가 */ 
   text-align: center;
 }
