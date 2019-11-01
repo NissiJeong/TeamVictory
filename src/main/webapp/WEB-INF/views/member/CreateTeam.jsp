@@ -6,6 +6,24 @@
 <sec:authentication property="principal.authorities" var="auth"/>
 
 <script>
+$(function(){
+	function readURL(input) {
+		 if (input.files && input.files[0]) {
+		  var reader = new FileReader();
+		  
+		  reader.onload = function (e) {
+		   $('#image_section').attr('src', e.target.result);  
+		  }
+		  
+		  reader.readAsDataURL(input.files[0]);
+		  }
+		}
+		  
+		$("#imgInput").change(function(){
+		   readURL(this);
+		});
+})
+
 function isSelect(){
 	var cate = $("#category").val();
 	var loc = $('#teamLoc').val();
@@ -139,9 +157,18 @@ function isBlank(){
        	<c:if test="${not isDupli}">
 		
           <div class="contact-form-area">
-            <form class="cmn-form contact-form" action="<c:url value='/Team/matching/teamJoin.do'/>">
+          	
+            <form class="cmn-form contact-form" action="<c:url value='/Team/matching/teamJoin.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
               <div class="row">
+              	<div class="col-md-6">
+                  <div class="frm-group">
+                  		<label for="imgInput" class="btn btn-info">팀 로고 선택</label>
+					    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
+				   		<img id="image_section" src="<c:url value='/assets/images/preloader.gif'/>" style="width:100px;height:100px" />	
+				   		<span style="color:red; font-size: 1.8em">${empty param.error ?'':'파일 용량 초과'}</span>
+                  </div>
+                </div>
                 <div class="col-md-6">
                   <div class="frm-group">
                   	
@@ -150,6 +177,7 @@ function isBlank(){
                     <span id="TeamNameError" style="color:red; font-size: 0.8em"></span>
                   </div>
                 </div>
+                
                 <div class="col-md-6">
                   <div class="frm-group">
                   
@@ -202,7 +230,7 @@ function isBlank(){
               </div>
             </form>
             <div class="contact-thumb">
-              <img src="<c:url value='assets/images/contact.png'/>" alt="image"/>
+	            
             </div>
            
           </div>

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import team.sports.matching.service.MatchDAO;
-import team.sports.matching.service.BaseTeamDTO;
+import team.sports.matching.service.TeamDTO;
 
 //@SessionAttributes("id")
 @Controller
@@ -47,9 +47,9 @@ public class MatchController {
 		}
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
-		int team = dao.selectTeam(map);
-		map.put("team", team);
-		List<BaseTeamDTO> list = dao.selectList(map);
+		int manager = dao.selectTeam(map);
+		map.put("manager", manager);
+		List<TeamDTO> list = dao.selectList(map);
 		
 		model.addAttribute("list",list);
 		return "member/matching2.tiles";
@@ -91,12 +91,13 @@ public class MatchController {
 		for(Object key:map.keySet()) {
 			System.out.println(key+":"+map.get(key).toString());
 		}
-		BaseTeamDTO dto = new BaseTeamDTO();
+		TeamDTO dto = new TeamDTO();
 		dto = dao.selectOne(map);
 		json.put("teamName", dto.getTeamName());
 		json.put("teamRating", dto.getTeamRating());
 		json.put("category", dto.getCategory());
 		System.out.println(dto.getTeamName()+"받아온 팀 이름");
+		json.put("teamLogo", dto.getTeamLogo());
 		map.put("teamName2", dto.getTeamName());
 		List<Map> gameList = dao.selectGamefive(map);
 		for(int i=0;i<gameList.size();i++) {

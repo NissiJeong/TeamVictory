@@ -1,6 +1,8 @@
 package team.sports.matching.service;
 
-public class BaseTeamDTO {
+import java.util.Date;
+
+public class TeamDTO {
 	
 	
 	private String teamName;
@@ -8,7 +10,9 @@ public class BaseTeamDTO {
 	private String teamLoc;
 	private String teamRating;
 	private String manager_id;
-	
+	private String teamInfo;
+	private Date regiDate;
+	private String teamLogo;
 	
 	public String getTeamName() {
 		return teamName;
@@ -39,5 +43,24 @@ public class BaseTeamDTO {
 	}
 	public void setManager_id(String manager_id) {
 		this.manager_id = manager_id;
+	}
+	public String getTeamInfo() {
+		return teamInfo;
+	}
+	public void setTeamInfo(String teamInfo) {
+		this.teamInfo = teamInfo;
+	}
+	public Date getRegiDate() {
+		return regiDate;
+	}
+	public void setRegiDate(Date regiDate) {
+		this.regiDate = regiDate;
+	}
+	public String getTeamLogo() {
+		return teamLogo;
+	}
+	public void setTeamLogo(String teamLogo) {
+		this.teamLogo = teamLogo;
 	}	
+	
 }

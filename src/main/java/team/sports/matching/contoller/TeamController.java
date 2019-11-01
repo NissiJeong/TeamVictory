@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.security.core.Authentication;
@@ -17,16 +18,19 @@ import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.oreilly.servlet.MultipartRequest;
+
 import team.sports.matching.service.MatchDAO;
 import team.sports.matching.service.MemberDAO;
 import team.sports.matching.service.TeamBoardDAO;
 import team.sports.matching.service.TeamBoardDTO;
-import team.sports.matching.service.BaseTeamDTO;
+import team.sports.matching.service.TeamDTO;
 
 @SessionAttributes("id")
 @Controller
@@ -71,27 +75,7 @@ public class TeamController {
 		return duplic;
 	}
 	
-	//팀 만들기 
-	@RequestMapping("/Team/matching/teamJoin.do")
-	public String createTeam(@RequestParam Map map,Model model, Authentication auth) {
-		System.out.println(map.get("teamInfo"));
-		UserDetails userDetails = (UserDetails)auth.getPrincipal();
-		map.put("id", userDetails.getUsername());
-		for(Object key:map.keySet()) {
-			System.out.println(key+":"+map.get(key));
-		}
-		System.out.println("id:"+userDetails.getUsername());
-		int affected = dao.teamInsert(map);
-		if(affected==1) {
-			int confirm = dao.insertTeamMember(map);
-			if(confirm==0) {
-				dao.deleteTeam(map);
-				affected = 0;
-			}			
-		}		
-		model.addAttribute("SUCFAIL", affected);
-		return "member/Message";
-	}///
+	
 	
 	//팀페이지로 이동
 	@RequestMapping("/Team/Matching/Team.do")

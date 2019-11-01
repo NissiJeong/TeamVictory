@@ -33,7 +33,7 @@
   		<tiles:insertAttribute name="Top"/>
   		<!-- 바디부분 -->
   		<tiles:insertAttribute name="Body"/>  
-  		<div class="row">&nbsp;</div>		
+  		<div class="row"></div>		
   		<!-- 푸터 부분 -->
   		<tiles:insertAttribute name="Footer"/>
   </body>

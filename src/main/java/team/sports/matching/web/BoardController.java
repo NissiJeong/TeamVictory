@@ -44,7 +44,7 @@ public class BoardController {
 
 	// 목록 처리]
 	@RequestMapping("/Team/Matching/Board.do")
-	public String list(@ModelAttribute("id") String id, // 스프링 씨큐리티를 사용하지 않을때
+	public String list(
 			@RequestParam Map map, Model model, HttpServletRequest req,
 			@RequestParam(required = false, defaultValue = "1") int nowPage) {
 		// 서비스 호출]

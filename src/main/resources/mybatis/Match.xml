@@ -15,11 +15,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM teammember WHERE id=#{id}
 	</select>
 	<select id="teamSelectList" parameterType="java.util.Map" resultType="TeamDTO">
-		<if test="team == 0">
+		<if test="manager == 0">
 			SELECT * FROM team
 		</if>
-		<if test="team != 0">
-			SELECT t.* from team t join teammember m on t.teamname = m.teamname where not m.teamname = (select teamname from teammember where id=#{id})
+		<if test="manager != 0">
+			SELECT t.* from team t join teammember m on t.teamname = m.teamname where not m.teamname = (select teamname from team where manager_id=#{id})
 		</if> 
 	</select>
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
@@ -40,6 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkDateTimeStadium" parameterType="java.util.Map" resultType="int">
 		select count(*) from matching where stadium = #{stadium} and reqdate=#{gameDate} and time=#{gameTime}
 	</select>
+	<!-- 매니저인지 확인하는 쿼리문 -->
 	<select id="checkManager" parameterType="java.util.Map" resultType="int">
 		select count(*) from team where manager_id =#{id}
 	</select>

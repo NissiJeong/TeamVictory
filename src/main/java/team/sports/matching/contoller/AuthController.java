@@ -62,7 +62,7 @@ public class AuthController {
 	//회원가입
 	@RequestMapping("/Team/Matching/Registration.do")
 	public String registration(@RequestParam Map map, Model model) {
-
+		
 		
 		String year = map.get("year").toString();
 		String month = map.get("month").toString();
