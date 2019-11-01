@@ -5,7 +5,7 @@
   	<link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  
 
 <script>
@@ -79,7 +79,12 @@ $( function() {
     			$('#sel2').val("ti");
     			$('#sel3').val("stadium");
     			console.log(data);
-    			alert(data);
+    			swal({
+    				  title: "Good job!",
+    				  text: data,
+    				  icon: "success",
+    				  button: "Aww yiss!",
+   				});    			
     		}
     	});
     });    
