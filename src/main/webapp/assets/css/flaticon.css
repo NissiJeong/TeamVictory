@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 07/10/2019 11:31
+  	Creation date: 01/11/2019 07:21
   	*/
 
 @font-face {
@@ -25,9 +25,9 @@
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
   font-family: Flaticon;
-        
+        font-size: 20px;
 font-style: normal;
-
+margin-left: 20px;
 }
 
 .flaticon-soccer:before { content: "\f100"; }
@@ -37,3 +37,15 @@ font-style: normal;
 .flaticon-bat:before { content: "\f104"; }
 .flaticon-match:before { content: "\f105"; }
 .flaticon-transparency:before { content: "\f106"; }
+.flaticon-user:before { content: "\f107"; }
+.flaticon-email:before { content: "\f108"; }
+.flaticon-appointment:before { content: "\f109"; }
+.flaticon-maps-and-location:before { content: "\f10a"; }
+.flaticon-bat-1:before { content: "\f10b"; }
+.flaticon-score:before { content: "\f10c"; }
+.flaticon-tactics:before { content: "\f10d"; }
+.flaticon-coach:before { content: "\f10e"; }
+.flaticon-id-card:before { content: "\f10f"; }
+.flaticon-phone:before { content: "\f110"; }
+.flaticon-chat-1:before { content: "\f111"; }
+.flaticon-chat-2:before { content: "\f112"; }

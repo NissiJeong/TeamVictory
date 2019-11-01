@@ -25,6 +25,22 @@
 	<!-- 원래 위 설정때문에 webapp 아래 resources 넣어놓고 링크걸때 /resources 이거 붙여우야ㅕ 함 그래서 위 코드 주석처리 하고 아래 코드로 webapp어떤 곳에 넣어놔도 css매핑되게 -->
 	<!-- 방법 3] -->
 	<default-servlet-handler/>
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="2000000"/>
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="defaultErrorView" value="/Exception12/DefaultErrorView.jsp"/>
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">
+					member/CreateTeam?error=error
+				</beans:prop>
+			</beans:props>		
+		</beans:property>
+		
+	</beans:bean>
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="order" value="2"/>   

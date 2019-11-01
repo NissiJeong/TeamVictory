@@ -27,10 +27,33 @@ $( function() {
     		data:{teamName:$('label:eq('+$(this).attr("title")+')').attr("title"),'_csrf':'${_csrf.token}'},	
     		success:function(data){
     			console.log(data);
+    			if(data['teamLogo'] != null){
+    				$("#teamLogo").prop("src","/matching/Upload/"+data['teamLogo']);
+    			}
+    			else{
+    				$("#teamLogo").prop("src","https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6");
+    			}
     			$("#teamName").html(data['teamName']);
     			$("#teamRating").html(data['teamRating']);
     			$('#awayteam').prop('value',data['teamName']);
-    			$('#date0').html(data['gameDate4']);
+    			for(var i=0;i<5;i++){
+    				if(data['gameDate'+(4-i)]==undefined){
+    					$('#date'+i).html('.');
+    				}
+    				else{
+    					$('#date'+i).html(data['gameDate'+(4-i)]);
+    				}    				
+    			}
+    			for(var i=0;i<5;i++){
+    				if(data['gameResult'+(4-i)]==undefined){
+    					$('#result'+i).html('전적 없음');
+    				}
+    				else{
+    					$('#result'+i).html(data['gameResult'+(4-i)]+'</br>'+data['score4']);
+    				}		
+    			}
+    			
+    			/* $('#date0').html(data['gameDate4']);
     			$('#date1').html(data['gameDate3']);
     			$('#date2').html(data['gameDate2']);
     			$('#date3').html(data['gameDate1']);
@@ -39,7 +62,7 @@ $( function() {
     			$('#result1').html(data['gameResult3']+'</br>'+data['score3']);
     			$('#result2').html(data['gameResult2']+'</br>'+data['score2']);
     			$('#result3').html(data['gameResult1']+'</br>'+data['score1']);
-    			$('#result4').html(data['gameResult0']+'</br>'+data['score0']);
+    			$('#result4').html(data['gameResult0']+'</br>'+data['score0']); */
     		}
     	}); 
     });    
@@ -185,7 +208,12 @@ $( function() {
 						        <div class="col-lg-4 col-sm-6"><!-- post-item start -->
 						          <div class="post-item">
 						            <div class="thumb">
-						              <img src="<c:url value='/assets/images/baseball1.png'/>" alt="image"/>
+						            <c:if test="${! empty item.teamLogo }" var="isLogo">
+						              <img src="/matching/Upload/${item.teamLogo }" alt="image" style="width:329px; height:231px"/>
+					              	</c:if>
+					              	<c:if test="${not isLogo}">
+					              		<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:329px; height:231px"/>
+					              	</c:if>
 						            </div>
 						            <div class="content">
 						              <ul class="post-meta">
@@ -540,7 +568,9 @@ $( function() {
             <div class="row justify-content-center">
               <div class="col-lg-10">
                 <!-- Portfolio Modal - Title -->
-                <img src="<c:url value='/assets/images/baseball1.png'/>" alt="이미지" />
+                
+	              <img id="teamLogo" src="/matching/Upload/${item.teamLogo }" alt="image" style="width:329px; height:231px"/>
+              	
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName"></h2>
                 <h5 id="teamRating"></h5>
                 <p>최근 5경기 경기 결과</p>      

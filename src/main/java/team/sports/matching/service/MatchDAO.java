@@ -14,19 +14,19 @@ public class MatchDAO {
 	private SqlSessionTemplate template;
 	
 	//매칭페이지 글 뿌려주기
-	public List<BaseTeamDTO> selectList(Map map) {
+	public List<TeamDTO> selectList(Map map) {
 		return template.selectList("teamSelectList", map);
 	}
 	//팀에 속하지 않은 사용자에게 매칭 글을 보여주기 위한 메소드
 	public int selectTeam(Map map) {
-		return template.selectOne("selectTeam2", map);
+		return template.selectOne("checkManagerId", map);
 	}
 	//매치 신청
 	public int insert(Map map) {
 		return template.insert("matchInsert",map);
 	}
 	
-	public BaseTeamDTO selectOne(Map map) {
+	public TeamDTO selectOne(Map map) {
 		return template.selectOne("oneSelect", map);
 	}
 	///스케줄에서 최근 5경기 가져오기

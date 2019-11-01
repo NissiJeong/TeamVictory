@@ -33,10 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 팀 생성 인서트 -->
 	<insert id="teamInsert" parameterType="java.util.Map">
-		INSERT INTO team values(#{teamName},#{category},#{teamLoc},1500,#{id},#{teamInfo},SYSDATE)
+		INSERT INTO team values(#{teamName},#{category},#{teamLoc},1500,#{id},#{teamInfo},SYSDATE,#{teamLogo})
 	</insert>
 	<insert id="teamMemberInsert" parameterType="java.util.Map">
-		INSERT INTO teammember values(#{teamName},#{id})
+		INSERT INTO teammember values(#{teamName},#{id},seq_teammember.nextval)
 	</insert>
 	<delete id="deleteTeam" parameterType="java.util.Map">
 		DELETE team WHERE teamname=#{teamName}
