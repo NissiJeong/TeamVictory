@@ -13,7 +13,7 @@ public class ParsingPracticePractice {
 
 		List<Integer> newList = new ArrayList();
 		List<Integer> duplicates = new ArrayList();
-		Set<Integer> set = new HashSet<>();
+		Set<Integer> set = new HashSet();
 
 		
 		

@@ -26,7 +26,7 @@ public class ParsingPractice {
 		StringBuffer change = new StringBuffer();
 		
 		
-		Set<Integer> set = new HashSet<>(); 
+		Set<Integer> set = new HashSet(); 
 		
 		for(int i=1; i<elem.size() -1;i++) {
 		 	

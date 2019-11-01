@@ -71,7 +71,7 @@
 									</div>
 									<form id="submit" method="post"
 										action="<c:url value='/Team/Matching/InsertHitterByPARSING'/>">
-
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 										<h1 class="my-4">돼지 불백</h1>
 										<div class="list-group">
 											
