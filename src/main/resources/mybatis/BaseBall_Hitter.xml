@@ -6,34 +6,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
+
+
 <mapper namespace="mybatis.BaseBall_Hitter">
+	
 	<insert id="hitterInsert" parameterType="java.util.Map" >
 		INSERT INTO basehitter(recordno,pa,ab,h,b2,b3,hr,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder,awayteam,gamedate,stadium,time) VALUES(basehitter_SEQ.NEXTVAL,#{baseball_pa},#{baseball_ab},#{baseball_h},#{baseball_b2},#{baseball_b3},#{baseball_hr},#{baseball_rbi},#{baseball_sb},#{baseball_cs},#{baseball_bb},#{baseball_hbp},#{baseball_so},#{baseball_gdp},#{baseball_e},#{baseball_pos},#{baseball_horder},#{baseball_awayteam},#{baseball_gamedate},#{baseball_stadium},#{baseball_time})
 	</insert>
+	
+	<insert id="hitterInsertByPars" parameterType="java.util.Map" >
+		INSERT INTO hitter(gamedate,stadium,time,id,pa,ab,r,h,hr,rbi,bb,hbp,so,gdp) 
+		VALUES('19-01-01', '서울', HITTER_SEQ.NEXTVAL,#{ID},#{PA},#{AB},#{R},#{H},#{HR},#{RBI},#{BB},#{HBP},#{SO},#{GDP})
+	</insert>
+	
+	
 	<select id="hitterSelectOne" parameterType="java.util.Map" resultType="BaseBall_HitterDTO">
 		SELECT * from basehitter where recordno = 24
 	</select>
 	<select id="hitterSelectList" parameterType="java.util.Map" resultType="java.util.Map">
 		
-		SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM basehitter A
+		SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM hitter A
 		WHERE 
 		<![CDATA[
-		ROWNUM <= (select count(*) from basehitter)) 
+		ROWNUM <= (select count(*) from hitter)) 
 		]]>
 		WHERE 
 		<![CDATA[
-		RNUM > ((select count(*) from basehitter) - 5)
+		RNUM > ((select count(*) from hitter) - 5) AND ID = 'KIM101'
 		]]>
-		ORDER BY recordno desc
-	</select>
-	<select id="hitterTotalSelectList" parameterType="java.util.Map" resultType="java.util.Map">
-		
-		select * from basehitter
-		
+		ORDER BY GAMEDATE DESC, TIME DESC
 	</select>
 	
+	
 	<select id="infiniteScrollDown" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM basehitter A
+		SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM hitter A
 		WHERE 
 		<![CDATA[
 		ROWNUM <= ( #{RECORDNO }-1 )) 
@@ -42,8 +48,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
 		RNUM > (( #{RECORDNO } )-1 -5 )
 		]]>
-		ORDER BY recordno desc
+		ORDER BY GAMEDATE DESC, TIME DESC
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -62,17 +80,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY recordno desc
 	</select>
 	
+	
+	<select id="hitterTotalSelectList" parameterType="java.util.Map" resultType="java.util.Map">
+		
+		select * from basehitter order by recordno desc
+		 
+	</select>
+		
 	<select id="hitterDownTotalSelectList" parameterType="java.util.Map" resultType="java.util.Map">
 	
-		select * from basehitter where recordno between 1 and ( #{RECORDNO } -1 )
+		select * from basehitter where recordno between 1 and ( #{RECORDNO } -1 ) order by recordno desc
 		
 	</select>
 	
 	<select id="hitterUpTotalSelectList" parameterType="java.util.Map" resultType="java.util.Map">
 	
-		select * from basehitter where recordno between 1 and ( #{RECORDNO} + 6 )
+		select * from basehitter where recordno between 1 and ( #{RECORDNO} + 5 ) order by recordno desc
 		
 	</select>
-	
+
 	
 </mapper>
+

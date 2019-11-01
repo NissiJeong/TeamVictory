@@ -43,7 +43,7 @@ DROP SEQUENCE SEQ_matching_matchingNo;
 CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_board INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_board_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
@@ -102,6 +102,7 @@ CREATE TABLE hitter
 	b2 number,
 	b3 number,
 	hr number,
+	r number,
 	rbi number,
 	sb number,
 	cs number,
