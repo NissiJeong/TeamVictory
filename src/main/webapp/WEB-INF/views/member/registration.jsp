@@ -94,7 +94,7 @@
         
     })////onload
     function checkId(){
-       var id = $('#User_id').val();
+       var id2 = $('#User_id').val();
        var duplicate = "중벅";
       var posible = "가능";
       var pattern_num = /[0-9]/;   // 숫자 
@@ -105,29 +105,29 @@
             url:"<c:url value='/Team/Matching/CheckId.do'/>",
             type:'post',
             dataType:'text',
-            data:{id:id},   
+            data:{id:id2,'_csrf':'${_csrf.token}'},   
             success:function(data){
                console.log(data);
                if(data == duplicate){
                     $("#User_id").css("background-color", "#FFCECE");
-                    $("#iError").text("이미 등록된 아이디입니다").css({"font-weight":"bold"})
+                    $("#iError").text("이미 등록된 아이디입니다").css({"font-weight":"bold"});
                     $("#btnRegist").css("background-color","#808080").prop("disabled",true)
                  }
-                 else if(id == ""){
+                 else if(id2 == ""){
                     $("#iError").text("필수항목입니다.").css({"font-weight":"bold"})
                     $("#User_id").css("background-color", "#FFCECE");
                     $("#btnRegist").css("background-color","#808080").prop("disabled",true)
                     
                  }
-                 else if(pattern_kor.test(id)){
+                 else if(pattern_kor.test(id2)){
                      $("#User_id").css("background-color", "#FFCECE");
-                     $("#iError").text("아이디에 한글은 포함하실 수 없습니다").css({"font-weight":"bold"})
+                     $("#iError").text("아이디에 한글은 포함하실 수 없습니다").css({"font-weight":"bold"});
                      $("#btnRegist").css("background-color","#808080").prop("disabled",true)
                   }
-                  else if(id.length < 5 || id.length > 15){
+                  else if(id2.length < 5 || id2.length > 15){
                      console.log("5자이상")
                      $("#User_id").css("background-color", "#FFCECE");
-                     $("#iError").text("아이디는 5자이상 혹은 15자 이하로 입력해주세요").css({"font-weight":"bold"})
+                     $("#iError").text("아이디는 5자이상 혹은 15자 이하로 입력해주세요").css({"font-weight":"bold"});
                      $("#btnRegist").css("background-color","#808080").prop("disabled",true)
                   }
                 else{
@@ -152,12 +152,12 @@ function checkMail(){
             url:"<c:url value='/Team/Matching/CheckMail.do'/>",
             type:'post',
             dataType:'text',
-            data:{email:id},   
+            data:{email:id,'_csrf':'${_csrf.token}'},   
             success:function(data){
                console.log(data);
                if(data == duplicate){
                     $("#email").css("background-color", "#FFCECE");
-                    $("#eError").text("이미 등록된 메일입니다.").css({"font-weight":"bold"})
+                    $("#eError").text("이미 등록된 메일입니다.").css({"font-weight":"bold"});
                     $("#btnRegist").css("background-color","#808080").prop("disabled",true)
                     
                  }
@@ -169,12 +169,12 @@ function checkMail(){
                  else if(id.indexOf("@") == -1){
                     console.log("no")
                     $("#email").css("background-color", "#FFFFFF");
-                    $("#eError").text("잘못된 메일형식입니다.").css({"font-weight":"bold"})
+                    $("#eError").text("잘못된 메일형식입니다.").css({"font-weight":"bold"});
                     $("#btnRegist").css("background-color","#808080").prop("disabled",true)
                  }
                  else{
                     $("#email").css("background-color", "#FFFFFF");
-                    $("#eError").text("사용가능한 메일입니다.").css({"font-weight":"bold"})
+                    $("#eError").text("사용가능한 메일입니다.").css({"font-weight":"bold"});
                      regiComplete()
                    
                 }
@@ -588,7 +588,7 @@ span{
               <h3 class="title">Create a new account</h3>
               
               <form class="cmn-form registration-form" id="regi" method="post" action="<c:url value='/Team/Matching/Registration.do'/>">
-              
+             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
               <div class="frm-group">
                      <input type="text" name="User_name" id="User_name" placeholder="Name" value="${param.User_name }" oninput="userName()">
                      <div>

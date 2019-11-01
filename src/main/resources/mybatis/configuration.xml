@@ -25,7 +25,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Betting.xml" />
 
 		<mapper resource="mybatis/Board.xml" />
-
 		<mapper resource="mybatis/Team.xml" />
 
 	</mappers>

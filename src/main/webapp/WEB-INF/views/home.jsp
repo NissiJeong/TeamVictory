@@ -3,7 +3,7 @@
 
 <h1>
 <<<<<<< HEAD
-    dddd
+    ddddd
     GO
     why??
 	Hello world!   ni ssi  

@@ -249,9 +249,10 @@
 			<h3 class="contentTit" >문의게시판</h3>
 
 			<form name="frm_write" id="frm_write" method="POST" >
+			action="<c:url value='/Team/Matching/contact.bbs'/>
 			<input type="hidden" name="mode" value="create">
 			<input type="hidden" name="category" value="4">
-			<input type="hidden" name="email" id="email" value="">
+			<input type="hidden" name="message" id="message" value="">
 			<div class="formArea">
 				<table class="form">
 					<caption></caption>

@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.json.simple.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
@@ -21,23 +23,30 @@ import org.springframework.web.bind.support.SessionStatus;
 import team.sports.matching.service.MatchDAO;
 import team.sports.matching.service.BaseTeamDTO;
 
-@SessionAttributes("id")
+//@SessionAttributes("id")
 @Controller
 public class MatchController {
 	@Resource(name="match")
 	private MatchDAO dao;
 	//로그인 하지 않고 매칭 페이지로 이동시키면 로그인 페이지로 이동
+	/*
 	@ExceptionHandler(HttpSessionRequiredException.class)
 	public String isNotMember(Model model) {
 		model.addAttribute("NotMember", "로그인 후 이용하세요");
 		//로그인이 안된 경우 로그인 페이지로
 		return "member/login.tiles";
-	}
+	}*/
 	
 	//매칭 페이지로 이동
 	@RequestMapping("/Team/Matching/Matching.do")
-	public String matching(@RequestParam Map map,Model model,@ModelAttribute("id") String id) {
-		map.put("id", id);
+	public String matching(@RequestParam Map map,Model model, Authentication auth) {
+		//map.put("id", id);
+		
+		if(auth == null) {
+			return "member/login.tiles";
+		}
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
 		int team = dao.selectTeam(map);
 		map.put("team", team);
 		List<BaseTeamDTO> list = dao.selectList(map);
@@ -48,9 +57,13 @@ public class MatchController {
 	
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/matching.do",produces = "text/html; charset=UTF-8")
-	public String match(@RequestParam Map map,@ModelAttribute("id") String id) {
+	public String match(@RequestParam Map map, Authentication auth) {
 		String ass= "no";
-		map.put("id", id);
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
+		for(Object key:map.keySet()) {
+			System.out.println(key+":"+map.get(key));
+		}
 		System.out.println("들어옴");
 		//팀장이 아닌 아이디가 신청하면 alert창 띄우게
 		int manager = dao.selectManagerId(map);
