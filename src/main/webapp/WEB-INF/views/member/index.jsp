@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+window.addEventListener('load', function () {
+	  Notification.requestPermission(function (status) {
+	    // This allows to use Notification.permission with Chrome/Safari
+	    if (Notification.permission !== status) {
+	      Notification.permission = status;
+	    }
+	  });
+	});
+</script>
   <!-- banner-section start -->
   <section class="banner-section">
     <div class="banner-image-part">

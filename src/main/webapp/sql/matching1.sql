@@ -5,20 +5,24 @@ DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_betting_no;
 DROP TRIGGER TRI_board_no;
+DROP TRIGGER TRI_contact_no;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
+DROP TRIGGER TRI_message_no;
 
 
 
 /* Drop Tables */
 
+DROP TABLE AUTH_SECURITY CASCADE CONSTRAINTS;
 DROP TABLE betting CASCADE CONSTRAINTS;
 DROP TABLE board CASCADE CONSTRAINTS;
 DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
 DROP TABLE matching CASCADE CONSTRAINTS;
+DROP TABLE message CASCADE CONSTRAINTS;
 DROP TABLE TeamMember CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
 DROP TABLE Team CASCADE CONSTRAINTS;
@@ -31,9 +35,11 @@ DROP SEQUENCE SEQ_baseteam_baseteamno;
 DROP SEQUENCE SEQ_Betting_bettingIndex;
 DROP SEQUENCE SEQ_betting_no;
 DROP SEQUENCE SEQ_board_no;
+DROP SEQUENCE SEQ_contact_no;
 DROP SEQUENCE SEQ_gameRecord_teamGameNo;
 DROP SEQUENCE SEQ_Gameschedule_gameNo;
 DROP SEQUENCE SEQ_matching_matchingNo;
+DROP SEQUENCE SEQ_message_no;
 
 
 
@@ -44,13 +50,25 @@ CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_board_no INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_contact_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_message_no INCREMENT BY 1 START WITH 1;
 
 
 
 /* Create Tables */
+
+CREATE TABLE AUTH_SECURITY
+(
+	SECNO number NOT NULL,
+	ENABLED number(1) DEFAULT 1,
+	AUTHORITY varchar2(20) DEFAULT 'ROLE_USER',
+	ID nvarchar2(15) NOT NULL,
+	PRIMARY KEY (SECNO)
+);
+
 
 CREATE TABLE betting
 (
@@ -72,8 +90,8 @@ CREATE TABLE board
 	content nvarchar2(2000) NOT NULL,
 	postDate date DEFAULT SYSDATE,
 	ID nvarchar2(15) NOT NULL,
-	PRIMARY KEY (no),
-	countNo number default 0
+	count  DEFAULT 0,
+	PRIMARY KEY (no)
 );
 
 
@@ -97,23 +115,24 @@ CREATE TABLE hitter
 	stadium nvarchar2(20) NOT NULL,
 	time number NOT NULL,
 	ID nvarchar2(15) NOT NULL,
-	pa number,
-	ab number,
-	h number,
-	b2 number,
-	b3 number,
-	hr number,
-	r number,
-	rbi number,
-	sb number,
-	cs number,
-	bb number,
-	hbp number,
-	so number,
-	gdp number,
-	e number,
-	pos number,
-	horder number,
+	teamName nvarchar2(20) NOT NULL,
+	pa number DEFAULT 0,
+	ab number DEFAULT 0,
+	h number DEFAULT 0,
+	b2 number DEFAULT 0,
+	b3 number DEFAULT 0,
+	hr number DEFAULT 0,
+	R number DEFAULT 0,
+	rbi number DEFAULT 0,
+	sb number DEFAULT 0,
+	cs number DEFAULT 0,
+	bb number DEFAULT 0,
+	hbp number DEFAULT 0,
+	so number DEFAULT 0,
+	gdp number DEFAULT 0,
+	e number DEFAULT 0,
+	pos number DEFAULT 0,
+	horder number DEFAULT 0,
 	CONSTRAINT pk UNIQUE (gameDate, time, ID)
 );
 
@@ -156,6 +175,18 @@ CREATE TABLE member
 );
 
 
+CREATE TABLE message
+(
+	no number NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	title nvarchar2(50) NOT NULL,
+	content nvarchar2(2000) NOT NULL,
+	sendDate date DEFAULT SYSDATE,
+	openDate date,
+	PRIMARY KEY (no)
+);
+
+
 CREATE TABLE pitcher
 (
 	gameDate date NOT NULL,
@@ -191,6 +222,8 @@ CREATE TABLE Team
 	manager_id nvarchar2(20) NOT NULL UNIQUE,
 	teamInfo nvarchar2(2000) NOT NULL,
 	regidate date DEFAULT SYSDATE,
+	teamPicture nvarchar2(100),
+	teamLogo nvarchar2(200),
 	PRIMARY KEY (teamName)
 );
 
@@ -199,6 +232,9 @@ CREATE TABLE TeamMember
 (
 	teamName nvarchar2(20) NOT NULL,
 	ID nvarchar2(15) NOT NULL,
+	no number,
+	self nvarchar2(150) NOT NULL,
+	registatus nvarchar2(10) DEFAULT 'waiting',
 	CONSTRAINT pk_teamMember UNIQUE (teamName, ID)
 );
 
@@ -224,6 +260,12 @@ ALTER TABLE pitcher
 ;
 
 
+ALTER TABLE AUTH_SECURITY
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
 ALTER TABLE betting
 	ADD FOREIGN KEY (ID)
 	REFERENCES member (ID)
@@ -242,6 +284,12 @@ ALTER TABLE hitter
 ;
 
 
+ALTER TABLE message
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
 ALTER TABLE pitcher
 	ADD FOREIGN KEY (ID)
 	REFERENCES member (ID)
@@ -255,6 +303,12 @@ ALTER TABLE TeamMember
 
 
 ALTER TABLE gameschedule
+	ADD FOREIGN KEY (teamName)
+	REFERENCES Team (teamName)
+;
+
+
+ALTER TABLE hitter
 	ADD FOREIGN KEY (teamName)
 	REFERENCES Team (teamName)
 ;
@@ -315,6 +369,16 @@ END;
 
 /
 
+CREATE OR REPLACE TRIGGER TRI_contact_no BEFORE INSERT ON contact
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_contact_no.nextval
+	INTO :new.no
+	FROM dual;
+END;
+
+/
+
 CREATE OR REPLACE TRIGGER TRI_gameRecord_teamGameNo BEFORE INSERT ON gameRecord
 FOR EACH ROW
 BEGIN
@@ -340,6 +404,16 @@ FOR EACH ROW
 BEGIN
 	SELECT SEQ_matching_matchingNo.nextval
 	INTO :new.matchingNo
+	FROM dual;
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER TRI_message_no BEFORE INSERT ON message
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_message_no.nextval
+	INTO :new.no
 	FROM dual;
 END;
 
