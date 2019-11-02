@@ -52,12 +52,12 @@
           
            user = $("#session").val()
           
-           $('.enterBtn').one('click',function(){
+           $('#enterBtn').one('click',function(){
               // 웹 소켓 객체로 서버에 연결하기
               console.log(user)
               console.log('되냐?')
-               /* if(user != null){
-              wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do'/>?room="+room+"");
+              /* if(user != null){
+              wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do'/>");
               wsocket.onopen = open;
               wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
               wsocket.addEventListener('message',message);
@@ -66,6 +66,7 @@
               
            } */
            });
+           
            //전송버튼 클릭시]
            $('#sendBtn').click(function(){
               send_message();
@@ -82,28 +83,31 @@
            
         });
         
-        
+        var title;
         function roomBtn(room){
         	console.log('123')
         	console.log(room);
-        	/* if(user != null){
+        	title = room;
+        	if(user != null){
         		console.log('둘어와')
-                wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do?room="+room+"'/>");
+                wsocket = new WebSocket("ws://172.30.1.3:9090<c:url value='/chat-ws.do'/>");
                 wsocket.onopen = open;
                 wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
                 wsocket.addEventListener('message',message);
              }
              else{
                 
-             } */
+             }
         	
         };
-    
+    	
         //함수 정의]
         var successList = function(data,id){
         	console.log('데이터 : ',data);
         	$.each(data, function(index, element){
-        		console.log(index,element)
+        		//console.log(index,element)
+        		title=element['title'];
+        		console.log('title : ',title)
         		$("#chattingRoom").after(""
         								+"<div class='small-post-content'> <h6><button class='enterBtn' onClick='roomBtn("+element['title']+")' >"+element['title']+"</button></h6>"
         								+" <ul class='post-meta'><li><a href='#'><i class='fa fa-calendar'></i>"+index+"</a></li>"
@@ -116,9 +120,10 @@
         var open = function(){
            //서버로 연결한 사람의 정보(닉네임) 전송
            //msg:kim가(이) 입장했어요
-           wsocket.send('client'+user+'님이 입장하였습니다.');
+           wsocket.send(title+'client'+user+'님이 입장하였습니다.');
            joinUser("채팅방에 입장하였습니다.");
         };
+        
         
         //서버에서 메시지를 받을때마다 호출되는 함수
        var message= function(e){

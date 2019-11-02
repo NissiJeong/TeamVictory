@@ -17,4 +17,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="roomList" parameterType="java.util.Map" resultType="BasketballDTO"> 
 		SELECT * FROM CHATROOM
 	</select>
+	
 </mapper>
