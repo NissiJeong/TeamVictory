@@ -10,6 +10,43 @@ window.addEventListener('load', function () {
 	    }
 	  });
 	});
+
+function notifyme(){
+
+	console.log('들어왔따')
+// If the user agreed to get notified
+if (Notification && Notification.permission === "granted") {
+  var n = new Notification("Hi!");
+}
+
+// If the user haven't tell if he want to be notified or not
+// Note: because of Chrome, we are not sure the permission property
+// is set, therefore it's unsafe to check for the "default" value.
+else if (Notification && Notification.permission !== "denied") {
+  Notification.requestPermission(function (status) {
+    if (Notification.permission !== status) {
+      Notification.permission = status;
+    }
+
+    // If the user said okay
+    if (status === "granted") {
+      var n = new Notification("Hi!");
+    }
+
+    // Otherwise, we can fallback to a regular modal alert
+    else {
+      alert("Hi!");
+    }
+  });
+}
+
+// If the user refuse to get notified
+else {
+  // We can fallback to a regular modal alert
+  alert("Hi!");
+}
+};
+
 </script>
   <!-- banner-section start -->
   <section class="banner-section">
@@ -64,6 +101,7 @@ window.addEventListener('load', function () {
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6">
+        <button class="btn btn-info" id="btn" onclick="notifyme()">Notify me!</button>
           <div class="section-header text-center">
             <h2 class="section-title">Butlar Feature</h2>
             <p>On insensible possession oh particular attachment at excellence in. The books arose but miles happy she.</p>
