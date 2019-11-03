@@ -136,6 +136,50 @@ $( function() {
 	//$('#datepicker').val("");
 	//$('#sel2').val("time");
  }
+ window.addEventListener('load', function () {
+	  Notification.requestPermission(function (status) {
+	    // This allows to use Notification.permission with Chrome/Safari
+	    if (Notification.permission !== status) {
+	      Notification.permission = status;
+	    }
+	  });
+	});
+
+function notifyme(){
+
+		console.log('들어왔따')
+		//If the user agreed to get notified
+		if (Notification && Notification.permission === "granted") {
+		 var n = new Notification("Hi!");
+		}
+		
+		//If the user haven't tell if he want to be notified or not
+		//Note: because of Chrome, we are not sure the permission property
+		//is set, therefore it's unsafe to check for the "default" value.
+		else if (Notification && Notification.permission !== "denied") {
+		 Notification.requestPermission(function (status) {
+		   if (Notification.permission !== status) {
+		     Notification.permission = status;
+		   }
+		
+		   // If the user said okay
+		   if (status === "granted") {
+		     var n = new Notification("Hi!");
+		   }
+		
+		   // Otherwise, we can fallback to a regular modal alert
+		   else {
+		     alert("Hi!");
+		   }
+		 });
+		}
+		
+		//If the user refuse to get notified
+		else {
+		 // We can fallback to a regular modal alert
+		 alert("Hi!");
+		}
+};
 </script>
 
    <!-- banner-section start -->  
@@ -660,7 +704,7 @@ $( function() {
 			      <span id="stadiumError" style="color:red; font-size: 0.8em"></span>
 			      <br>			   
 			    </div>
-			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px" disabled="true" >                  
+			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px" disabled="true"  onclick="notifyme()">                  
                   	매칭 신청
                 </button>
 			  </form>

@@ -516,7 +516,7 @@ background-repeat: no-repeat;
                             <div class="small-post-thumb" style="background-color: white;">
                               
                                </div>
-                           <div class="small-post-content">
+                           <!-- <div class="small-post-content">
                               <h6>
                               
                                  <button id="enterBtn">Room Title</button>
@@ -525,7 +525,7 @@ background-repeat: no-repeat;
                                  <li><a href="#"><i class="fa fa-calendar"></i>방생성일자</a></li>
                                        
                               </ul>
-                           </div>
+                           </div> -->
                         </div>
                      
                </div>

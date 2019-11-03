@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>-264</x>
-	<y>417</y>
+	<y>437</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-10-04 19:12:14</creation_date>
-			<updated_date>2019-11-02 21:31:54</updated_date>
+			<updated_date>2019-11-02 21:53:47</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -5229,12 +5229,12 @@
 		</table>
 		<table>
 			<id>9</id>
-			<height>191</height>
-			<width>245</width>
+			<height>270</height>
+			<width>311</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>48</x>
-			<y>543</y>
+			<x>-24</x>
+			<y>576</y>
 			<color>
 				<r>128</r>
 				<g>128</g>

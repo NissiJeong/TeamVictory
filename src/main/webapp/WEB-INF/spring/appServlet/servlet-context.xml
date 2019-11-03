@@ -26,7 +26,7 @@
 	<!-- 방법 3] -->
 	<default-servlet-handler/>
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="2000000"/>
+		<beans:property name="maxUploadSize" value="10000000"/>
 	</beans:bean>
 	
 	<!-- <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
