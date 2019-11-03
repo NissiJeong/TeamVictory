@@ -22,7 +22,19 @@
             
         $(function(){
         	
-
+        	 var openByAdmin = function (){
+                 //서버로 연결한 사람의 정보(닉네임) 전송
+                 //msg:kim가(이) 입장했어요
+                 //console.log($('#chat'+cindex).html());
+                 wsocket.send('Admin이 접속했습니다.');
+                 //joinUser("채팅방에 입장하였습니다.");
+              };
+              
+			if(user == 'admin'){
+				wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do'/>");
+				wsocket.onopen = openByAdmin;
+			}
+			
         	/* Create room */
             $("#createRoom").click(function(){
          	   var position = selected 
@@ -40,13 +52,13 @@
            });//////////////createRoom
            
            //방뿌려주기
-          // window.setInterval(function(){
+         window.setInterval(function(){
             $.ajax({
         	   url:"<c:url value='/Team/Matching/listRoom.do'/>",
         	   dataType : 'json',
         	   success:function(data){successList(data,'list')}
            })
-           //},500);
+          },500);
            
         	 
            $("#makeRoom").click(function(){
@@ -66,10 +78,10 @@
               wsocket.onopen = open;
               wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
               wsocket.addEventListener('message',message);
-           }
+           } 
            else{
               
-           } */
+           }*/
            });
            
            //전송버튼 클릭시]
@@ -89,14 +101,16 @@
            
         });
         
+        var l=-1;
         var title2;
         function roomBtn(room){
-        	
+        	l = $(this).attr('id');
+        	console.log('선택한 id',l);
         	console.log(room);
         	title2 = room;
         	if(user != null){
         		console.log('둘어와');
-                wsocket = new WebSocket("ws://172.30.1.3:9090<c:url value='/chat-ws.do'/>");
+                wsocket = new WebSocket("ws://172.30.1.15:9090<c:url value='/chat-ws.do'/>");
                 wsocket.onopen = open;
                 wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
                 wsocket.addEventListener('message',message);
@@ -110,10 +124,9 @@
        
         var target = document.getElementById("position")
         var selected = (target.options[target.selectedIndex].text)
-        console.log(selected)
+        
         };
        
-        
         ////title 확인용
         var checkTitle = function(data){
         	var title = $("#title").val();
@@ -144,36 +157,35 @@
         	
         };/////checkTitle
         
-        
+        var cindex = -1;
         //방제목 넘기기
         var successList = function(data,id){
         	
-        	$(".small-post-content").remove();
+        	$(".small1").remove();
         	$('.post-meta').remove();
         	$.each(data, function(index, element){
-        		//console.log(index,element)
-        		
-        		title2=element['title'];
-        		
+        		//console.log(index)
+        		cindex=index
+        		//console.log(element['no'])
+        		title3=element['title'];
+        		//console.log("successlist에서 누름",title3)
         		regidate=element['regidate'];
-        		/* ""
-				+"<div class='small-post-content' style='margin-bottom:15px; float:right; width:100%'><h6><button class='enterBtn' onClick='roomBtn("+element['title']+")' >"+element['title']+"</button></h6>"
-				+" <ul class='post-meta'><li><a href='#'><i class='fa fa-calendar'></i>"+element['regidate']+"</a></li>"
-				+"</ul></div>" */
-        		$("#chattingRoom").append("<li onClick='roomBtn(\""+title2+"\")' ><a href='#0'><i class='flaticon-basketball' style='float:left'></i>"+title2+"<span>"+regidate+"</span></a></li>");
+        		$("#chattingRoom").append("<li class='small1' id='chat"+index+"'><a onclick='roomBtn(\""+title3+"\")'><i class='flaticon-basketball' style='float:left'></i>"+title3+"<span>"+regidate+"</span></a></li>");
         		 
         	})
-        }
+        };
         
         //서버에 연결되었을때 호출되는 함수
-        var open = function(){
+      var open = function (){
            //서버로 연결한 사람의 정보(닉네임) 전송
            //msg:kim가(이) 입장했어요
-           wsocket.send(title+'client'+user+'님이 입장하였습니다.');
+           
+           console.log($('#chat'+cindex).html());
+           wsocket.send(title2+'client'+user+'님이 입장하였습니다.');
            joinUser("채팅방에 입장하였습니다.");
         };
         
-        
+       
         //서버에서 메시지를 받을때마다 호출되는 함수
        var message= function(e){
           //서버로부터 받은 데이타는 이벤트객체(e).data속성에 저장되어 있다
@@ -192,7 +204,8 @@
 
            $("#join").append("<span id='join' style='text-align: center;'>"+msg+"</span><br/>")
            
-        }
+        };
+        
          var clientMsg = function(msg){
 
             $('#chatMessage1').append(msg+"<br/>");
@@ -575,6 +588,7 @@ background-repeat: no-repeat;
                <div class="widget widget-categories" style="overflow: auto;" id="ddo">
                   <h4 class="widget-title" style="text-align: center;">Waiting Room</h4>
                      <div id="chattingRoom1" style="text-align: center;">
+                     
                          <ul id="chattingRoom">
                      <!-- <li><a href="#0">Forward<span>(54)</span></a></li>
                      <li><a href="#0">Center<span>(22)</span></a></li>

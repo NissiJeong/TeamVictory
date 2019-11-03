@@ -42,8 +42,7 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
 		System.out.println(session.getId()+"연결이 끊어젔어요");	
 		clients.remove(session.getId());
 		
-		
-	}
+			}
 	
 	//클라이언트로 부터 메시지를 받았을때 자동 호출되는 콜백 메소드]
 	//클라이언트로부터 전송되는 모든 메시지 처리

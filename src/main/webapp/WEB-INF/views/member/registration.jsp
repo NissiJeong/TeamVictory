@@ -91,7 +91,12 @@
         //jQuery("#fd_month  > option[value="+nmon+"]").attr("selected", "true");                 
    
        $("#btnRegist").click(function(){
-  		swal("Success", "", "success");
+    	   swal({
+               title: "Good job!",
+               text: data,
+               icon: "success",
+               button: "Aww yiss!",
+            });  
   	})
         
     })////onload
