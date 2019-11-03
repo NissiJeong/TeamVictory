@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
 	<x>-264</x>
-	<y>437</y>
+	<y>624</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -23,7 +23,7 @@
 		<g>255</g>
 		<b>255</b>
 	</color>
-	<font_name>ë§‘ì€ ê³ ë”•</font_name>
+	<font_name>ë§‘ì? ê³ ë”•</font_name>
 	<font_size>9</font_size>
 	<settings>
 		<database>Oracle</database>
@@ -122,7 +122,7 @@
 			<id></id>
 			<height>-1</height>
 			<width>-1</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>50</x>
 			<y>50</y>
@@ -137,11 +137,11 @@
 			<creation_date>2019-10-04 19:12:14</creation_date>
 			<updated_date>2019-11-02 21:53:47</updated_date>
 			<model_property>
-				<name>í”„ë¡œì íŠ¸ëª…</name>
+				<name>?”„ë¡œì ?Š¸ëª?</name>
 				<value></value>
 			</model_property>
 			<model_property>
-				<name>ëª¨ë¸ëª…</name>
+				<name>ëª¨ë¸ëª?</name>
 				<value></value>
 			</model_property>
 			<model_property>
@@ -149,11 +149,11 @@
 				<value></value>
 			</model_property>
 			<model_property>
-				<name>íšŒì‚¬ëª…</name>
+				<name>?šŒ?‚¬ëª?</name>
 				<value></value>
 			</model_property>
 			<model_property>
-				<name>ì‘ì„±ì</name>
+				<name>?‘?„±?</name>
 				<value></value>
 			</model_property>
 		</model_properties>
@@ -180,7 +180,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íƒ€ìˆ˜</logical_name>
+			<logical_name>???ˆ˜</logical_name>
 			<physical_name>ab</physical_name>
 			<type>decimal</type>
 		</word>
@@ -196,7 +196,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì§€ì—­</logical_name>
+			<logical_name>ì§??—­</logical_name>
 			<physical_name>area</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -228,7 +228,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì›ì •íŒ€ ì ìˆ˜</logical_name>
+			<logical_name>?›? •?? ? ?ˆ˜</logical_name>
 			<physical_name>awayscore</physical_name>
 			<type>decimal</type>
 		</word>
@@ -244,7 +244,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìƒëŒ€íŒ€</logical_name>
+			<logical_name>?ƒ????</logical_name>
 			<physical_name>awayteam</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -260,7 +260,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>2ë£¨íƒ€</logical_name>
+			<logical_name>2ë£¨í?</logical_name>
 			<physical_name>b2</physical_name>
 			<type>decimal</type>
 		</word>
@@ -276,7 +276,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>3ë£¨íƒ€</logical_name>
+			<logical_name>3ë£¨í?</logical_name>
 			<physical_name>b3</physical_name>
 			<type>decimal</type>
 		</word>
@@ -292,7 +292,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì•¼êµ¬ì£¼ì†</logical_name>
+			<logical_name>?•¼êµ¬ì£¼?†</logical_name>
 			<physical_name>base_mainhand</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -323,8 +323,8 @@
 			<binary>false</binary>
 			<args></args>
 			<char_semantics>false</char_semantics>
-			<description>ì„ íƒí•˜ë©´ 1</description>
-			<logical_name>ë†êµ¬ ë²ˆê°œë§¤ì¹­ì—¬ë¶€</logical_name>
+			<description>?„ ?ƒ?•˜ë©? 1</description>
+			<logical_name>?†êµ? ë²ˆê°œë§¤ì¹­?—¬ë¶?</logical_name>
 			<physical_name>basket_ltmatch</physical_name>
 			<type>decimal</type>
 		</word>
@@ -388,7 +388,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìƒë…„ì›”ì¼</logical_name>
+			<logical_name>?ƒ?…„?›”?¼</logical_name>
 			<physical_name>birth</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -404,7 +404,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë¸”ë¡ ì„¸ì´ë¸Œ</logical_name>
+			<logical_name>ë¸”ë¡ ?„¸?´ë¸?</logical_name>
 			<physical_name>blsv</physical_name>
 			<type>decimal</type>
 		</word>
@@ -436,7 +436,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>êµì²´ì´ë‹</logical_name>
+			<logical_name>êµì²´?´?‹</logical_name>
 			<physical_name>ci</physical_name>
 			<type>decimal</type>
 		</word>
@@ -452,7 +452,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>êµì²´íƒ€ìˆ˜</logical_name>
+			<logical_name>êµì²´???ˆ˜</logical_name>
 			<physical_name>co</physical_name>
 			<type>decimal</type>
 		</word>
@@ -468,7 +468,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê¸€ë‚´ìš©</logical_name>
+			<logical_name>ê¸??‚´?š©</logical_name>
 			<physical_name>content</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -484,7 +484,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê¸€ë‚´ìš©</logical_name>
+			<logical_name>ê¸??‚´?š©</logical_name>
 			<physical_name>content</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -500,7 +500,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì¡°íšŒìˆ˜</logical_name>
+			<logical_name>ì¡°íšŒ?ˆ˜</logical_name>
 			<physical_name>count</physical_name>
 			<type></type>
 		</word>
@@ -516,7 +516,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë„ë£¨ì‹¤íŒ¨</logical_name>
+			<logical_name>?„ë£¨ì‹¤?Œ¨</logical_name>
 			<physical_name>cs</physical_name>
 			<type>decimal</type>
 		</word>
@@ -532,7 +532,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì‹¤ì±Œ</logical_name>
+			<logical_name>?‹¤ì±?</logical_name>
 			<physical_name>e</physical_name>
 			<type>decimal</type>
 		</word>
@@ -548,7 +548,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì´ë©”ì¼</logical_name>
+			<logical_name>?´ë©”ì¼</logical_name>
 			<physical_name>email</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -564,7 +564,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í™œì„±í™”</logical_name>
+			<logical_name>?™œ?„±?™”</logical_name>
 			<physical_name>ENABLED</physical_name>
 			<type>decimal(p)</type>
 		</word>
@@ -580,7 +580,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìƒëŒ€íŒ€</logical_name>
+			<logical_name>?ƒ????</logical_name>
 			<physical_name>enemyTeam</physical_name>
 			<type>varchar(n)</type>
 		</word>
@@ -596,7 +596,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìì±…ì </logical_name>
+			<logical_name>?ì±…ì </logical_name>
 			<physical_name>er</physical_name>
 			<type>decimal</type>
 		</word>
@@ -644,7 +644,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê²½ê¸°ì¼ì •</logical_name>
+			<logical_name>ê²½ê¸°?¼? •</logical_name>
 			<physical_name>gameDate</physical_name>
 			<type>date</type>
 		</word>
@@ -660,7 +660,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê²Œì„ì§„í–‰ìƒí™©</logical_name>
+			<logical_name>ê²Œì„ì§„í–‰?ƒ?™©</logical_name>
 			<physical_name>gamestatus</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -692,7 +692,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì„±ë³„</logical_name>
+			<logical_name>?„±ë³?</logical_name>
 			<physical_name>gender</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -708,7 +708,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íƒ€ìˆ˜</logical_name>
+			<logical_name>???ˆ˜</logical_name>
 			<physical_name>h</physical_name>
 			<type>decimal</type>
 		</word>
@@ -724,7 +724,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í”¼ì•ˆíƒ€</logical_name>
+			<logical_name>?”¼?•ˆ??</logical_name>
 			<physical_name>h</physical_name>
 			<type>decimal</type>
 		</word>
@@ -740,7 +740,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ëª¸ì—ë§ëŠ”ë³¼</logical_name>
+			<logical_name>ëª¸ì—ë§ëŠ”ë³?</logical_name>
 			<physical_name>hbp</physical_name>
 			<type>decimal</type>
 		</word>
@@ -756,7 +756,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ëª¸ì—ë§ëŠ”ë³¼</logical_name>
+			<logical_name>ëª¸ì—ë§ëŠ”ë³?</logical_name>
 			<physical_name>hbp</physical_name>
 			<type>decimal</type>
 		</word>
@@ -772,7 +772,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í‚¤</logical_name>
+			<logical_name>?‚¤</logical_name>
 			<physical_name>height</physical_name>
 			<type>decimal</type>
 		</word>
@@ -788,7 +788,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í™€ë“œ</logical_name>
+			<logical_name>???“œ</logical_name>
 			<physical_name>hol</physical_name>
 			<type>decimal</type>
 		</word>
@@ -804,7 +804,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í™ˆíŒ€ì ìˆ˜</logical_name>
+			<logical_name>?™ˆ??? ?ˆ˜</logical_name>
 			<physical_name>homescore</physical_name>
 			<type>decimal</type>
 		</word>
@@ -820,7 +820,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íƒ€ìˆœ</logical_name>
+			<logical_name>???ˆœ</logical_name>
 			<physical_name>horder</physical_name>
 			<type>decimal</type>
 		</word>
@@ -836,7 +836,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í”¼í™ˆëŸ°</logical_name>
+			<logical_name>?”¼?™ˆ?Ÿ°</logical_name>
 			<physical_name>hr</physical_name>
 			<type>decimal</type>
 		</word>
@@ -852,7 +852,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í™ˆëŸ°</logical_name>
+			<logical_name>?™ˆ?Ÿ°</logical_name>
 			<physical_name>hr</physical_name>
 			<type>decimal</type>
 		</word>
@@ -868,7 +868,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íšŒì› ì•„ì´ë””</logical_name>
+			<logical_name>?šŒ?› ?•„?´?””</logical_name>
 			<physical_name>ID</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -884,7 +884,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì´ë‹</logical_name>
+			<logical_name>?´?‹</logical_name>
 			<physical_name>ip</physical_name>
 			<type>decimal</type>
 		</word>
@@ -900,7 +900,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íŒ¨</logical_name>
+			<logical_name>?Œ¨</logical_name>
 			<physical_name>L</physical_name>
 			<type>decimal</type>
 		</word>
@@ -916,7 +916,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì§€ì—­</logical_name>
+			<logical_name>ì§??—­</logical_name>
 			<physical_name>location</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -932,7 +932,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íŒ€ì¥ì•„ì´ë””</logical_name>
+			<logical_name>???¥?•„?´?””</logical_name>
 			<physical_name>manager_id</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -964,7 +964,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë§¤ì¹­ìƒíƒœ</logical_name>
+			<logical_name>ë§¤ì¹­?ƒ?ƒœ</logical_name>
 			<physical_name>matchStatus</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -980,7 +980,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë§ˆì¼ë¦¬ì§€</logical_name>
+			<logical_name>ë§ˆì¼ë¦¬ì?</logical_name>
 			<physical_name>mileage</physical_name>
 			<type>decimal</type>
 		</word>
@@ -996,7 +996,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì´ë¦„</logical_name>
+			<logical_name>?´ë¦?</logical_name>
 			<physical_name>name</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1012,7 +1012,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê¸€ë²ˆí˜¸</logical_name>
+			<logical_name>ê¸?ë²ˆí˜¸</logical_name>
 			<physical_name>no</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1028,7 +1028,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê¸€ë²ˆí˜¸</logical_name>
+			<logical_name>ê¸?ë²ˆí˜¸</logical_name>
 			<physical_name>no</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1092,7 +1092,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì—´ëŒì¼</logical_name>
+			<logical_name>?—´?Œ?¼</logical_name>
 			<physical_name>openDate</physical_name>
 			<type>date</type>
 		</word>
@@ -1108,7 +1108,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íƒ€ì„</logical_name>
+			<logical_name>???„</logical_name>
 			<physical_name>pa</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1124,7 +1124,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í•¸ë“œí°ë²ˆí˜¸</logical_name>
+			<logical_name>?•¸?“œ?°ë²ˆí˜¸</logical_name>
 			<physical_name>phone</physical_name>
 			<type>varchar(n)</type>
 		</word>
@@ -1140,7 +1140,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>í¬ì¸íŠ¸</logical_name>
+			<logical_name>?¬?¸?Š¸</logical_name>
 			<physical_name>point</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1156,7 +1156,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìˆ˜ë¹„í¬ì§€ì…˜</logical_name>
+			<logical_name>?ˆ˜ë¹„í¬ì§??…˜</logical_name>
 			<physical_name>pos</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1172,7 +1172,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë°©ì¥í¬ì§€ì…˜</logical_name>
+			<logical_name>ë°©ì¥?¬ì§??…˜</logical_name>
 			<physical_name>position</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1188,7 +1188,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê²Œì‹œì¼</logical_name>
+			<logical_name>ê²Œì‹œ?¼</logical_name>
 			<physical_name>postDate</physical_name>
 			<type>date</type>
 		</word>
@@ -1204,7 +1204,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë¹„ë°€ë²ˆí˜¸</logical_name>
+			<logical_name>ë¹„ë?ë²ˆí˜¸</logical_name>
 			<physical_name>PWD</physical_name>
 			<type>varchar(n)</type>
 		</word>
@@ -1220,7 +1220,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë“ì </logical_name>
+			<logical_name>?“? </logical_name>
 			<physical_name>R</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1236,7 +1236,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì‹¤ì </logical_name>
+			<logical_name>?‹¤? </logical_name>
 			<physical_name>r</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1252,7 +1252,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íƒ€ì </logical_name>
+			<logical_name>??? </logical_name>
 			<physical_name>rbi</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1268,7 +1268,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì¤€ë¹„ìˆ˜</logical_name>
+			<logical_name>ì¤?ë¹„ìˆ˜</logical_name>
 			<physical_name>readycount</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1284,7 +1284,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê°€ì…ì¼</logical_name>
+			<logical_name>ê°??…?¼</logical_name>
 			<physical_name>regidate</physical_name>
 			<type>date</type>
 		</word>
@@ -1316,7 +1316,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì°½ë‹¨ì¼</logical_name>
+			<logical_name>ì°½ë‹¨?¼</logical_name>
 			<physical_name>regidate</physical_name>
 			<type>date</type>
 		</word>
@@ -1332,7 +1332,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê°€ì…ìƒíƒœ</logical_name>
+			<logical_name>ê°??…?ƒ?ƒœ</logical_name>
 			<physical_name>registatus</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1348,7 +1348,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì‹ ì²­ë‚ ì§œ</logical_name>
+			<logical_name>?‹ ì²??‚ ì§?</logical_name>
 			<physical_name>reqDate</physical_name>
 			<type>date</type>
 		</word>
@@ -1364,7 +1364,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë„ë£¨</logical_name>
+			<logical_name>?„ë£?</logical_name>
 			<physical_name>sb</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1396,7 +1396,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì„ íƒíƒ</logical_name>
+			<logical_name>?„ ?ƒ?ƒ</logical_name>
 			<physical_name>selectTeam</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1412,7 +1412,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìê¸°ì†Œê°œ</logical_name>
+			<logical_name>?ê¸°ì†Œê°?</logical_name>
 			<physical_name>self</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1428,7 +1428,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê²Œì‹œì¼</logical_name>
+			<logical_name>ê²Œì‹œ?¼</logical_name>
 			<physical_name>sendDate</physical_name>
 			<type>date</type>
 		</word>
@@ -1444,7 +1444,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì‚¼ì§„</logical_name>
+			<logical_name>?‚¼ì§?</logical_name>
 			<physical_name>so</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1460,7 +1460,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì‚¼ì§„</logical_name>
+			<logical_name>?‚¼ì§?</logical_name>
 			<physical_name>so</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1476,7 +1476,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê²½ê¸°ì¥</logical_name>
+			<logical_name>ê²½ê¸°?¥</logical_name>
 			<physical_name>stadium</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1492,7 +1492,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê²½ê¸°ì¥</logical_name>
+			<logical_name>ê²½ê¸°?¥</logical_name>
 			<physical_name>stadium</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1508,7 +1508,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì„¸ì´ë¸Œ</logical_name>
+			<logical_name>?„¸?´ë¸?</logical_name>
 			<physical_name>sv</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1524,7 +1524,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìƒëŒ€íƒ€ììˆ˜</logical_name>
+			<logical_name>?ƒ??????ˆ˜</logical_name>
 			<physical_name>tbf</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1556,7 +1556,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì§€ì—­</logical_name>
+			<logical_name>ì§??—­</logical_name>
 			<physical_name>teamloc</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1572,7 +1572,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íŒ€ì‚¬ì§„ ì£¼ì†Œ</logical_name>
+			<logical_name>???‚¬ì§? ì£¼ì†Œ</logical_name>
 			<physical_name>teamLogo</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1588,7 +1588,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íŒ€ì´ë¦„</logical_name>
+			<logical_name>???´ë¦?</logical_name>
 			<physical_name>teamName</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1604,7 +1604,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íŒ€ì‚¬ì§„</logical_name>
+			<logical_name>???‚¬ì§?</logical_name>
 			<physical_name>teamPicture</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1620,7 +1620,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>íŒ€ì ìˆ˜</logical_name>
+			<logical_name>??? ?ˆ˜</logical_name>
 			<physical_name>teamRating</physical_name>
 			<type>smallmoney</type>
 		</word>
@@ -1636,7 +1636,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì‹œê°„</logical_name>
+			<logical_name>?‹œê°?</logical_name>
 			<physical_name>time</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1652,7 +1652,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì‹œê°„</logical_name>
+			<logical_name>?‹œê°?</logical_name>
 			<physical_name>time</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1668,7 +1668,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ê¸€ì œëª©</logical_name>
+			<logical_name>ê¸?? œëª?</logical_name>
 			<physical_name>title</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1684,7 +1684,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ë°©ì´ë¦„</logical_name>
+			<logical_name>ë°©ì´ë¦?</logical_name>
 			<physical_name>title</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1700,7 +1700,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ì œëª©</logical_name>
+			<logical_name>? œëª?</logical_name>
 			<physical_name>title</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
@@ -1716,7 +1716,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ìŠ¹</logical_name>
+			<logical_name>?Š¹</logical_name>
 			<physical_name>W</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1732,7 +1732,7 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>ëª¸ë¬´ê²Œ</logical_name>
+			<logical_name>ëª¸ë¬´ê²?</logical_name>
 			<physical_name>weight</physical_name>
 			<type>decimal</type>
 		</word>
@@ -1744,7 +1744,7 @@
 			<id>0</id>
 			<height>170</height>
 			<width>225</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>1128</x>
 			<y>564</y>
@@ -1892,7 +1892,7 @@
 					<physical_name></physical_name>
 					<type>date</type>
 					<constraint></constraint>
-					<default_value>&lt;í˜„ì¬ì¼ì&gt;</default_value>
+					<default_value>&lt;?˜„?¬?¼?&gt;</default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>false</not_null>
@@ -1996,7 +1996,7 @@
 			<id>1</id>
 			<height>128</height>
 			<width>202</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>264</x>
 			<y>762</y>
@@ -2182,7 +2182,7 @@
 			<id>2</id>
 			<height>212</height>
 			<width>290</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>432</x>
 			<y>-60</y>
@@ -2216,7 +2216,7 @@
 				</relation>
 			</connections>
 			<physical_name>gameschedule</physical_name>
-			<logical_name>ìƒˆ í…Œì´ë¸”</logical_name>
+			<logical_name>?ƒˆ ?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -2515,7 +2515,7 @@
 			<id>3</id>
 			<height>170</height>
 			<width>225</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>864</x>
 			<y>720</y>
@@ -2549,7 +2549,7 @@
 				</relation>
 			</connections>
 			<physical_name>message</physical_name>
-			<logical_name>ê³ ê°ë©”ì„¸ì§€í…Œì´ë¸”</logical_name>
+			<logical_name>ê³ ê°ë©”ì„¸ì§??…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -2697,7 +2697,7 @@
 					<physical_name></physical_name>
 					<type>date</type>
 					<constraint></constraint>
-					<default_value>&lt;í˜„ì¬ì¼ì&gt;</default_value>
+					<default_value>&lt;?˜„?¬?¼?&gt;</default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>false</not_null>
@@ -2767,7 +2767,7 @@
 			<id>4</id>
 			<height>506</height>
 			<width>229</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>828</x>
 			<y>12</y>
@@ -2845,7 +2845,7 @@
 				</relation>
 			</connections>
 			<physical_name>hitter</physical_name>
-			<logical_name>ìƒˆ í…Œì´ë¸”</logical_name>
+			<logical_name>?ƒˆ ?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -3610,7 +3610,7 @@
 			<id>5</id>
 			<height>469</height>
 			<width>213</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>1128</x>
 			<y>12</y>
@@ -3666,7 +3666,7 @@
 				</relation>
 			</connections>
 			<physical_name>pitcher</physical_name>
-			<logical_name>íˆ¬ìˆ˜í…Œì´ë¸”</logical_name>
+			<logical_name>?ˆ¬?ˆ˜?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -4364,7 +4364,7 @@
 			<id>6</id>
 			<height>332</height>
 			<width>326</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>-132</x>
 			<y>-42</y>
@@ -4376,7 +4376,7 @@
 			<connections>
 			</connections>
 			<physical_name>Team</physical_name>
-			<logical_name>ìƒˆ í…Œì´ë¸”</logical_name>
+			<logical_name>?ƒˆ ?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -4589,7 +4589,7 @@
 					<physical_name></physical_name>
 					<type>date</type>
 					<constraint></constraint>
-					<default_value>&lt;í˜„ì¬ì¼ì&gt;</default_value>
+					<default_value>&lt;?˜„?¬?¼?&gt;</default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>false</not_null>
@@ -4692,7 +4692,7 @@
 			<id>7</id>
 			<height>208</height>
 			<width>309</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>99</x>
 			<y>336</y>
@@ -4748,7 +4748,7 @@
 				</relation>
 			</connections>
 			<physical_name>TeamMember</physical_name>
-			<logical_name>íŒ€ì— ì†í•œ íšŒì› ê´€ë¦¬ í…Œì´ë¸”</logical_name>
+			<logical_name>???— ?†?•œ ?šŒ?› ê´?ë¦? ?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -4946,7 +4946,7 @@
 			<id>8</id>
 			<height>191</height>
 			<width>279</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>-264</x>
 			<y>289</y>
@@ -4980,7 +4980,7 @@
 				</relation>
 			</connections>
 			<physical_name>matching</physical_name>
-			<logical_name>ë§¤ì¹˜í…Œì´ë¸”</logical_name>
+			<logical_name>ë§¤ì¹˜?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -5231,7 +5231,7 @@
 			<id>9</id>
 			<height>270</height>
 			<width>311</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>-24</x>
 			<y>576</y>
@@ -5287,7 +5287,7 @@
 				</relation>
 			</connections>
 			<physical_name>betting</physical_name>
-			<logical_name>ìƒˆ í…Œì´ë¸”</logical_name>
+			<logical_name>?ƒˆ ?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -5541,7 +5541,7 @@
 			<id>10</id>
 			<height>146</height>
 			<width>249</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>228</x>
 			<y>1008</y>
@@ -5597,7 +5597,7 @@
 				</relation>
 			</connections>
 			<physical_name>chatmember</physical_name>
-			<logical_name>ì ‘ì†ì¸ì›í…Œì´ë¸”</logical_name>
+			<logical_name>? ‘?†?¸?›?…Œ?´ë¸?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -5717,7 +5717,7 @@
 			<id>11</id>
 			<height>208</height>
 			<width>284</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>-228</x>
 			<y>828</y>
@@ -5751,7 +5751,7 @@
 				</relation>
 			</connections>
 			<physical_name>chatroom</physical_name>
-			<logical_name>ì±„íŒ…ë°©</logical_name>
+			<logical_name>ì±„íŒ…ë°?</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -5899,7 +5899,7 @@
 					<physical_name></physical_name>
 					<type>date</type>
 					<constraint></constraint>
-					<default_value>&lt;í˜„ì¬ì¼ì&gt;</default_value>
+					<default_value>&lt;?˜„?¬?¼?&gt;</default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>false</not_null>
@@ -5969,7 +5969,7 @@
 			<id>12</id>
 			<height>445</height>
 			<width>265</width>
-				<font_name>ë§‘ì€ ê³ ë”•</font_name>
+				<font_name>ë§‘ì? ê³ ë”•</font_name>
 				<font_size>9</font_size>
 			<x>492</x>
 			<y>289</y>
@@ -5981,7 +5981,7 @@
 			<connections>
 			</connections>
 			<physical_name>member</physical_name>
-			<logical_name>íšŒì›</logical_name>
+			<logical_name>?šŒ?›</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -6227,7 +6227,7 @@
 					<physical_name></physical_name>
 					<type>date</type>
 					<constraint></constraint>
-					<default_value>&lt;í˜„ì¬ì¼ì&gt;</default_value>
+					<default_value>&lt;?˜„?¬?¼?&gt;</default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>false</not_null>

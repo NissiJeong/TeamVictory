@@ -12,41 +12,57 @@
         //닉 네임 저장용
         var nickname;
         var user;
-        
+        var position = "Select your Position"
+        var center = "Center"
+        var forwar = "Forward"
+        var Guard = "Guard"
+        var selected;
+        var target;
+            
         $(function(){
         	
-        	$('#ddo').on('click','#btnEnter1',function(){
-        		console.log('sdlkjglksdjgl')
-        	})
-        	
-        	
+        	 var openByAdmin = function (){
+                 //서버로 연결한 사람의 정보(닉네임) 전송
+                 //msg:kim가(이) 입장했어요
+                 //console.log($('#chat'+cindex).html());
+                 wsocket.send('Admin이 접속했습니다.');
+                 //joinUser("채팅방에 입장하였습니다.");
+              };
+              
+			if(user == 'admin'){
+				wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do'/>");
+				wsocket.onopen = openByAdmin;
+			}
+			
         	/* Create room */
-           $("#createRoom").click(function(){
-        	   $.ajax({
-        		   url: "<c:url value='/Team/Matching/createRoom.do'/>",
-        		   data : $("#create").serialize(),
-        		   dataType : 'text',
-        		   type:'post',
-        		   success:function(data){
-        			   
-        		   }
+            $("#createRoom").click(function(){
+         	   var position = selected 
+         	   $.ajax({
+         		   url: "<c:url value='/Team/Matching/createRoom.do'/>",
+         		   data : $("#create").serialize(),position,
+         		   dataType : 'text',
+         		   type:'post',
+         		   success:function(data){
+         			   swal("Room Created!", "", "success");
+         		   }
         	  
            });///ajax
         	   
            });//////////////createRoom
            
-           $.ajax({
+           //방뿌려주기
+         window.setInterval(function(){
+            $.ajax({
         	   url:"<c:url value='/Team/Matching/listRoom.do'/>",
         	   dataType : 'json',
         	   success:function(data){successList(data,'list')}
            })
+          },500);
+           
         	 
            $("#makeRoom").click(function(){
         	   $("#create input[type=text]").val('');
-        	   $("#myModal").on('show.bs.modal', function () {
-        		   $("#title").focus();
-        		  });
-        	   
+        	  
         	   
            });
           
@@ -61,16 +77,17 @@
               wsocket.onopen = open;
               wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
               wsocket.addEventListener('message',message);
-           }
+           } 
            else{
               
-           } */
+           }*/
            });
            
            //전송버튼 클릭시]
            $('#sendBtn').click(function(){
               send_message();
            });
+           
            //메시지 입력후 전송 버튼 클릭이 아닌 엔터키처리
            $('#message').on('keypress',function(e){
               console.log('e.keyCode:%s,e.which:%s',e.keyCode,e.which);
@@ -83,48 +100,91 @@
            
         });
         
-        var title;
+        var l=-1;
+        var title2;
         function roomBtn(room){
-        	console.log('123')
+        	l = $(this).attr('id');
+        	console.log('선택한 id',l);
         	console.log(room);
-        	title = room;
+        	title2 = room;
         	if(user != null){
-        		console.log('둘어와')
-                wsocket = new WebSocket("ws://172.30.1.3:9090<c:url value='/chat-ws.do'/>");
+        		console.log('둘어와');
+                wsocket = new WebSocket("ws://172.30.1.15:9090<c:url value='/chat-ws.do'/>");
                 wsocket.onopen = open;
                 wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
                 wsocket.addEventListener('message',message);
-             }
-             else{
-                
-             }
+             };
+             
         	
         };
     	
         //함수 정의]
-        var successList = function(data,id){
-        	console.log('데이터 : ',data);
-        	$.each(data, function(index, element){
-        		//console.log(index,element)
-        		title=element['title'];
-        		console.log('title : ',title)
-        		$("#chattingRoom").after(""
-        								+"<div class='small-post-content'> <h6><button class='enterBtn' onClick='roomBtn("+element['title']+")' >"+element['title']+"</button></h6>"
-        								+" <ul class='post-meta'><li><a href='#'><i class='fa fa-calendar'></i>"+index+"</a></li>"
-        								+"</ul></div>");
+       var positionCheck = function(data){
+       
+        var target = document.getElementById("position")
+        var selected = (target.options[target.selectedIndex].text)
+        
+        };
+       
+        ////title 확인용
+        var checkTitle = function(data){
+        	var title = $("#title").val();
+        	var impossible = 'impossible'
+        	var possible = 'possible'
+        	$.ajax({
+        		url: "<c:url value='/Team/Matching/checkTitle.do'/>",
+        		type:'post',
+        		dataType:'text',
+        		data:{title:title,'_csrf':'${_csrf.token}'},
+        		success:function(data){
+        			console.log(data)
+        			if(data == impossible){
+        				$("#title").css("background-color", "#FFCECE");
+        				$("#impossible").text("이미 등록된 방입니다.").css({"font-weight":"bold"});
+        			}
+        			else if(title == ""){
+        				$("#impossible").text("필수항목입니다.").css({"font-weight":"bold"})
+                        $("#title").css("background-color", "#FFCECE");
+        			}
+        			else{
+        				$("#title").css("background-color", "#FFFFFF");
+                        $("#impossible").text("가능").css({"font-weight":"bold"});
+        			}
+        		}
         		
         	})
-        }
+        	
+        };/////checkTitle
+        
+        var cindex = -1;
+        //방제목 넘기기
+        var successList = function(data,id){
+        	
+        	$(".small1").remove();
+        	$('.post-meta').remove();
+        	$.each(data, function(index, element){
+        		//console.log(index)
+        		cindex=index
+        		//console.log(element['no'])
+        		title3=element['title'];
+        		//console.log("successlist에서 누름",title3)
+        		regidate=element['regidate'];
+        		$("#chattingRoom").append("<li class='small1' id='chat"+index+"'><a onclick='roomBtn(\""+title3+"\")'><i class='flaticon-basketball' style='float:left'></i>"+title3+"<span>"+regidate+"</span></a></li>");
+        		 
+        	})
+        };
         
         //서버에 연결되었을때 호출되는 함수
-        var open = function(){
+      var open = function (){
            //서버로 연결한 사람의 정보(닉네임) 전송
            //msg:kim가(이) 입장했어요
-           wsocket.send(title+'client'+user+'님이 입장하였습니다.');
+           
+           console.log($('#chat'+cindex).html());
+           wsocket.send(title2+'client'+user+'님이 입장하였습니다.');
            joinUser("채팅방에 입장하였습니다.");
         };
         
-        
+       
         //서버에서 메시지를 받을때마다 호출되는 함수
        var message= function(e){
           //서버로부터 받은 데이타는 이벤트객체(e).data속성에 저장되어 있다
@@ -143,7 +203,8 @@
 
            $("#join").append("<span id='join' style='text-align: center;'>"+msg+"</span><br/>")
            
-        }
+        };
+        
          var clientMsg = function(msg){
 
             $('#chatMessage1').append(msg+"<br/>");
@@ -168,6 +229,20 @@
         }
     </script>
 <style>
+
+
+
+#title{
+	background-size: 18px;
+    background-position: 98%;
+    
+    width: 50%;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,0);
+    border: none;
+}
+
+
+
 .discussion{
 width: 100%;
 height: 90px;
@@ -509,30 +584,31 @@ background-repeat: no-repeat;
                </div>
                
                <!-- widget end -->
-               <div class="widget widget-most-view-post" style="overflow: auto;" id="ddo">
+               <div class="widget widget-categories" style="overflow: auto;" id="ddo">
                   <h4 class="widget-title" style="text-align: center;">Waiting Room</h4>
-                        <div class="small-post-item" id="chattingRoom">
                         
-                            <div class="small-post-thumb" style="background-color: white;">
-                              
-                               </div>
-                           <!-- <div class="small-post-content">
-                              <h6>
-                              
-                                 <button id="enterBtn">Room Title</button>
-                              </h6>
-                              <ul class="post-meta">
-                                 <li><a href="#"><i class="fa fa-calendar"></i>방생성일자</a></li>
-                                       
-                              </ul>
-                           </div> -->
+                        
+                           
+                         
+                     <div id="chattingRoom1" style="text-align: center;">
+                     
+                         <ul id="chattingRoom">
+                     <!-- <li><a href="#0">Forward<span>(54)</span></a></li>
+                     <li><a href="#0">Center<span>(22)</span></a></li>
+                     <li><a href="#0">Shooter<span>(33)</span></a></li>
+                     <li><a href="#0">All Rounder<span>(12)</span></a></li>
+                     <li><a href="#0">ETC<span>(05)</span></a></li> -->
+                  </ul>
+                          </div>
+                         
+                           
                         </div>
                      
                </div>
                <!-- widget end -->
-               <div class="widget widget-instagram">
+               <div class="widget widget-instagram" style="text-align: center; margin-top: 25px">
                   <h4 class="widget-title" style="text-align: center;">Share your Friends!</h4>
-                  <ul class="instagram-list">
+                  <ul class="instagram-list" style="margin-top: 25px">
                      <li><a href="#"><i class="fa fa-facebook-f"
                            style="flex: 0 0 0;"></i></a>
                      <li><a href="#"><i class="fa fa-google-plus"
@@ -542,7 +618,7 @@ background-repeat: no-repeat;
                      <li><a href="#"><i class="fa fa-vimeo"style="flex: 0 0 0;"></i></a>
                            
                      <li><a href="#"><i class="fa fa-instagram"style="font-weight: bold;"></i></a>
-                           
+                         
                      <li><a href="#"><i class="fa fa-youtube-play"style="font-weight: bold;"></i></a>
                            
                   </ul>
@@ -567,24 +643,35 @@ background-repeat: no-repeat;
         
         <form action="<c:url value='/Team/Matching/createRoom.do'/>" id="create" name="create" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <div style="text-align: center;margin-top: 15px" >
-        <input type="text" placeholder="Title" name="title" id="title">
+        <div style="text-align: center;margin-top: 25px" >
+        	<input type="text" placeholder="Title" name="title" id="title" oninput="checkTitle()" style="border-bottom: 1.5px solid navy;">
         </div>
+        	<div style="text-align: center;">
+        	<span id="impossible">${impossible}</span>
+        	</div>
         <div style="text-align: center;margin-top: 15px">
-        <input type="text" placeholder="Area" name="area" id="area">
+        	<input type="text" placeholder="Area" name="area" id="area" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;">
         </div>
+        	<span id="impossible">${x}</span>
         <div style="text-align: center;margin-top: 15px">
-        <input type="text" placeholder="Postion" name="position" id="position">
+        	<!-- <input type="text" placeholder="Postion" name="position" id="position" style="border-bottom: 1.5px solid navy"> -->
+        	<select class="custom-select" id="position" name="position" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;" onchange="positionCheck()"> 
+	            <option value="position">Select your Position</option>      
+	            <option value="Center">Center</option>      
+	            <option value="Guard">Guard</option>      
+	            <option value="Forward">Forward</option>      
+            </select>
         </div>
-        <div style="text-align: center;margin-top: 15px">
-        <input type="text" placeholder="question" name="question" id="question">
-        </div>
+        	<span id="impossible">${x}</span>
+        
          <div class="col-lg-12" style="text-align: center;">
             <hr style="border:solid 1px">
              </div>
-             <button type="button" class="btn btn-primary" href="#" data-dismiss="modal" style="width:50%;line-height: 40px" id="createRoom" name="createRoom" >                  
+             <div style="text-align: center;">
+             <button type="button" class="submit-btn" href="#" data-dismiss="modal" style="width:50%;line-height: 40px" id="createRoom" name="createRoom" >                  
                       Create Room
              </button>
+             </div>
                 </form>
               </div>
             </div>
