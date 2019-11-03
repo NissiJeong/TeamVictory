@@ -10,12 +10,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<insert id="createRoom" parameterType="java.util.Map">
-		INSERT INTO chatroom(no, title, area, position, regidate, remainuser) 
-		VALUES(SEQ_NO.NEXTVAL, #{title}, #{area}, #{position}, SYSDATE, SEQ_REMAINUSER.NEXTVAL)
+		INSERT INTO chatroom(title, id, area, position, regidate, readycount) 
+		VALUES(#{title}, #{id}, #{area}, #{position}, SYSDATE, 0)
 	</insert>
 	
 	<select id="roomList" parameterType="java.util.Map" resultType="BasketballDTO"> 
 		SELECT * FROM CHATROOM
 	</select>
 	
+	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="titleDuplication">
+		SELECT COUNT(*) FROM chatroom WHERE title=#{title}
+	 </select>
 </mapper>

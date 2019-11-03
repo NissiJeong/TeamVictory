@@ -20,13 +20,19 @@ public class BasketballDAO {
 	public int createRoom(Map map) {
 		
 		return template.insert("createRoom",map);
+		
 	}///////createRoom
+	
+	public int titleDuplicate(Map map) {
+		
+		return template.selectOne("titleDuplication",map);
+	}
 	
 	public List<BasketballDTO> listRoom(Map map) {
 		
 		return template.selectList("roomList",map);
 		
-	}
+	}/////////listRoom
 }
 
 

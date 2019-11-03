@@ -55,9 +55,9 @@ public class WebsocketController {
       map.put("id", userDetails.getUsername());
       
       String id = userDetails.getUsername();
-      System.out.println("왜들어와?");
-      System.out.println(map.get("room"));
-      System.out.println("id : "+id);
+      //System.out.println("왜들어와?");
+      //System.out.println(map.get("room"));
+      //System.out.println("id : "+id);
       
       logger.info("chat.-ws.do RUN ! / Run Time : "+ new Date());
       if(id == null) {
@@ -71,8 +71,10 @@ public class WebsocketController {
    }////////basketball()
    
    @RequestMapping(value="/Team/Matching/createRoom.do", method = RequestMethod.POST)
-   public String createRoom(@RequestParam Map map) {
+   public String createRoom(@RequestParam Map map, Authentication auth) {
 	   int affected = 0;
+	   UserDetails userDetails = (UserDetails)auth.getPrincipal();
+      map.put("id", userDetails.getUsername());
 	   System.out.println("들어왔따.");
 	   affected = bdao.createRoom(map);
 	   if(affected == 1) {
@@ -84,7 +86,7 @@ public class WebsocketController {
    @RequestMapping(value = "/Team/Matching/listRoom.do", produces = "text/html; charset=UTF-8")
    @ResponseBody
    public String listRoom() {
-	   System.out.println("들어오냐?");
+	   //System.out.println("들어오냐?");
 	   Map map = new HashMap();
 	   map.put("start", 1);
 	   map.put("end", 2);
@@ -93,18 +95,30 @@ public class WebsocketController {
 	   java.util.List<Map> collections = new Vector<Map>();
 	   for(BasketballDTO dto : list) {
 		   Map record = new HashMap();
-		   record.put("no", dto.getNo());
-		   record.put("title", dto.getNo());
-		   record.put("area", dto.getNo());
-		   record.put("position", dto.getNo());
-		   record.put("regidate", dto.getNo().toString());
-		   record.put("remainuser", dto.getRemainuser());
+		   record.put("title", dto.getTitle());
+		   record.put("id", dto.getId());
+		   record.put("area", dto.getArea());
+		   record.put("position", dto.getPosition());
+		   record.put("regidate", dto.getRegidate().toString());
+		   record.put("readycount", dto.getReadyCount());
 		   
 		   collections.add(record);
 	   }
-	   System.out.println(JSONArray.toJSONString(collections));
+	   //System.out.println(JSONArray.toJSONString(collections));
 	   return JSONArray.toJSONString(collections);
 	   
    }///////////listRoom
+   
+   @ResponseBody
+   @RequestMapping(value = "/Team/Matching/checkTitle.do", produces = "text/html; charset=UTF-8")
+   public String checkTitle(@RequestParam Map map) {
+	   System.out.println("Enter Class");
+	   int duplicated = bdao.titleDuplicate(map);
+	   String impossible = "impossible";
+	   if(duplicated == 0) {
+		   impossible = "possible";
+	   }
+	   return impossible;
+   }
    
 }////////////class
