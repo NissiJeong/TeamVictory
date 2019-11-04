@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 import org.springframework.core.io.ClassPathResource;
@@ -26,8 +27,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.InternalResourceView;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -39,15 +44,23 @@ import team.sports.matching.service.TeamDTO;
 
 
 @Controller
-public class CreatTeamController {
+public class CreatTeamController implements HandlerExceptionResolver {
 	@Resource(name="member")
 	private MemberDAO dao;
 	@Resource(name="teamboard")
 	private TeamBoardDAO teamDao;
 	
+	
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public String isNotMember(Model model) {
+		model.addAttribute("MaxExceed", "파일 최대 용량 2MB");
+		//로그인이 안된 경우 로그인 페이지로
+		return "member/CreateTeam.tiles";
+	}
 	//팀 만들기 
 	@RequestMapping(value="/Team/matching/teamJoin.do",method=RequestMethod.POST)
 	public String createTeam(MultipartHttpServletRequest mhsr,Authentication auth,Model model) throws IllegalStateException,IOException {
+		System.out.println("에러날때 들어오나?");
 		//1]서버의 물리적 경로 얻어오기
 		String path = mhsr.getSession().getServletContext().getRealPath("/Upload");
 		System.out.println(path);
@@ -82,4 +95,23 @@ public class CreatTeamController {
 		model.addAttribute("SUCFAIL", affected);
 		return "member/Message";
 	}///
+	@Override
+	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
+			Exception ex) {
+		ModelAndView mav = new ModelAndView();
+		Map<String, Object> model = new HashMap<String, Object>();
+        if (ex instanceof MaxUploadSizeExceededException)
+        {
+        	mav.addObject("maxError", "파일 최대 용량 2MB 초과");
+    		
+        } else
+        {
+        	mav.addObject("maxError", "파일 최대 용량 2MB 초과");
+        }
+        
+        InternalResourceView view = new InternalResourceView();
+		view.setUrl("/Team/Matching/createTeam.do");
+		mav.setView(view);
+        return mav;		
+	}
 }

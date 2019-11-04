@@ -5,6 +5,7 @@ DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_betting_no;
 DROP TRIGGER TRI_board_no;
+DROP TRIGGER TRI_chatmember_no;
 DROP TRIGGER TRI_contact_no;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
@@ -18,6 +19,8 @@ DROP TRIGGER TRI_message_no;
 DROP TABLE AUTH_SECURITY CASCADE CONSTRAINTS;
 DROP TABLE betting CASCADE CONSTRAINTS;
 DROP TABLE board CASCADE CONSTRAINTS;
+DROP TABLE chatmember CASCADE CONSTRAINTS;
+DROP TABLE chatroom CASCADE CONSTRAINTS;
 DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
@@ -35,6 +38,7 @@ DROP SEQUENCE SEQ_baseteam_baseteamno;
 DROP SEQUENCE SEQ_Betting_bettingIndex;
 DROP SEQUENCE SEQ_betting_no;
 DROP SEQUENCE SEQ_board_no;
+DROP SEQUENCE SEQ_chatmember_no;
 DROP SEQUENCE SEQ_contact_no;
 DROP SEQUENCE SEQ_gameRecord_teamGameNo;
 DROP SEQUENCE SEQ_Gameschedule_gameNo;
@@ -50,6 +54,7 @@ CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_board_no INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_chatmember INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_contact_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
@@ -92,6 +97,27 @@ CREATE TABLE board
 	ID nvarchar2(15) NOT NULL,
 	count  DEFAULT 0,
 	PRIMARY KEY (no)
+);
+
+
+CREATE TABLE chatmember
+(
+	no number NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	title nvarchar2(20) NOT NULL,
+	PRIMARY KEY (no)
+);
+
+
+CREATE TABLE chatroom
+(
+	title nvarchar2(20) NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	area nvarchar2(50) NOT NULL,
+	position nvarchar2(15) NOT NULL,
+	regidate date DEFAULT SYSDATE,
+	readycount number,
+	PRIMARY KEY (title)
 );
 
 
@@ -154,7 +180,7 @@ CREATE TABLE member
 (
 	ID nvarchar2(15) NOT NULL,
 	name nvarchar2(20) NOT NULL,
-	gender nvarchar2(3) NOT NULL,
+	gender nvarchar2(6) NOT NULL,
 	birth nvarchar2(10),
 	PWD varchar2(20) NOT NULL,
 	phone varchar2(11) NOT NULL,
@@ -242,6 +268,12 @@ CREATE TABLE TeamMember
 
 /* Create Foreign Keys */
 
+ALTER TABLE chatmember
+	ADD FOREIGN KEY (title)
+	REFERENCES chatroom (title)
+;
+
+
 ALTER TABLE betting
 	ADD FOREIGN KEY (gameDate, stadium, time)
 	REFERENCES gameschedule (gameDate, stadium, time)
@@ -273,6 +305,18 @@ ALTER TABLE betting
 
 
 ALTER TABLE board
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
+ALTER TABLE chatmember
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
+ALTER TABLE chatroom
 	ADD FOREIGN KEY (ID)
 	REFERENCES member (ID)
 ;
@@ -363,6 +407,16 @@ CREATE OR REPLACE TRIGGER TRI_board_no BEFORE INSERT ON board
 FOR EACH ROW
 BEGIN
 	SELECT SEQ_board_no.nextval
+	INTO :new.no
+	FROM dual;
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER TRI_chatmember_no BEFORE INSERT ON chatmember
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_chatmember_no.nextval
 	INTO :new.no
 	FROM dual;
 END;

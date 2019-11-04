@@ -90,7 +90,14 @@
         //jQuery("#fd_year  > option[value="+nyear+"]").attr("selected", "true");    
         //jQuery("#fd_month  > option[value="+nmon+"]").attr("selected", "true");                 
    
-       
+       $("#btnRegist").click(function(){
+    	   swal({
+               title: "Good job!",
+               text: data,
+               icon: "success",
+               button: "Aww yiss!",
+            });  
+  	})
         
     })////onload
     function checkId(){
@@ -413,7 +420,8 @@ function checkMail(){
        }
     }///////
     
-  
+    
+  	
     
      
     function regiComplete(){
@@ -453,6 +461,7 @@ function checkMail(){
        }
        else{
           $("#btnRegist").css("background-color", "#FF3952").prop("disabled", false)
+          
           //alert("가입하시겠습니까?")
        }
     }
