@@ -63,11 +63,14 @@ public class HomeController {
 	public String register() {
 		return "member/registration.tiles";
 	}
-
-	/*
-	 * @RequestMapping("/Team/Matching/Board.do") public String board() { return
-	 * "community/bbs/Board.tiles"; }
-	 */
+	
+//	@RequestMapping("/Team/Matching/Board.do") 
+//	public String board() { 
+//	return "community/bbs/Board.tiles"; 
+//	}
+	 
+	 
+	
 	@RequestMapping("/Team/Matching/FAQ.do")
 	public String faq() {
 		return "member/faq.tiles";
@@ -106,4 +109,16 @@ public class HomeController {
 
 	}
 	*/
+	
+
+	/* 공지사항 */
+	@RequestMapping(value = "/Team/Matching/Notice.do", method = RequestMethod.GET)
+	public String notice() {
+		return "member/Notice.tiles";
+	}
+	
+	@RequestMapping(value = "/Team/Matching/NoticeView.do", method = RequestMethod.GET)
+	public String noticeview() {
+		return "member/NoticeView.tiles";
+	}
 }

@@ -13,6 +13,7 @@
 		<div class="col-md-12">
 			<form class="form-horizontal" method="post"
 				action="<c:url value='/Team/Matching/Edit.do'/>">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="hidden" name="no" value="${record.no}" />
 				<div class="form-group">
 					<label class="col-md-2 control-label">제목</label>

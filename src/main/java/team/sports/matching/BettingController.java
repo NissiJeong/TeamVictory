@@ -66,13 +66,13 @@ public class BettingController {
 		return "member/in-play.tiles";
 	}
 
-	
-	  @RequestMapping(value = "/Team/Matching/BettingView.do", method =
-	  RequestMethod.GET) public String bettingView() {
-	  
-	  return "member/BettingView.tiles";
-	  
-	  }
+			
+	@RequestMapping(value = "/Team/Matching/BettingView.do", method =
+	RequestMethod.GET) public String bettingView() {
+	 
+	return "member/BettingView.tiles";
+		  
+	}
 	 
 
 	// 테이블의 상세보기 클릭시
