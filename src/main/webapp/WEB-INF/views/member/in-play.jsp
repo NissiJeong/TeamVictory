@@ -71,7 +71,7 @@ $('#viewTarget').css('display','none');
 			 
 		   if ($(this).text()=='상세보기'){
 			   
-<<<<<<< HEAD
+
 					$.ajax({
 						url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
 						data : { hometeam :  home, awayteam : away, '_csrf' : '${_csrf.token}'},
@@ -112,7 +112,7 @@ $('#viewTarget').css('display','none');
 					
 					
 					$(this).text('접기')  // 문자열 변경
-=======
+
 			$.ajax({
 				url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
 				data : { hometeam :  home, awayteam : away,'_csrf':'${_csrf.token}'},
@@ -126,7 +126,7 @@ $('#viewTarget').css('display','none');
 				}
 			}); // ajax 
 			$(this).text('접기')  // 문자열 변경
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
 		   }  // if
 		   else{
 			 $(this).parent().parent().next().remove();
