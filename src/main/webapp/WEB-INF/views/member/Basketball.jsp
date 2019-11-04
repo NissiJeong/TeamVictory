@@ -6,6 +6,7 @@
 <sec:authentication property="principal.authorities" var="auth"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
+
 <script>
         //웹소켓 객체 저장용
         var wsocket;
@@ -20,8 +21,8 @@
         var target;
             
         $(function(){
-        	
-        	 var openByAdmin = function (){
+           
+            var openByAdmin = function (){
                  //서버로 연결한 사람의 정보(닉네임) 전송
                  //msg:kim가(이) 입장했어요
                  //console.log($('#chat'+cindex).html());
@@ -29,41 +30,41 @@
                  //joinUser("채팅방에 입장하였습니다.");
               };
               
-			if(user == 'admin'){
-				wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do'/>");
-				wsocket.onopen = openByAdmin;
-			}
-			
-        	/* Create room */
+         if(user == 'admin'){
+            wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do'/>");
+            wsocket.onopen = openByAdmin;
+         }
+         
+           /* Create room */
             $("#createRoom").click(function(){
-         	   var position = selected 
-         	   $.ajax({
-         		   url: "<c:url value='/Team/Matching/createRoom.do'/>",
-         		   data : $("#create").serialize(),position,
-         		   dataType : 'text',
-         		   type:'post',
-         		   success:function(data){
-         			   swal("Room Created!", "", "success");
-         		   }
-        	  
+               var position = selected 
+               $.ajax({
+                  url: "<c:url value='/Team/Matching/createRoom.do'/>",
+                  data : $("#create").serialize(),position,
+                  dataType : 'text',
+                  type:'post',
+                  success:function(data){
+                     swal("Room Created!", "", "success");
+                  }
+             
            });///ajax
-        	   
+              
            });//////////////createRoom
            
            //방뿌려주기
          window.setInterval(function(){
             $.ajax({
-        	   url:"<c:url value='/Team/Matching/listRoom.do'/>",
-        	   dataType : 'json',
-        	   success:function(data){successList(data,'list')}
+              url:"<c:url value='/Team/Matching/listRoom.do'/>",
+              dataType : 'json',
+              success:function(data){successList(data,'list')}
            })
           },500);
            
-        	 
+            
            $("#makeRoom").click(function(){
-        	   $("#create input[type=text]").val('');
-        	  
-        	   
+              $("#create input[type=text]").val('');
+             
+              
            });
           
            user = $("#session").val()
@@ -100,24 +101,23 @@
            
         });
         
-        var l=-1;
+        
         var title2;
         function roomBtn(room){
-        	l = $(this).attr('id');
-        	console.log('선택한 id',l);
-        	console.log(room);
-        	title2 = room;
-        	if(user != null){
-        		console.log('둘어와');
-                wsocket = new WebSocket("ws://172.30.1.15:9090<c:url value='/chat-ws.do'/>");
+           
+           console.log('선택한 방 : ',room);
+           title2 = room;
+           if(user != null){
+              console.log('둘어와');
+                wsocket = new WebSocket("ws://192.168.200.177:9090<c:url value='/chat-ws.do'/>");
                 wsocket.onopen = open;
                 wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
                 wsocket.addEventListener('message',message);
              };
              
-        	
+           
         };
-    	
+       
         //함수 정의]
        var positionCheck = function(data){
        
@@ -128,50 +128,50 @@
        
         ////title 확인용
         var checkTitle = function(data){
-        	var title = $("#title").val();
-        	var impossible = 'impossible'
-        	var possible = 'possible'
-        	$.ajax({
-        		url: "<c:url value='/Team/Matching/checkTitle.do'/>",
-        		type:'post',
-        		dataType:'text',
-        		data:{title:title,'_csrf':'${_csrf.token}'},
-        		success:function(data){
-        			console.log(data)
-        			if(data == impossible){
-        				$("#title").css("background-color", "#FFCECE");
-        				$("#impossible").text("이미 등록된 방입니다.").css({"font-weight":"bold"});
-        			}
-        			else if(title == ""){
-        				$("#impossible").text("필수항목입니다.").css({"font-weight":"bold"})
+           var title = $("#title").val();
+           var impossible = 'impossible'
+           var possible = 'possible'
+           $.ajax({
+              url: "<c:url value='/Team/Matching/checkTitle.do'/>",
+              type:'post',
+              dataType:'text',
+              data:{title:title,'_csrf':'${_csrf.token}'},
+              success:function(data){
+                 console.log(data)
+                 if(data == impossible){
+                    $("#title").css("background-color", "#FFCECE");
+                    $("#impossible").text("이미 등록된 방입니다.").css({"font-weight":"bold"});
+                 }
+                 else if(title == ""){
+                    $("#impossible").text("필수항목입니다.").css({"font-weight":"bold"})
                         $("#title").css("background-color", "#FFCECE");
-        			}
-        			else{
-        				$("#title").css("background-color", "#FFFFFF");
+                 }
+                 else{
+                    $("#title").css("background-color", "#FFFFFF");
                         $("#impossible").text("가능").css({"font-weight":"bold"});
-        			}
-        		}
-        		
-        	})
-        	
+                 }
+              }
+              
+           })
+           
         };/////checkTitle
         
         var cindex = -1;
         //방제목 넘기기
         var successList = function(data,id){
-        	
-        	$(".small1").remove();
-        	$('.post-meta').remove();
-        	$.each(data, function(index, element){
-        		//console.log(index)
-        		cindex=index
-        		//console.log(element['no'])
-        		title3=element['title'];
-        		//console.log("successlist에서 누름",title3)
-        		regidate=element['regidate'];
-        		$("#chattingRoom").append("<li class='small1' id='chat"+index+"'><a onclick='roomBtn(\""+title3+"\")'><i class='flaticon-basketball' style='float:left'></i>"+title3+"<span>"+regidate+"</span></a></li>");
-        		 
-        	})
+           
+           $(".small1").remove();
+           $('.post-meta').remove();
+           $.each(data, function(index, element){
+              //console.log(index)
+              cindex=index
+              //console.log(element['no'])
+              title3=element['title'];
+              //console.log("successlist에서 누름",title3)
+              regidate=element['regidate'];
+              $("#chattingRoom").append("<li class='small1' id='chat"+index+"'><a onclick='roomBtn(\""+title3+"\")'><i class='flaticon-basketball' style='float:left'></i>"+title3+"<span>"+regidate+"</span></a></li>");
+               
+           })
         };
         
         //서버에 연결되었을때 호출되는 함수
@@ -180,7 +180,7 @@
            //msg:kim가(이) 입장했어요
            
            console.log($('#chat'+cindex).html());
-           wsocket.send(title2+'client'+user+'님이 입장하였습니다.');
+           wsocket.send('방이름:'+title2+'client:'+user+'님이 입장하였습니다.');
            joinUser("채팅방에 입장하였습니다.");
         };
         
@@ -193,8 +193,7 @@
              clientMsg(receiveData.substring(4));
           }
           else{
-
-             joinUser(receiveData.substring(6))
+             joinUser(receiveData.substring(10))
 
           }
         };
@@ -233,7 +232,7 @@
 
 
 #title{
-	background-size: 18px;
+   background-size: 18px;
     background-position: 98%;
     
     width: 50%;
@@ -526,7 +525,7 @@ background-repeat: no-repeat;
            
         <div class="messages-chat" >
                  <div style="text-align: center;" id=""></div>
-                   <!-- <span id="join" style="text-align: center;"></span> -->
+                   <span id="join" style="text-align: center;"></span>
                    
           <div class="message">
                 
@@ -586,10 +585,6 @@ background-repeat: no-repeat;
                <!-- widget end -->
                <div class="widget widget-categories" style="overflow: auto;" id="ddo">
                   <h4 class="widget-title" style="text-align: center;">Waiting Room</h4>
-                        
-                        
-                           
-                         
                      <div id="chattingRoom1" style="text-align: center;">
                      
                          <ul id="chattingRoom">
@@ -644,25 +639,25 @@ background-repeat: no-repeat;
         <form action="<c:url value='/Team/Matching/createRoom.do'/>" id="create" name="create" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div style="text-align: center;margin-top: 25px" >
-        	<input type="text" placeholder="Title" name="title" id="title" oninput="checkTitle()" style="border-bottom: 1.5px solid navy;">
+           <input type="text" placeholder="Title" name="title" id="title" oninput="checkTitle()" style="border-bottom: 1.5px solid navy;">
         </div>
-        	<div style="text-align: center;">
-        	<span id="impossible">${impossible}</span>
-        	</div>
+           <div style="text-align: center;">
+           <span id="impossible">${impossible}</span>
+           </div>
         <div style="text-align: center;margin-top: 15px">
-        	<input type="text" placeholder="Area" name="area" id="area" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;">
+           <input type="text" placeholder="Area" name="area" id="area" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;">
         </div>
-        	<span id="impossible">${x}</span>
+           <span id="impossible">${x}</span>
         <div style="text-align: center;margin-top: 15px">
-        	<!-- <input type="text" placeholder="Postion" name="position" id="position" style="border-bottom: 1.5px solid navy"> -->
-        	<select class="custom-select" id="position" name="position" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;" onchange="positionCheck()"> 
-	            <option value="position">Select your Position</option>      
-	            <option value="Center">Center</option>      
-	            <option value="Guard">Guard</option>      
-	            <option value="Forward">Forward</option>      
+           <!-- <input type="text" placeholder="Postion" name="position" id="position" style="border-bottom: 1.5px solid navy"> -->
+           <select class="custom-select" id="position" name="position" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;" onchange="positionCheck()"> 
+               <option value="position">Select your Position</option>      
+               <option value="Center">Center</option>      
+               <option value="Guard">Guard</option>      
+               <option value="Forward">Forward</option>      
             </select>
         </div>
-        	<span id="impossible">${x}</span>
+           <span id="impossible">${x}</span>
         
          <div class="col-lg-12" style="text-align: center;">
             <hr style="border:solid 1px">
@@ -677,4 +672,3 @@ background-repeat: no-repeat;
             </div>
           </div>
         
-
