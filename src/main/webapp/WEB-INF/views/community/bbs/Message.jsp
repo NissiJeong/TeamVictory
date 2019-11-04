@@ -13,7 +13,7 @@
 		<c:set var="successMsg" value="삭제 성공했어요"/>
 		<c:set var="failMsg" value="삭제 실패했어요"/>
 		<c:set var="successUrl" value="/Team/Matching/Board.do?nowPage=${nowPage}"/>	
-	</c:otherwise>
+	</c:otherwise>	
 </c:choose>
 <script>
 	<c:choose>

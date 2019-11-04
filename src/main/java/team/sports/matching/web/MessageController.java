@@ -25,30 +25,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import team.sports.matching.service.BoardDTO;
 import team.sports.matching.service.BoardService;
 import team.sports.matching.service.MessageDTO;
-import team.sports.matching.service.MessageService;
 import team.sports.matching.service.PagingUtil;
 import team.sports.matching.service.impl.BoardDAO;
 import team.sports.matching.service.impl.MessageDAO;
 
-	//스프링 씨큐리티를 사용하지 않을때
-	@SessionAttributes("id")
-	@RequestMapping("/messages/*")
-	public class MessageController{
-	// 서비스 주입]
-	@Resource(name = "messageServiceDAO")
-	private MessageDAO MessageService;
-	@Inject
-	MessageService service;
-	@RequestMapping(value = "/",method = RequestMethod.POST)
-	public ResponseEntity<String> addMessage(@RequestBody MessageDTO dto){
+@Controller
+public class MessageController{
+	
+	@Resource(name="messageDAO")
+	private MessageDAO messageDao;
+	
+	@RequestMapping(value = "/Team/Matching/contact.do",method = RequestMethod.POST)
+	public ResponseEntity<String> addMessage(@RequestBody MessageDTO dto,@RequestParam Map map, Authentication auth // 스프링 씨큐리티 사용시
+	) {
+		// 서비스 호출]
+		// 스프링 씨큐리티 사용시 아래코드 추가
+		 UserDetails userDetails=(UserDetails)auth.getPrincipal();		
+		 map.put("id",userDetails.getUsername());//씨큐리티 적용후
+
 		ResponseEntity<String> entity = null;
 		try {
-			service.addMessage(dto);
+			messageDao.create(dto);
 			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}
 		catch (Exception e) {

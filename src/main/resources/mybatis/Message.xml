@@ -11,5 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO message (id,title,content)
 		VALUES (SEQ_message.NEXTVAL, #{title},#{content})
 	</insert>
+	<select id="messageSelectList" parameterType="java.util.Map" resultType="MessageDTO">
+  	select * from (select t.*,rownum r from (select * from message order by no desc) t) where r between #{start} and #{end}  	
+ 	</select>
+	<select id="messageTotal" parameterType="java.util.Map" resultType="int">
+  	SELECT COUNT(*) FROM message
+  	<if test="searchColumn != null">
+  		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+  	</if>
+  </select>
+  
 </mapper>
 

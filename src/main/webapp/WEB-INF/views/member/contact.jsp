@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal.username" var="id"/>
+<sec:authentication property="principal.authorities" var="auth"/>
 
 <script type="text/javascript">
 	//이메일 입력방식 선택
@@ -21,7 +24,7 @@
 	
 	function goURI(input) {
 		if(input == "SEND"){
-			document.frm_write.action="/Team/Matching/letter_write.action";
+			document.frm_write.action="/Team/Matching/contact.do";
 		}
 		document.frm_write.submit();
 	}
@@ -248,8 +251,9 @@
 		<div class="contentBody" >
 			<h3 class="contentTit" >문의게시판</h3>
 
-			<form name="frm_write" id="frm_write" method="POST" >
-			action="<c:url value='/Team/Matching/contact.bbs'/>
+			<form name="frm_write" id="frm_write" method="POST"
+			action="<c:url value='/Team/Matching/contact.bbs?${_csrf.parameterName}=${_csrf.token}'/>">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<input type="hidden" name="mode" value="create">
 			<input type="hidden" name="category" value="4">
 			<input type="hidden" name="message" id="message" value="">

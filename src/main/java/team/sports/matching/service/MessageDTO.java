@@ -1,3 +1,5 @@
+
+
 package team.sports.matching.service;
 
 public class MessageDTO {
@@ -11,6 +13,12 @@ public class MessageDTO {
 	//프로그램 효율성을 위한 속성 추가]
 	//이름 저장
 	private String name;
+	
+	
+	public String execute() {
+		
+		return "success";		
+	}
 
 	public String getNo() {
 		return no;

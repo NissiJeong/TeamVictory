@@ -29,7 +29,7 @@ import team.sports.matching.service.PagingUtil;
 import team.sports.matching.service.impl.BoardDAO;
 
 //스프링 씨큐리티를 사용하지 않을때
-@SessionAttributes("id")
+//@SessionAttributes("id")
 @Controller
 public class BoardController {
 	// 서비스 주입]
@@ -53,8 +53,7 @@ public class BoardController {
 		int totalRecordCount = boardService.getTotalRecord(map);
 		// 전체 페이지수]
 		int totalPage = (int) Math.ceil((double) totalRecordCount / pageSize);
-		// 시작 및 끝 ROWNUM구하기]
-		System.out.println("1:" + pageSize + " 2:" + blockPage);
+		// 시작 및 끝 ROWNUM구하기]		
 		int start = (nowPage - 1) * pageSize + 1;
 		int end = nowPage * pageSize;
 		// 페이징을 위한 로직 끝]
@@ -62,52 +61,40 @@ public class BoardController {
 		map.put("end", end);
 		List<BoardDTO> list = boardService.selectList(map);
 		// 데이타 저장]
-
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
-				req.getContextPath() + "/Team/Matching/Board.bbs?");
+				req.getContextPath() + "/Team/Matching/Board.do?");
 		// 데이타 저장]
-		for (BoardDTO dto : list) {
-			System.out.println(dto.getTitle());
-
-		}
+		
 
 		model.addAttribute("list", list);
 		model.addAttribute("pagingString", pagingString);
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageSize", pageSize);
-
+		System.out.println(map.get("searchWord"));
 		// 뷰정보 반환]
 		return "community/bbs/Board.tiles";
 	}
 
 	// 작성폼으로 이동]
-	@ExceptionHandler({ HttpSessionRequiredException.class })
-	public String notAllowed(Model model) {
-		// 에러 메시지 저장]
-		model.addAttribute("NotMember", "로그인 후 이용하세요");
-		// 무조건 록인 페이지로 이동]
-		return "member/login.tiles";
-	}
+	
 
 	@RequestMapping(value = "/Team/Matching/Write.do"/* ,method=RequestMethod.GET */)
-	public String write(@ModelAttribute("id") String id// 스프링 씨큐리티를 사용하지 않을때
-	) {
+	public String write() {
 		// 뷰정보 반환]
 		return "community/bbs/Write.tiles";
 	}
 
 	// 작성처리]
 	@RequestMapping(value = "/Team/Matching/Write.do", method = RequestMethod.POST)
-	public String writeOk(@ModelAttribute("id") String id, // 스프링 씨큐리티를 사용하지 않을때
-			@RequestParam Map map, Authentication auth // 스프링 씨큐리티 사용시
+	public String writeOk(@RequestParam Map map, Authentication auth // 스프링 씨큐리티 사용시
 	) {
 		// 서비스 호출]
 		// 스프링 씨큐리티 사용시 아래코드 추가
-		// UserDetails userDetails=(UserDetails)auth.getPrincipal();
+		 UserDetails userDetails=(UserDetails)auth.getPrincipal();
 		// 호출전 아이디 맵에 저장
-		map.put("id", id);// 씨큐리티 적용전
-		// map.put("id",userDetails.getUsername());//씨큐리티 적용후
+		//map.put("id", id);// 씨큐리티 적용전
+		 map.put("id",userDetails.getUsername());//씨큐리티 적용후
 
 		boardService.insert(map);
 
@@ -133,19 +120,7 @@ public class BoardController {
 		// 뷰정보 반환:
 		return "community/bbs/View.tiles";
 	}//////////////
-	// 조회수
-	/*@RequestMapping("/Team/Matching/View.do")
-	public String view(HttpServletRequest request, Model model) {
-		// 서비스 호출]
-		BoardDTO record = 
-		// 데이타 저장]			
-		model.addAttribute("record", record);
-		record.setCountNo(Integer.parseInt(request.getParameter("Id")));
-		model.addAttribute("list", getCountNo(Integer.parseInt(request.getParameter("Id"))));
-		// 뷰정보 반환:
-		return "community/bbs/View.tiles";
-	}//////////////*/
-		
+	
 
 	// 수정폼으로 이동 및 수정처리]
 	@RequestMapping("/Team/Matching/Edit.do")
