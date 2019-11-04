@@ -46,7 +46,7 @@ $(function () {
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="#">Home</a></li>
+							<li><a href="<c:url value='/Team/Member/Index.do'/>">Home</a></li>
 							<li>Notice</li>
 						</ul>
 					</nav>
@@ -69,20 +69,21 @@ $(function () {
 						<ul>
 							<li class="unread">
 								<a href="#none">
-									<div class="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-
-									<div class="message-by">
-										<div class="message-by-headline">
-											<h5>Kathy Brown <i>Unread</i></h5>
-											<span>2 hours ago</span>
-										</div>
-											
+									<div class="message-avatar">
+										<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" />
+									</div>
+									<div class="textout" data-rel="1">
+										<div class="message-by">
+											<div class="message-by-headline">
+												<p>글번호</p>
+												<h5>Kathy Brown <i>Unread</i></h5>
+												<span>2 hours ago</span>
+												
+											</div>
 											<p>
-											<div class="textout" data-rel="1">
 											Hello, I want to talk about your great listing! Morbi
 											velit eros, sagittis in facilisis non, rhoncus posuere
 											ultricies...
-											</div>
 											</p>
 										
 											<p>
@@ -93,7 +94,7 @@ $(function () {
 											imperdiet vitae...
 											</div>
 											</p>
-											
+										</div>
 									</div>
 								</a>
 							</li>
@@ -101,21 +102,20 @@ $(function () {
 							<li class="unread">
 								<a href="#none">
 									<div class="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-
+									<div class="textout" data-rel="2">
 									<div class="message-by">
 										<div class="message-by-headline">
+										<p>글번호</p>
 											<h5>John Doe <i>Unread</i></h5>
 											<span>4 hours ago</span>
 										</div>
 										<p>
-											<div class="textout" data-rel="2">
 											Hello, I want to talk about your great listing! Morbi
 											velit eros, sagittis in facilisis non, rhoncus posuere
 											ultricies...
-											</div>
-											</p>
+										</p>
 										
-											<p>
+										<p>
 											<div id="text2">
 											Hello, I want to talk about your great listing! Morbi
 											velit eros, sagittis in facilisis non, rhoncus et erat. Nam
@@ -124,24 +124,26 @@ $(function () {
 											</div>
 										</p>
 									</div>
+									</div>
 								</a>
 							</li>
 							
 							<li>
 								<a href="#none">
 									<div class="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-
+									<div class="textout" data-rel="3">
 									<div class="message-by">
 										<div class="message-by-headline">
+										<p>글번호</p>
 											<h5>Thomas Smith</h5>
 											<span>Yesterday</span>
 										</div>
 										<p>
-											<div class="textout" data-rel="3">
+											
 											Hello, I want to talk about your great listing! Morbi
 											velit eros, sagittis in facilisis non, rhoncus posuere
 											ultricies...
-											</div>
+											
 											</p>
 										
 											<p>
@@ -153,34 +155,6 @@ $(function () {
 											</div>
 										</p>
 									</div>
-								</a>
-							</li>
-
-							<li>
-								<a href="#none">
-									<div class="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-
-									<div class="message-by">
-										<div class="message-by-headline">
-											<h5>Mike Behringer</h5>
-											<span>28.06.2017</span>
-										</div>
-										<p>
-											<div class="textout" data-rel="4">
-											Hello, I want to talk about your great listing! Morbi
-											velit eros, sagittis in facilisis non, rhoncus posuere
-											ultricies...
-											</div>
-											</p>
-										
-											<p>
-											<div id="text4">
-											Hello, I want to talk about your great listing! Morbi
-											velit eros, sagittis in facilisis non, rhoncus et erat. Nam
-											posuere tristique sem, eu ultricies tortor lacinia neque
-											imperdiet vitae...
-											</div>
-										</p>
 									</div>
 								</a>
 							</li>
@@ -188,18 +162,49 @@ $(function () {
 							<li>
 								<a href="#none">
 									<div class="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
-
+									<div class="textout" data-rel="4">
 									<div class="message-by">
 										<div class="message-by-headline">
+										<p>글번호</p>
+											<h5>Mike Behringer</h5>
+											<span>28.06.2017</span>
+										</div>
+										
+											<p>
+												Hello, I want to talk about your great listing! Morbi
+												velit eros, sagittis in facilisis non, rhoncus posuere
+												ultricies...
+											</p>
+										
+											<p>
+												<div id="text4">
+												Hello, I want to talk about your great listing! Morbi
+												velit eros, sagittis in facilisis non, rhoncus et erat. Nam
+												posuere tristique sem, eu ultricies tortor lacinia neque
+												imperdiet vitae...
+												</div>
+											</p>
+										</div>
+									</div>
+								</a>
+							</li>
+
+							<li>
+								<a href="#none">
+									<div class="message-avatar"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&amp;s=70" alt="" /></div>
+									<div class="textout" data-rel="5">
+									<div class="message-by">
+										<div class="message-by-headline">
+										<p>글번호</p>
 											<h5>Robert Baker</h5>
 											<span>22.06.2017</span>
 										</div>
 										<p>
-											<div class="textout" data-rel="5">
+											
 											Hello, I want to talk about your great listing! Morbi
 											velit eros, sagittis in facilisis non, rhoncus posuere
 											ultricies...
-											</div>
+											
 											</p>
 										
 											<p>
@@ -211,12 +216,13 @@ $(function () {
 											</div>
 										</p>
 									</div>
+									</div>
 								</a>
 							</li>
 						</ul>
 						
-					</div>
-				</div>
+					</div><!-- messages-inbox -->
+				</div><!-- messages-container -->
 
 				<!-- Pagination -->
 				<div class="clearfix"></div>
@@ -237,9 +243,9 @@ $(function () {
 			<div class="col-md-12">
 				<div class="copyrights">© 2017 Listeo. All Rights Reserved.</div>
 			</div>
-		</div>
+		</div><!-- row -->
 
-	</div>
+	</div><!-- dashboard-content -->
 	<!-- Content / End -->
 </div><!-- container -->
 
