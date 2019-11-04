@@ -25,6 +25,10 @@ public class BaseBall_HitterDAO {
 		return template.insert("hitterInsert",map);
 	}///isLogin
 	
+	public int insertByPars(Map map) {
+		return template.insert("hitterInsertByPars",map);
+	}
+	
 	
 	public BaseBall_HitterDTO hitterSelectOne(Map map) {
 		return template.selectOne("hitterSelectOne", map);
@@ -52,6 +56,8 @@ public class BaseBall_HitterDAO {
 	public List<Map> scrollUp(Map map) {
 		return template.selectList("infiniteScrollUp", map);
 	}
+	
+	
 	
 	
 	

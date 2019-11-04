@@ -5,11 +5,8 @@ DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_betting_no;
 DROP TRIGGER TRI_board_no;
-<<<<<<< HEAD
-DROP TRIGGER TRI_tbl_user_no;
-=======
+DROP TRIGGER TRI_chatmember_no;
 DROP TRIGGER TRI_contact_no;
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
@@ -22,8 +19,8 @@ DROP TRIGGER TRI_message_no;
 DROP TABLE AUTH_SECURITY CASCADE CONSTRAINTS;
 DROP TABLE betting CASCADE CONSTRAINTS;
 DROP TABLE board CASCADE CONSTRAINTS;
-DROP TABLE tbl_user CASCADE CONSTRAINTS;
-DROP TABLE contact CASCADE CONSTRAINTS;
+DROP TABLE chatmember CASCADE CONSTRAINTS;
+DROP TABLE chatroom CASCADE CONSTRAINTS;
 DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
@@ -41,11 +38,8 @@ DROP SEQUENCE SEQ_baseteam_baseteamno;
 DROP SEQUENCE SEQ_Betting_bettingIndex;
 DROP SEQUENCE SEQ_betting_no;
 DROP SEQUENCE SEQ_board_no;
-<<<<<<< HEAD
-DROP SEQUENCE SEQ_tbl_user_no;
-=======
+DROP SEQUENCE SEQ_chatmember_no;
 DROP SEQUENCE SEQ_contact_no;
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 DROP SEQUENCE SEQ_gameRecord_teamGameNo;
 DROP SEQUENCE SEQ_Gameschedule_gameNo;
 DROP SEQUENCE SEQ_matching_matchingNo;
@@ -60,11 +54,8 @@ CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_board_no INCREMENT BY 1 START WITH 1;
-<<<<<<< HEAD
-CREATE SEQUENCE SEQ_message_no INCREMENT BY 1 START WITH 1;
-=======
+CREATE SEQUENCE SEQ_chatmember INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_contact_no INCREMENT BY 1 START WITH 1;
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
@@ -102,24 +93,31 @@ CREATE TABLE board
 	no number NOT NULL,
 	title nvarchar2(50) NOT NULL,
 	content nvarchar2(2000) NOT NULL,
-	postDate date DEFAULT SYSDATE,	
+	postDate date DEFAULT SYSDATE,
 	ID nvarchar2(15) NOT NULL,
-<<<<<<< HEAD
+	count  DEFAULT 0,
 	PRIMARY KEY (no)
 );
 
-CREATE TABLE message
+
+CREATE TABLE chatmember
 (
-   no number NOT NULL,
-   title nvarchar2(50) NOT NULL,
-   content nvarchar2(2000) NOT NULL,
-   postDate date DEFAULT SYSDATE,
-   ID nvarchar2(15) NOT NULL,
-   PRIMARY KEY (no)
-=======
-	count  DEFAULT 0,
+	no number NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	title nvarchar2(20) NOT NULL,
 	PRIMARY KEY (no)
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+);
+
+
+CREATE TABLE chatroom
+(
+	title nvarchar2(20) NOT NULL,
+	ID nvarchar2(15) NOT NULL,
+	area nvarchar2(50) NOT NULL,
+	position nvarchar2(15) NOT NULL,
+	regidate date DEFAULT SYSDATE,
+	readycount number,
+	PRIMARY KEY (title)
 );
 
 
@@ -182,7 +180,7 @@ CREATE TABLE member
 (
 	ID nvarchar2(15) NOT NULL,
 	name nvarchar2(20) NOT NULL,
-	gender nvarchar2(3) NOT NULL,
+	gender nvarchar2(6) NOT NULL,
 	birth nvarchar2(10),
 	PWD varchar2(20) NOT NULL,
 	phone varchar2(11) NOT NULL,
@@ -270,6 +268,12 @@ CREATE TABLE TeamMember
 
 /* Create Foreign Keys */
 
+ALTER TABLE chatmember
+	ADD FOREIGN KEY (title)
+	REFERENCES chatroom (title)
+;
+
+
 ALTER TABLE betting
 	ADD FOREIGN KEY (gameDate, stadium, time)
 	REFERENCES gameschedule (gameDate, stadium, time)
@@ -287,14 +291,6 @@ ALTER TABLE pitcher
 	REFERENCES gameschedule (gameDate, stadium, time)
 ;
 
-ALTER TABLE tbl_message 
-ADD CONSTRAINT fk_usersender
-FOREIGN KEY (sender) REFERENCES tbl_user(userid);
-
-ALTER TABLE tbl_message 
-ADD CONSTRAINT fk_usertarget
-FOREIGN KEY (targetid) REFERENCES tbl_user(userid);
-
 
 ALTER TABLE AUTH_SECURITY
 	ADD FOREIGN KEY (ID)
@@ -309,6 +305,18 @@ ALTER TABLE betting
 
 
 ALTER TABLE board
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
+ALTER TABLE chatmember
+	ADD FOREIGN KEY (ID)
+	REFERENCES member (ID)
+;
+
+
+ALTER TABLE chatroom
 	ADD FOREIGN KEY (ID)
 	REFERENCES member (ID)
 ;
@@ -399,6 +407,16 @@ CREATE OR REPLACE TRIGGER TRI_board_no BEFORE INSERT ON board
 FOR EACH ROW
 BEGIN
 	SELECT SEQ_board_no.nextval
+	INTO :new.no
+	FROM dual;
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER TRI_chatmember_no BEFORE INSERT ON chatmember
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_chatmember_no.nextval
 	INTO :new.no
 	FROM dual;
 END;

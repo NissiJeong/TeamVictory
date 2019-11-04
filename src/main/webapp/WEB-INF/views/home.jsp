@@ -2,8 +2,8 @@
 <%@ page session="false" %>
 
 <h1>
-<<<<<<< HEAD
-    ddddd
+
+
     GO
     why??
 	Hello world!   ni ssi  
