@@ -6,7 +6,7 @@
 <<<<<<< HEAD
     
 =======
-hir
+
     dddd
     GO
 >>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
