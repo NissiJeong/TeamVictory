@@ -247,7 +247,7 @@
 				</ul>
 				<div class="joinbtn">
 					<!-- <a href="#none" id="joinBtn"><img src="//img.gameone.kr/club/btn_join.png" alt="가입하기" /></a> -->
-					<Button type="button" class="btn btn-info" onclick="<c:url ">가입하기</Button>
+					<Button type="button" class="btn btn-info" onclick=" ">가입하기</Button>
 				</div>
 			</div>
 			<!--  Body -->

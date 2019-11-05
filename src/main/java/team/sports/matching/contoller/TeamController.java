@@ -104,7 +104,6 @@ public class TeamController {
 	}
 	
 	
-	
 	//팀페이지로 이동
 	@RequestMapping("/Team/Matching/Team.do")
 	public String team(Authentication auth,Model model, Model model2, Model model3, Model model4, Model model5, Model model6, @RequestParam Map map, @RequestParam Map map2, @RequestParam Map map3, @RequestParam Map map4, @RequestParam Map map5, @RequestParam Map map6) {

@@ -6,8 +6,41 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- 
+ <sec:authorize access="isAuthenticated()">
+<script type="text/javascript">
+var wsUri = "ws://localhost:8080<c:url value='/push.do'/>";
+function send_message() {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) {
+        onOpen(evt);
+    };
 
+    websocket.onmessage = function(evt) {
+        onMessage(evt);
+    };
+
+    websocket.onerror = function(evt) {
+        onError(evt);
+    };
+}   
+
+function onOpen(evt){
+   websocket.send("${nick}");
+}
+
+function onMessage(evt) {
+		$('#count').append(evt.data);
+}
+
+function onError(evt) {
+	
+}
+
+$(document).ready(function(){
+		send_message();
+});
+</script>
+</sec:authorize>
 <script>
 
 $( function() {

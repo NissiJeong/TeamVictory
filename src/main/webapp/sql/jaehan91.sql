@@ -159,7 +159,7 @@ CREATE TABLE hitter
 	e number DEFAULT 0,
 	pos number DEFAULT 0,
 	horder number DEFAULT 0,
-	CONSTRAINT pk UNIQUE (gameDate, time, ID)
+	CONSTRAINT pk primary key (gameDate, time, ID)
 );
 
 
