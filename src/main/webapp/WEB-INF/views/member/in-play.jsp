@@ -1,56 +1,107 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal.username" var="id"/>
+<sec:authentication property="principal.authorities" var="auth"/>
 
-
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> 
 <script>
 
 $(function(){
-	const es6 ='es6';
-	console.log(es6);
-	console.log("64" > 27);
-	console.log( Number("64") > 54);
+	
 	
 	scoreStyle('main');
 	
-	$('#btnJoin').click(function() {
-
-		if (confirm($('#bettingPoint').val() + " 배팅허쉴?????")) {
-			alert('배팅완료!!!!');
-		}
-	}); 
+	//스프링 시큐리티 아이디 가져오기
+   console.log( $('#auth').val() )
 	
-	
-
-	
+		   // 배팅 버튼 클릭 
+		  var clickBettingBtn = $('.bettingBtn').click(function(){
+			  var _this= this;
+			  var  btnIndex =clickBettingBtn.index(this); 
+			   $("#myModal").on('shown.bs.modal', function () {
+				    
+			 
+			     $('#bettingPoint').val('');
+			    
+			     $(":radio").prop("checked", false);
+			    
+			    var dataLength='';
+			 //	var  btnIndex =clickBettingBtn.index(this);  // 클릭한 배팅버튼의 인덱스 0~
+			    console.log('클릭한 배팅버튼 인덱스 : ',btnIndex);
+			    var tNameObj = { home:$(_this).parent().siblings(':eq(2)').find('.ht').text(),
+			    		         away :$(_this).parent().siblings(':eq(2)').find('.at').text()  } ;   
+			     // 클릭한 배팅버튼이 위치한 행에 있는 홈,어웨이 팀이름
 		
-$('#viewTarget').css('display','none');
+				  // 배팅 버튼 클릭시 버튼와 같은행에 위치한 홈팀, 어웨이팀이름 표시하기 
+				    $(':radio:eq(0)').next().text(tNameObj.home);
+				    $(':radio:eq(1)').next().text(tNameObj.away);
+				    
+				    //클릭한 라디오버튼 옆에 텍스트 가져오기 
+				    $(':radio').click(function(){
+				       console.log($(this).next().text());
+				    });
+				    
+				    //회원의 보유 마일리지 가져오기 
+				   $.ajax({
+					   url:  "<c:url value='/Team/Matching/Point.do'/>"  ,
+					   data : { id : $('#auth').val(),'_csrf' : '${_csrf.token}'}  ,
+					   type: 'post',
+					   dataType: 'text',
+					   success : function(data){
+						   //// 서버로부터 받은 데이터
+						   dataLength = data.length;
+						   $('.nowPoint').text('마일리지 : '+data);
+						  console.log($('#auth').val() +' 회원 마일리지 : '+data );
+						  
+						 
+					   },///success
+						   error:function(data){
+							console.log('에러 : '+data); // 에러코드 출력 
+							console.log('에러 : '+data.responseText); //  에러내용 출력
+						   }
+					   
+				   });  // ajax 
 
- //$('#viewTarget').hide();
-		
-
-
-		 
- 		var toggle=false;
-   		//var  content =$('#viewTarget');
-   		
-   		//console.log(content.html());
-    
-		  $('.aa').click(function(){
-			 if(!toggle){
+				     
+					
 				
-			   //$('#viewTarget').css('display','block').css('border','1px solid red');
-				 $('#viewTarget').show(300);
-			 }
-			 else{
-				// $('#viewTarget').css('display','none');
-				 $('#viewTarget').hide(300);
-			 }
-			 toggle=!toggle;
-		 });  
+			// 배팅 입력란에 숫자만 입력되도록 / 보유마일리지보다 적은 금액만 입력되도록
+			$('#bettingPoint').on("keyup", function() {
+			    $(this).val(addCommas($(this).val().replace(/[^0-9]/g,"")));
+			    
+			   
+			   
+			});  
+			 
+			 //배팅 모달창에서 참여버튼 클릭시
+			  $('#btnJoin').click(function(){
+				  //console.log( parseInt($('#bettingPoint').val().replace(',',''))  );
+				  
+				var  start =  $('.nowPoint').text().indexOf(':')+2;
+			
+				  if( Number($('#bettingPoint').val().replace(',','').replace(',','')) > Number($('.nowPoint').text().substring(start, $('.nowPoint').text().length))){
+						Swal.fire({
+							  
+							  html: '<span style="font-weight:bold;font-size:18px">보유 마일리지 초과입니다.</span>',
+							  confirmButtonText: '확인',
+							});
+					  $('#bettingPoint').val('');
+					  $('#bettingPoint').focus();
+					  return false;
+				  }
+					     
+					    
+				bettingJoin(dataLength);
+				  
+			   });
+	  });	
+ });////////  clickBettingBtn 
 		  
-		  
+  
 		  
 		  
 		  
@@ -68,10 +119,12 @@ $('#viewTarget').css('display','none');
 			var viewIndex =clickView.index(this);
 			console.log('홈팀 : %s , 어웨이 : %s',home,away);
 			 console.log ('클릭한 상세보기의 인덱스', 	clickView.index(this) ); 
-			 
+			
 		   if ($(this).text()=='상세보기'){
 			   
-
+			  
+			       
+			   
 					$.ajax({
 						url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
 						data : { hometeam :  home, awayteam : away, '_csrf' : '${_csrf.token}'},
@@ -90,7 +143,7 @@ $('#viewTarget').css('display','none');
 									$('.tenViewHome tr, .tenViewAway tr').each(function(){
 										$(this).css('height','55px');
 									});
-								//선택한 상세보기의  tr 
+								//선택한 상세보기의 바로밑에  <tr>태그
 							  var base =  $('.view').eq(viewIndex).parent().parent();
 								console.log( base.next().find('.tenViewHome tr:last').find('th').text().match("경기전적"));
 							 if (base.next().find('.tenViewHome tr:last').find('th').text().match("경기전적") !=null  ){
@@ -100,8 +153,12 @@ $('#viewTarget').css('display','none');
 								 base.next().find('.tenViewAway tr:last').find('th').css({color : 'black' , 'font-size': '18px'});
 								} 
 								
+							 
+							 
 						 	}//// if
 						
+						 	// console.log('tenViewTR 길이', $(".all-tbody .tenViewTR").length);
+						 	
 						}, //success
 						error:function(data){
 							console.log('에러 : '+data); // 에러코드 출력 
@@ -112,21 +169,6 @@ $('#viewTarget').css('display','none');
 					
 					
 					$(this).text('접기')  // 문자열 변경
-
-			$.ajax({
-				url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
-				data : { hometeam :  home, awayteam : away,'_csrf':'${_csrf.token}'},
-				type : 'post',
-				 dataType: 'json',
-				 // 서버로부터 받은 데이터와 클릭한 <span>태그의 인덱스를  함수의 매개변수로 넘긴다.
-				success : function(data){bettingView(data,veiwIndex,home,away);},
-				error:function(data){
-					console.log('에러 : '+data); // 에러코드 출력 
-					console.log('에러 : '+data.responseText); //  에러내용 출력
-				}
-			}); // ajax 
-			$(this).text('접기')  // 문자열 변경
-
 		   }  // if
 		   else{
 			 $(this).parent().parent().next().remove();
@@ -295,11 +337,25 @@ $('#viewTarget').css('display','none');
 		 var content="<tr><td colspan='7'> 동적으로 추가한 행 </td></tr>";
 		console.log( $('.view').eq(viewIndex).text()+viewIndex);  // 상세보기 + 인덱스
 		console.log ($('.view').eq(viewIndex).parent().parent().get(0).tagName); //tr
-		
-			
+ 		/* 
+		if($('.tenViewTR').length > 1){
+ 			$('.tenViewTR').not($('.view').eq(viewIndex).parent().parent().next('.tenViewTR')).remove();
+ 			
+		 }
+		*/	
 		 //선택한 상세보기 행의 바로밑에 <tr>추가 
 		$('.view').eq(viewIndex).parent().parent().after(topBar+homeContent+awayContent+"</div></td></tr>");
+		
+		 // 상세보기 클릭시 다른 상세보기 <tr> 사라지도록 하기 
+		 var trIndex = $(".all-tbody .tenViewTR").index($('.view').eq(viewIndex).parent().parent().next('.tenViewTR'));
+		 //console.log('trIndex==== ',trIndex);
 	
+		 if ($('.all-tbody .tenViewTR').length > 1 ){
+			
+			 $('.all-tbody .tenViewTR').not($('.all-tbody .tenViewTR').eq(trIndex)).prev().find('span.view').text('상세보기');
+			 $('.all-tbody .tenViewTR').not($('.all-tbody .tenViewTR').eq(trIndex)).remove();
+			}
+		
 	}; /// bettingView
 	
 	function scoreStyle(position){ 
@@ -387,7 +443,86 @@ $('#viewTarget').css('display','none');
 				
 		  return content;
 		
-	}
+	};
+	
+	function bettingJoin(dataLength){
+		 console.log('bettingJoin함수안에서 마일리지 길이' ,dataLength);
+		 
+			    
+			
+	if ($(':radio:checked').length == 0){  // 라디오버튼 체크 아무것도 안되었을때
+		
+		 Swal.fire({
+			 // position: 'top-end',
+			  type: 'warning',
+			  title: '경기결과를 선택해주세요',
+			   
+			  showConfirmButton: true,
+			  timer: 3000
+			});	   
+		
+		
+		}
+   else  {
+			if ($('#bettingPoint').val().length == 0 || Number($('#bettingPoint').val()) <= 0 ) {
+				  
+				 
+				Swal.fire({
+				  
+				  html: '<span style="font-weight:bold;font-size:18px">배팅할 포인트를 입력해주세요</span>',
+				  confirmButtonText: '확인',
+				});
+					
+					
+				
+				
+				
+				
+				
+					
+			
+				  
+				}// if
+			else {
+		 	Swal.fire({
+				  title:'[ '+$('#bettingPoint').val()+' ]'+' 포인트',
+				  html: '<sapn class="swalBetting">'+'배팅후에는 개인 변심으로 인한 취소가 불가능합니다.'+'</span>',
+				  type: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#30a0d6',
+				  cancelButtonColor: '#fd5850',
+				  confirmButtonText: '확인',
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire(
+				      '배팅 완료',
+				    '[ '+$('#bettingPoint').val()+' ]'+' 포인트를 배팅하셨습니다.',
+				      'success'
+				    )///
+				    $('#bettingPoint').val('');
+				  }
+				 
+				}); 
+		 	
+			}///else 
+		 	
+		}// else
+	
+	};/////////////////// 
+
+		
+	//3자리마다 콤마 
+	function addCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	};
+
+
+			
+	
+		
+		
+		
+	
 </script>
 <style>
  .slash  td{
@@ -400,6 +535,9 @@ $('#viewTarget').css('display','none');
     vertical-align: middle;
    }
    
+ .swalBetting{
+ color : red;
+ }
   
 </style>
 
@@ -416,7 +554,7 @@ $('#viewTarget').css('display','none');
 							<li class="breadcrumb-item"><a href="index.html">home</a></li>
 							<li class="breadcrumb-item active">in play</li>
 						</ol>
-
+                       <input type="hidden" value= "${id}" id="auth"/>
 					</div>
 				</div>
 			</div>
@@ -521,8 +659,16 @@ $('#viewTarget').css('display','none');
     										</tr>
     									</c:if>
     									<c:if test="${! isEmpty}">
+	    									<!-- 현재날짜  -->
+	    									<jsp:useBean id="now" class="java.util.Date" />
+											<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm" var="formatNow"/>
+
     										<c:forEach var="item" items="${list}" varStatus="loop" >
-	    										
+    										        <!--  날짜  Date타입으로 파싱 및  패턴 지정  -->
+    											    <fmt:parseDate  value="${item.gameDate} ${item.time}" pattern="yyyy-MM-dd HH:mm" var="gameDate"/>
+    												<fmt:formatDate value="${gameDate}"  pattern="yyyy-MM-dd HH:mm"  var="formatGameDate"/>
+	    										    
+	    										      <!--  스코어  숫자로 파싱  -->
 		    										<fmt:parseNumber value="${item.homeScore}" type="number" var="homeScore"/>
 			    							        <fmt:parseNumber value="${item.awayScore}" type="number" var="awayScore"/>
 		    							        
@@ -530,8 +676,15 @@ $('#viewTarget').css('display','none');
 	    										<td>${loop.count}</td>
 	    										
 
-	    										<td><span class="pr-1">
+	    										<td>
+	    										<c:if test="${formatNow < formatGameDate }" var="isDeadLine">
+	    										<span class="pr-1">
+	    										<fmt:formatDate value="${item.gameDate}"   pattern="yy.MM.dd"/></span><span class="pr-1">${item.gameDay}</span><span>${item.time}</span>
+	    										</c:if>
+	    										<c:if test="${! isDeadLine}">  <!--  경기일시가 현재날짜보다 이전인 경우  -->
+	    										<span class="pr-1 deadLine">   
 	    										<fmt:formatDate value="${item.gameDate}" pattern="yy.MM.dd"/></span><span class="pr-1">${item.gameDay}</span><span>${item.time}</span>
+	    										</c:if>
 	    										</td>
 	    										 
 	    										<td><span class="pr-2 ht" >${item.teamname}</span><span class="pr-2 hs" >${item.homeScore == -1 ? '':item.homeScore}</span>:<span class="px-2 as" >${item.awayScore == -1 ? '':item.awayScore}</span><span class="at">${item.awayTeam}</span>
@@ -557,9 +710,9 @@ $('#viewTarget').css('display','none');
 	    										</td> 
 	    										<td>기타</td>
 	    										<td>
-	    										<button type="button" class="btn btn-warning bettingBtn" data-toggle="modal" data-target="#myModal"
+	    										<button type="button" class="btn btn-warning bettingBtn"  data-toggle="modal" data-target="#myModal"
 													style="height: 33px;" ><!-- data-toggle="modal" data-target="#myModal" -->
-														배 팅 <span class="badge badge-secondary ml-2">15</span>
+														배 팅 <span class="badge badge-secondary ml-2">0</span>
 														</button>
 	    										 </td>
 	    										<td><span class="view" style="cursor:pointer;">상세보기</span></td>
@@ -925,13 +1078,13 @@ $('#viewTarget').css('display','none');
 														<div class="custom-control custom-radio"
 															style="display: inline;">
 															<input type="radio" id="customRadio1" name="customRadio"
-																class="custom-control-input"> <label
+																class="custom-control-input"> <label style="font-weight: bold;"
 																class="custom-control-label" for="customRadio1">HOME</label>
 														</div>
 														<div class="progress "
 															style="height: 25px; width: 70%; float: right;">
 															<div
-																class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger homeProgress"
 																style="width: 40%; font-weight: bold;">40%</div>
 														</div>
 													</div>
@@ -944,13 +1097,13 @@ $('#viewTarget').css('display','none');
 														<div class="custom-control custom-radio"
 															style="display: inline">
 															<input type="radio" id="customRadio2" name="customRadio"
-																class="custom-control-input"> <label
+																class="custom-control-input"> <label style="font-weight: bold;"
 																class="custom-control-label " for="customRadio2">AWAY</label>
 														</div>
 														<div class="progress"
 															style="height: 25px; width: 70%; float: right;">
 															<div
-																class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger AwayProgress"
 																style="width: 30%; font-weight: bold;">30%</div>
 														</div>
 
@@ -965,13 +1118,13 @@ $('#viewTarget').css('display','none');
 														<div class="custom-control custom-radio"
 															style="display: inline;">
 															<input type="radio" id="customRadio3" name="customRadio"
-																class="custom-control-input"> <label
+																class="custom-control-input"> <label style="font-weight: bold;"
 																class="custom-control-label " for="customRadio3">DRAW</label>
 														</div>
 														<div class="progress"
 															style="height: 25px; width: 70%; float: right;">
 															<div
-																class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger drawProgress"
 																style="width: 20%; font-weight: bold;">20%</div>
 														</div>
 													</div>
@@ -980,14 +1133,15 @@ $('#viewTarget').css('display','none');
 
 												<!-- Radio -->
 												<!--Basic textarea-->
-												<!--  <div class="row">
+	<!-- 											 <div class="row">
           <textarea type="text" id="form79textarea" class="md-textarea form-control" rows="3"></textarea>
         </div> -->
-												<div class="row">
-													<div
-														class="input-group input-group-sm mt-3 offset-md-8 offset-sm-7  col-md-4 col-sm-5">
+        										<div style="height:50px"> </div>
+												<div class="row" >
+												<div  class ="col-md-3 col-sm-3" ><span  class="pt-4 nowPoint" style="color:blue;font-weight: bold;"></span></div>
+													<div  class="input-group input-group-sm mt-3 offset-md-5 offset-sm-7  col-md-4 col-sm-5">
 														<input type="text" class="form-control text-right"
-															style="border: 1px solid gray" id="bettingPoint">
+															style="border: 1px solid gray;height: 35px;" id="bettingPoint" >
 														<div class="input-group-append">
 															<button class="btn btn-secondary " type="submit"
 																id="btnJoin">참여</button>

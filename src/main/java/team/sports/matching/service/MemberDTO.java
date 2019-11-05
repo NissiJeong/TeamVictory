@@ -11,7 +11,14 @@ public class MemberDTO {
 	private String email;
 	private String location;
 	private java.sql.Date regidate;
+	private String point;
 	
+	public String getPoint() {
+		return point;
+	}
+	public void setPoint(String point) {
+		this.point = point;
+	}
 	public String getID() {
 		return ID;
 	}
