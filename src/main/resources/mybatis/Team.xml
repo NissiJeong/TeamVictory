@@ -51,4 +51,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY h.sb DESC
 	</select>
 	
+	<!-- 팀목록 리스트 -->
+	<select id="TeamSearchList" parameterType="java.util.Map" resultType="Map">
+		SELECT t.*, m.name FROM team t JOIN member m ON m.id=t.manager_id order by teamname
+	</select>
+	<!-- 팀별 팀원 수 구하기 -->
+	<select id="memberSelect" resultType="Map">
+		select teamname,count(*) teamcount from teammember group by teamname order by teamname
+	</select>
+	
+	<!-- 팀검색 -->
+	<select id="TeamNameSearch" parameterType="java.util.Map" resultType="Map">
+		SELECT t.*, m.name FROM team t JOIN member m ON m.id=t.manager_id order by teamname
+	</select>
+	
 </mapper>

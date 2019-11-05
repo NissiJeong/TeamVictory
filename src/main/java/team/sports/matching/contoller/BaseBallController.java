@@ -15,6 +15,8 @@ import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +39,6 @@ public class BaseBallController {
 	private BaseBall_HitterDAO hitterDAO;
 	
 	
-	
 	@RequestMapping("/Team/Matching/InsertHitterByPARSING") 
 	public String insertHitterByPARSING(@RequestParam Map map, Model model) throws IOException {
 	
@@ -56,6 +57,8 @@ public class BaseBallController {
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
     			int r = Integer.parseInt(elem.get(i).child(5).text());
     			int h = Integer.parseInt(elem.get(i).child(6).text());
+    			int b2 = h*(Math.random() <0.2?1:0);
+    			int b3 = (h-b2)*(Math.random()<0.1?1:0);
     			int hr = Integer.parseInt(elem.get(i).child(7).text());
     			int rbi = Integer.parseInt(elem.get(i).child(8).text());
     			int bb = Integer.parseInt(elem.get(i).child(9).text());
@@ -74,6 +77,8 @@ public class BaseBallController {
     			map.put("AB", ab);
     			map.put("R", r);
     			map.put("H", h);
+    			map.put("B2", b2);
+    			map.put("B3", b3);
     			map.put("HR", hr);
     			map.put("RBI", rbi);
     			map.put("BB", bb);
@@ -91,6 +96,8 @@ public class BaseBallController {
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
     			int r = Integer.parseInt(elem.get(i).child(5).text());
     			int h = Integer.parseInt(elem.get(i).child(6).text());
+    			int b2 = h*(Math.random() <0.2?1:0);
+    			int b3 = (h-b2)*(Math.random()<0.1?1:0);
     			int hr = Integer.parseInt(elem.get(i).child(7).text());
     			int rbi = Integer.parseInt(elem.get(i).child(8).text());
     			int bb = Integer.parseInt(elem.get(i).child(9).text());
@@ -106,6 +113,8 @@ public class BaseBallController {
     			map.put("AB", ab);
     			map.put("R", r);
     			map.put("H", h);
+    			map.put("B2", b2);
+    			map.put("B3", b3);
     			map.put("HR", hr);
     			map.put("RBI", rbi);
     			map.put("BB", bb);
@@ -154,27 +163,33 @@ public class BaseBallController {
 		for(Object key2 : map.keySet()) {
 			System.out.println(String.format("key : %s  |  value : %s", key2,map.get(key2).toString()));
 		}
-		
 		int affected = hitterDAO.insert(map);
-		
 		System.out.println("affected:" +affected);
 		
 		return "forward:/Team/Matching/statostics.do";
-
 		}
 	
 	
-	
 	@RequestMapping("/Team/Matching/statostics.do")
-	public String selectList(@RequestParam Map map, Model model) {
+	public String selectList(@RequestParam Map map, Model model, Authentication auth) {
 		List<Map> list = new Vector<Map>();
 		//Map<String, List> record = new HashMap<String, List>();
 		System.out.println("selectList 호출!!!!!!");
-		
 		List<Map> records = hitterDAO.hitterSelectList(map);
 		
-		model.addAttribute("records", records);
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		records.get(0).put("LOGINID", userDetails.toString());
 		
+		
+		for(int i=0; i<records.size();i++) {
+			double avg= Math.ceil((Double.parseDouble(records.get(i).get("H").toString()))/(Double.parseDouble(records.get(i).get("AB").toString())) * 10000)/10000.0;
+			records.get(i).put("AVG", avg);
+			
+			double sumavg= Math.ceil((Double.parseDouble(records.get(i).get("SUMH").toString()))/(Double.parseDouble(records.get(i).get("SUMAB").toString())) * 10000)/10000.0;
+			records.get(i).put("SUMAVG", sumavg);
+		}
+		
+		model.addAttribute("records", records);
 		return "member/statistics.tiles";
 
 		}
@@ -185,6 +200,16 @@ public class BaseBallController {
 		System.out.println("inifiniteScrollDownPost 소환!!!");
 		
 		List<Map> downRecords = hitterDAO.scrollDown(map);
+		
+		
+		for(int i=0; i<downRecords.size();i++) {
+			double avg= Math.ceil((Double.parseDouble(downRecords.get(i).get("H").toString()))/(Double.parseDouble(downRecords.get(i).get("AB").toString())) * 10000)/10000.0;
+			downRecords.get(i).put("AVG", avg);
+			
+			double sumavg= Math.ceil((Double.parseDouble(downRecords.get(i).get("SUMH").toString()))/(Double.parseDouble(downRecords.get(i).get("SUMAB").toString())) * 10000)/10000.0;
+			downRecords.get(i).put("SUMAVG", sumavg);
+		}
+		
 		
 		return downRecords;
 	}

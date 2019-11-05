@@ -19,6 +19,11 @@ public class TeamBoardDAO {
 		return template.selectList("TeamBoardList", map);
 	}
 	
+	//팀원 구하기
+	public List<Map> memberSelect(){
+		return template.selectList("memberSelect"); 
+	}
+	
 	//최다득점 TOP3
 	public List<TeamBoardDTO> bestrbiPlayer(Map map) { 
 		return template.selectList("BestrbiPlayer", map); 
@@ -37,5 +42,14 @@ public class TeamBoardDAO {
 	//최다도루 TOP3
 	public List<TeamBoardDTO> bestsbPlayer(Map map) { 
 		return template.selectList("BestsbPlayer", map); 
+	}
+	//팀목록
+	public List<Map> teamselectList(Map map) { 
+		return template.selectList("TeamSearchList", map); 
+	}
+	
+	//팀목록
+	public List<TeamBoardDTO> teamNameSearch(Map map) { 
+		return template.selectList("TeamNameSearch", map); 
 	}
 }

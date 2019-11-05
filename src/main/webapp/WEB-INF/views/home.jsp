@@ -2,8 +2,17 @@
 <%@ page session="false" %>
 
 <h1>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    
+=======
+
+    dddd
+=======
 
 
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
     GO
     why??
 	Hello world!   ni ssi  
