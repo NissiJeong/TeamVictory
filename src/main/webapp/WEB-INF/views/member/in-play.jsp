@@ -22,7 +22,7 @@ $(function(){
 		  var clickBettingBtn = $('.bettingBtn').click(function(){
 			  var _this= this;
 			  var  btnIndex =clickBettingBtn.index(this); 
-			   $("#myModal").on('shown.bs.modal', function () {
+			
 				    
 			 
 			     $('#bettingPoint').val('');
@@ -53,11 +53,17 @@ $(function(){
 					   dataType: 'text',
 					   success : function(data){
 						   //// 서버로부터 받은 데이터
+						  
 						   dataLength = data.length;
+						   console.log('마일리지 길이 ' , dataLength)
 						   $('.nowPoint').text('마일리지 : '+data);
 						  console.log($('#auth').val() +' 회원 마일리지 : '+data );
 						  
-						 
+						  if ( dataLength  >3) 
+						   $('#bettingPoint').attr('maxlength',dataLength+1);
+						  else 
+							  $('#bettingPoint').attr('maxlength',dataLength);
+						  
 					   },///success
 						   error:function(data){
 							console.log('에러 : '+data); // 에러코드 출력 
@@ -71,34 +77,18 @@ $(function(){
 				
 			// 배팅 입력란에 숫자만 입력되도록 / 보유마일리지보다 적은 금액만 입력되도록
 			$('#bettingPoint').on("keyup", function() {
-			    $(this).val(addCommas($(this).val().replace(/[^0-9]/g,"")));
-			    
-			   
-			   
+			  $(this).val(addCommas($(this).val().replace(/[^0-9]/g,"")));
+			 
 			});  
 			 
 			 //배팅 모달창에서 참여버튼 클릭시
 			  $('#btnJoin').click(function(){
 				  //console.log( parseInt($('#bettingPoint').val().replace(',',''))  );
-				  
-				var  start =  $('.nowPoint').text().indexOf(':')+2;
-			
-				  if( Number($('#bettingPoint').val().replace(',','').replace(',','')) > Number($('.nowPoint').text().substring(start, $('.nowPoint').text().length))){
-						Swal.fire({
-							  
-							  html: '<span style="font-weight:bold;font-size:18px">보유 마일리지 초과입니다.</span>',
-							  confirmButtonText: '확인',
-							});
-					  $('#bettingPoint').val('');
-					  $('#bettingPoint').focus();
-					  return false;
-				  }
-					     
-					    
+				 // 콤마제거함수 호출해서 반환값을 넘긴다.
+		    console.log ( 'btnjoin 클릭이벤트'	,	 commaRemove($('#bettingPoint').val()) )
 				bettingJoin(dataLength);
-				  
-			   });
-	  });	
+			 });	
+			 
  });////////  clickBettingBtn 
 		  
   
@@ -447,10 +437,11 @@ $(function(){
 	
 	function bettingJoin(dataLength){
 		 console.log('bettingJoin함수안에서 마일리지 길이' ,dataLength);
-		 
-			    
+		console.log ( '반환받은 배팅포인트의 자료형 : '	, typeof ( commaRemove($('#bettingPoint').val()) ) );
+		var point = commaRemove( $('#bettingPoint').val() ) 
+		
 			
-	if ($(':radio:checked').length == 0){  // 라디오버튼 체크 아무것도 안되었을때
+	if ($(':radio:checked').length == 0){  // 경기결과  체크 아무것도 안되었을때
 		
 		 Swal.fire({
 			 // position: 'top-end',
@@ -460,64 +451,101 @@ $(function(){
 			  showConfirmButton: true,
 			  timer: 3000
 			});	   
+		 
+		 return false;
+		}///////// if 
+	   else  {    // 경기결과는 선택한경우
 		
-		
-		}
-   else  {
-			if ($('#bettingPoint').val().length == 0 || Number($('#bettingPoint').val()) <= 0 ) {
-				  
-				 
-				Swal.fire({
-				  
-				  html: '<span style="font-weight:bold;font-size:18px">배팅할 포인트를 입력해주세요</span>',
-				  confirmButtonText: '확인',
-				});
-					
-					
-				
-				
-				
-				
-				
-					
-			
-				  
+		 	  //  포인트 미입력 
+					if ( $('#bettingPoint').val().length === 0 ) {
+						Swal.fire({
+						  
+						  html: '<span style="font-weight:bold;font-size:18px">배팅할 포인트를 입력해주세요</span>',
+						  confirmButtonText: '확인',
+						});
+						return false;
 				}// if
-			else {
-		 	Swal.fire({
-				  title:'[ '+$('#bettingPoint').val()+' ]'+' 포인트',
-				  html: '<sapn class="swalBetting">'+'배팅후에는 개인 변심으로 인한 취소가 불가능합니다.'+'</span>',
-				  type: 'warning',
-				  showCancelButton: true,
-				  confirmButtonColor: '#30a0d6',
-				  cancelButtonColor: '#fd5850',
-				  confirmButtonText: '확인',
-				}).then((result) => {
-				  if (result.value) {
-				    Swal.fire(
-				      '배팅 완료',
-				    '[ '+$('#bettingPoint').val()+' ]'+' 포인트를 배팅하셨습니다.',
-				      'success'
-				    )///
-				    $('#bettingPoint').val('');
-				  }
-				 
-				}); 
+				
+				//  포인트 0 입력
+				else if (  point === 0){
+					Swal.fire({
+						  
+						  html: '<span style="font-weight:bold;font-size:16px" class="pt-2">배팅에 참여하시려면 최소 1포인트이상 배팅하셔야합니다.</span>',
+						  confirmButtonText: '확인',
+						});
+					  $('#bettingPoint').val('');
+				}
+				
+				
+			else{     // 경기결과 선택 O  , 배팅포인트 1이상 입력 O 
+				
+			
+				var  start =  $('.nowPoint').text().indexOf(':')+2;
+				// 마일리치 초과입력시
+				//  if( Number($('#bettingPoint').val().replace(',','').replace(',','')) > Number($('.nowPoint').text().substring(start, $('.nowPoint').text().length))){
+				if ( point  >  Number($('.nowPoint').text().substring(start, $('.nowPoint').text().length)) ) {
+					Swal.fire({
+							  
+							  html: '<span style="font-weight:bold;font-size:18px">보유 마일리지 초과입니다.</span>',
+							  confirmButtonText: '확인',
+							});
+					  $('#bettingPoint').val('');
+					  $('#bettingPoint').focus();
+					  return false;
+				  }//// if
+				
+				  else { // 보유마일리 초과하지 않았을떄.
+						 	Swal.fire({
+									  title:'[ '+addCommas(point)+' ]'+' 포인트',
+									  html: '<sapn class="swalBetting">'+'배팅후에는 개인 변심으로 인한 취소가 불가능합니다.'+'</span>',
+									  type: 'warning',
+									  showCancelButton: true,
+									  confirmButtonColor: '#30a0d6',
+									  cancelButtonColor: '#fd5850',
+									  confirmButtonText: '확인',
+								}).then((result) => {
+								  if (result.value) {
+									    Swal.fire(
+									      '배팅 완료',
+									    '[ '+addCommas(point)+' ]'+' 포인트를 배팅하셨습니다.',
+									      'success'
+									    )///
+									    $('#bettingPoint').val('');
+									 }
+							});  ///  Swal
+		 	     return false;
+					}///else 
 		 	
-			}///else 
-		 	
-		}// else
-	
-	};/////////////////// 
+			}; // 2번째 else
+	   }// 1번째 else
+	}; 
 
-		
+
 	//3자리마다 콤마 
 	function addCommas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	};
 
 
+	function commaRemove(point){
+		//replace는 없는문자를 바꾸려고하면 원래문자열 그대로 유지 
+		console.log('없는문자 변환시', $.trim(point).replace("!!",''));
+		console.log ('매개변수 point : ', point);
+		 var start=0;
+	     var 	noComma;
+			noComma = $.trim(point).replace(",", '');
 			
+			for(var i=0; i<noComma.length; i++){
+				 if( noComma[i].charCodeAt(0) > 48){
+					     start = i;
+					     console.log ('콤마잘랐을떄 최종반환 noComma :' , noComma.substring(start));
+					     return Number(noComma.substring(start));
+				 }
+			}
+			
+			return 0;
+		
+	};
 	
 		
 		
