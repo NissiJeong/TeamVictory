@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal.username" var="id"/>
+<sec:authentication property="principal.authorities" var="auth"/>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <style>
 .w-1 {
@@ -105,7 +107,8 @@
 		<div class="row">
 			<div class="text-center">
 				<form class="form-inline" method="post"
-					action="<c:url value='/Team/Matching/Board.bbs'/>">
+					action="<c:url value='/Team/Matching/Board.do?${_csrf.parameterName}=${_csrf.token}'/>">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div class="form-group"
 						style="margin-bottom: 20px; margin-left: 20px">
 						<select name="searchColumn" class="form-control">

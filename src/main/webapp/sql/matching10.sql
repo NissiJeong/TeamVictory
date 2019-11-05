@@ -1,20 +1,16 @@
 
 /* Drop Triggers */
-
+/*
 DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_betting_no;
 DROP TRIGGER TRI_board_no;
-<<<<<<< HEAD
-DROP TRIGGER TRI_tbl_user_no;
-=======
 DROP TRIGGER TRI_contact_no;
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
 DROP TRIGGER TRI_message_no;
-
+*/
 
 
 /* Drop Tables */
@@ -22,8 +18,6 @@ DROP TRIGGER TRI_message_no;
 DROP TABLE AUTH_SECURITY CASCADE CONSTRAINTS;
 DROP TABLE betting CASCADE CONSTRAINTS;
 DROP TABLE board CASCADE CONSTRAINTS;
-DROP TABLE tbl_user CASCADE CONSTRAINTS;
-DROP TABLE contact CASCADE CONSTRAINTS;
 DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
@@ -37,39 +31,32 @@ DROP TABLE Team CASCADE CONSTRAINTS;
 
 /* Drop Sequences */
 
-DROP SEQUENCE SEQ_baseteam_baseteamno;
-DROP SEQUENCE SEQ_Betting_bettingIndex;
-DROP SEQUENCE SEQ_betting_no;
-DROP SEQUENCE SEQ_board_no;
-<<<<<<< HEAD
-DROP SEQUENCE SEQ_tbl_user_no;
-=======
-DROP SEQUENCE SEQ_contact_no;
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
-DROP SEQUENCE SEQ_gameRecord_teamGameNo;
-DROP SEQUENCE SEQ_Gameschedule_gameNo;
-DROP SEQUENCE SEQ_matching_matchingNo;
-DROP SEQUENCE SEQ_message_no;
+DROP SEQUENCE SEQ_baseteam;
+DROP SEQUENCE SEQ_betting;
+DROP SEQUENCE SEQ_board;
+DROP SEQUENCE SEQ_contact;
+DROP SEQUENCE SEQ_gameRecord;
+DROP SEQUENCE SEQ_Gameschedule;
+DROP SEQUENCE SEQ_matching;
+DROP SEQUENCE SEQ_message;
 
 
 
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_board_no INCREMENT BY 1 START WITH 1;
-<<<<<<< HEAD
-CREATE SEQUENCE SEQ_message_no INCREMENT BY 1 START WITH 1;
-=======
-CREATE SEQUENCE SEQ_contact_no INCREMENT BY 1 START WITH 1;
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
-CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_message_no INCREMENT BY 1 START WITH 1;
 
+
+
+CREATE SEQUENCE SEQ_board INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_contact INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_message INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_baseteam INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_betting INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_gameRecord INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_Gameschedule INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_matching INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE SEQ_AUTH_SECURITY INCREMENT BY 1 START WITH 1 NOCACHE NOCYCLE;
 
 
 /* Create Tables */
@@ -102,24 +89,10 @@ CREATE TABLE board
 	no number NOT NULL,
 	title nvarchar2(50) NOT NULL,
 	content nvarchar2(2000) NOT NULL,
-	postDate date DEFAULT SYSDATE,	
+	postDate date DEFAULT SYSDATE,
 	ID nvarchar2(15) NOT NULL,
-<<<<<<< HEAD
-	PRIMARY KEY (no)
-);
-
-CREATE TABLE message
-(
-   no number NOT NULL,
-   title nvarchar2(50) NOT NULL,
-   content nvarchar2(2000) NOT NULL,
-   postDate date DEFAULT SYSDATE,
-   ID nvarchar2(15) NOT NULL,
-   PRIMARY KEY (no)
-=======
 	count  DEFAULT 0,
 	PRIMARY KEY (no)
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 );
 
 
@@ -133,7 +106,7 @@ CREATE TABLE gameschedule
 	homescore number,
 	awayscore number,
 	teamName nvarchar2(20) NOT NULL,
-	CONSTRAINT gameno UNIQUE (gameDate, stadium, time)
+	CONSTRAINT gameno primary key  (gameDate, stadium, time)
 );
 
 
@@ -161,7 +134,7 @@ CREATE TABLE hitter
 	e number DEFAULT 0,
 	pos number DEFAULT 0,
 	horder number DEFAULT 0,
-	CONSTRAINT pk UNIQUE (gameDate, time, ID)
+	CONSTRAINT pk primary key  (gameDate, time, ID)
 );
 
 
@@ -237,7 +210,7 @@ CREATE TABLE pitcher
 	so number,
 	r number,
 	er number,
-	CONSTRAINT pk_pitcher UNIQUE (gameDate, time, ID)
+	CONSTRAINT pk_pitcher primary key  (gameDate, time, ID)
 );
 
 
@@ -261,9 +234,7 @@ CREATE TABLE TeamMember
 	teamName nvarchar2(20) NOT NULL,
 	ID nvarchar2(15) NOT NULL,
 	no number,
-	self nvarchar2(150) NOT NULL,
-	registatus nvarchar2(10) DEFAULT 'waiting',
-	CONSTRAINT pk_teamMember UNIQUE (teamName, ID)
+	CONSTRAINT pk_teamMember primary key (teamName, ID)
 );
 
 
@@ -286,14 +257,6 @@ ALTER TABLE pitcher
 	ADD FOREIGN KEY (gameDate, stadium, time)
 	REFERENCES gameschedule (gameDate, stadium, time)
 ;
-
-ALTER TABLE tbl_message 
-ADD CONSTRAINT fk_usersender
-FOREIGN KEY (sender) REFERENCES tbl_user(userid);
-
-ALTER TABLE tbl_message 
-ADD CONSTRAINT fk_usertarget
-FOREIGN KEY (targetid) REFERENCES tbl_user(userid);
 
 
 ALTER TABLE AUTH_SECURITY
@@ -364,7 +327,7 @@ ALTER TABLE TeamMember
 
 
 /* Create Triggers */
-
+/*
 CREATE OR REPLACE TRIGGER TRI_baseteam_baseteamno BEFORE INSERT ON baseteam
 FOR EACH ROW
 BEGIN

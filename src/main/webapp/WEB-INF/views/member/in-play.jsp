@@ -126,6 +126,7 @@ $('#viewTarget').css('display','none');
 				}
 			}); // ajax 
 			$(this).text('접기')  // 문자열 변경
+
 		   }  // if
 		   else{
 			 $(this).parent().parent().next().remove();

@@ -150,7 +150,14 @@ function notifyme(){
 		console.log('들어왔따')
 		//If the user agreed to get notified
 		if (Notification && Notification.permission === "granted") {
-		 var n = new Notification("Hi!");
+			
+			var n = new Notification("팀이 매칭신청을 하였습니다");
+			
+			n.onclick = event => {
+				//event.preventDefault();
+				n.close();
+				window.open('<c:url value="/Team/Matching/Team.do"/>');
+			}
 		}
 		
 		//If the user haven't tell if he want to be notified or not
@@ -164,12 +171,13 @@ function notifyme(){
 		
 		   // If the user said okay
 		   if (status === "granted") {
-		     var n = new Notification("Hi!");
+		     var n = new Notification("팀이 매칭신청을 하였습니다");
+		    
 		   }
 		
 		   // Otherwise, we can fallback to a regular modal alert
 		   else {
-		     alert("Hi!");
+		     alert("팀이 매칭신청을 하였습니다");
 		   }
 		 });
 		}
@@ -177,8 +185,9 @@ function notifyme(){
 		//If the user refuse to get notified
 		else {
 		 // We can fallback to a regular modal alert
-		 alert("Hi!");
+		 alert("팀이 매칭신청을 하였습니다");
 		}
+		
 };
 </script>
 

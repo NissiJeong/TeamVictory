@@ -11,7 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	SELECT COUNT(*) FROM member WHERE id=#{id} AND pwd=#{pwd}
   </select>
   <select id="boardSelectList" parameterType="java.util.Map" resultType="BoardDTO">
-  	select * from (select t.*,rownum r from (select * from board order by no desc) t) where r between #{start} and #{end}  	
+  	select * from (select t.*,rownum r from (select * from board 
+  	<if test="searchColumn != null">
+  		where ${searchColumn} like '%' || #{searchWord} || '%'
+  	</if>  	
+  	order by no desc) t) where r between #{start} and #{end}  	
   </select>
   <select id="boardTotal" parameterType="java.util.Map" resultType="int">
   	SELECT COUNT(*) FROM board
@@ -31,7 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </insert>
   <select id="boardSelectOne" parameterType="java.util.Map" resultType="BoardDTO">
   	SELECT o.*,name FROM board o JOIN member m ON o.id=m.id
-  	WHERE no = #{no}
+  	WHERE o.no = #{no}
+  	
   </select>
   <select id="boardUpdate" parameterType="java.util.Map">
   	UPDATE board SET title=#{title},content=#{content} WHERE no=#{no}
