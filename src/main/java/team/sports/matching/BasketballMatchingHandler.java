@@ -27,11 +27,9 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
 	private Map<String, WebSocketSession> clients = new HashMap<String, WebSocketSession>();
 
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		
 		System.out.println("asdasd");
 		System.out.println(session.getId()+"연결했어요");
 		clients.put(session.getId(), session);
-		
 		
 	}
 	
@@ -49,7 +47,11 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println(session.getId()+"로부터 받은 메시지:"+message.getPayload());
+		System.out.println(message.getPayload());
 		
+		/* 방이름:"+data+"에"+user+"님이 입장하셨습니다. */
+		
+		//방이름이 같은 사람에게만 채팅되게
 		//접속한 모든 클라이언트에게 session.getId()가 보낸
 		//메시지 뿌려주기]
 		for(WebSocketSession client:clients.values()) {

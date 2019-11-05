@@ -8,7 +8,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mybatis.Member">
 	
-	
 	<insert id="createRoom" parameterType="java.util.Map">
 		INSERT INTO chatroom(title, id, area, position, regidate, readycount) 
 		VALUES(#{title}, #{id}, #{area}, #{position}, SYSDATE, 0)
@@ -21,4 +20,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="titleDuplication">
 		SELECT COUNT(*) FROM chatroom WHERE title=#{title}
 	 </select>
+	 
 </mapper>

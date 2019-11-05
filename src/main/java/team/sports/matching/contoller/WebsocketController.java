@@ -70,23 +70,27 @@ public class WebsocketController {
       }
    }////////basketball()
    
-   @RequestMapping(value="/Team/Matching/createRoom.do", method = RequestMethod.POST)
+   @ResponseBody
+   @RequestMapping(value="/Team/Matching/createRoom.do", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
    public String createRoom(@RequestParam Map map, Authentication auth) {
 	   int affected = 0;
 	   UserDetails userDetails = (UserDetails)auth.getPrincipal();
-      map.put("id", userDetails.getUsername());
-	   System.out.println("들어왔따.");
+       map.put("id", userDetails.getUsername());
+	   String title = map.get("title").toString();
+	   System.out.println(title);
+       System.out.println(map.get("position"));
 	   affected = bdao.createRoom(map);
 	   if(affected == 1) {
 		   System.out.println("방 생성완료");
+		   
 	   }
-	   return "member/Basketball.tiles";
+	   return title;
    }
    
    @RequestMapping(value = "/Team/Matching/listRoom.do", produces = "text/html; charset=UTF-8")
    @ResponseBody
    public String listRoom() {
-	   //System.out.println("들어오냐?");
+	   
 	   Map map = new HashMap();
 	   map.put("start", 1);
 	   map.put("end", 2);
@@ -104,7 +108,7 @@ public class WebsocketController {
 		   
 		   collections.add(record);
 	   }
-	   //System.out.println(JSONArray.toJSONString(collections));
+	   
 	   return JSONArray.toJSONString(collections);
 	   
    }///////////listRoom
