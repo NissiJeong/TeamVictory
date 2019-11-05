@@ -45,7 +45,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT teamname FROM teammember where id=#{id}
 	</select>
 
-	
 	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="isDuplicate">
 		SELECT COUNT(*) FROM member WHERE id=#{id}
 	 </select>

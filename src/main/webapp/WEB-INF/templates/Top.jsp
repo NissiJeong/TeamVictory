@@ -3,9 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-  
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  	<link rel="stylesheet" href="/resources/demos/style.css">
+  	<link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
@@ -26,6 +25,8 @@
   <script src="<c:url value='/assets/js/main.js'/>"></script>
   <!-- postcode.v2 -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- Alert UI -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- preloader start -->
   <div id="preloader"></div>
@@ -53,37 +54,49 @@
               <li class="menu_has_children"><a href="#0">Community</a>              
                 <ul class="sub-menu">                 
                   <li><a href="<c:url value='/Team/Matching/Board.do'/>">자유게시판</a></li>                
-                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>                 
+                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>   
+                   <li><a href="<c:url value='/Team/Matching/Notice.do'/>">공지사항</a></li>                  
                 </ul>
               </li>
               <li class="menu_has_children"><a href="#0">pages</a>
               
                 <ul class="sub-menu">
-                  <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li>
+               <%--    <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li> --%>
                   <li><a href="<c:url value='/Team/Matching/createTeam.do'/>">Create Team</a></li>
-                  <li><a href="<c:url value='/Team/Matching/service.do'/>">Services</a></li>
-                  <li><a href="<c:url value='/Team/Matching/Login.do'/>">Login</a></li>
-                  <li><a href="<c:url value='/Team/Matching/Register.do'/>">Registration</a></li>
+                  <%-- <li><a href="<c:url value='/Team/Matching/service.do'/>">Services</a></li> --%>
+                  <sec:authorize access="isAnonymous()"> 
+                  		<li><a href="<c:url value='/Team/Matching/Login.do'/>">Login</a></li>
+                 		<li><a href="<c:url value='/Team/Matching/Register.do'/>">Registration</a></li>
+                 </sec:authorize>
                 
-                  <li><a href="<c:url value='/Team/Matching/Privacy.do'/>">Privacy</a></li>
+                  <%-- <li><a href="<c:url value='/Team/Matching/Privacy.do'/>">Privacy</a></li>
                   <li><a href="<c:url value='/Team/Matching/Error.do'/>">ERROR Page</a></li>
-                  <li><a href="<c:url value='/Team/fcm.do'/>">fcm</a></li>
+                  <li><a href="<c:url value='/Team/fcm.do'/>">fcm</a></li> --%>
                 </ul>
               </li>
-              <li class="menu_has_children"><a href="#0">blog</a>
+            <%--   <li class="menu_has_children"><a href="#0">blog</a>
                 <ul class="sub-menu">
                   <li><a href="<c:url value='/Team/Matching/Blog.do'/>">Blog page</a></li>
                   <li><a href="<c:url value='/Team/Matching/blog-details.do'/>">blog single</a></li>
                   
                 </ul>
-              </li>
+              </li> --%>
              
-              <c:if test="${! empty sessionScope.id }" var="isLogin">
-              	<li><a href="<c:url value='/Team/Matching/Logout.do'/>">Sign out</a></li>
-			  </c:if>
+              <sec:authorize access="isAuthenticated()">
+					<li><a href="javascript:logout()">Logout</a></li>
+				</sec:authorize>
             </ul>
           </div>
         </nav>
+        <form id="logoutForm" method="post" action="<c:url value='/logout'/>">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		</form>
+		<script>
+			//csrf사용시에만 아래 함수 필요
+			function logout(){
+				$('#logoutForm').submit();
+			}
+		</script>
       </div>
     </div><!-- header-bottom end -->
   </header>

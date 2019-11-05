@@ -45,6 +45,7 @@ public class MatchController {
 		if(auth == null) {
 			return "member/login.tiles";
 		}
+		System.out.println("이새캬");
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
 		int manager = dao.selectTeam(map);
@@ -52,6 +53,7 @@ public class MatchController {
 		List<TeamDTO> list = dao.selectList(map);
 		
 		model.addAttribute("list",list);
+		System.out.println("이새캬");
 		return "member/matching2.tiles";
 	}
 	

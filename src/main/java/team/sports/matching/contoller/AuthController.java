@@ -97,6 +97,7 @@ public class AuthController {
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/CheckId.do",produces = "text/html; charset=UTF-8")
 	public String checkId(@RequestParam Map map) {
+		System.out.println("checkId");
 		System.out.println("asdf");
 		for(Object key : map.keySet()) {
 			System.out.println(key+":"+map.get(key));

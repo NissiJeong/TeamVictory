@@ -4,12 +4,16 @@
 <h1>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
 
     dddd
-    GO
+=======
+
+
 >>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+    GO
     why??
 	Hello world!   ni ssi  
 	plz  plz 

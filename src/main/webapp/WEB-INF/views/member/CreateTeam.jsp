@@ -4,9 +4,11 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication property="principal.username" var="id"/>
 <sec:authentication property="principal.authorities" var="auth"/>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+var flag = false;
 $(function(){
+	
 	function readURL(input) {
 		 if (input.files && input.files[0]) {
 		  var reader = new FileReader();
@@ -67,12 +69,17 @@ function checkTeam(teamName){
 			success:function(data){
 				//console.log(data);
 				if(data == "no"){
-					$("#TeamNameError").html("이미 존재하는 팀 이름입니다");					
+					$("#TeamNameError").html("이미 존재하는 팀 이름입니다");	
+					//$("#register").prop("disabed","true");
+					$("#TeamNameError").css("color","red");
+					flag = false;
 				}
 				else{					
 					$("#TeamNameError").html("사용 가능합니다");
 					$("#TeamNameError").css("color","green");
+					flag  = true;
 				}
+				isBlank()
 			}
 		});
 	}
@@ -89,7 +96,7 @@ function isBlank(){
 		$("#register").css("background-color","gray");
 		$("#register").prop("disabed","true");
 	}
-	else if(text.length != 0 && loc.length != 0 && cate.length != 0 && teamName.length !=0 ){
+	else if(text.length != 0 && loc.length != 0 && cate.length != 0 && teamName.length !=0 && flag == true){
 		$('#infoError').html('');
 		$("#register").css("background-color","#ff3952");
 		$("#register").prop("disabled",false);
@@ -150,8 +157,11 @@ function isBlank(){
         <div class="col-lg-8">
        	<c:if test="${dupliManager == 1 }" var="isDupli">
        	<script>
-          	alert("사용자는 한개 팀의 팀장만 맡을 수 있습니다");
-          	window.location = '<c:url value="/Team/Member/Index.do"/>';
+      
+       		alert('사용자는 이미 팀장을 맡고 있습니다');
+        	window.location = '<c:url value="/Team/Member/Index.do"/>';
+       
+	       
        	</script>
        	</c:if>
        	<c:if test="${not isDupli}">
@@ -166,7 +176,7 @@ function isBlank(){
                   		<label for="imgInput" class="btn btn-info">팀 로고 선택</label>
 					    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
 				   		<img id="image_section" src="<c:url value='/assets/images/preloader.gif'/>" style="width:100px;height:100px" />	
-				   		<span style="color:red; font-size: 1.8em">${empty param.error ?'':'파일 용량 초과'}</span>
+				   		<span style="color:red; font-size: 0.8em">${maxError }</span>
                   </div>
                 </div>
                 <div class="col-md-6">
