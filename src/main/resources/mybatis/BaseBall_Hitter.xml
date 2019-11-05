@@ -20,50 +20,86 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	
-	<select id="hitterSelectOne" parameterType="java.util.Map" resultType="BaseBall_HitterDTO">
-		SELECT * from basehitter where recordno = 24
-	</select>
+	
+	
+	
 	<select id="hitterSelectList" parameterType="java.util.Map" resultType="java.util.Map">
 		
-		SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM hitter A
-		WHERE 
-		<![CDATA[
-		ROWNUM <= (select count(*) from hitter)) 
-		]]>
-		WHERE 
-		<![CDATA[
-		RNUM > ((select count(*) from hitter) - 5) AND ID = 'KIM101'
-		]]>
-		ORDER BY GAMEDATE DESC, TIME DESC
+		SELECT * FROM (SELECT ROWNUM AS RECORDNO,  A.* FROM 
+		    (SELECT GAMEDATE, STADIUM, TIME, ID,TEAMNAME, PA, AB, H, B2, B3, HR, R, RBI, SB, CS, BB, HBP, SO, GDP, E, POS, HORDER,
+		        SUM(PA) OVER(ORDER BY GAMEDATE, TIME) SUMPA,
+		        SUM(AB) OVER(ORDER BY GAMEDATE, TIME) SUMAB,
+		        SUM(H) OVER(ORDER BY GAMEDATE, TIME) SUMH,
+		        SUM(B2) OVER(ORDER BY GAMEDATE, TIME) SUMB2,
+		        SUM(B3) OVER(ORDER BY GAMEDATE, TIME) SUMB3,
+		        SUM(HR) OVER(ORDER BY GAMEDATE, TIME) SUMHR,
+		        SUM(R) OVER(ORDER BY GAMEDATE, TIME) SUMR,
+		        SUM(RBI) OVER(ORDER BY GAMEDATE, TIME) SUMRBI,
+		        SUM(SB) OVER(ORDER BY GAMEDATE, TIME) SUMSB,
+		        SUM(CS) OVER(ORDER BY GAMEDATE, TIME) SUMCS,
+		        SUM(BB) OVER(ORDER BY GAMEDATE, TIME) SUMBB,
+		        SUM(HBP) OVER(ORDER BY GAMEDATE, TIME) SUMHBP,
+		        SUM(SO) OVER(ORDER BY GAMEDATE, TIME) SUMSO,
+		        SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,
+		        SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
+		        FROM hitter
+		        ORDER BY GAMEDATE , time) A
+		       		<![CDATA[
+		       	WHERE ROWNUM <=(
+		            ]]>
+		            select count(*) from hitter WHERE ID='LIM12')
+		            ) 
+				WHERE 
+		            <![CDATA[
+		            RECORDNO > (
+		            ]]>
+		            (select count(*) from hitter WHERE ID='LIM12') 
+		            - 5
+		            ) 
+		        ORDER BY GAMEDATE DESC, TIME DESC
 	</select>
 	
 	
 	<select id="infiniteScrollDown" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM hitter A
-		WHERE 
-		<![CDATA[
-		ROWNUM <= ( #{RECORDNO }-1 )) 
-		]]>
-		WHERE 
-		<![CDATA[
-		RNUM > (( #{RECORDNO } )-1 -5 )
-		]]>
-		ORDER BY GAMEDATE DESC, TIME DESC
+		
+		SELECT * FROM (SELECT ROWNUM AS RECORDNO,  A.* FROM 
+		    (SELECT GAMEDATE, STADIUM, TIME, ID,TEAMNAME, PA, AB, H, B2, B3, HR, R, RBI, SB, CS, BB, HBP, SO, GDP, E, POS, HORDER,
+		        SUM(PA) OVER(ORDER BY GAMEDATE, TIME) SUMPA,
+		        SUM(AB) OVER(ORDER BY GAMEDATE, TIME) SUMAB,
+		        SUM(H) OVER(ORDER BY GAMEDATE, TIME) SUMH,
+		        SUM(B2) OVER(ORDER BY GAMEDATE, TIME) SUMB2,
+		        SUM(B3) OVER(ORDER BY GAMEDATE, TIME) SUMB3,
+		        SUM(HR) OVER(ORDER BY GAMEDATE, TIME) SUMHR,
+		        SUM(R) OVER(ORDER BY GAMEDATE, TIME) SUMR,
+		        SUM(RBI) OVER(ORDER BY GAMEDATE, TIME) SUMRBI,
+		        SUM(SB) OVER(ORDER BY GAMEDATE, TIME) SUMSB,
+		        SUM(CS) OVER(ORDER BY GAMEDATE, TIME) SUMCS,
+		        SUM(BB) OVER(ORDER BY GAMEDATE, TIME) SUMBB,
+		        SUM(HBP) OVER(ORDER BY GAMEDATE, TIME) SUMHBP,
+		        SUM(SO) OVER(ORDER BY GAMEDATE, TIME) SUMSO,
+		        SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,
+		        SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
+		        FROM hitter
+		        ORDER BY GAMEDATE , time) A
+		        <![CDATA[
+		       	WHERE ROWNUM <=
+		        ]]>
+		            #{RECORDNO } -1
+		     
+		            ) 
+				WHERE 
+		      	<![CDATA[
+		            RECORDNO > (
+		        ]]>
+		            #{RECORDNO } -1
+		            - 5
+		            ) 
+		        ORDER BY GAMEDATE DESC, TIME DESC
+			
+		
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -81,24 +117,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<select id="hitterTotalSelectList" parameterType="java.util.Map" resultType="java.util.Map">
-		
-		select * from basehitter order by recordno desc
-		 
-	</select>
-		
-	<select id="hitterDownTotalSelectList" parameterType="java.util.Map" resultType="java.util.Map">
 	
-		select * from basehitter where recordno between 1 and ( #{RECORDNO } -1 ) order by recordno desc
-		
-	</select>
 	
-	<select id="hitterUpTotalSelectList" parameterType="java.util.Map" resultType="java.util.Map">
-	
-		select * from basehitter where recordno between 1 and ( #{RECORDNO} + 5 ) order by recordno desc
-		
-	</select>
-
 	
 </mapper>
 

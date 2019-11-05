@@ -247,9 +247,6 @@ public class BaseBallControllerBackup {
 		}
 		
 		
-		
-		
-		
 		System.out.println("출력할 json형 레코드 : "+JSONArray.toJSONString(downRecords));
 		
 		
