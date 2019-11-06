@@ -311,44 +311,10 @@
 					</tr>
 				</table>
 			</div>
-			</form>
-
-		
-			<div class="sectionTypeA">
-				<h5>개인정보 수집∙이용∙처리위탁 동의</h5>
-				<div class="formArea">
-					<table class="form">
-						<caption>약관동의 체크 폼</caption>
-						<colgroup><col width="30"><col width="*"></colgroup>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<ul class="agreeChk">
-									<li>
-										<input type="checkbox" class="chk" id="agree2" name="agree2">
-										<label for="agree2">개인정보 수집·이용 안내에 동의합니다.</label>
-										<a href="#" onclick="reservePrivacy(); return false;" title="새창 열림" class="btnTypeAs">개인정보 수집·이용 안내 전문보기</a>
-									</li>
-									<li>
-										<input type="checkbox" class="chk" id="agree3" name="agree3">
-										<label for="agree3">개인정보 처리위탁 안내에 동의합니다.</label>
-										<a href="#" onclick="reservePrivacy2(); return false;" title="새창 열림" class="btnTypeAs">개인정보 처리위탁 안내 전문보기</a>
-									</li>
-								</ul>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			
-			
-			<table>
-				<th>
-					<input type="button" value="보내기" onClick="goURI('send')"/>
-					<input type="button" value="취소" onClick="self.close()"/>
-				</th>
-			</table>
-		
+				<input type="submit" value="보내기" class="btn btn-info"/>
+			</form>			
+					
+					
 			
 			
 		</div></div><!-- contentArea -->
