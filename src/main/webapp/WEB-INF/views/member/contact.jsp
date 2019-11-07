@@ -22,12 +22,7 @@
 		});
 	}
 	
-	function goURI(input) {
-		if(input == "SEND"){
-			document.frm_write.action="/Team/Matching/contact.do";
-		}
-		document.frm_write.submit();
-	}
+	
 	
 </script>
 
@@ -252,11 +247,9 @@
 			<h3 class="contentTit" >문의게시판</h3>
 
 			<form name="frm_write" id="frm_write" method="POST"
-			action="<c:url value='/Team/Matching/contact.bbs?${_csrf.parameterName}=${_csrf.token}'/>">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="mode" value="create">
-			<input type="hidden" name="category" value="4">
-			<input type="hidden" name="message" id="message" value="">
+			action="<c:url value='/Team/Matching/contact.do?${_csrf.parameterName}=${_csrf.token}'/>">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
 			<div class="formArea">
 				<table class="form">
 					<caption></caption>
@@ -266,25 +259,14 @@
 						<td>
 							<input type="text" class="txt" id="iq_title" name="title" value="" style="width:500px;" maxlength="150">
 						</td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="name">이름</label></th>
-						<td>
-							<input type="text" class="txt" id="iq_name" name="member_nm" value="" style="width:137px;" maxlength="30">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="telephone">연락처</label></th>
-						<td>
-							<input type="text" class="txt" id="telephone" name="telephone" value="" style="width:137px;" maxlength="20">
-						</td>
-					</tr>
+					</tr>				
+					
 					<tr>
 						<th scope="row"><label for="email">이메일</label></th>
 						<td>
 							<input type="text" name="str_email01" id="str_email01" style="width:100px">@ 
 							<input type="text" name="str_email02" id="str_email02" style="width:100px;"> 
-							<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" onchange="select()"> 
+							<select style="width:100px;margin-right:10px" name="email" id="selectEmail" onchange="select()"> 
 								<option value="1">직접입력</option> 
 								<option value="naver.com">naver.com</option> 
 								<option value="hanmail.net">hanmail.net</option> 
@@ -306,7 +288,7 @@
 					<tr>
 						<th scope="row"><label for="content">내용</label></th>
 						<td>
-							<textarea id="iq_cont" class="txtArea4" name="contents" title="" style="width:500px; height:200px;"></textarea>
+							<textarea id="iq_cont" class="txtArea4" name="content" title="" style="width:500px; height:200px;"></textarea>
 						</td>
 					</tr>
 				</table>
