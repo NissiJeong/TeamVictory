@@ -45,7 +45,7 @@ public class MatchController {
 		if(auth == null) {
 			return "member/login.tiles";
 		}
-		System.out.println("이새캬");
+		System.out.println("ZZ");
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
 		int manager = dao.selectTeam(map);

@@ -1,12 +1,17 @@
 package team.sports.matching;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.RequestWrapper;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +21,10 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
+
 import team.sports.matching.service.BasketballDAO;
+import team.sports.matching.service.BasketballDTO;
 
 @Controller
 public class BasketballMatchingHandler extends TextWebSocketHandler{
@@ -25,10 +33,12 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
 	private BasketballDAO bdao;
 	
 	private Map<String, WebSocketSession> clients = new HashMap<String, WebSocketSession>();
-
+	private Map<String, BasketballDTO> titleList = new HashMap<String, BasketballDTO>();
+			
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("asdasd");
-		System.out.println(session.getId()+"연결했어요");
+		
+		
+		System.out.println(session.getId()+"입장");
 		clients.put(session.getId(), session);
 		
 	}
@@ -44,19 +54,64 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
 	
 	//클라이언트로 부터 메시지를 받았을때 자동 호출되는 콜백 메소드]
 	//클라이언트로부터 전송되는 모든 메시지 처리
+	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println(session.getId()+"로부터 받은 메시지:"+message.getPayload());
-		System.out.println(message.getPayload());
 		
-		/* 방이름:"+data+"에"+user+"님이 입장하셨습니다. */
-		
-		//방이름이 같은 사람에게만 채팅되게
+		  //java.util.List<BasketballDTO> list = bdao.selectTitle(titleList);
+		/*
+		 * List<BasketballDTO> list2 = bdao.selectTitle(titleList); List<BasketballDTO>
+		 * list3 = bdao.listRoom(titleList);
+		 * Map limitEnter = new HashMap();
+		 */
+		  
+		  Map connection = new HashMap(); //title = 시작인덱스 5
+		  
+		  int startIndex = message.getPayload().indexOf("=");
+		  String title="";
+		  String id ="";
+		  int affected=0;
+		  int delete=0;
+		  
+		  
+		  
+		  if(message.getPayload().contains("=")) {
+		  title = message.getPayload().substring(5,startIndex); 
+		  id = message.getPayload().substring(startIndex+1);
+		  connection.put("id", id);
+		  connection.put("title", title);
+		  
+		  int count = Integer.parseInt(bdao.limitRoom(connection)); //3
+		  System.out.println(count);
+		  //connection.put("title", title);
+		  //connection.put("userInfo", userInfo);
+		  //String sss[] = new String[10];
+		  
+		  System.out.println("접속한 아이디 : "+id);
+		  System.out.println("접속한 방 : "+title);
+		  
+		  if(count == 3) {
+			  
+			  clients.remove(session.getId());
+			  session.close();
+			  return ;
+		  }
+		  
+		  delete = bdao.deleteChat(connection);// 접속하면 DELETE
+		  affected = bdao.chatMember(connection);// 후 INSERT
+		  
+		  
+		  
+		  }
+		  
 		//접속한 모든 클라이언트에게 session.getId()가 보낸
 		//메시지 뿌려주기]
 		for(WebSocketSession client:clients.values()) {
 			if(!session.getId().equals(client.getId())) {//자기가 보낸 메시지를 다시 받지 않도록
+				 
 				client.sendMessage(message);
+				
 			}
 			
 		}

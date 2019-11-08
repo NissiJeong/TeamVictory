@@ -26,11 +26,11 @@
         	if(user == 'ADMIN'){
                 wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
                 wsocket.onopen = function(){
-                	if(user == 'ADMIN'){
+                	
                 	wsocket.send('ADMIN님이 접속했습니다.')
                 	};
                 };
-             };
+             
          
              /* Create room */
              $("#createRoom").click(function(){
@@ -44,7 +44,7 @@
                  	 wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>"); 
                  	 wsocket.onopen = function(){
                  		 if(user != null){
-                 			 wsocket.send("방이름:"+data+"에"+user+"님이 입장하셨습니다.");
+                 			 wsocket.send("title"+data+"="+user);
                  			 joinUser("채팅방에 입장하였습니다.");
                  		 } 
                  	 }
@@ -120,11 +120,16 @@
         var title2;
         function roomBtn(room){
            console.log('선택한 방 : ',room);
+           console.log('유저  : ',room);
            title2 = room;
            if(user != null){
-              console.log('둘어와');
+        	   	
                 wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
-                wsocket.onopen = open;
+                wsocket.onopen = function(){
+                	wsocket.send("title"+room+"="+user)
+                	
+                	joinUser("채팅방에 입장하였습니다.");
+                }  
                 wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
                 wsocket.addEventListener('message',message);
              };
@@ -134,17 +139,11 @@
        
 /*===========================================================함수 정의===========================================================*/
         //서버에 연결되었을때 호출되는 함수
-      	var open = function (){
+      	/* var open = function (){
            wsocket.send('방이름:'+title2+'client:'+user+'님이 입장하였습니다.');
            joinUser("채팅방에 입장하였습니다.");
-        };
-        
-        var openByAdmin = function (){
-                 wsocket.send('Admin이 접속했습니다.');
-                
-       };
-              
-              
+        }; */
+          
        var positionCheck = function(data){
        
         var target = document.getElementById("position")
@@ -200,9 +199,6 @@
            })
         };
         
-      
-        
-       
         //서버에서 메시지를 받을때마다 호출되는 함수
        var message= function(e){
           //서버로부터 받은 데이타는 이벤트객체(e).data속성에 저장되어 있다
@@ -211,7 +207,7 @@
              clientMsg(receiveData.substring(4));
           }
           else{
-             joinUser(receiveData.substring(10))
+             joinUser("채채팅팅방방방")
 
           }
         };

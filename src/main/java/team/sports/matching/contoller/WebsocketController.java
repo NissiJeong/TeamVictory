@@ -53,11 +53,9 @@ public class WebsocketController {
       /*Spring Security*/
       UserDetails userDetails = (UserDetails)auth.getPrincipal();
       map.put("id", userDetails.getUsername());
-      
       String id = userDetails.getUsername();
-      //System.out.println("왜들어와?");
-      //System.out.println(map.get("room"));
-      //System.out.println("id : "+id);
+      
+      System.out.println("id : "+id);
       
       logger.info("chat.-ws.do RUN ! / Run Time : "+ new Date());
       if(id == null) {
@@ -79,11 +77,14 @@ public class WebsocketController {
 	   String title = map.get("title").toString();
 	   System.out.println(title);
        System.out.println(map.get("position"));
-	   affected = bdao.createRoom(map);
-	   if(affected == 1) {
-		   System.out.println("방 생성완료");
-		   
-	   }
+		
+		 affected = bdao.createRoom(map); 
+		 if(affected == 1) {
+			 System.out.println("방 생성완료"); 
+			 bdao.chatMember(map);
+		 
+		 }
+		 
 	   return title;
    }
    
@@ -116,7 +117,6 @@ public class WebsocketController {
    @ResponseBody
    @RequestMapping(value = "/Team/Matching/checkTitle.do", produces = "text/html; charset=UTF-8")
    public String checkTitle(@RequestParam Map map) {
-	   System.out.println("Enter Class");
 	   int duplicated = bdao.titleDuplicate(map);
 	   String impossible = "impossible";
 	   if(duplicated == 0) {
@@ -124,5 +124,20 @@ public class WebsocketController {
 	   }
 	   return impossible;
    }
+   
+	/*
+	 * @RequestMapping(value = "/Team/Matching/JoinRoom.do", produces =
+	 * "text/html; charset=UTF-8") String joinRoom(@RequestParam Map map,
+	 * Authentication auth) { int affected = 0; UserDetails userDetails =
+	 * (UserDetails)auth.getPrincipal(); map.put("id", userDetails.getUsername());
+	 * String title = map.get("title").toString();
+	 * 
+	 * System.out.println(title); System.out.println(map.get("position")); affected
+	 * = bdao.chatMember(map); if(affected == 1) {
+	 * System.out.println("방 입장완료, DB저장완료.");
+	 * 
+	 * 
+	 * } return ""; }
+	 */
    
 }////////////class

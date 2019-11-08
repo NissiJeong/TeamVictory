@@ -33,6 +33,39 @@ public class BasketballDAO {
 		return template.selectList("roomList",map);
 		
 	}/////////listRoom
+	
+	public int chatMember(Map map) {
+		
+		return template.insert("chatMember",map);		
+	}
+	
+	public List<BasketballDTO> selectTitle(Map map) {
+		
+		return template.selectList("titleSelect", map);
+		
+	}
+	
+	public String limitRoom(Map map) {
+		
+		return template.selectOne("limitRoom",map); 
+	}
+	
+	public String dontEnter(Map map) {
+		
+		return template.selectOne("dontEnter",map);
+		
+	}
+	
+	public int checkId(Map map) {
+		
+		return template.selectOne("checkId",map);
+	}
+	
+	public int deleteChat(Map map) {
+		
+		return template.delete("deleteChat", map);
+	}
+	
 }
 
 
