@@ -68,7 +68,7 @@ CREATE SEQUENCE SEQ_contact_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_message_no INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_message INCREMENT BY 1 START WITH 1;
 
 
 
@@ -115,11 +115,8 @@ CREATE TABLE message
    content nvarchar2(2000) NOT NULL,
    postDate date DEFAULT SYSDATE,
    ID nvarchar2(15) NOT NULL,
-   PRIMARY KEY (no)
-=======
-	count  DEFAULT 0,
+   mail nvarchar2(30) not null,
 	PRIMARY KEY (no)
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 );
 
 

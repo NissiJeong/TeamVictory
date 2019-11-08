@@ -1,7 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<<<<<<< HEAD
 
+=======
+<script>
+/* $(function(){
+    
+	if(user == 'ADMIN'){
+        wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
+        wsocket.onopen = function(){
+        	
+        	wsocket.send('ADMIN님이 접속했습니다.')
+        	};
+        };
+	} */
+</script>
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
    <style>
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -40,6 +55,7 @@
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
     
+<<<<<<< HEAD
 </style>
 
 <script type="text/javascript">
@@ -55,6 +71,9 @@ $(function(){
    
 </script>
 
+=======
+    </style>
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
     
   <!-- banner-section start -->
   <section class="banner-section">
@@ -182,11 +201,7 @@ $(function(){
                   <div>
                      <form onsubmit="searchPlaces(); return false;">
                         <input type="text" value="잠실경기장" id="keyword" size="15" class="form-control">
-                        
-                        <!-- <button class="btn btn-default" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                           </button>
-                        <button type="submit">검색하기</button> -->
+                                      
                         
                      </form>
                   </div>

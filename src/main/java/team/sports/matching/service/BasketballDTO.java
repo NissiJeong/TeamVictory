@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class BasketballDTO {
 
+	
 	String title;
 	String id;
 	String area;

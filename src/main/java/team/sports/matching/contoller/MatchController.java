@@ -45,7 +45,11 @@ public class MatchController {
 		if(auth == null) {
 			return "member/login.tiles";
 		}
+<<<<<<< HEAD
 		//System.out.println("이새캬");
+=======
+		System.out.println("ZZ");
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
 		int manager = dao.selectTeam(map);

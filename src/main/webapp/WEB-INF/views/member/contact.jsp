@@ -22,12 +22,7 @@
 		});
 	}
 	
-	function goURI(input) {
-		if(input == "SEND"){
-			document.frm_write.action="/Team/Matching/contact.do";
-		}
-		document.frm_write.submit();
-	}
+	
 	
 </script>
 
@@ -252,11 +247,9 @@
 			<h3 class="contentTit" >문의게시판</h3>
 
 			<form name="frm_write" id="frm_write" method="POST"
-			action="<c:url value='/Team/Matching/contact.bbs?${_csrf.parameterName}=${_csrf.token}'/>">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="mode" value="create">
-			<input type="hidden" name="category" value="4">
-			<input type="hidden" name="message" id="message" value="">
+			action="<c:url value='/Team/Matching/contact.do?${_csrf.parameterName}=${_csrf.token}'/>">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
 			<div class="formArea">
 				<table class="form">
 					<caption></caption>
@@ -266,25 +259,14 @@
 						<td>
 							<input type="text" class="txt" id="iq_title" name="title" value="" style="width:500px;" maxlength="150">
 						</td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="name">이름</label></th>
-						<td>
-							<input type="text" class="txt" id="iq_name" name="member_nm" value="" style="width:137px;" maxlength="30">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><label for="telephone">연락처</label></th>
-						<td>
-							<input type="text" class="txt" id="telephone" name="telephone" value="" style="width:137px;" maxlength="20">
-						</td>
-					</tr>
+					</tr>				
+					
 					<tr>
 						<th scope="row"><label for="email">이메일</label></th>
 						<td>
 							<input type="text" name="str_email01" id="str_email01" style="width:100px">@ 
 							<input type="text" name="str_email02" id="str_email02" style="width:100px;"> 
-							<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" onchange="select()"> 
+							<select style="width:100px;margin-right:10px" name="email" id="selectEmail" onchange="select()"> 
 								<option value="1">직접입력</option> 
 								<option value="naver.com">naver.com</option> 
 								<option value="hanmail.net">hanmail.net</option> 
@@ -306,49 +288,15 @@
 					<tr>
 						<th scope="row"><label for="content">내용</label></th>
 						<td>
-							<textarea id="iq_cont" class="txtArea4" name="contents" title="" style="width:500px; height:200px;"></textarea>
+							<textarea id="iq_cont" class="txtArea4" name="content" title="" style="width:500px; height:200px;"></textarea>
 						</td>
 					</tr>
 				</table>
 			</div>
-			</form>
-
-		
-			<div class="sectionTypeA">
-				<h5>개인정보 수집∙이용∙처리위탁 동의</h5>
-				<div class="formArea">
-					<table class="form">
-						<caption>약관동의 체크 폼</caption>
-						<colgroup><col width="30"><col width="*"></colgroup>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<ul class="agreeChk">
-									<li>
-										<input type="checkbox" class="chk" id="agree2" name="agree2">
-										<label for="agree2">개인정보 수집·이용 안내에 동의합니다.</label>
-										<a href="#" onclick="reservePrivacy(); return false;" title="새창 열림" class="btnTypeAs">개인정보 수집·이용 안내 전문보기</a>
-									</li>
-									<li>
-										<input type="checkbox" class="chk" id="agree3" name="agree3">
-										<label for="agree3">개인정보 처리위탁 안내에 동의합니다.</label>
-										<a href="#" onclick="reservePrivacy2(); return false;" title="새창 열림" class="btnTypeAs">개인정보 처리위탁 안내 전문보기</a>
-									</li>
-								</ul>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			
-			
-			<table>
-				<th>
-					<input type="button" value="보내기" onClick="goURI('send')"/>
-					<input type="button" value="취소" onClick="self.close()"/>
-				</th>
-			</table>
-		
+				<input type="submit" value="보내기" class="btn btn-info"/>
+			</form>			
+					
+					
 			
 			
 		</div></div><!-- contentArea -->
