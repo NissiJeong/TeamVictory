@@ -1,4 +1,4 @@
-package team.sports.matching.service;
+package team.sports.matching.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import team.sports.matching.service.TeamDTO;
 
 @Repository("match")
 public class MatchDAO {
@@ -31,13 +33,13 @@ public class MatchDAO {
 	}
 	///스케줄에서 최근 5경기 가져오기
 	public List<Map> selectGamefive(Map map){
-		System.out.println("teamName: "+map.get("teamName2").toString());
+		//System.out.println("teamName: "+map.get("teamName2").toString());
 		return template.selectList("selectGamefive",map);
 	}
 	///해당 팀의 같은 날짜 시간에 경기가 잡혀 있는지 확인
 	public int checkDateTime(Map map) {
 		for(Object key:map.keySet()) {
-			System.out.println(key+":"+map.get(key));
+			//System.out.println(key+":"+map.get(key));
 		}
 		return template.selectOne("checkDateTime", map);
 	}

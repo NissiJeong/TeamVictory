@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import team.sports.matching.service.MatchDAO;
 import team.sports.matching.service.TeamDTO;
+import team.sports.matching.service.impl.MatchDAO;
 
 //@SessionAttributes("id")
 @Controller
@@ -45,7 +45,7 @@ public class MatchController {
 		if(auth == null) {
 			return "member/login.tiles";
 		}
-		System.out.println("이새캬");
+		//System.out.println("이새캬");
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
 		int manager = dao.selectTeam(map);
@@ -53,7 +53,7 @@ public class MatchController {
 		List<TeamDTO> list = dao.selectList(map);
 		
 		model.addAttribute("list",list);
-		System.out.println("이새캬");
+		//System.out.println("이새캬");
 		return "member/matching2.tiles";
 	}
 	
@@ -64,9 +64,9 @@ public class MatchController {
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
 		for(Object key:map.keySet()) {
-			System.out.println(key+":"+map.get(key));
+			//System.out.println(key+":"+map.get(key));
 		}
-		System.out.println("들어옴");
+		//System.out.println("들어옴");
 		//팀장이 아닌 아이디가 신청하면 alert창 띄우게
 		int manager = dao.selectManagerId(map);
 		if(manager == 0) {
@@ -78,9 +78,7 @@ public class MatchController {
 				ass="신청완료";
 			}
 		}
-		//map에 내 팀 no 입력해야함 
-		
-		
+		//map에 내 팀 no 입력해야함 		
 		return ass;
 	}
 	
@@ -91,14 +89,14 @@ public class MatchController {
 		JSONObject json = new JSONObject();
 		map.put("id", id);
 		for(Object key:map.keySet()) {
-			System.out.println(key+":"+map.get(key).toString());
+			//System.out.println(key+":"+map.get(key).toString());
 		}
 		TeamDTO dto = new TeamDTO();
 		dto = dao.selectOne(map);
 		json.put("teamName", dto.getTeamName());
 		json.put("teamRating", dto.getTeamRating());
 		json.put("category", dto.getCategory());
-		System.out.println(dto.getTeamName()+"받아온 팀 이름");
+		//System.out.println(dto.getTeamName()+"받아온 팀 이름");
 		json.put("teamLogo", dto.getTeamLogo());
 		map.put("teamName2", dto.getTeamName());
 		List<Map> gameList = dao.selectGamefive(map);
@@ -144,7 +142,7 @@ public class MatchController {
 				json.put("awayScore"+i,gameList.get(i).get("AWAYSCORE"));
 			}			
 		}
-		System.out.println("json.toJSONString():"+json.toJSONString());
+		//System.out.println("json.toJSONString():"+json.toJSONString());
 		return json.toJSONString();
 	}
 	////해당 팀의 같은 날짜,시간에 경기 잡혀있는지 확인하는 메소드
@@ -153,9 +151,9 @@ public class MatchController {
 	public String checkDateTime(@RequestParam Map map,@ModelAttribute("id") String id) {
 		map.put("id", id);
 		for(Object key:map.keySet()) {
-			System.out.println(key+":"+map.get(key));
+			//System.out.println(key+":"+map.get(key));
 		}
-		System.out.println("들어옴");
+		//System.out.println("들어옴");
 		int affected = dao.checkDateTime(map);
 		//map에 내 팀 no 입력해야함 
 		String checkDateTime= "yes";
@@ -170,9 +168,9 @@ public class MatchController {
 	public String checkDateTimeStadium(@RequestParam Map map,@ModelAttribute("id") String id) {
 		map.put("id", id);
 		for(Object key:map.keySet()) {
-			System.out.println(key+":"+map.get(key));
+			//System.out.println(key+":"+map.get(key));
 		}
-		System.out.println("들어옴");
+		//System.out.println("들어옴");
 		int affected = dao.checkDateTimeStadium(map);
 		//map에 내 팀 no 입력해야함 
 		String checkDateTimeStadium= "stadiumYes";

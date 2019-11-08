@@ -15,6 +15,7 @@ public class MemberDAO {
 	
 	//로그인
 	public boolean isLogin(Map map) {
+		
 		return (Integer)template.selectOne("memberIsLogin",map)==0?false:true;
 	}///isLogin
 	
@@ -70,6 +71,14 @@ public class MemberDAO {
 	public int mIsDuplicate(Map map) {
 
 		return template.selectOne("mIsDuplicate",map);
+	}
+
+	public String selectPass(Map map) {
+		return template.selectOne("selectPass", map);
+	}
+
+	public MemberDTO findByStringId(String username) {
+		return template.selectOne("findByStringId", username);
 	}
 	
 

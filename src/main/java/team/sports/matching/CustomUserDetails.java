@@ -1,4 +1,4 @@
-package team.sports.matching.service;
+package team.sports.matching;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class MemberDTO {
-
+public class CustomUserDetails implements UserDetails{
+	
 	private String ID;
 	private String name;
 	private String gender;
@@ -20,13 +20,9 @@ public class MemberDTO {
 	private String location;
 	private java.sql.Date regidate;
 	private String point;
+	private boolean enabled;
 	
-	public String getPoint() {
-		return point;
-	}
-	public void setPoint(String point) {
-		this.point = point;
-	}
+	
 	public String getID() {
 		return ID;
 	}
@@ -81,9 +77,50 @@ public class MemberDTO {
 	public void setRegidate(java.sql.Date regidate) {
 		this.regidate = regidate;
 	}
+	public String getPoint() {
+		return point;
+	}
+	public void setPoint(String point) {
+		this.point = point;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 	
-	
-	
-	
-	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		return authorities;
+	}
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return PWD;
+	}
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return ID;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

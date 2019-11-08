@@ -11,7 +11,7 @@
 
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	<context:component-scan base-package="team.sports.matching" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -48,7 +48,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="team.sports.matching" />
+	
 	<!-- tiles사용을 위한 bean등록-->
 	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 	  <beans:property name="definitions">

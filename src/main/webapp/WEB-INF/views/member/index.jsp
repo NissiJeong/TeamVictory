@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authentication property="principal.username" var="id"/>
+
    <style>
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -42,7 +41,7 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
     
 </style>
-<sec:authorize access="isAuthenticated()">
+
 <script type="text/javascript">
 $(function(){   
 	var user = ${id}
@@ -53,39 +52,9 @@ $(function(){
         }
     };
 }
-    var wsUri = "ws://localhost:8080<c:url value='/push.do'/>";
-    function send_message() {
-        websocket = new WebSocket(wsUri);
-        websocket.onopen = function(evt) {
-            onOpen(evt);
-        };
-
-        websocket.onmessage = function(evt) {
-            onMessage(evt);
-        };
-
-        websocket.onerror = function(evt) {
-            onError(evt);
-        };
-    }   
-
-    function onOpen(evt){
-       websocket.send("${nick}");
-    }
-
-    function onMessage(evt) {
-    		$('#count').append(evt.data);
-    }
-
-    function onError(evt) {
-    	
-    }
-
-    $(document).ready(function(){
-    		send_message();
-    });
+   
 </script>
-</sec:authorize>
+
     
   <!-- banner-section start -->
   <section class="banner-section">

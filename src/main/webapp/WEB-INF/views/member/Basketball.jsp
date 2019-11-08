@@ -41,7 +41,7 @@
                    dataType : 'text',
                    type:'post',
                    success:function(data){
-                 	 wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>"); 
+                 	 wsocket = new WebSocket("ws://192.168.0.63:8080<c:url value='/chat-ws.do'/>"); 
                  	 wsocket.onopen = function(){
                  		 if(user != null){
                  			 wsocket.send("방이름:"+data+"에"+user+"님이 입장하셨습니다.");
@@ -123,7 +123,7 @@
            title2 = room;
            if(user != null){
               console.log('둘어와');
-                wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
+                wsocket = new WebSocket("ws://192.168.0.63:8080<c:url value='/chat-ws.do'/>");
                 wsocket.onopen = open;
                 wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
                 wsocket.addEventListener('message',message);

@@ -4,6 +4,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,25 +17,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import team.sports.matching.UserSha256;
 import team.sports.matching.service.MemberDAO;
 
 @SessionAttributes("id")
 @Controller
 public class AuthController {
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
 	@Resource(name="member")
 	private MemberDAO dao;
 	
 	//로그인 폼으로 이동
 	@RequestMapping("/Team/Matching/Login.do")
-	public String login() {
+	public String login() { 
 		return "member/login.tiles";
+		
 	}
-	/*
+	
 	//로그인 처리
-	@RequestMapping("/Team/Matching/IsMember.do")
+	/*@RequestMapping("/Team/Matching/IsMember.do")
 	public String isMember(@RequestParam Map map,Model model) {
+		
 		String path;
-		boolean isLogin = dao.isLogin(map);
+		String dataPass = dao.selectPass(map);
+		if(passwordEncoder.matches(map.get("pass").toString(), dataPass )){
+			System.out.println("계정정보 일치");
+			path = "member/index.tiles";
+		}else{
+			System.out.println("계정정보 불일치");
+			path="member/login.tiles";
+		}
+		/*boolean isLogin = dao.isLogin(map);
+		System.out.println("12312");
 		if(isLogin) {
 			model.addAllAttributes(map);
 			path = "member/index.tiles";
@@ -38,7 +59,8 @@ public class AuthController {
 		else {
 			model.addAttribute("NotMember", "아이디와 비밀번호가 일치하지 않습니다");
 			path="member/login.tiles";
-		}
+		}*/
+		/*System.out.println("여기를 거치는거냐!!!!!!");
 		return path;
 	}/////isMember*/
 	/*
@@ -70,22 +92,28 @@ public class AuthController {
 		String location = map.get("addr_road").toString();
 		map.put("birth", year+month+day); //생년월일
 		map.put("location", location); // 지역 
+		//System.out.println("사용자가 적은 암호: "+map.get("pass").toString());
+		//String encryPass = UserSha256.encrypt(map.get("pass").toString());
+		//map.put("pass", encryPass);
+		//System.out.println("암호화된 암호: "+map.get("pass").toString());
+		String encryPass = passwordEncoder.encode(map.get("pass").toString());
+		map.put("pass", encryPass);
 		  for(Object key : map.keySet()) {
 		  
 		  String value = map.get(key).toString();
 		  
-		  System.out.println(key+":"+value);
+		  //System.out.println(key+":"+value);
 		  
 		  }
 		int comple= 0;
 		int affected = dao.memberRegi(map);
 		if(affected==1) {
 			comple = dao.regiAuth(map);
-			System.out.println("가입됐다");
-			System.out.println(comple);
+			//System.out.println("가입됐다");
+			//System.out.println(comple);
 		}
 		if(comple == 0 ) {
-			System.out.println("???");
+			//System.out.println("???");
 			dao.deleteMember(map);
 		}
 		
@@ -97,10 +125,11 @@ public class AuthController {
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/CheckId.do",produces = "text/html; charset=UTF-8")
 	public String checkId(@RequestParam Map map) {
-		System.out.println("checkId");
-		System.out.println("asdf");
+		
+		//System.out.println("checkId");
+		//System.out.println("asdf");
 		for(Object key : map.keySet()) {
-			System.out.println(key+":"+map.get(key));
+			//System.out.println(key+":"+map.get(key));
 		}
 		int duple = dao.isDuplicate(map);
 		String isdu = "중벅";
@@ -113,7 +142,7 @@ public class AuthController {
 	@ResponseBody
 	@RequestMapping(value ="/Team/Matching/CheckMail.do", produces = "text/html; charset=UTF-8")
 	public String checkMail(@RequestParam Map map) {
-		System.out.println("들어왔음");
+		//System.out.println("들어왔음");
 		int duplicated = dao.mIsDuplicate(map);
 		String reject = "중복";
 		if(duplicated == 0) {
@@ -121,5 +150,7 @@ public class AuthController {
 		}
 		return reject;
 	}
+
+	
 
 }

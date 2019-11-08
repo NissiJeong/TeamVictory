@@ -15,7 +15,6 @@
 		<security:intercept-url pattern="/Team/Matching/**" access="hasAnyRole('USER','ADMIN')"/>
 		<security:intercept-url pattern="/**" access="permitAll"/>
 		
-		
 		<security:form-login
 			login-page="/Team/Matching/Login.do"
 			default-target-url="/Team/Matching/Login.do"
@@ -30,6 +29,7 @@
 			<security:concurrency-control max-sessions="1" expired-url="/Team/Matching/Login.do"/>		
 		</security:session-management>
 	</security:http>
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service 
@@ -38,7 +38,21 @@
 			users-by-username-query="SELECT m.id as username,m.pwd as password,enabled FROM member m JOIN auth_security a ON m.id=a.id WHERE m.id=?"
 			authorities-by-username-query="SELECT m.id as username,authority as authority  FROM member m JOIN auth_security a ON m.id=a.id WHERE m.id=?"
 			/>
-		</security:authentication-provider>	
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>
+		<!-- <security:authentication-provider user-service-ref ="customUserDetailsService">
+
+     		<security:password-encoder ref="bcryptPasswordEncoder"/>
+
+     	</security:authentication-provider> -->
 	</security:authentication-manager>
+
+   
+<!-- 
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<bean id="customUserDetailsService" class="team.sports.matching.CustomUserDetailsService">
+      	<property name="sqlsession" ref="template"></property>
+      </bean> 
+ -->
 
 </beans>
