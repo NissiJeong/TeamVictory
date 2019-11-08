@@ -27,12 +27,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import team.sports.matching.contoller.MatchController;
 import team.sports.matching.service.BettingDAO;
 import team.sports.matching.service.BettingDTO;
+import team.sports.matching.service.MemberDTO;
 
 @Controller
 public class BettingController {
 
 	@Resource(name = "Betting")
 	private BettingDAO bettingDao;
+	
+	
 
 	// Top 메뉴 클릭시
 	@RequestMapping("/Team/Matching/Betting.do")
@@ -66,13 +69,13 @@ public class BettingController {
 		return "member/in-play.tiles";
 	}
 
-			
-	@RequestMapping(value = "/Team/Matching/BettingView.do", method =
-	RequestMethod.GET) public String bettingView() {
-	 
-	return "member/BettingView.tiles";
-		  
-	}
+	
+	  @RequestMapping(value = "/Team/Matching/BettingView.do", method =
+	  RequestMethod.GET) public String bettingView() {
+	  
+	  return "member/BettingView.tiles";
+	  
+	  }
 	 
 
 	// 테이블의 상세보기 클릭시
@@ -175,7 +178,19 @@ public class BettingController {
 
 	}///
 	
+	@ResponseBody
+	@RequestMapping(value="/Team/Matching/Point.do" ,produces = "text/html; charset=UTF-8")
+	public String  modalPoint(@RequestParam Map map) {
+		System.out.println("Point.do 들어오냐");
+		    System.out.println("id값 : "+map.get("id").toString());
+		    MemberDTO mDto =  bettingDao.memberPoint(map);
+		    String  point ="";
+		   if( mDto !=null)
+			   point= mDto.getPoint();
+		
+		return point;
 	
+	}
 	/*
 	 * @ResponseBody
 	 * 

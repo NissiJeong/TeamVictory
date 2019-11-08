@@ -49,6 +49,34 @@ public class TeamController {
 		model.addAttribute("dupliManager", dupliManager);
 		return "member/CreateTeam.tiles";
 	}
+	
+	//팀서치페이지
+	@RequestMapping("/Team/Matching/searchTeam.do")
+	public String teamList(@ModelAttribute("teamName") String teamName, @RequestParam Map map, Model model) {
+		System.out.println("들어오냐..?");
+		System.out.println("teamName"+teamName);
+		map.put("teamName",teamName);
+		List<Map> totalList = teamDao.memberSelect();
+		
+		List<Map> list = teamDao.teamselectList(map);
+		System.out.println("=============================");
+		for(int i=0;i<list.size();i++) {		
+			System.out.println("팀원"+totalList.get(i).get("TEAMCOUNT").toString());
+			list.get(i).put("TOTALMEMBER", totalList.get(i).get("TEAMCOUNT"));
+		
+		}
+		System.out.println("===============================");
+		for(int i=0;i<list.size();i++) {			
+			for(Object key:list.get(i).keySet()) {
+				System.out.println(key+":"+list.get(i).get(key));
+			}
+		}
+		System.out.println("123123123123123");
+		model.addAttribute("list", list);
+		
+		return "member/searchTeam.tiles";
+	}
+	
 	//로그인 하지 않은 상태에서 게시판 url요청시]
 	/*@ExceptionHandler(HttpSessionRequiredException.class)
 	public String isNotMember(Model model) {

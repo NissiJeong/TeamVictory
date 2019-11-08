@@ -71,7 +71,7 @@
 									</div>
 									<form id="submit" method="post"
 										action="<c:url value='/Team/Matching/InsertHitterByPARSING'/>">
-										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 										<h1 class="my-4">돼지 불백</h1>
 										<div class="list-group">
 											
@@ -98,7 +98,7 @@
 
 									<c:forEach var="hitters" items="${records}">
 
-										<div class="play-table-part listToChange">
+										<div class="play-table-part listToChange scrollLocation">
 											<input type="hidden" class="scrolling"
 												data-recordno="${hitters.RECORDNO}" />
 											<div class="play-table">
@@ -194,20 +194,23 @@
 													<tbody>
 														<tr>
 															<td></td>
-															<td>${hitters.totalAB}</td>
-															<td>${hitters.totalH}</td>
-															<td>${hitters.totalRBI }</td>
-															<td>${hitters.totalHR}</td>
-															<td>${hitters.totalSB }</td>
-															<td>${hitters.totalAVG }<br /></td>
+															<td>${hitters.SUMAB}</td>
+															<td>${hitters.SUMH}</td>
+															<td>${hitters.SUMRBI }</td>
+															<td>${hitters.SUMHR}</td>
+															<td>${hitters.SUMSB }</td>
+															<td>${hitters.SUMAVG }<br /></td>
 														</tr>
 													</tbody>
 												</table>
 											</div>
 										</div>
+										<!-- 로딩시 selectList로 불러오는 forEach 내부 문 -->
+										
+										
 									</c:forEach>
 								</div>
-								<input type="hidden" class="scrollLocation" />
+								
 							</div>
 						</div>
 					</div>
@@ -535,12 +538,9 @@
 	var lastScrollTop = 0;
 
 	// 1. 스크롤 이벤트 발생
-	$(window)
-			.scroll(
+	$(window).scroll(
 					function() { // ① 스크롤 이벤트 최초 발생
-
 						var currentScrollTop = $(window).scrollTop();
-
 						/*  
 							=================	다운 스크롤인 상태	================
 						 */
@@ -556,8 +556,7 @@
 								var lastrecordno = $(".scrolling:last").attr("data-recordno");
 
 								// 4. ajax를 이용하여 현재 뿌려진 게시글의 마지막 bno를 서버로 보내어 그 다음 20개의 게시물 데이터를 받아온다. 
-								$
-										.ajax({
+								$.ajax({
 											type : 'post', // 요청 method 방식 
 											url : '<c:url value="/Team/Matching/downstatostics.do"/>',// 요청할 서버의 url
 											headers : {
@@ -566,7 +565,7 @@
 											},
 											dataType : 'json', // 서버로부터 되돌려받는 데이터의 타입을 명시하는 것이다.
 											data : { // 서버로 보낼 데이터 명시 
-												RECORDNO : lastrecordno
+												RECORDNO : lastrecordno,'_csrf':'${_csrf.token}'
 											},
 											success : function(data) {// ajax 가 성공했을시에 수행될 function이다. 이 function의 파라미터는 서버로 부터 return받은 데이터이다.
 
@@ -581,14 +580,12 @@
 													console.log(key + value);
 													}); */
 
-													$(data)
-															.each(
-																	// 7. 새로운 데이터를 갖고 html코드형태의 문자열을 만들어준다.
+													$(data).each(// 7. 새로운 데이터를 갖고 html코드형태의 문자열을 만들어준다.
 																	function() {
 																		console.log(this);
 
 																		/*STR STR STR STR STR STR STR STR STR STR STR STR STR STR STR STR STR STR STR */
-																		str += '<div class="play-table-part listToChange" >'
+																		str += '<div class="play-table-part listToChange scrollLocation" >'
 
 																				+ '<input type="hidden" class="scrolling" data-recordno="'+ this.RECORDNO +'" />'
 																				+ '<div class="play-table">'
@@ -631,7 +628,7 @@
 																				+ this.SB
 																				+ '</td>'
 																				+ '<td>'
-																				+ this.H / this.AB
+																				+ this.AVG
 																				+ '</td>'
 																				+ '</tr>'
 																				+ '</tbody>'
@@ -652,44 +649,40 @@
 																				+ '<tr>'
 																				+ '<td></td>'
 																				+ '<td>'
-																				+ this.totalAB
+																				+ this.SUMAB
 																				+ '</td>'
 																				+ '<td>'
-																				+ this.totalH
+																				+ this.SUMH
 																				+ '</td>'
 																				+ '<td>'
-																				+ this.totalRBI
+																				+ this.SUMRBI
 																				+ '</td>'
 																				+ '<td>'
-																				+ this.totalHR
+																				+ this.SUMHR
 																				+ '</td>'
 																				+ '<td>'
-																				+ this.totalSB
+																				+ this.SUMSB
 																				+ '</td>'
 																				+ '<td>'
-																				+ this.totalH
-																				/ totalAB + '</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>' + '</div>';
-
+																				+ this.SUMAVG 
+																				+ '</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>' + '</div>';
 																	});// each 
 													// 8. 이전까지 뿌려졌던 데이터를 비워주고, <th>헤더 바로 밑에 위에서 만든 str을  뿌려준다.
 													//$(".listToChange").empty();// 셀렉터 태그 안의 모든 텍스트를 지운다.						
-													$(".scrollLocation").after(str);
-
+												var position2= $(".scrollLocation:last").offset();
+													$(".scrollLocation:last").after(str);
 												}// if : data!=null
 												else { // 9. 만약 서버로 부터 받아온 데이터가 없으면 그냥 아무것도 하지말까..
 													alert("더 불러올 데이터가 없습니다.");
 												}// else
-
 											}// success
 										});// ajax
-
-								// 여기서 class가 listToChange인 것중 가장 처음인 것을 찾아서 그 위치로 이동하자.
-								var position = $(".listToChange:last").offset();// 위치 값
-
+								
+								/* // 여기서 class가 listToChange인 것중 가장 처음인 것을 찾아서 그 위치로 이동하자.
+								var position = $(".listToChange:last").offset() ;// 위치 값
+									
 								// 이동  위로 부터 position.top px 위치로 스크롤 하는 것이다. 그걸 500ms 동안 애니메이션이 이루어짐.
-								$('html,body').stop().animate({
-									scrollTop : position.top
-								}, 600, 'easeInQuint');
+								$('html,body').stop().animate({scrollTop : position.top}, 600, 'easeInQuint'); */
 
 							}//if : 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
 

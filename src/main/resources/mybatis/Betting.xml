@@ -35,4 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 	</select>
 	
+	<select id="memberPoint" parameterType="java.util.Map" resultType="MemberDTO">
+	   select * from member where id=#{id}
+	</select>
+	
+	
 </mapper>

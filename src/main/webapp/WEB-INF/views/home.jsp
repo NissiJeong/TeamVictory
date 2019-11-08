@@ -2,8 +2,17 @@
 <%@ page session="false" %>
 
 <h1>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    
+=======
+
+    dddd
+=======
 
 
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
     GO
     why??
 	Hello world!   ni ssi  
@@ -23,7 +32,7 @@ last!!!!!!!!!!!!!!!!!!!!!!!!!
  
 12345678910
 11122233344455566677788899911110000
-asdfasdfasdfasdsadfsadsafdf
+asdfasdfasdfasdsadfsadsafdf...
 
 
 push
