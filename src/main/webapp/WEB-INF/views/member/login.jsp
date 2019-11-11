@@ -42,7 +42,11 @@
               	<form class="cmn-form login-form" method="post" action="<c:url value='/Team/Matching/IsMember.do'/>">
               	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="frm-group">
-                  <input type="text" name="id" id="f-name" placeholder="Your Name">
+                <c:if test="${param.error !=null }">	
+                									
+					<span style="color:red; font-size: 0.8em">가입되지 않은 아이디이거나 틀린 비밀번호입니다</span>							
+				</c:if>
+                  <input type="text" name="id" id="f-name" placeholder="Your Id">
                 </div>
                 <div class="frm-group">
                   <input type="password" name="pwd" id="pass" placeholder="Your Password">
@@ -50,11 +54,9 @@
                 <div class="frm-group">
                   <button type="submit" class="submit-btn">Sign In</button>
                 </div>
-                <span>${NotMember }</span>
-                
               </form>
               </sec:authorize>
-              <p><a href="#0">Haven't your any account in here?</a><a href="#0">Forget password?</a></p>
+              <p><a href="<c:url value='/Team/Matching/Register.do'/>">Haven't your any account in here?</a><a href="#0">Forget password?</a></p>
             </div>
           </div>
         </div>

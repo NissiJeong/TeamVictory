@@ -34,9 +34,9 @@ public class AuthController {
 	@RequestMapping("/Team/Matching/Login.do")
 	public String login() { 
 		return "member/login.tiles";
-		
 	}
 	
+
 	//로그인 처리
 	/*@RequestMapping("/Team/Matching/IsMember.do")
 	public String isMember(@RequestParam Map map,Model model) {

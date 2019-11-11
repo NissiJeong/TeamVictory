@@ -19,7 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT * FROM team
 		</if>
 		<if test="manager != 0">
-			SELECT t.* from team t join teammember m on t.teamname = m.teamname where not m.teamname = (select teamname from team where manager_id=#{id})
+			SELECT t.* from team t join teammember m on t.teamname = m.teamname where not m.teamname = (select teamname from team where manager_id=#{id}) 
+			and category = (select category from team where manager_id=#{id})
 		</if> 
 	</select>
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
