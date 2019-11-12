@@ -29,5 +29,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Push.xml"/>
 		<mapper resource="mybatis/Message.xml" />
 		<mapper resource="mybatis/Basketball.xml" />
+		<mapper resource="mybatis/Admin.xml" />
 	</mappers>
 </configuration>
