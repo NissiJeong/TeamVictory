@@ -55,18 +55,7 @@
 
 </style>
 
-<script type="text/javascript">
-$(function(){   
-	var user = ${id}
-   if(user == 'ADMIN'){
-        wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
-        wsocket.onopen = function(){           
-           wsocket.send('ADMIN님이 접속했습니다.')
-        }
-    };
-}
-   
-</script>
+
 
 
   
