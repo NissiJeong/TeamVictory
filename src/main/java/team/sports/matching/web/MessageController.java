@@ -40,7 +40,7 @@ public class MessageController{
 	
 	@Resource(name="messageDAO")
 	private MessageDAO messageDao;
-	
+	/*
 	@RequestMapping(value = "/Team/Matching/contact.do",method = RequestMethod.POST)
 	public ResponseEntity<String> addMessage(@RequestBody MessageDTO dto,@RequestParam Map map, Authentication auth // 스프링 씨큐리티 사용시
 	) {
@@ -58,7 +58,28 @@ public class MessageController{
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		return entity;
-		
+		return entity;		
 	}
+	*/
+	
+	// 작성처리]
+		@RequestMapping(value = "/Team/Matching/contact.do", method = RequestMethod.POST)
+		public String writeOk(@RequestParam Map map, Authentication auth // 스프링 씨큐리티 사용시
+		) {
+			// 서비스 호출]
+			// 스프링 씨큐리티 사용시 아래코드 추가
+			 UserDetails userDetails=(UserDetails)auth.getPrincipal();
+			// 호출전 아이디 맵에 저장
+			//map.put("id", id);// 씨큐리티 적용전
+			 map.put("id",userDetails.getUsername());//씨큐리티 적용후
+
+			messageDao.insert(map);
+
+			// Collection auths=userDetails.getAuthorities();
+			// System.out.println("아이디:"+userDetails.getUsername());
+			// System.out.println("principal:"+auth.getPrincipal().toString());
+
+			// 뷰정보 반환:목록으로 이동
+			return "/member/contact.tiles";
+		}/////////////////////
 }

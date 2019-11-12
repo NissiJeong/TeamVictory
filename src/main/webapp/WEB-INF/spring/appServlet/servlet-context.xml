@@ -11,7 +11,7 @@
 
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	<context:component-scan base-package="team.sports.matching" />
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -48,7 +48,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="team.sports.matching" />
+	
 	<!-- tiles사용을 위한 bean등록-->
 	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 	  <beans:property name="definitions">
@@ -70,13 +70,14 @@
 	<context:component-scan base-package="team.sports.matching" />
 	
 	<websocket:handlers>
+		<websocket:mapping handler="pushApp" path="/push.do"/>
 		<websocket:mapping path="/chat-ws.do" handler="chatServer"/>
 		<websocket:handshake-interceptors>
 		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	<beans:bean class="team.sports.matching.BasketballMatchingHandler" id="chatServer"/>
-	
+	<beans:bean class="team.sports.matching.PushAppHandler" id="pushApp"/>
 	<context:property-placeholder location="classpath:board/board.properties"/>
 		
 	</beans:beans>

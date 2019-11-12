@@ -1,5 +1,13 @@
 package team.sports.matching.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 public class MemberDTO {
 
 	private String ID;
@@ -73,6 +81,7 @@ public class MemberDTO {
 	public void setRegidate(java.sql.Date regidate) {
 		this.regidate = regidate;
 	}
+	
 	
 	
 	

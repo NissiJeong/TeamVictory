@@ -6,13 +6,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
-<mapper namespace="mybatis.Member">
+<mapper namespace="mybatis.Basketball">
 	
 	<insert id="createRoom" parameterType="java.util.Map">
 		INSERT INTO chatroom(title, id, area, position, regidate, readycount) 
 		VALUES(#{title}, #{id}, #{area}, #{position}, SYSDATE, 0)
 	</insert>
 	
+	 <insert id="chatMember" parameterType="java.util.Map">
+	 	INSERT INTO chatmember VALUES(SEQ_chatmember.nextval,#{id},#{title})
+	 </insert>
+	 
 	<select id="roomList" parameterType="java.util.Map" resultType="BasketballDTO"> 
 		SELECT * FROM CHATROOM
 	</select>
@@ -21,4 +25,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM chatroom WHERE title=#{title}
 	 </select>
 	 
+	 <select id="titleSelect" parameterType="java.util.Map" resultType="BasketballDTO">
+	 	SELECT * FROM CHATMEMBER
+	 </select>
+	 
+	 <select id="limitRoom" parameterType="java.util.Map" resultType="String">
+	 	SELECT COUNT(*) FROM chatmember WHERE title=#{title}
+	 </select>
+	 
+	 <select id="existUser" parameterType="java.util.Map" resultType="String">
+	 	select count(*) from chatmember where title=#{title} AND id=#{id}
+	 </select>
+	 
+	 <delete id="deleteChat" parameterType="java.util.Map">
+	 	DELETE chatmember WHERE id=#{id}
+	 </delete>
+	 
+	 <select id="joinMember" parameterType="java.util.Map" resultType="BasketballDTO">
+	 	SELECT id FROM chatmember WHERE title=#{title}
+	 </select>
+	 
+	 <select id="chatting"  parameterType="java.lang.String" resultType="BasketballDTO">
+	 	SELECT id FROM chatmember WHERE title=(SELECT title FROM chatmember WHERE id=#{userId})
+	 </select>
+	 
+	<!-- 접속시 방 카운트 +1 -->
+	<update id="remainCountInc" parameterType="java.util.Map">
+		UPDATE chatroom SET remainCount = remainCount +1 WHERE title=#{title}
+	</update>
+	
+	<!-- 접속시 방 카운트 -1 -->
+	<update id="remainCountDec" parameterType="java.util.Map">
+		UPDATE chatroom SET remainCount = remainCount -1 WHERE title=#{title}
+	</update>
+	
+	<!-- 방 제거 -->
+	<delete id="removeRoom">
+		DELETE chatroom WHERE remainCount = 0
+	</delete>
+	 
+	 <select id="selectTitle" parameterType="java.util.Map" resultType="BasketballDTO">
+	 	SELECT title FROM chatmember WHERE id=#{id}
+	 </select>
+	
 </mapper>

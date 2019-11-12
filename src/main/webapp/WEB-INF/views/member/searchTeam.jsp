@@ -244,7 +244,11 @@
 				</ul>
 				<div class="joinbtn">
 					<!-- <a href="#none" id="joinBtn"><img src="//img.gameone.kr/club/btn_join.png" alt="가입하기" /></a> -->
+<<<<<<< HEAD
 					<Button type="button" class="btn btn-info">가입하기</Button>
+=======
+					<Button type="button" class="btn btn-info" onclick=" ">가입하기</Button>
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 				</div>
 			</div>
 			<!--  Body -->

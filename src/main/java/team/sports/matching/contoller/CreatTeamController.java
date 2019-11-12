@@ -36,11 +36,11 @@ import org.springframework.web.servlet.view.InternalResourceView;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import team.sports.matching.service.MatchDAO;
 import team.sports.matching.service.MemberDAO;
 import team.sports.matching.service.TeamBoardDAO;
 import team.sports.matching.service.TeamBoardDTO;
 import team.sports.matching.service.TeamDTO;
+import team.sports.matching.service.impl.MatchDAO;
 
 
 @Controller
@@ -60,17 +60,17 @@ public class CreatTeamController /*implements HandlerExceptionResolver*/ {
 	//팀 만들기 
 	@RequestMapping(value="/Team/matching/teamJoin.do",method=RequestMethod.POST)
 	public String createTeam(MultipartHttpServletRequest mhsr,Authentication auth,Model model) throws IllegalStateException,IOException {
-		System.out.println("에러날때 들어오나?");
+		//System.out.println("에러날때 들어오나?");
 		//1]서버의 물리적 경로 얻어오기
 		String path = mhsr.getSession().getServletContext().getRealPath("/Upload");
-		System.out.println(path);
+		//System.out.println(path);
 		MultipartFile upload = mhsr.getFile("upload");
 		//파일객체 생성
 		String newFileName = FileUpDownUtils.getNewFileName(path, upload.getOriginalFilename());
 		File file = new File(path+File.separator+newFileName);
 		//3]업로드 로직
 		upload.transferTo(file);
-		System.out.println(mhsr.getParameter("teamName"));
+		//System.out.println(mhsr.getParameter("teamName"));
 		Map map = new HashMap();
 		map.put("teamName", mhsr.getParameter("teamName"));
 		map.put("teamLogo", newFileName);
@@ -83,7 +83,7 @@ public class CreatTeamController /*implements HandlerExceptionResolver*/ {
 		for(Object key:map.keySet()) {
 			System.out.println(key+":"+map.get(key));
 		}
-		System.out.println("id:"+userDetails.getUsername());
+		//System.out.println("id:"+userDetails.getUsername());
 		int affected = dao.teamInsert(map);
 		if(affected==1) {
 			int confirm = dao.insertTeamMember(map);
@@ -114,6 +114,10 @@ public class CreatTeamController /*implements HandlerExceptionResolver*/ {
 		view.setUrl("/Team/Matching/createTeam.do");
 		mav.setView(view);
         return mav;		
+<<<<<<< HEAD
 	}
 	*/
+=======
+	}*/
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 }

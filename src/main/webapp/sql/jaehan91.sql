@@ -159,7 +159,7 @@ CREATE TABLE hitter
 	e number DEFAULT 0,
 	pos number DEFAULT 0,
 	horder number DEFAULT 0,
-	CONSTRAINT pk UNIQUE (gameDate, time, ID)
+	CONSTRAINT pk primary key (gameDate, time, ID)
 );
 
 
@@ -207,8 +207,7 @@ CREATE TABLE message
 	ID nvarchar2(15) NOT NULL,
 	title nvarchar2(50) NOT NULL,
 	content nvarchar2(2000) NOT NULL,
-	sendDate date DEFAULT SYSDATE,
-	openDate date,
+	postDate date DEFAULT SYSDATE,
 	PRIMARY KEY (no)
 );
 
