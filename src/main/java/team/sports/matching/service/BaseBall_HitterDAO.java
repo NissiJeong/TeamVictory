@@ -45,21 +45,26 @@ public class BaseBall_HitterDAO {
 	public List<Map> scrollDown(Map map) {
 		return template.selectList("infiniteScrollDown", map);
 	}
-	public List<Map> hitterDownTotalSelectList(Map map) {
-		return template.selectList("hitterDownTotalSelectList", map);
-	}	
-	public List<Map> hitterUpTotalSelectList(Map map) {
-		return template.selectList("hitterUpTotalSelectList", map);
+	public List<Map> hitterDetailView(Map map) {
+		return template.selectList("hitterDetailView", map);
+	}
+	public List<Map> hitterDetailViewEachTeam(Map map) {
+		return template.selectList("hitterDetailViewEachTeam", map);
+	}
+	public List<Map> hitterDetailViewForTeamName(Map map) {
+		return template.selectList("hitterDetailViewForTeamName", map);
 	}
 	
 	
-	public List<Map> scrollUp(Map map) {
-		return template.selectList("infiniteScrollUp", map);
+	
+	////////////////////////////////   멤버 정보 변경용         /////////////////////////////
+	public int profileChange(Map map) {
+		return template.update("profileChange",map);
 	}
 	
-	
-	
-	
+	public List<Map> getProfile(Map map) {
+		return template.selectList("getProfile", map);
+	}
 	
 	
 	

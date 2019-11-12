@@ -11,8 +11,15 @@ public class BasketballDTO {
 	String position;
 	Date regidate;
 	String readyCount;
+	int remainCount;
 	
 	
+	public int getRemainCount() {
+		return remainCount;
+	}
+	public void setRemainCount(int remainCount) {
+		this.remainCount = remainCount;
+	}
 	public String getTitle() {
 		return title;
 	}

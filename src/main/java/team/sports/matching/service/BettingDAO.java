@@ -30,7 +30,4 @@ public class BettingDAO {
 	public MemberDTO memberPoint(Map map) {
 		return template.selectOne("memberPoint",map);
 	}
-	
-	
-
 }

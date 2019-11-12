@@ -48,7 +48,7 @@ public class MatchController {
 
 		//System.out.println("이새캬");
 
-		//System.out.println("ZZ");
+	
 
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		map.put("id", userDetails.getUsername());

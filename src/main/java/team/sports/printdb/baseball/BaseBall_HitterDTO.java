@@ -5,8 +5,8 @@ import java.util.Date;
 public class BaseBall_HitterDTO {
 	
 	int recordNo;
-	int pa, ab, h, b2, b3, hr, rbi, sb, cs, bb, hbp, so, gdp, e, horder;
-	String pos, awayTeam, stadium;
+	int pa, ab, h, b2, b3, hr, rbi, sb, cs, bb, hbp, so, gdp, e, horder, r, rank;
+	String pos, awayTeam, stadium, name;
 	Date gameDate;
 	int time;
 	
@@ -15,6 +15,24 @@ public class BaseBall_HitterDTO {
 	
 	
 	
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	public int getR() {
+		return r;
+	}
+	public void setR(int r) {
+		this.r = r;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public double getAvg() {
 		return avg;
 	}
