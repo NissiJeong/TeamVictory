@@ -3,79 +3,142 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authentication property="principal.username" var="name"/>
+<sec:authentication property="principal.username" var="id"/>
 <sec:authentication property="principal.authorities" var="auth"/>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> 
+<!-- <script src="https://kit.fontawesome.com/1d75ae587d.js" crossorigin="anonymous"></script> -->
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 
 $(function(){
-	
-	
-	scoreStyle('main');
-	
+	console.log($('.all-tbody tr:lt(17)').length);
 	//스프링 시큐리티 아이디 가져오기
-   console.log( $('#auth').val() )
+	   console.log( $('#auth').val() )
+	myBettingList( $.trim($('#auth').val()));
+/*
+	   $("#myModal").on('hide.bs.modal', function(){
+		   console.log('이게되냐?')
+		  $.ajax({
+			  url:"<c:url value='/Team/Matching/BettingAjax.do'/>",
+			  type:'post',
+			  beforeSend : function(xhr){
+            	  //데이터 전송전에 헤더에 csrf값 설정
+	         		 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+                },
+			  data : '들어가냐',
+			  success: function(data){
+				  window.location = "<c:url value='/Team/Matching/Betting.do'/>";
+				  console.log(data);
+				//  location.replace("${pageContext.request.contextPath}/request/MobileReq.do")
+
+				
+			  },
+			  error : function(request,status){
+				  console.log("code:"+request.status+"\n"+"message:"+request.responseText);
+
+						
+			  }
+			  });  
+	   }); 
+*/
+	
+	   scoreStyle('main');
 	
 		   // 배팅 버튼 클릭 
 		  var clickBettingBtn = $('.bettingBtn').click(function(){
-			  var _this= this;
-			  var  btnIndex =clickBettingBtn.index(this); 
+			  
+			  var  btnIndex =clickBettingBtn.index(this);   
+			  var betObj={
+						date :  $.trim($(this).parent().siblings(':eq(1)').find('.date').text()).replace(/\./g,'/') ,  // . dot 인식하도록
+						stadium : $.trim($(this).parent().prev().find('.stadium').data('value')), // data(key)로 읽어온다 data-value -> value가 key
+				        time : $.trim($(this).parent().siblings(':eq(1)').find('.time').text()).replace(':',''),
+				        id : $.trim($('#auth').val()),
+			  };
+			  var tNameObj = { home:$(this).parent().siblings(':eq(2)').find('.ht').text(),
+	    		         away :$(this).parent().siblings(':eq(2)').find('.at').text()  } ;   
+			  var dataLength='';
+			 // console.log(betObj)
+			  
 			
-				    
-			 
-			     $('#bettingPoint').val('');
-			    
-			     $(":radio").prop("checked", false);
-			    
-			    var dataLength='';
+			   //이미 배팅한경기인지 판별후 배팅을 했을경우 배팅한 경기결과 표시 및 나머지 라디오버튼 disabled, 배팅한 마일리지표시 ,인풋태그,버튼 disabled
+		    if ( $(this).find('i').length !== 0 ){
+		    	   modalinitialize();
+		    		$(':radio:eq(0)').next().text(tNameObj.home);
+			  	  $(':radio:eq(1)').next().text(tNameObj.away);
+			  	 
+			  	  
+		    	 $.ajax({
+		    		 
+					   url:  "<c:url value='/Team/Matching/BettingCheck.do'/>"  ,
+					   data : { id : $('#auth').val(), gamedate : betObj.date,
+						   stadium : betObj.stadium , time :  betObj.time , '_csrf' : '${_csrf.token}'}  ,
+					   type: 'post',
+					   dataType: 'text',
+					 //  contentType: ""  클라이언트 입장에서 내가 어떤 타입으로 보낸다는 의미
+					   success : function(data){
+						   if (data !== null )
+							   alreadyBetting(JSON.parse(data));
+					   },///success
+						   error:function(data){
+							console.log('에러 : '+data); // 에러코드 출력 
+							console.log('에러 : '+data.responseText); //  에러내용 출력
+							
+						   }
+					   
+				   });  // ajax 
+		    	}///////////// if
+		   else {
+			   // 이전에 걸어놓은 메시지 , 체크 ,disabled 해제 
+			   modalinitialize();
+			
 			 //	var  btnIndex =clickBettingBtn.index(this);  // 클릭한 배팅버튼의 인덱스 0~
 			    console.log('클릭한 배팅버튼 인덱스 : ',btnIndex);
-			    var tNameObj = { home:$(_this).parent().siblings(':eq(2)').find('.ht').text(),
-			    		         away :$(_this).parent().siblings(':eq(2)').find('.at').text()  } ;   
+			   
+			    
 			     // 클릭한 배팅버튼이 위치한 행에 있는 홈,어웨이 팀이름
 		
-				  // 배팅 버튼 클릭시 버튼와 같은행에 위치한 홈팀, 어웨이팀이름 표시하기 
+				  // 배팅 버튼 클릭시 라디오버튼 옆에 홈팀, 어웨이팀이름 표시하기 
 				    $(':radio:eq(0)').next().text(tNameObj.home);
 				    $(':radio:eq(1)').next().text(tNameObj.away);
 				    
 				    //클릭한 라디오버튼 옆에 텍스트 가져오기 
 				    $(':radio').click(function(){
-				       console.log($(this).next().text());
+				       console.log('선택한 경기결과 :' , $(this).next().text());
 				    });
-				    
-				    //회원의 보유 마일리지 가져오기 
-				   $.ajax({
-					   url:  "<c:url value='/Team/Matching/Point.do'/>"  ,
-					   data : { id : $('#auth').val(),'_csrf' : '${_csrf.token}'}  ,
-					   type: 'post',
-					   dataType: 'text',
-					   success : function(data){
-						   //// 서버로부터 받은 데이터
-						  
-						   dataLength = data.length;
-						   console.log('마일리지 길이 ' , dataLength)
-						   $('.nowPoint').text('마일리지 : '+data);
-						  console.log($('#auth').val() +' 회원 마일리지 : '+data );
-						  
-						  if ( dataLength  >3) 
-						   $('#bettingPoint').attr('maxlength',dataLength+1);
-						  else 
-							  $('#bettingPoint').attr('maxlength',dataLength);
-						  
-					   },///success
-						   error:function(data){
-							console.log('에러 : '+data); // 에러코드 출력 
-							console.log('에러 : '+data.responseText); //  에러내용 출력
-						   }
-					   
-				   });  // ajax 
-
-				     
-					
+				   
+			//회원의 보유 마일리지 가져오기 
+			 $.ajax({
+			   url:  "<c:url value='/Team/Matching/Point.do'/>"  ,
+			   data : { id : $('#auth').val(),'_csrf' : '${_csrf.token}'}  ,
+			   type: 'post',
+			   dataType: 'text',
+			   success : function(data){
+				   //// 서버로부터 받은 데이터
+				  
+				   dataLength = data.length;
+				 console.log('마일리지 길이 ' , dataLength)
+				   $('.nowPoint').text('마일리지 : '+data);
+				 // console.log($('#auth').val() +' 회원 마일리지 : '+data );
+				  
+				  if ( dataLength  >3) 
+				   $('#bettingPoint').attr('maxlength',dataLength+1);
+				  else 
+					  $('#bettingPoint').attr('maxlength',dataLength);
+				  
+			   },///success
+				   error:function(data){
+					console.log('에러 : '+data); // 에러코드 출력 
+					console.log('에러 : '+data.responseText); //  에러내용 출력
+				   }
+			   
+		   });  // ajax 
+				  console.log ('ajax 실행후 dataLength :',dataLength);
+				  
 				
-			// 배팅 입력란에 숫자만 입력되도록 / 보유마일리지보다 적은 금액만 입력되도록
+			// 배팅 입력란에 숫자만 입력되도록
 			$('#bettingPoint').on("keyup", function() {
 			  $(this).val(addCommas($(this).val().replace(/[^0-9]/g,"")));
 			 
@@ -85,10 +148,10 @@ $(function(){
 			  $('#btnJoin').click(function(){
 				  //console.log( parseInt($('#bettingPoint').val().replace(',',''))  );
 				 // 콤마제거함수 호출해서 반환값을 넘긴다.
-		    console.log ( 'btnjoin 클릭이벤트'	,	 commaRemove($('#bettingPoint').val()) )
-				bettingJoin(dataLength);
+		        console.log ( 'btnjoin 클릭이벤트'	,	 commaRemove($('#bettingPoint').val()) )
+				bettingJoin(dataLength,betObj);
 			 });	
-			 
+		  }
  });////////  clickBettingBtn 
 		  
   
@@ -126,6 +189,11 @@ $(function(){
 							bettingView(data,viewIndex,home,away);
 							}
 						 	if ( $('.tenViewHome').is(':visible')  &&  $('.tenViewAway').is(':visible')  ) {
+						 		
+						 	
+						 		
+						 		
+						 		
 								var tenView = ['.tenViewHome','.tenViewAway'];
 									scoreStyle(tenView);
 									
@@ -135,6 +203,7 @@ $(function(){
 									});
 								//선택한 상세보기의 바로밑에  <tr>태그
 							  var base =  $('.view').eq(viewIndex).parent().parent();
+								//전적표시 
 								console.log( base.next().find('.tenViewHome tr:last').find('th').text().match("경기전적"));
 							 if (base.next().find('.tenViewHome tr:last').find('th').text().match("경기전적") !=null  ){
 								 base.next().find('.tenViewHome tr:last').find('th').css({color : 'black' , 'font-size': '18px'});
@@ -143,8 +212,38 @@ $(function(){
 								 base.next().find('.tenViewAway tr:last').find('th').css({color : 'black' , 'font-size': '18px'});
 								} 
 								
+							 $('span.colon').css({ 'font-weight':'bold'});
+							 $('.awayViewTable , .homeViewTable').css('table-layout','fixed');
+							// $('td.opponent').css({'overflow': 'hidden',  'text-overflow': 'ellipsis', 'white-space': 'nowrap'});
 							 
-							 
+							if ( //$('.tenViewHome').is(':visible') && 
+									$('.tenViewHome').children('tr:eq(0)').children('td:eq(0)').text().length != 0 ) {
+								$('.tenViewHome , .tenViewAway').children('tr').not('tr:last').each(function(){
+									 $(this).children('td:eq(1)').addClass('opponent');
+								});
+								
+							}
+							/*
+							$( ".opponent" ).tooltip({
+								
+					 		      show: {
+					 		        effect: "slideDown",
+					 		        delay: 250,
+					 		      
+					 		      }
+					 		    });
+							*/
+						
+						
+						
+							$('.opponent').hover(function(){
+								console.log(isOverflowed(this));
+								if(isOverflowed(this)){
+								  $(this).attr('title',$(this).text());
+								}
+							}); 
+							
+							
 						 	}//// if
 						
 						 	// console.log('tenViewTR 길이', $(".all-tbody .tenViewTR").length);
@@ -221,7 +320,7 @@ $(function(){
 									//console.log(element['RESULT']=='lose')
 									//console.log('인덱스 %s  |  배열 : %s',i,element.GAMEDATE); // 홈스코어 표시
 									homeContent +="<tr class='text-center'>";
-									homeContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td><span class='tenHS'>"+element.HOMESCORE+"</span> : <span class='tenAS'>"+element.AWAYSCORE+"</span></td>";
+									homeContent +="<td>"+element.GAMEDATE+"</td><td>"+element.AWAYTEAM+"</td><td><span class='tenHS'>"+element.HOMESCORE+"</span><span class='colon mx-1'>:</span><span class='tenAS'>"+element.AWAYSCORE+"</span></td>";
 								  if(element.HOMESCORE > element.AWAYSCORE ){
 									  homeContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px;'>승</span></td></tr>";
 									   tenRecord.win = tenRecord.win+1;
@@ -288,7 +387,7 @@ $(function(){
 						//console.log(element['RESULT']=='lose')
 						//console.log('인덱스 %s  |  배열 : %s',i,element.GAMEDATE); // 홈스코어 표시
 						awayContent +="<tr class='text-center'>";
-						awayContent +="<td>"+element.GAMEDATE+"</td><td>"+element['AWAYTEAM']+"</td><td><span class='tenHS'>"+element.HOMESCORE+"</span> : <span class='tenAS'>"+element.AWAYSCORE+"</span></td>";
+						awayContent +="<td>"+element.GAMEDATE+"</td><td>"+element['AWAYTEAM']+"</td><td><span class='tenHS'>"+element.HOMESCORE+"</span><span class='colon mx-1'>:</span><span class='tenAS'>"+element.AWAYSCORE+"</span></td>";
 					  if(element.HOMESCORE > element.AWAYSCORE ){
 						  awayContent +="<td><span style='width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px;'>승</span></td></tr>";
 						  tenRecord.win = tenRecord.win+1;
@@ -394,13 +493,14 @@ $(function(){
 				 var awayScore = Number($(this).children(':eq(2)').find('.tenAS').text());
 				 if(homeScore > awayScore) {
 					 $(this).children(':eq(2)').find('.tenHS').css({
-							//'font-weight' : 'bold',
+						  
 							color : 'blue'
 						});
 					 }
 				 else if(homeScore < awayScore) {
 					 $(this).children(':eq(2)').find('.tenAS').css({
 							//'font-weight' : 'bold',
+							
 							color : 'red'
 						});
 					 }
@@ -435,13 +535,14 @@ $(function(){
 		
 	};
 	
-	function bettingJoin(dataLength){
+	function bettingJoin(dataLength,obj){
 		 console.log('bettingJoin함수안에서 마일리지 길이' ,dataLength);
+		 
 		console.log ( '반환받은 배팅포인트의 자료형 : '	, typeof ( commaRemove($('#bettingPoint').val()) ) );
 		var point = commaRemove( $('#bettingPoint').val() ) 
 		
 			
-	if ($(':radio:checked').length == 0){  // 경기결과  체크 아무것도 안되었을때
+	if ($(':radio:checked').length === 0){  // 경기결과  체크 아무것도 안되었을때
 		
 		 Swal.fire({
 			 // position: 'top-end',
@@ -455,7 +556,7 @@ $(function(){
 		 return false;
 		}///////// if 
 	   else  {    // 경기결과는 선택한경우
-		
+		  			 
 		 	  //  포인트 미입력 
 					if ( $('#bettingPoint').val().length === 0 ) {
 						Swal.fire({
@@ -481,12 +582,14 @@ $(function(){
 				
 			
 				var  start =  $('.nowPoint').text().indexOf(':')+2;
+			   var nowPoint = Number($('.nowPoint').text().substring(start, $('.nowPoint').text().length));
 				// 마일리치 초과입력시
 				//  if( Number($('#bettingPoint').val().replace(',','').replace(',','')) > Number($('.nowPoint').text().substring(start, $('.nowPoint').text().length))){
-				if ( point  >  Number($('.nowPoint').text().substring(start, $('.nowPoint').text().length)) ) {
+				if ( point  >  nowPoint ) {
 					Swal.fire({
-							  
+							 
 							  html: '<span style="font-weight:bold;font-size:18px">보유 마일리지 초과입니다.</span>',
+							  
 							  confirmButtonText: '확인',
 							});
 					  $('#bettingPoint').val('');
@@ -503,22 +606,55 @@ $(function(){
 									  confirmButtonColor: '#30a0d6',
 									  cancelButtonColor: '#fd5850',
 									  confirmButtonText: '확인',
-								}).then((result) => {
+								}).then((result) => { 
 								  if (result.value) {
+								  /////////////
+									  obj.choice = $.trim($(':radio:checked').next().text());
+									   obj.point = point //Number($.trim($('#bettingPoint').val()));
+							
+									   console.log(  JSON.stringify(obj));
+									
+								  /////////////////
 									    Swal.fire(
 									      '배팅 완료',
 									    '[ '+addCommas(point)+' ]'+' 포인트를 배팅하셨습니다.',
 									      'success'
 									    )///
+
 									    $('#bettingPoint').val('');
-									 }
-							});  ///  Swal
+  									        $.ajax({
+  									        	url : "<c:url value='/Team/Matching/BetingPoint.do'/>",
+  									         	 beforeSend : function(xhr){
+									            	  //데이터 전송전에 헤더에 csrf값 설정
+  									         		 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+									            },
+  									        	data : /*{ gamedate : obj.date, stadium : obj.statium , 
+  									        		time : obj.time , id : obj.id,selectteam: obj.choice , 
+  									        		mileage : obj.point, '_csrf': '${_csrf.token}' }  */
+  									        	JSON.stringify(obj)  ,
+  									        	contentType : 'application/json',
+  									        	type : 'post',
+  									        	dataType : 'text',
+  									        	success : function(data){
+  									        		console.log('차감된 포인트 :' ,data);
+  									        		$('.nowPoint').text('마일리지 : '+(nowPoint-data));
+  									        		
+  									        	}, //success
+  									        	error: function(data){
+  									        		console.log('에러 : '+data);
+  									        		console.log('에러 : '+data.responseText);
+  									        	}
+  									        });// ajax
+									    
+									 }///if
+							});  ///  then
+							
 		 	     return false;
 					}///else 
 		 	
 			}; // 2번째 else
-	   }// 1번째 else
-	}; 
+	   };// 1번째 else
+	}; ///////////////////////////////////
 
 
 	//3자리마다 콤마 
@@ -529,17 +665,17 @@ $(function(){
 
 	function commaRemove(point){
 		//replace는 없는문자를 바꾸려고하면 원래문자열 그대로 유지 
-		console.log('없는문자 변환시', $.trim(point).replace("!!",''));
+		
 		console.log ('매개변수 point : ', point);
 		 var start=0;
 	     var 	noComma;
-			noComma = $.trim(point).replace(",", '');
+			noComma = $.trim(point).replace(",",'');
 			
 			for(var i=0; i<noComma.length; i++){
 				 if( noComma[i].charCodeAt(0) > 48){
-					     start = i;
-					     console.log ('콤마잘랐을떄 최종반환 noComma :' , noComma.substring(start));
-					     return Number(noComma.substring(start));
+				     start = i;
+				     console.log ('콤마잘랐을떄 최종반환 noComma :' , noComma.substring(start));
+				     return Number($.trim(noComma).substring(start));
 				 }
 			}
 			
@@ -547,10 +683,94 @@ $(function(){
 		
 	};
 	
+	//상세보기시 팀이름 오버플로우 체크 
+	function isOverflowed(element){
 		
-		
-		
+	    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+	}///////////////////////
 	
+
+		// html 온로드 이후 회원이 배팅한 목록에 체크표시 나오게
+		function myBettingList(id){
+			  var list=[];
+				$('.all-tbody tr:lt(17)').each(function(index){	
+					if ( Number($(this).children("td:eq(5)").find('span').text()) > 0)  {//배팅이 0보다 큰경우
+						
+						list.push({index : index, 
+							       gamedate : $.trim($(this).children('td:eq(1)').find('span:eq(0)').text()),
+							       time : $.trim($(this).children('td:eq(1)').find('span:eq(2)').text().replace(':','')),
+							       stadium : $.trim($(this).children('td:eq(4)').find('.stadium').data('value')), // data(key)로 읽어온다 data-value -> value가 key
+							       bet : 'YES' })
+					}
+				});
+				
+				  console.log(list)
+				  console.log( JSON.stringify(list));
+				  $.ajax({
+				   url:  "<c:url value='/Team/Matching/MyBettingList.do'/>"  ,
+				   data : /*{ id : $('#auth').val(),data : list,'_csrf' : '${_csrf.token}'} */
+					 JSON.stringify(list) ,
+				   type: 'post',
+				   contentType : "application/json; charset=utf-8",
+				   beforeSend: function (request)
+		            {
+		                request.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		                request.setRequestHeader("id" , $('#auth').val());
+		            },
+		           // traditional: true,
+					   dataType: 'json',
+					   success : function(data){
+						  //filter 함수는 true를 리턴하면 해당아이템을 새로운 배열의 아이템으로 추가한다.
+						  var myBettingArray =	  data.filter(function(item){
+						 // console.log ( '  item.bet' , typeof(item.bet));
+					     return item.bet === id;
+					  });
+						 console.log(myBettingArray);
+						  $.each(myBettingArray, function(key, value) {
+								console.log (value.index);
+							$('.all-tbody tr:lt(17)').eq(value.index).children("td:eq(5)").find('span').after("<i class='fas fa-check chk blinking'></i>");
+							})
+						
+				   },///success
+				   error:function(data){
+						console.log('에러 : '+data); // 에러코드 출력 
+						console.log('에러 : '+data.responseText); //  에러내용 출력
+					}
+		   
+		  		 });  // ajax 
+		  		 
+	 		}///////////////////  myBettingList ()
+	
+	function  alreadyBetting(obj){
+		console.log( obj)
+		
+		 $(':radio').each(function(){
+			if ( $(this).next().text() === obj.SELECTTEAM)
+				$(this).prop('checked','checked');
+			else 
+				$(this).attr('disabled',true);
+		}); 
+		
+		$('.modal-body').find('strong').text('[ '+obj.MILEAGE+' ]'+' 포인트 배팅하셨습니다.');
+		$(':text').attr('disabled',true);
+		$('#btnJoin').attr('disabled',true);
+	 }
+	
+    	function modalinitialize(){
+    		
+	    	//배팅포인트 입력란 초기화
+	    	 $(':radio').each(function(){
+				$(this).prop('checked',false);
+				$(this).attr('disabled',false);
+	     	}); 
+	    	  $('#bettingPoint').val('');
+	    	  $('#bettingPoint').attr('disabled',false);
+	    	  $('#btnJoin').attr('disabled',false);
+			  $('.modal-body').find('strong').text('Your Choice');
+		      $('.nowPoint').text('');
+    	}
+	 		
+	 		
 </script>
 <style>
  .slash  td{
@@ -566,8 +786,52 @@ $(function(){
  .swalBetting{
  color : red;
  }
+ 
+ .chk{
+      color: #3fb721;
+    font-size: 30px;
+    position: relative;
+    top: -41px;
+    left: -35px;
+   
+ }
+  
+  .opponent{
+  
+  overflow: hidden;
+ text-overflow :ellipsis;
+ white-space: nowrap
+  
+  }
+
+
+/*  반짝반짝  */
+/*
+  .blinking{
+	-webkit-animation:blink 0.8s ease-in-out infinite alternate;
+    -moz-animation:blink 0.8s ease-in-out infinite alternate;
+    animation:blink 0.8s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+*/
+
+
   
 </style>
+
+<%-- <meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/> --%>
 
 <!-- banner-section start -->
 <section class="breadcum-section" >
@@ -583,7 +847,6 @@ $(function(){
 							<li class="breadcrumb-item active">in play</li>
 						</ol>
                        <input type="hidden" value= "${id}" id="auth"/>
-                       <input type="hidden" value= "${name }" id="auth"/>
 					</div>
 				</div>
 			</div>
@@ -702,20 +965,20 @@ $(function(){
 			    							        <fmt:parseNumber value="${item.awayScore}" type="number" var="awayScore"/>
 		    							        
     										<tr>
+    											 
 	    										<td>${loop.count}</td>
 	    										
 
 	    										<td>
 	    										<c:if test="${formatNow < formatGameDate }" var="isDeadLine">
-	    										<span class="pr-1">
-	    										<fmt:formatDate value="${item.gameDate}"   pattern="yy.MM.dd"/></span><span class="pr-1">${item.gameDay}</span><span>${item.time}</span>
+	    										<span class="pr-1 date">
+	    										<fmt:formatDate value="${item.gameDate}"   pattern="yy.MM.dd"/></span><span class="pr-1">${item.gameDay}</span><span class="time">${item.time}</span>
 	    										</c:if>
-	    										<c:if test="${! isDeadLine}">  <!--  경기일시가 현재날짜보다 이전인 경우  -->
-	    										<span class="pr-1 deadLine">   
-	    										<fmt:formatDate value="${item.gameDate}" pattern="yy.MM.dd"/></span><span class="pr-1">${item.gameDay}</span><span>${item.time}</span>
+	    										<c:if test="${! isDeadLine}">  <!--  경기일시가 현재날짜보다 이전인 경우  (날짜가 지났을때) -->
+	    										<span class="pr-1 date" data-value ="deadline">   
+	    										<fmt:formatDate value="${item.gameDate}" pattern="yy.MM.dd"/></span><span class="pr-1">${item.gameDay}</span><span class="time">${item.time}</span>
 	    										</c:if>
 	    										</td>
-	    										 
 	    										<td><span class="pr-2 ht" >${item.teamname}</span><span class="pr-2 hs" >${item.homeScore == -1 ? '':item.homeScore}</span>:<span class="px-2 as" >${item.awayScore == -1 ? '':item.awayScore}</span><span class="at">${item.awayTeam}</span>
 	    										
 	    										<td>
@@ -737,11 +1000,15 @@ $(function(){
 	    							            		<span style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #f76c12e8; border-radius: 7px;">예정</span>
 	    							            </c:if>
 	    										</td> 
-	    										<td>기타</td>
+	    										<td>기타<span class="stadium" data-value="${item.stadium}"></span></td>
 	    										<td>
 	    										<button type="button" class="btn btn-warning bettingBtn"  data-toggle="modal" data-target="#myModal"
-													style="height: 33px;" ><!-- data-toggle="modal" data-target="#myModal" -->
-														배 팅 <span class="badge badge-secondary ml-2">0</span>
+
+
+
+													style="height: 33px; width: 90.53px" ><!-- data-toggle="modal" data-target="#myModal" -->
+														배 팅<span class="badge badge-secondary ml-2">${item.count}</span>
+													<!-- 	<i class="fas fa-check chk blinking"></i> -->
 														</button>
 	    										 </td>
 	    										<td><span class="view" style="cursor:pointer;">상세보기</span></td>

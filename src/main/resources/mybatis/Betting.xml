@@ -7,11 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
 <mapper namespace="mybatis.Betting">
-	
+	  <!--  경기 목록 가져오기  -->
 	<select id="bettingList" parameterType="java.util.Map" resultType="BettingDTO">
-		  select gameschedule.* from gameschedule  join team  on gameschedule.teamname = team.teamname
+		 <!--   select gameschedule.* from gameschedule  join team  on gameschedule.teamname = team.teamname-->
+		
+		 select <!-- g.gamedate , g.stadium, g.time --> g.* ,(select count(*) from betting b 
+		where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) count
+		from gameschedule g join team t on g.teamname =  t.teamname  order by  g.gamedate desc
 	</select>
-	
+	  <!--  상세보기 클릭시  홈팀, 어웨이팀 경기정보 가져오기 -->
 	<select id="selectListTeamInfo" parameterType="java.util.Map" resultType="java.util.Map">
 	  select g.gamedate, g.time , t.teamname as hometeam,g.awayteam  ,g.homescore ,g.awayscore 
   <!--  
@@ -35,8 +39,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 	</select>
 	
+	<!--  배팅 버튼 클릭시 보유한 마일리지 가져오기 -->
 	<select id="memberPoint" parameterType="java.util.Map" resultType="MemberDTO">
 	   select * from member where id=#{id}
+	</select>
+	
+	<!--  배팅완료시  배팅정보 betting 테이블에 입력 -->
+	<insert id="bettingInsert" parameterType="java.util.Map">
+	 insert into betting values(seq_bettingno.nextval,#{date},#{stadium},#{time},#{id},
+	 <choose>
+	 	<when test='choice != null and choice == "DRAW".toString()'>
+	 			  'DRAW'
+	 	</when>
+	 	<when test='choice != null and choice != "DRAW".toString()'>
+	 			 #{choice}
+	 	</when>
+	 </choose>
+	 , #{point})
+	</insert>
+	
+	<!-- 배팅 테이블에 정상적으로 입력되면 member 테이블에서 보유마일리지 - 배팅한 마일리지 업데이트 -->
+	<update id="bettingPointMinus" parameterType="java.util.Map" >
+	   	update member set point = point - #{point} where id=#{id}
+	</update>
+	
+	
+	<select id="MyBettingList" parameterType="java.util.Map"  resultType="java.util.Map" >
+	   SELECT b.gamedate,b.time,b.stadium,
+ 		 LISTAGG(to_char(b.ID),',') WITHIN GROUP (ORDER BY b.gamedate) AS "BETTINGMEMBER"
+  		  FROM betting b join gameschedule g on
+		 b.gamedate = g.gamedate and b.stadium = g.stadium and b.time = g.time  group by b.gamedate,b.time,b.stadium order by b.gamedate desc
+	
+	</select>
+	
+	<select id="bettingSelectOne" parameterType="java.util.Map"  resultType="java.util.Map">
+	select * from betting where  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and id=#{id}
 	</select>
 	
 	
