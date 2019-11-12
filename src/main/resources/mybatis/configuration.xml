@@ -14,12 +14,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="PitcherDTO" type="team.sports.printdb.baseball.PitcherDTO"/>
 		<typeAlias alias="TeamBoardDTO" type="team.sports.matching.service.TeamBoardDTO"/>
 		<typeAlias alias="MemberDTO" type="team.sports.matching.service.MemberDTO"/>		
-<<<<<<< HEAD
 
-=======
 		<typeAlias alias="MessageDTO" type="team.sports.matching.service.MessageDTO"/>
 		<typeAlias alias="BasketballDTO" type="team.sports.matching.service.BasketballDTO"/>
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
 	</typeAliases>
 	
 	

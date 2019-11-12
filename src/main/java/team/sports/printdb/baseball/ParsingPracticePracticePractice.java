@@ -13,13 +13,13 @@ import org.json.Test;
 public class ParsingPracticePracticePractice {
 
 	public static void main(String[] args) {
-		List<Integer> list = new ArrayList<>();
+		List<Integer> list = new ArrayList<Integer>();
 
 		list.add(1);list.add(2);list.add(2);list.add(3);list.add(4);list.add(5);list.add(5);list.add(6);list.add(7);list.add(7);list.add(7);list.add(8);list.add(8);list.add(9);
 
-		List<Integer> newList = new ArrayList<>();
-		List<Integer> duplicates = new ArrayList<>();
-		Set<Integer> set = new HashSet<>();
+		List<Integer> newList = new ArrayList<Integer>();
+		List<Integer> duplicates = new ArrayList<Integer>();
+		Set<Integer> set = new HashSet<Integer>();
 
 		for (int i : list) {
 			if (set.add(i)) {
