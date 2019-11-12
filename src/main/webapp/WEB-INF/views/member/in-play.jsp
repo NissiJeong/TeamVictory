@@ -3,7 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authentication property="principal.username" var="id"/>
+<sec:authentication property="principal.username" var="name"/>
 <sec:authentication property="principal.authorities" var="auth"/>
 
 <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
@@ -583,6 +583,7 @@ $(function(){
 							<li class="breadcrumb-item active">in play</li>
 						</ol>
                        <input type="hidden" value= "${id}" id="auth"/>
+                       <input type="hidden" value= "${name }" id="auth"/>
 					</div>
 				</div>
 			</div>

@@ -44,7 +44,7 @@ import team.sports.matching.service.TeamDTO;
 
 
 @Controller
-public class CreatTeamController implements HandlerExceptionResolver {
+public class CreatTeamController /*implements HandlerExceptionResolver*/ {
 	@Resource(name="member")
 	private MemberDAO dao;
 	@Resource(name="teamboard")
@@ -95,6 +95,7 @@ public class CreatTeamController implements HandlerExceptionResolver {
 		model.addAttribute("SUCFAIL", affected);
 		return "member/Message";
 	}///
+	/*
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
@@ -114,4 +115,5 @@ public class CreatTeamController implements HandlerExceptionResolver {
 		mav.setView(view);
         return mav;		
 	}
+	*/
 }
