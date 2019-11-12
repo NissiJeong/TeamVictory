@@ -56,7 +56,7 @@
 		# Dashboard Navigation
 		# Dashboard Titlebar
 		# Dashboard Stats Boxes
-		# Dashboard Pagination
+		# Dashboard paging
 		# Dashboard List Box
 		# Add Listing
 		# Opening Hours
@@ -7286,28 +7286,28 @@ a.rate-review:hover {
 
 
 /* ---------------------------------- */
-/* Pagination
+/* paging
 ------------------------------------- */
-.pagination {
+.paging {
 	margin: 9px 0 0 0;
 	text-align: center;
 	overflow: hidden;
 }
 
-.pagination-next-prev {
+.paging-next-prev {
 	position: relative;
 	top: -66px;
 }
 
-.pagination ul li {
+.paging ul li {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
 }
 
 
-.pagination ul li a,
-.pagination-next-prev ul li a {
+.paging ul li a,
+.paging-next-prev ul li a {
 	padding: 12px 0;
 	border-bottom: none;
 	display: inline-block;
@@ -7324,7 +7324,7 @@ a.rate-review:hover {
 	font-size: 14px;
 }
 
-.pagination ul li a {
+.paging ul li a {
 	border-radius: 50%;
 	width: 52px;
 	height: 52px;
@@ -7332,46 +7332,46 @@ a.rate-review:hover {
 	line-height: 52px;
 }
 
-.pagination ul li a i {
+.paging ul li a i {
 	line-height: 52px;
 }
 
-.pagination ul li.blank {
+.paging ul li.blank {
 	color: #a0a0a0;
 	padding: 0 6px;
 }
 
-.pagination ul li a.current-page,
-.pagination .current,
-.pagination ul li a:hover,
-.pagination-next-prev ul li a:hover {
+.paging ul li a.current-page,
+.paging .current,
+.paging ul li a:hover,
+.paging-next-prev ul li a:hover {
 	background-color: #f2f2f2;
 	color: #333;
 }
 
-.pagination-next-prev a.next { float: right; }
-.pagination-next-prev a.prev { float: left; }
+.paging-next-prev a.next { float: right; }
+.paging-next-prev a.prev { float: left; }
 
-.pagination-next-prev ul li a {
+.paging-next-prev ul li a {
 	color: #333;
 	padding: 12px 16px;
 	text-transform: uppercase;
 }
 
-.pagination ul,
-.pagination-next-prev ul {	padding: 0; list-style-type: none;}
+.paging ul,
+.paging-next-prev ul {	padding: 0; list-style-type: none;}
 
 
-/* Listings Pagination */
-.fs-listings .pagination ul li a,
-.fs-listings .pagination-next-prev ul li a {
+/* Listings paging */
+.fs-listings .paging ul li a,
+.fs-listings .paging-next-prev ul li a {
 	background-color: transparent;
 }
 
-.fs-listings .pagination ul li a.current-page,
-.fs-listings .pagination .current,
-.fs-listings .pagination ul li a:hover,
-.fs-listings .pagination-next-prev ul li a:hover {
+.fs-listings .paging ul li a.current-page,
+.fs-listings .paging .current,
+.fs-listings .paging ul li a:hover,
+.fs-listings .paging-next-prev ul li a:hover {
 	background-color: #e8e8e8;
 	color: #333;
 }
@@ -11868,18 +11868,18 @@ a.dashboard-responsive-nav-trigger { display: none; }
 
 
 /* ---------------------------------- */
-/* Dashboard Pagination
+/* Dashboard paging
 ------------------------------------- */
-#dashboard .pagination ul li a,
-#dashboard .pagination-next-prev ul li a {
+#dashboard .paging ul li a,
+#dashboard .paging-next-prev ul li a {
     background-color: transparent;
 }
 
-#dashboard .pagination ul li a.current-page,
-#dashboard .pagination .current,
-#dashboard .pagination ul li a:hover,
-#dashboard .pagination-next-prev ul li a:hover {
-    background-color: #fff;
+#dashboard .paging ul li a.current-page,
+#dashboard .paging .current,
+#dashboard .paging ul li a:hover,
+#dashboard .paging-next-prev ul li a:hover {
+    background-color: #DC143C;
 }
 
 
