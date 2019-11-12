@@ -54,7 +54,7 @@ CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_board_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_chatmember INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_chatmember_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_contact_no INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
@@ -159,7 +159,7 @@ CREATE TABLE hitter
 	e number DEFAULT 0,
 	pos number DEFAULT 0,
 	horder number DEFAULT 0,
-	CONSTRAINT pk UNIQUE (gameDate, time, ID)
+	CONSTRAINT pk primary key (gameDate, time, ID)
 );
 
 
@@ -207,8 +207,7 @@ CREATE TABLE message
 	ID nvarchar2(15) NOT NULL,
 	title nvarchar2(50) NOT NULL,
 	content nvarchar2(2000) NOT NULL,
-	sendDate date DEFAULT SYSDATE,
-	openDate date,
+	postDate date DEFAULT SYSDATE,
 	PRIMARY KEY (no)
 );
 
@@ -219,6 +218,7 @@ CREATE TABLE pitcher
 	stadium nvarchar2(20) NOT NULL,
 	time number NOT NULL,
 	ID nvarchar2(15) NOT NULL,
+	teamName nvarchar2(20) NOT NULL,
 	W number,
 	L number,
 	blsv number,
@@ -359,6 +359,12 @@ ALTER TABLE hitter
 
 
 ALTER TABLE matching
+	ADD FOREIGN KEY (teamName)
+	REFERENCES Team (teamName)
+;
+
+
+ALTER TABLE pitcher
 	ADD FOREIGN KEY (teamName)
 	REFERENCES Team (teamName)
 ;

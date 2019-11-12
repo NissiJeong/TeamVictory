@@ -33,96 +33,129 @@ import team.sports.matching.service.MemberDAO;
 
 @Controller
 public class WebsocketController {
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@Resource(name = "member")
+	private MemberDAO dao;
+
+	@Resource(name = "basketball")
+	private BasketballDAO bdao;
+
+	@ExceptionHandler({ HttpSessionRequiredException.class })
+	public String notAllowed(Model model) {
+		// 무조건 록인 페이지로 이동]
+		return "member/login.tiles";
+	}
+
+	@RequestMapping("/Team/Matching/chat-ws.do")
+	public String basketball(Model model, Authentication auth, @RequestParam Map map) throws Exception {
+		/* Spring Security */
+		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
+		String id = userDetails.getUsername();
+
+		// System.out.println("id : "+id);
+
+		logger.info("chat.-ws.do RUN ! / Run Time : " + new Date());
+		if (id == null) {
+
+			return "member/login.tiles";
+
+		} else {
+			return "member/Basketball.tiles";
+		}
+	}//////// basketball()
+
+	@ResponseBody
+	@RequestMapping(value = "/Team/Matching/createRoom.do", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	public String createRoom(@RequestParam Map map, Authentication auth) {
+		int affected = 0;
+		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
+		String title = map.get("title").toString();
+		System.out.println(title);
+		System.out.println(map.get("position"));
+
+		affected = bdao.createRoom(map);
+		if (affected == 1) {
+			// System.out.println("방 생성완료");
+			bdao.chatMember(map);
+
+		}
+
+		return title;
+	}
+
+	@RequestMapping(value = "/Team/Matching/listRoom.do", produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String listRoom() {
+
+		Map map = new HashMap();
+
+		java.util.List<BasketballDTO> list = bdao.roomList(map);
+
+		java.util.List<Map> collections = new Vector<Map>();
+		for (BasketballDTO dto : list) {
+			Map record = new HashMap();
+			record.put("title", dto.getTitle());
+			record.put("id", dto.getId());
+			record.put("area", dto.getArea());
+			record.put("position", dto.getPosition());
+			record.put("regidate", dto.getRegidate().toString());
+			record.put("readycount", dto.getReadyCount());
+
+			collections.add(record);
+		}
+
+		return JSONArray.toJSONString(collections);
+
+	}/////////// listRoom
+
+	@ResponseBody
+	@RequestMapping(value = "/Team/Matching/checkTitle.do", produces = "text/html; charset=UTF-8")
+	public String checkTitle(@RequestParam Map map) {
+		int duplicated = bdao.titleDuplicate(map);
+		String impossible = "impossible";
+		if (duplicated == 0) {
+			impossible = "possible";
+		}
+		return impossible;
+	}
+
+	@ResponseBody
+	@RequestMapping("/Team/Matching/Ent.do")
+	public String enter(@RequestParam Map map) {
+
+		
+		int enter = Integer.parseInt(bdao.limitRoom(map));
+		System.out.println("컨트롤러 : "+map.get("title"));
+		System.out.println("아이디:"+map.get("id"));
+		int existUser = Integer.parseInt(bdao.existUser(map));
+		System.out.println(existUser);//1일땐 안돼
+		System.out.println("컨트롤러에서 넘겼다"+existUser);
+		System.out.println("클릭한 방의 인원 : "+enter);
+		String impossible = "impossible";
+
+		if (enter < 3 && existUser==0) {
+			impossible = "possible";
+		}
+
+		return impossible;
+
+	}
+
 	
-   private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-   
-   @Resource(name="member")
-   private MemberDAO dao;
-   
-   @Resource(name="basketball")
-   private BasketballDAO bdao;
-   
-   @ExceptionHandler({HttpSessionRequiredException.class})
-   public String notAllowed(Model model) {
-      //무조건 록인 페이지로 이동]
-      return "member/login.tiles";
-   }   
-   
-   @RequestMapping("/Team/Matching/chat-ws.do") 
-   public String basketball(Model model, Authentication auth, @RequestParam Map map) throws Exception {
-      /*Spring Security*/
-      UserDetails userDetails = (UserDetails)auth.getPrincipal();
-      map.put("id", userDetails.getUsername());
-      
-      String id = userDetails.getUsername();
-      //System.out.println("왜들어와?");
-      //System.out.println(map.get("room"));
-      //System.out.println("id : "+id);
-      
-      logger.info("chat.-ws.do RUN ! / Run Time : "+ new Date());
-      if(id == null) {
-         
-         return "member/login.tiles";
-         
-      }
-      else {
-         return "member/Basketball.tiles"; 
-      }
-   }////////basketball()
-   
-   @ResponseBody
-   @RequestMapping(value="/Team/Matching/createRoom.do", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-   public String createRoom(@RequestParam Map map, Authentication auth) {
-	   int affected = 0;
-	   UserDetails userDetails = (UserDetails)auth.getPrincipal();
-       map.put("id", userDetails.getUsername());
-	   String title = map.get("title").toString();
-	   System.out.println(title);
-       System.out.println(map.get("position"));
-	   affected = bdao.createRoom(map);
-	   if(affected == 1) {
-		   System.out.println("방 생성완료");
-		   
-	   }
-	   return title;
-   }
-   
-   @RequestMapping(value = "/Team/Matching/listRoom.do", produces = "text/html; charset=UTF-8")
-   @ResponseBody
-   public String listRoom() {
-	   
-	   Map map = new HashMap();
-	   map.put("start", 1);
-	   map.put("end", 2);
-	   java.util.List<BasketballDTO> list = bdao.listRoom(map);
-	   
-	   java.util.List<Map> collections = new Vector<Map>();
-	   for(BasketballDTO dto : list) {
-		   Map record = new HashMap();
-		   record.put("title", dto.getTitle());
-		   record.put("id", dto.getId());
-		   record.put("area", dto.getArea());
-		   record.put("position", dto.getPosition());
-		   record.put("regidate", dto.getRegidate().toString());
-		   record.put("readycount", dto.getReadyCount());
-		   
-		   collections.add(record);
-	   }
-	   
-	   return JSONArray.toJSONString(collections);
-	   
-   }///////////listRoom
-   
-   @ResponseBody
-   @RequestMapping(value = "/Team/Matching/checkTitle.do", produces = "text/html; charset=UTF-8")
-   public String checkTitle(@RequestParam Map map) {
-	   System.out.println("Enter Class");
-	   int duplicated = bdao.titleDuplicate(map);
-	   String impossible = "impossible";
-	   if(duplicated == 0) {
-		   impossible = "possible";
-	   }
-	   return impossible;
-   }
-   
-}////////////class
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("/Team/Matching/ExistUser.do") public String
+	 * userList(@RequestParam Map map) { System.out.println("두번째 AJAX");
+	 * 
+	 * int exist = Integer.parseInt(bdao.existUser(map)); System.out.println(exist);
+	 * 
+	 * return ""; }
+	 */
+	 
+
+}//////////// class

@@ -4,16 +4,25 @@ import java.util.Date;
 
 public class HitterDTO {
 	
-	int pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, horder;
+	int pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, horder, pos, rank;
 	
 	int sumpa, sumab, sumh, sumb2, sumb3, sumhr, sumr, sumrbi, sumsb, sumcs, sumbb, sumhbp, sumso, sumgdp;
 	
-	String pos, stadium;
+	String stadium;
 	
 	Date gameDate;
 	int time;
 	
 	double avg, totalAvg;
+
+	
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 
 	public int getPa() {
 		return pa;
@@ -257,11 +266,11 @@ public class HitterDTO {
 		this.sumgdp = sumgdp;
 	}
 
-	public String getPos() {
+	public int getPos() {
 		return pos;
 	}
 
-	public void setPos(String pos) {
+	public void setPos(int pos) {
 		this.pos = pos;
 	}
 

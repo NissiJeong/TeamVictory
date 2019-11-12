@@ -6,17 +6,46 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- 
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal.username" var="id"/>
 <script>
-
+var websocket;
+var user;
+var teamname;
+var wsUri = "ws://192.168.0.63:8080<c:url value='/push.do'/>";
+var time;
+var date;
+var stadium;
+var receiveData;
 $( function() {
+	websocket = new WebSocket(wsUri);
+	websocket.onopen = ()=>{websocket.send('id:'+user);};
+	websocket.addEventListener("message",function(e){
+		console.log('=========================1231231231');
+		receiveData=e.data;
+		console.log("123123123",receiveData);
+		//notifyme(receiveData);
+		Swal.fire({
+		  position: 'top-end',
+		  title: receiveData,
+		  showConfirmButton: true
+		}).then((result) => {
+			
+			window.open('<c:url value="/Team/Matching/Team.do"/>');
+		});
+	});
+	user = $('#user').val();
+	
+	
+	console.log('user:',user);
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
     
 
     
     $(".upModal").click(function(){
+    	teamname = $('label:eq('+$(this).attr("title")+')').attr("title");
     	$('#datepicker').val("");
 		$('#sel2').val("ti");
 		$('#sel3').val("stadium");
@@ -52,23 +81,19 @@ $( function() {
     					$('#result'+i).html(data['gameResult'+(4-i)]+'</br>'+data['score4']);
     				}		
     			}
-    			
-    			/* $('#date0').html(data['gameDate4']);
-    			$('#date1').html(data['gameDate3']);
-    			$('#date2').html(data['gameDate2']);
-    			$('#date3').html(data['gameDate1']);
-    			$('#date4').html(data['gameDate0']);
-    			$('#result0').html(data['gameResult4']+'</br>'+data['score4']);
-    			$('#result1').html(data['gameResult3']+'</br>'+data['score3']);
-    			$('#result2').html(data['gameResult2']+'</br>'+data['score2']);
-    			$('#result3').html(data['gameResult1']+'</br>'+data['score1']);
-    			$('#result4').html(data['gameResult0']+'</br>'+data['score0']); */
     		}
     	}); 
     });    
     
     
+
+  
     $("#match").click(function(){
+    	date = $('#datepicker').val();
+    	time = $('#sel2').val();
+    	stadium =$('#sel3').val();
+    	//console.log(websocket)
+    	websocket.send('awayteam:'+teamname+',date:'+date+',time:'+time+",stadium:"+stadium);
     	$.ajax({
     		url:"<c:url value='/Team/Matching/matching.do'/>",
     		type:'post',
@@ -80,16 +105,18 @@ $( function() {
     			$('#sel3').val("stadium");
     			console.log(data);
     			swal({
-    				  title: "Good job!",
+    				  title: "Complete",
     				  text: data,
     				  icon: "success",
-    				  button: "Aww yiss!",
+    				  button: "yes",
    				});    			
     		}
     	});
     });    
    
  });
+
+
 
  function checkDateTime(time){
 	if(time.length == 2){
@@ -145,15 +172,15 @@ $( function() {
 	  });
 	});
 
-function notifyme(){
+function notifyme(message){
 
 		console.log('들어왔따')
 		//If the user agreed to get notified
 		if (Notification && Notification.permission === "granted") {
 			
-			var n = new Notification("팀이 매칭신청을 하였습니다");
+			var n = new Notification(message);
 			
-			n.onclick = event => {
+			n.onclick = (event) => {
 				//event.preventDefault();
 				n.close();
 				window.open('<c:url value="/Team/Matching/Team.do"/>');
@@ -171,13 +198,13 @@ function notifyme(){
 		
 		   // If the user said okay
 		   if (status === "granted") {
-		     var n = new Notification("팀이 매칭신청을 하였습니다");
+		     var n = new Notification(message);
 		    
 		   }
 		
 		   // Otherwise, we can fallback to a regular modal alert
 		   else {
-		     alert("팀이 매칭신청을 하였습니다");
+		     alert(message);
 		   }
 		 });
 		}
@@ -185,7 +212,7 @@ function notifyme(){
 		//If the user refuse to get notified
 		else {
 		 // We can fallback to a regular modal alert
-		 alert("팀이 매칭신청을 하였습니다");
+		 alert(message);
 		}
 		
 };
@@ -662,6 +689,7 @@ function notifyme(){
                 <!-- Icon Divider -->
                 <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
                	<form id="frm">
+               	<input type="hidden" id="user" value="${id }"/>
                	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                	<input name="awayteam" id="awayteam" type="hidden" value='sdfg'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
@@ -713,7 +741,7 @@ function notifyme(){
 			      <span id="stadiumError" style="color:red; font-size: 0.8em"></span>
 			      <br>			   
 			    </div>
-			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px" disabled="true"  onclick="notifyme()">                  
+			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px" disabled="true">                  
                   	매칭 신청
                 </button>
 			  </form>

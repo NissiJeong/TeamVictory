@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -45,8 +47,8 @@ public class BoardController {
 	// 목록 처리]
 	@RequestMapping("/Team/Matching/Board.do")
 	public String list(
-			@RequestParam Map map, Model model, HttpServletRequest req,
-			@RequestParam(required = false, defaultValue = "1") int nowPage) {
+		@RequestParam Map map, Model model, HttpServletRequest req,
+		@RequestParam(required = false, defaultValue = "1") int nowPage) {
 		// 서비스 호출]
 		// 페이징을 위한 로직 시작]
 		// 전체 레코드수
@@ -64,12 +66,10 @@ public class BoardController {
 		String pagingString = PagingUtil.pagingBootStrapStyle(totalRecordCount, pageSize, blockPage, nowPage,
 				req.getContextPath() + "/Team/Matching/Board.do?");
 		// 데이타 저장]
-		
-
 		model.addAttribute("list", list);
 		model.addAttribute("pagingString", pagingString);
 		model.addAttribute("totalRecordCount", totalRecordCount);
-		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("nowPage", nowPage);	
 		model.addAttribute("pageSize", pageSize);
 		System.out.println(map.get("searchWord"));
 		// 뷰정보 반환]
@@ -77,8 +77,6 @@ public class BoardController {
 	}
 
 	// 작성폼으로 이동]
-	
-
 	@RequestMapping(value = "/Team/Matching/Write.do"/* ,method=RequestMethod.GET */)
 	public String write() {
 		// 뷰정보 반환]
@@ -105,42 +103,65 @@ public class BoardController {
 		// 뷰정보 반환:목록으로 이동
 		return "forward:/Team/Matching/Board.do";
 	}/////////////////////
-		// 상세보기]
-
+	
+	// 상세보기]
 	@RequestMapping("/Team/Matching/View.do")
-	public String view(@RequestParam Map map, Model model) {
+	public String view(@RequestParam Map map, Model model, HttpServletRequest req, HttpServletResponse res) {
+		/*
+		 * Cookie[] cookies = req.getCookies();
+		 * 
+		 * if(cookies!=null && cookies.length > 0){
+		 * 
+		 * for(int i =0;i< cookies.length;i++){
+		 * 
+		 * System.out.println("쿠키명: "+cookies[i].getName()+",쿠키 값:"+cookies[i].getValue(
+		 * ));
+		 * 
+		 * }
+		 * 
+		 * }
+		 */
 		//조회수 올리는 코드
 		boardService.getCountNo(map);
-		// 서비스 호출]
-		BoardDTO record = boardService.selectOne(map);
-		// 데이타 저장]
-		// 줄바꿈 처리
-		record.setContent(record.getContent().replace("\r\n", "<br/>"));
-		model.addAttribute("record", record);
+		/*
+		 * // 서비스 호출] BoardDTO record = boardService.selectOne(map); 
+		 * // 데이타 저장] 
+		 * // 줄바꿈 처리 
+		 * record.setContent(record.getContent().replace("\r\n", "<br/>"));
+		 * model.addAttribute("record", record);
+		 */
 		// 뷰정보 반환:
-		return "community/bbs/View.tiles";
+		return "forward:/Team/Matching/Board.do";//community/bbs/View.tiles
 	}//////////////
 	
-
 	// 수정폼으로 이동 및 수정처리]
 	@RequestMapping("/Team/Matching/Edit.do")
-	public String edit(HttpServletRequest req, @RequestParam Map map) {
+	public String edit(HttpServletRequest req, HttpServletResponse res,@RequestParam Map map) {
+		//쿠키 생성
+		Cookie cookie = new Cookie("no","numCount");
+		
 		if (req.getMethod().equals("GET")) {// 수정폼으로 이동
+			
+			//쿠키 추가
+			res.addCookie(cookie);
 			// 서비스 호출]
 			BoardDTO record = boardService.selectOne(map);
 			// 데이타 저장]
 			req.setAttribute("record", record);
 			// 수정 폼으로 이동]
 			return "community/bbs/Edit.tiles";
+			
 		}
+		System.out.println("야발려차야발");
 		// 수정처리후 메시지 뿌려주는 페이지(Message.jsp)로 이동
 		int sucFail = boardService.update(map);
 		req.setAttribute("WHERE", "EDT");
 		req.setAttribute("SUCFAIL", sucFail);
+		cookie=null;
 		return "community/bbs/Message";
 	}//////////////////
-		// 삭제처리]
-
+	
+	// 삭제처리]
 	@RequestMapping("/Team/Matching/Delete.do")
 	public String delete(@RequestParam Map map, Model model) {
 		// 서비스 호출]

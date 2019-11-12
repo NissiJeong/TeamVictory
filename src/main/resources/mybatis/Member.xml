@@ -52,4 +52,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="mIsDuplicate">
 		SELECT COUNT(*) FROM member WHERE email=#{email}
 	</select>
+	
+	<select id="selectPass" parameterType="java.util.Map" resultType="String" >
+		SELECT pwd FROM member WHERE id=#{id}
+	</select>
+	<select id="" parameterType="String" resultType="MemberDTO">
+		SELECT * FROM member WHERE id=#{username}
+	</select>
 </mapper>
