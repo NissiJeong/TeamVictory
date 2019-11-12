@@ -13,8 +13,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="BaseBall_HitterDTO" type="team.sports.printdb.baseball.BaseBall_HitterDTO"/>
 		<typeAlias alias="TeamBoardDTO" type="team.sports.matching.service.TeamBoardDTO"/>	
 		<typeAlias alias="MemberDTO" type="team.sports.matching.service.MemberDTO"/>		
-		
-
+		<typeAlias alias="MessageDTO" type="team.sports.matching.service.MessageDTO"/>
+		<typeAlias alias="BasketballDTO" type="team.sports.matching.service.BasketballDTO"/>
 	</typeAliases>
 	
 	
@@ -28,5 +28,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Team.xml" />
 		<mapper resource="mybatis/Push.xml"/>
 		<mapper resource="mybatis/Message.xml" />
+		<mapper resource="mybatis/Basketball.xml" />
 	</mappers>
 </configuration>

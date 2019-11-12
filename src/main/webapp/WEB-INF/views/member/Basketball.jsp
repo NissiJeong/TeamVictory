@@ -6,13 +6,13 @@
 <sec:authentication property="principal.authorities" var="auth"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
 <script>
         //웹소켓 객체 저장용
         var wsocket;
         //닉 네임 저장용
         var nickname;
-        var user;
+        var user
         var position = "Select your Position"
         var center = "Center"
         var forwar = "Forward"
@@ -20,50 +20,48 @@
         var selected;
         var target;
         var roomtitle = $("#roomTitle").val();
-            
+        var possible = "possible";
+        var room;
+        var user = $("#session").val()
         $(function(){
-            
-        	if(user == 'ADMIN'){
-                wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
-                wsocket.onopen = function(){
-                	if(user == 'ADMIN'){
-                	wsocket.send('ADMIN님이 접속했습니다.')
-                	};
-                };
-             };
-         
+            wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
+            	
+            wsocket.onopen = function(){
+        		 console.log('문이열리네요~')
+        		 wsocket.send('최초접속유저:'+user+':'+'')
+        		 console.log(user)
+        		 wsocket.onmessage = function(msgg){
+             		console.log(msgg)
+             		 wsocket.addEventListener('roomList',roomList);
+             	}
+        		
+        	 }
+            	
              /* Create room */
              $("#createRoom").click(function(){
                 var position = selected 
+                $('.text').text('')
                 $.ajax({
                    url: "<c:url value='/Team/Matching/createRoom.do'/>",
                    data : $("#create").serialize(),
                    dataType : 'text',
                    type:'post',
                    success:function(data){
-                 	 wsocket = new WebSocket("ws://192.168.0.63:8080<c:url value='/chat-ws.do'/>"); 
+                 	 wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>"); 
                  	 wsocket.onopen = function(){
+                 		 console.log(user)
                  		 if(user != null){
-                 			 wsocket.send("방이름:"+data+"에"+user+"님이 입장하셨습니다.");
-                 			 joinUser("채팅방에 입장하였습니다.");
-                 		 } 
+                 			 console.log('만든방 : ',data)
+                 			 wsocket.send("title"+data+"="+user);
+                 			swal(data+"생성에 성공하였습니다!", "", "success");
+                 			 
+                 		 }
+                 		 wsocket.addEventListener('userList',userList);
                  	 }
-                      swal("Room Created!", "", "success");
+                 	
                    }
-   				});
-                /* <div class="discussion">
-                <a data-toggle="modal" data-target="#myModal">
-                <div class="photo" style="background-image:url(https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg);">
-                <input type="hidden" value="${title }" id="roomTitle">
-                <input type="hidden" value="${id}" id="session" >
-             </div>
-             </a>
-              <div class="desc-contact">
-               <p class="name">회원 아이디</p>
-              </div>
-               <div class="timer">접속시간</div>
-               <button class="btn btn-info" style="margin-left: 30%">Ready</button>
-              </div> */
+   				})
+                
             });///ajax
         
            
@@ -84,20 +82,6 @@
            
            user = $("#session").val()
           
-           $('#enterBtn').one('click',function(){
-              // 웹 소켓 객체로 서버에 연결하기
-              console.log(user)
-              console.log('되냐?')
-              /* if(user != null){
-              wsocket = new WebSocket("ws://localhost:9090<c:url value='/chat-ws.do'/>");
-              wsocket.onopen = open;
-              wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
-              wsocket.addEventListener('message',message);
-           } 
-           else{
-              
-           }*/
-           });
            
            //전송버튼 클릭시]
            $('#sendBtn').click(function(){
@@ -106,7 +90,7 @@
            
            //메시지 입력후 전송 버튼 클릭이 아닌 엔터키처리
            $('#message').on('keypress',function(e){
-              console.log('e.keyCode:%s,e.which:%s',e.keyCode,e.which);
+              //console.log('e.keyCode:%s,e.which:%s',e.keyCode,e.which);
               var keyValue = e.keyCode ? e.keyCode:e.which;
               if(keyValue == 13){//엔터 입력
                  send_message();
@@ -117,34 +101,65 @@
         });
         
         
+        //입장버튼
         var title2;
         function roomBtn(room){
+        	
+        	$('.text').text('')
+        	$("#connectionList").text('')
            console.log('선택한 방 : ',room);
            title2 = room;
-           if(user != null){
-              console.log('둘어와');
-                wsocket = new WebSocket("ws://192.168.0.63:8080<c:url value='/chat-ws.do'/>");
-                wsocket.onopen = open;
-                wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
-                wsocket.addEventListener('message',message);
-             };
-             
-           
-        };
-       
-/*===========================================================함수 정의===========================================================*/
-        //서버에 연결되었을때 호출되는 함수
-      	var open = function (){
-           wsocket.send('방이름:'+title2+'client:'+user+'님이 입장하였습니다.');
-           joinUser("채팅방에 입장하였습니다.");
+           $.when($.ajax({
+               url:"<c:url value='/Team/Matching/Ent.do'/>",
+               dataType : 'text',
+               data : {title:room, id:user},
+               type:'get',
+               success:function(data){
+            	   console.log(data)
+            	 
+            	   if(user != null && data == possible){
+            		   
+                       wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
+                       wsocket.onopen = function(){
+                       	wsocket.send("title"+room+"="+user)
+                       	//joinUser("채팅방에 입장하였습니다.");
+                       	swal(title2+"에 접속하셨습니다!", "", "success");
+                       }  
+                       wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
+                       wsocket.addEventListener('userList',userList);
+                    }
+                    else{
+                    	swal("입장이 불가능합니다", "", "warning");
+                    };
+                    
+               }
+            })).done(function(){
+            	/* ajax() */
+            })
         };
         
-        var openByAdmin = function (){
-                 wsocket.send('Admin이 접속했습니다.');
-                
-       };
-              
-              
+        
+       
+        /*'_csrf':'${_csrf.token}'*/
+/*===========================================================함수 정의===========================================================*/
+       var userList ; 
+        
+    	  /* var ajax = function(data){
+    		   window.setInterval(function(){
+    			$.ajax({
+               url:"<c:url value='/Team/Matching/ExistUser.do'/>",
+               dataType : 'text',
+               data : {title:title2},
+               type:'post',
+               success:function(data){
+            	   console.log(data)
+            	   $(".discussion").remove()
+            	  
+               }
+	})
+});///ajax 
+    	   } */
+
        var positionCheck = function(data){
        
         var target = document.getElementById("position")
@@ -154,6 +169,7 @@
        
         ////title 확인용
         var checkTitle = function(data){
+        	
            var title = $("#title").val();
            var impossible = 'impossible'
            var possible = 'possible'
@@ -189,48 +205,92 @@
            $(".small1").remove();
            $('.post-meta').remove();
            $.each(data, function(index, element){
-              //console.log(index)
               cindex=index
-              //console.log(element['no'])
               title3=element['title'];
-              //console.log("successlist에서 누름",title3)
               regidate=element['regidate'];
+              
               $("#chattingRoom").append("<li class='small1' id='chat"+index+"'><a onclick='roomBtn(\""+title3+"\")'><i class='flaticon-basketball' style='float:left'></i>"+title3+"<span>"+regidate+"</span></a></li>");
                
            })
         };
         
-      
-        
+       //접속시 방 목록 서버에서 데이터 받는 곳. 
+       var roomList = function(evt){
+    	   var receiveData = evt.data;
+    	   console.log('접속시 : ',receiveData)
+       } 
        
-        //서버에서 메시지를 받을때마다 호출되는 함수
+       //방 입장시 입장인원 서버에서 데이터 받는곳.
+       var userList = function(evt){
+    	   var receiveData = evt.data;
+    	   console.log('입장시',receiveData);
+       }
+       
+       //서버에서 메시지를 받을때마다 호출되는 함수
        var message= function(e){
           //서버로부터 받은 데이타는 이벤트객체(e).data속성에 저장되어 있다
           var receiveData = e.data;
+          
+          console.log(receiveData)
           if(receiveData.substring(0,4) =='msg:'){
              clientMsg(receiveData.substring(4));
+             console.log(receiveData.substring(4))
           }
-          else{
-             joinUser(receiveData.substring(10))
-
+          else if(receiveData.substring(0,4) =='List'){
+        	 userList(receiveData.substring(5))
+          }
+          else if(receiveData.substring(0, 2)=='[{"'){
+        	  $.each(receiveData, function(index, element){
+        		  list = element['title']
+        		  regidate = element['regidate'];
+        		  console.log(list, regidate)
+        		  list(receiveData.substring(3))
+        	  })
           }
         };
         //
+        
+        var deleteList = function(){
+        	$('connectionList').text('')
+        	console.log('되냐?')
+        	
+        }
+       
+        var userList = function(msg){
+        	/*서버에서 데이터 받기전에 초기화 시켜야함*/
+        	if(msg!=$("name").val()){
+        	 $("#connectionList").append("<div class='discussion'>"
+						+"<div class='photo'>" 
+						+"</div>"
+						+"<div class='desc-contact'>"
+						+"<p class='name'>"+msg+"</p>"
+						+"</div>"
+						+"<div class='timer'>접속시간</div>"
+						+"<button class='btn btn-info' style='margin-left: 30%'>"
+						+"Ready</button>"
+						+"</div>")
+        	
+        	}
+        }
+       
         var joinUser = function(msg){///유저접속하면용
-
-           $("#join").append("<span id='join' style='text-align: center;'>"+msg+"</span><br/>")
+			
+        	
+           $("#join").append("<span id='join' style='text-align: center; clear: both;'>"+msg+"</span><br/>")
            
         };
         
          var clientMsg = function(msg){
-
-            $('#chatMessage1').append(msg+"<br/>");
-            
+        	 
+            $('#chatMessage1').after("<div id='clientsMessage' style='float: left; clear: both;margin-top:10px'><p>"+msg+"</p></div></br>");
+             
          }
         //메시지를 DIV태그에 뿌려주기 위한 함수]
         var appendMessage=function(msg1){
            //메시지출력
-           $('#chatMessage').append(msg1+"<br/>");
+          
+           $('.chat').after("<div id='chatMessage1' style='float: right; clear: both; margin-top:10px'><p>"+msg1+"</p></div></br>");
+           
         };
         //서버로 메시지 전송하는 함수]
         function send_message(){
@@ -457,15 +517,29 @@ background-repeat: no-repeat;
 .response .text {
   background-color: #e3effd !important;
 }
-#join{
-  font-family: 'Jua', sans-serif;
+#clientsMessage{
+
+  font-family: 'Hi Melody', cursive;
   margin-right: 0px !important;
-  margin-left:auto; /* flexbox alignment rule */
+  margin-left:auto; 
+  background-color: #778899 !important;
+  opacity: 0.7;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  width: 20%
+  	
+}
+#chatMessage1{
+
+  font-family: 'Hi Melody', cursive;
+  margin-right: 0px !important;
+  margin-left:auto;
   background-color: #1E90FF !important;
   opacity: 0.7;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
-  width: 50%
+  width: 20%
+  
 }
 
 
@@ -498,73 +572,44 @@ background-repeat: no-repeat;
          <div class="col-lg-8" style="border-color: black;">
          <!-- Member List start -->
          <div id="connectionList">
-         <div class="discussion">
-             <a data-toggle="modal" data-target="#myModal">
-             <div class="photo" style="background-image:url(https://image.noelshack.com/fichiers/2017/38/2/1505775062-1505606859-portrait-1961529-960-720.jpg);">
-             <input type="hidden" value="${title }" id="roomTitle">
-             <input type="hidden" value="${id}" id="session" >
-          </div>
-          </a>
-           <div class="desc-contact">
-            <p class="name">회원 아이디</p>
-           </div>
-            <div class="timer">접속시간</div>
-            <button class="btn btn-info" style="margin-left: 30%">Ready</button>
-           </div>
-           
-           </div>
-         <div class="discussion">
-             <div class="photo" style="background-image:">
-             
-            <div class="online"></div>
-          </div>
-          <div class="desc-contact">
-            <p class="name">회원 아이디</p>
-            <p class="message">대화명? 텍스트?</p>
-           </div>
-            <div class="timer">접속시간</div>
-            <button class="btn btn-info" style="margin-left: 30%">Ready</button>
-            <!-- <i class="fas fa-fist-raised" style="font-size: 9px"></i> -->
-                     
-             </div>
-         <div class="discussion">
-             <div class="photo" style="background-image:">
-             
-            <div class="online"></div>
-          </div>
-          <div class="desc-contact">
-            <p class="name">회원 아이디</p>
-            <p class="message">대화명? 텍스트?</p>
-           </div>
-            <div class="timer">접속시간</div>
-            <button class="btn btn-info" style="margin-left: 30%">Ready</button>
-             </div>
+         <input type="hidden" value="${title }" id="roomTitle">
+         <input type="hidden" value="${id}" id="session" >
+           <!-- 유저목록 뿌려주는곳 -->
+         </div>
+        
             <div class="comment-area" style="overflow: auto; height: 720px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);" >
             <!-- Chatting Start -->
          <section class="chat" >
            
-        <div class="messages-chat" >
-                 <div style="text-align: center;" id=""></div>
-                   <span id="join" style="text-align: center;"></span>
+       <i class=""></i>
+        
+        <!-- <div id="join" style="float: right;"><p >right</p></div></br>
+        <div id="join" style="float: left;" ><p >left</p></div></br>
+        <div id="join" style="float: right;"><p >right</p></div></br>
+        <div id="join" style="float: left;"><p >left</p></div></br>
+        <div id="join" style="float: right;"><p >right</p></div></br>
+        <div id="join" style="float: left;"><p >left</p></div></br> -->
+            <!-- <div style="text-align: center;" id=""></div>
+               <span id="join" style="text-align: center;"></span>
                    
           <div class="message">
-                
-            <div class="photo" style="background-image:">
-              <div class="online"></div>
-            </div>
-            <p class="text" id="chatMessage1"></p>
-                 <!-- <div id="chatMessage"></div> -->
+               
+          <p class="text" id="chatMessage1"></p>
+                 <div id="chatMessage"></div>
           </div>
+          
           <div class="message text-only">
             <div class="response" style="margin-left: auto;float: right;margin-right: 0px">
               <p class="text" id="chatMessage">
-                 <!-- 서버로부터 받은 메세지 -->
+                 서버로부터 받은 메세지
               </p>
             </div>
-          </div>
-        </div>
-        <!-- Chatting End -->
+          </div> -->
         
+        <!-- Chatting End -->
+        <div id="roomm">
+        
+        </div>
         <!-- Insert Text Start -->
         <div class="footer-chat">
           <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
@@ -605,13 +650,14 @@ background-repeat: no-repeat;
                <!-- widget end -->
                <div class="widget widget-categories" style="overflow: auto;" id="ddo">
                   <h4 class="widget-title" style="text-align: center;">Waiting Room</h4>
+                    <form action="<c:url value='/Team/Matching/Ent.do'/>">
                      <div id="chattingRoom1" style="text-align: center;">
                      
                          <ul id="chattingRoom">
                  
                   		 </ul>
                       </div>
-                         
+                    </form>
                            
                </div>
                      
@@ -673,7 +719,7 @@ background-repeat: no-repeat;
                <option value="Forward">Forward</option>      
             </select>
         </div>
-           <span id="impossible">${x}</span>
+           <span id="impossible" >${x}</span>
         
          <div class="col-lg-12" style="text-align: center;">
             <hr style="border:solid 1px">
