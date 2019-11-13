@@ -117,7 +117,4 @@ public class CreatTeamController /*implements HandlerExceptionResolver*/ {
 <<<<<<< HEAD
 	}
 	*/
-=======
-	}*/
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 }

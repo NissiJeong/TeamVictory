@@ -30,12 +30,9 @@ import team.sports.matching.service.MemberDAO;
 import team.sports.matching.service.TeamBoardDAO;
 import team.sports.matching.service.TeamBoardDTO;
 import team.sports.matching.service.TeamDTO;
-<<<<<<< HEAD
 import team.sports.printdb.baseball.HitterDTO;
 import team.sports.printdb.baseball.PitcherDTO;
-=======
 import team.sports.matching.service.impl.MatchDAO;
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 
 @SessionAttributes("id")
 @Controller
@@ -107,11 +104,7 @@ public class TeamController {
 		}
 		return duplic;
 	}
-	
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
 	//팀페이지로 이동
 	@RequestMapping("/Team/Matching/Team.do")
 	public String team(Authentication auth,Model model, @RequestParam Map map) {

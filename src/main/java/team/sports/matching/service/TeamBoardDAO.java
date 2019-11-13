@@ -79,15 +79,18 @@ public class TeamBoardDAO {
 	public List<TeamBoardDTO> teamGuinnessScore(Map map) {
 		return template.selectList("TeamGuinnessScore",map);
 	}
-
+	
+	//팀기네스 - 최다홈런
 	public List<TeamBoardDTO> teamGuinnessHomeRun(Map map) {
 		return template.selectList("TeamGuinnessHomRun",map);
 	}
-
+	
+	//팀기네스 - 최다안타
 	public List<TeamBoardDTO> teamGuinnessHit(Map map) {
 		return template.selectList("TeamGuinnessHit",map);
 	}
-
+	
+	//팀기네스 - 최다삼진
 	public List<TeamBoardDTO> teamGuinnessStrikeOut(Map map) {
 		return template.selectList("TeamGuinnessStrikeOut",map);
 	}
