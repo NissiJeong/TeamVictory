@@ -38,10 +38,10 @@ dd {
 }
 
 #record-rank-table{
-	width: 123%;
+	width: 120%;
 }
 #record-rank-table2{
-	width: 136%;
+	width: 155%;
 }
 
 #guinness-table .all-tbody tr td{
@@ -60,7 +60,7 @@ dd {
 }
 
 .record-rank {
-	width: 130%;
+	width: 134%;
 }
 
 .right{
@@ -71,14 +71,14 @@ dd {
 .record-right {
 	display: none;
 	position: absolute;
-	right: -24;
+	right: -28%;
     top: 3%;
 }
 
 .record-batter-right{
 display: none;
 	position: absolute;
-    right: -24%;
+    right: -28%;
     top: 3%;
 }
 
@@ -693,6 +693,7 @@ var clickSelectItem = $('#teamName').change(function(){
 														<tr id="record-border-menu">
 															<th style="width: 0.8%">순위</th>
 															<th style="width: 4%">이름</th>
+															<th style="width: 2.2%">방어율</th>
 															<th style="width: 0.1%">승</th>
 															<th style="width: 0.1%">패</th>
 															<th style="width: 3.8%">블론세이브</th>
@@ -717,41 +718,43 @@ var clickSelectItem = $('#teamName').change(function(){
 														<!--  1행 -->
 														<tr>
 															<!-- 순위  -->
-															<td><span bat="1">${item.rank }</span></td>
+															<td><span bat="1">${item.RANK }</span></td>
 															<!-- 이름 -->
-															<td>${item.name }</td>
+															<td>${item.NAME }</td>
 															<!--  -->
-															<td>${item.w}</td>
+															<td>${item.ERA}</td>
 															<!--  -->
-															<td>${item.l }</td>
+															<td>${item.SUMW}</td>
 															<!--  -->
-															<td>${item.blsv }</td>
+															<td>${item.SUML }</td>
 															<!--  -->
-															<td>${item.ci }</td>
+															<td>${item.SUMBLSV }</td>
 															<!--  -->
-															<td>${item.co }</td>
+															<td>${item.SUMCI }</td>
 															<!--  -->
-															<td>${item.sv }</td>
+															<td>${item.SUMCO }</td>
 															<!--  -->
-															<td>${item.hol }</td>
+															<td>${item.SUSV }</td>
 															<!--  -->
-															<td>${item.tbf }</td>
+															<td>${item.SUMHOL }</td>
 															<!--  -->
-															<td>${item.ip }</td>
+															<td>${item.SUMTBF }</td>
 															<!--  -->
-															<td>${item.h }</td>
+															<td>${item.SUMIP }</td>
 															<!--  -->
-															<td>${item.hr }</td>
+															<td>${item.SUMH }</td>
 															<!--  -->
-															<td>${item.bb }</td>
+															<td>${item.SUMHR }</td>
 															<!--  -->
-															<td>${item.hbp }</td>
+															<td>${item.SUMBB }</td>
 															<!--  -->
-															<td>${item.so }</td>
+															<td>${item.SUMHBP }</td>
 															<!--  -->
-															<td>${item.r }</td>
+															<td>${item.SUMSO }</td>
 															<!--  -->
-															<td>${item.er }</td>
+															<td>${item.SUMR }</td>
+															<!--  -->
+															<td>${item.SUMER }</td>
 														</tr>
 														<!-- 1행끝 -->
 													</c:forEach>
@@ -772,9 +775,10 @@ var clickSelectItem = $('#teamName').change(function(){
 														<tr id="record-border-menu">
 															<th style="width: 0.8%">순위</th>
 															<th style="width: 4%">이름</th>
+															<th style="width: 0.8%">타율</th>
 															<th style="width: 0.8%">타석</th>
 															<th style="width: 0.8%">타수</th>
-															<th style="width: 0.8%">타수</th>
+															<th style="width: 0.8%">안타</th>
 															<th style="width: 2.2%">2루타</th>
 															<th style="width: 2.2%">3루타</th>
 															<th style="width: 0.8%">홈런</th>
@@ -787,8 +791,6 @@ var clickSelectItem = $('#teamName').change(function(){
 															<th style="width: 0.8%">삼진</th>
 															<th style="width: 0.8%">병살</th>
 															<th style="width: 0.8%">실책</th>
-															<th style="width: 4%">수비포지션</th>
-															<th style="width: 0.8%">타순</th>
 														</tr>
 													</thead>
 													<!-- 테이블 데이터 시작  -->
@@ -797,43 +799,41 @@ var clickSelectItem = $('#teamName').change(function(){
 														<!--  1행 -->
 														<tr>
 															<!-- 순위  -->
-															<td><span bat="1">${item.rank }</span></td>
+															<td><span bat="1">${item.RANK }</span></td>
 															<!-- 이름 -->
-															<td>${item.name }</td>
+															<td>${item.NAME }</td>
 															<!--  -->
-															<td>${item.pa }</td>
+															<td>${item.BA }</td>
 															<!--  -->
-															<td>${item.ab }</td>
+															<td>${item.SUMPA }</td>
 															<!--  -->
-															<td>${item.h }</td>
+															<td>${item.SUMAB }</td>
+															<!--  -->
+															<td>${item.SUMH }</td>
 															<!-- 타수 -->
-															<td>${item.b2 }</td>
+															<td>${item.SUMB2 }</td>
 															<!-- 득점 -->
-															<td>${item.b3 }</td>
+															<td>${item.SUMB3 }</td>
 															<!-- 총안타 -->
-															<td>${item.hr }</td>
+															<td>${item.SUMHR }</td>
 															<!--  -->
-															<td>${item.r }</td>
+															<td>${item.SUMR }</td>
 															<!--  -->
-															<td>${item.rbi }</td>
+															<td>${item.SUMRBI }</td>
 															<!--  -->
-															<td>${item.sb }</td>
+															<td>${item.SUMSB }</td>
 															<!--  -->
-															<td>${item.cs }</td>
+															<td>${item.SUMCS }</td>
 															<!--  -->
-															<td>${item.bb }</td>
+															<td>${item.SUMBB }</td>
 															<!--  -->
-															<td>${item.hbp }</td>
+															<td>${item.SUMHBP }</td>
 															<!--  -->
-															<td>${item.so }</td>
+															<td>${item.SUMSO }</td>
 															<!--  -->
-															<td>${item.gdp }</td>
+															<td>${item.SUMGDP }</td>
 															<!--  -->
-															<td>${item.e }</td>
-															<!--  -->
-															<td>${item.pos }</td>
-															<!--  -->
-															<td>${item.horder }</td>
+															<td>${item.SUME }</td>
 														</tr>
 														<!-- 1행끝 -->
 													</c:forEach>

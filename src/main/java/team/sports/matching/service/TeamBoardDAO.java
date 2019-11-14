@@ -67,11 +67,11 @@ public class TeamBoardDAO {
 	}
 
 	//투수랭킹
-	public List<PitcherDTO> pitcherRank(Map map) {
+	public List<Map> pitcherRank(Map map) {
 		return template.selectList("PitcherRank", map);
 	}
 	//타자랭킹
-	public List<HitterDTO> hitterRank(Map map) {
+	public List<Map> hitterRank(Map map) {
 		return template.selectList("HitterRank", map);
 	}
 

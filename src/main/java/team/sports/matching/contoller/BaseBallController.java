@@ -39,6 +39,40 @@ public class BaseBallController {
 	private BaseBall_HitterDAO hitterDAO;
 	
 	
+	
+	@RequestMapping("/Team/Matching/InsertHitter.do")
+	public String insertHitter(@RequestParam Map map, Model model) {
+		
+		System.out.println(map.get("hitterInsert")!=null ? "있다" : "없다");
+		
+		//상대팀 날짜 구장 시간
+		//2019-10-17 / 키움-SK / 고척  / 1830
+		//#{baseball_awayteam},#{baseball_gamedate},#{baseball_stadium},#{baseball_time}
+		String key = map.get("baseball_key").toString().trim();
+		String[] arr = key.split("/");
+		
+		String baseball_gamedate = arr[0];
+		String versus = arr[1];
+		String[] arr1 =  versus.split("-");
+		String baseball_awayteam = arr1[1].trim();
+		String baseball_stadium = arr[2];
+		String baseball_time = arr[3];
+		
+		System.out.println("여기는 ");
+		map.put("baseball_gamedate", baseball_gamedate.trim());
+		map.put("baseball_awayteam", baseball_awayteam.trim());
+		map.put("baseball_stadium", baseball_stadium.trim());
+		map.put("baseball_time", baseball_time.trim());
+		
+		for(Object key2 : map.keySet()) {
+			System.out.println(String.format("key : %s  |  value : %s", key2,map.get(key2).toString()));
+		}
+		int affected = hitterDAO.insert(map);
+		System.out.println("affected:" +affected);
+		
+		return "forward:/Team/Matching/statostics.do";
+		}
+	
 	@RequestMapping("/Team/Matching/InsertHitterByPARSING") 
 	public String insertHitterByPARSING(@RequestParam Map map, Model model) throws IOException {
 	
@@ -132,53 +166,27 @@ public class BaseBallController {
 
 	}
 	
-	
-	
-	
-	
-	@RequestMapping("/Team/Matching/InsertHitter.do")
-	public String insertHitter(@RequestParam Map map, Model model) {
-		
-		System.out.println(map.get("hitterInsert")!=null ? "있다" : "없다");
-		
-		//상대팀 날짜 구장 시간
-		//2019-10-17 / 키움-SK / 고척  / 1830
-		//#{baseball_awayteam},#{baseball_gamedate},#{baseball_stadium},#{baseball_time}
-		String key = map.get("baseball_key").toString().trim();
-		String[] arr = key.split("/");
-		
-		String baseball_gamedate = arr[0];
-		String versus = arr[1];
-		String[] arr1 =  versus.split("-");
-		String baseball_awayteam = arr1[1].trim();
-		String baseball_stadium = arr[2];
-		String baseball_time = arr[3];
-		
-		System.out.println("여기는 ");
-		map.put("baseball_gamedate", baseball_gamedate.trim());
-		map.put("baseball_awayteam", baseball_awayteam.trim());
-		map.put("baseball_stadium", baseball_stadium.trim());
-		map.put("baseball_time", baseball_time.trim());
-		
-		for(Object key2 : map.keySet()) {
-			System.out.println(String.format("key : %s  |  value : %s", key2,map.get(key2).toString()));
-		}
-		int affected = hitterDAO.insert(map);
-		System.out.println("affected:" +affected);
-		
-		return "forward:/Team/Matching/statostics.do";
-		}
-	
-	
 	@RequestMapping("/Team/Matching/statostics.do")
 	public String selectList(@RequestParam Map map, Model model, Authentication auth) {
 		List<Map> list = new Vector<Map>();
 		//Map<String, List> record = new HashMap<String, List>();
 		System.out.println("selectList 호출!!!!!!");
-		List<Map> records = hitterDAO.hitterSelectList(map);
-		
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
-		records.get(0).put("LOGINID", userDetails.toString());
+		System.out.println("userDetails 잘 찍히나 확인 : "+userDetails.getUsername().toString());
+		
+		System.out.println("userDetails Pass 잘 찍히나 확인 : "+userDetails.getPassword());
+		
+		map.put("USER_ID", userDetails.getUsername().toString());
+		
+		List<Map> records = hitterDAO.hitterSelectList(map);
+		List<Map> teamName = hitterDAO.hitterDetailViewForTeamName(map);
+		List<Map> getProfile = hitterDAO.getProfile(map);
+		
+		
+		
+		for(int i=0;i<teamName.size();i++) {
+			System.out.print(teamName.get(i).get("TEAMNAMEFORMODAL").toString());
+		}
 		
 		
 		for(int i=0; i<records.size();i++) {
@@ -189,18 +197,29 @@ public class BaseBallController {
 			records.get(i).put("SUMAVG", sumavg);
 		}
 		
+		System.out.println(getProfile.size()!=0 ? "사진 가져와짐 : "+getProfile.get(0).toString()  : "사진 소환 실패");
+		
 		model.addAttribute("records", records);
+		model.addAttribute("TEAMNAMES", teamName);
+		model.addAttribute("profile", getProfile);
+		
 		return "member/statistics.tiles";
 
 		}
 	
 	
+	
+	
+	
 	@RequestMapping(value="/Team/Matching/downstatostics.do", method = RequestMethod.POST) 
-	public @ResponseBody List<Map> infiniteScrollDownPOST(@RequestParam Map map) {
+	public @ResponseBody List<Map> infiniteScrollDownPOST(@RequestParam Map map, Authentication auth) {
 		System.out.println("inifiniteScrollDownPost 소환!!!");
 		
-		List<Map> downRecords = hitterDAO.scrollDown(map);
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		System.out.println("userDetails 잘 찍히나 확인 : "+userDetails.getUsername().toString());
+		map.put("USER_ID", userDetails.getUsername().toString());
 		
+		List<Map> downRecords = hitterDAO.scrollDown(map);
 		
 		for(int i=0; i<downRecords.size();i++) {
 			double avg= Math.ceil((Double.parseDouble(downRecords.get(i).get("H").toString()))/(Double.parseDouble(downRecords.get(i).get("AB").toString())) * 10000)/10000.0;
@@ -215,15 +234,37 @@ public class BaseBallController {
 	}
 	
 	
-	@RequestMapping(value="/Team/Matching/upstatostics.do", method = RequestMethod.POST) 
-	public @ResponseBody List<Map> infiniteScrollUpPOST(@RequestParam Map map) {
-		System.out.println("inifiniteScrollUpPost 소환!!!");
-		
-		List<Map> upRecords = hitterDAO.scrollUp(map);
 	
-		return upRecords;
+	@RequestMapping(value="/Team/Matching/hitterDetailView.do", method = RequestMethod.POST) 
+	public @ResponseBody List<Map> hitterDetailView(@RequestParam Map map, Authentication auth) {
+		System.out.println("hitterDetailView 소환!!!");
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		System.out.println("userDetails 잘 찍히나 확인 : "+userDetails.getUsername().toString());
+		
+		
+		map.put("USER_ID", userDetails.getUsername().toString());
+		
+		List<Map> details = hitterDAO.hitterDetailView(map);
+		
+		return details;
 	}
 	
+	@RequestMapping(value="/Team/Matching/hitterDetailViewEachTeam.do", method = RequestMethod.POST) 
+	public @ResponseBody List<Map> hitterDetailViewEachTeam(@RequestParam Map map, Authentication auth ) {
+		System.out.println("hitterDetailViewEachTeam 소환!!!");
+		
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		System.out.println("userDetails 잘 찍히나 확인 --EachTeam선택 : "+userDetails.getUsername().toString());
+		
+		System.out.println("USER_TEAMNAME 잘 나오니?? "+  map.get("USER_TEAMNAME").toString());
+		
+		
+		map.put("USER_ID", userDetails.getUsername().toString());
+		
+		List<Map> details = hitterDAO.hitterDetailViewEachTeam(map);
+		
+		return details;
+	}
 	
 
 }

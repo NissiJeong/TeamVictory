@@ -19,6 +19,88 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES('19-01-01', '서울', HITTER_SEQ.NEXTVAL,#{ID},#{PA},#{AB},#{R},#{H},#{HR},#{RBI},#{BB},#{HBP},#{SO},#{GDP})
 	</insert>
 	
+	<select id="hitterDetailView" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM (SELECT ROWNUM AS RECORDNO,  A.* FROM 
+		    (SELECT GAMEDATE, STADIUM, TIME, ID,TEAMNAME, PA, AB, H, B2, B3, HR, R, RBI, SB, CS, BB, HBP, SO, GDP, E, POS, HORDER,
+		        SUM(PA) OVER(ORDER BY GAMEDATE, TIME) SUMPA,
+		        SUM(AB) OVER(ORDER BY GAMEDATE, TIME) SUMAB,
+		        SUM(H) OVER(ORDER BY GAMEDATE, TIME) SUMH,
+		        SUM(B2) OVER(ORDER BY GAMEDATE, TIME) SUMB2,
+		        SUM(B3) OVER(ORDER BY GAMEDATE, TIME) SUMB3,
+		        SUM(HR) OVER(ORDER BY GAMEDATE, TIME) SUMHR,
+		        SUM(R) OVER(ORDER BY GAMEDATE, TIME) SUMR,
+		        SUM(RBI) OVER(ORDER BY GAMEDATE, TIME) SUMRBI,
+		        SUM(SB) OVER(ORDER BY GAMEDATE, TIME) SUMSB,
+		        SUM(CS) OVER(ORDER BY GAMEDATE, TIME) SUMCS,
+		        SUM(BB) OVER(ORDER BY GAMEDATE, TIME) SUMBB,
+		        SUM(HBP) OVER(ORDER BY GAMEDATE, TIME) SUMHBP,
+		        SUM(SO) OVER(ORDER BY GAMEDATE, TIME) SUMSO,
+		        SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,
+		        SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
+		        FROM hitter 
+                WHERE ID=#{USER_ID} 
+		        ORDER BY GAMEDATE , time ) A
+		       	WHERE 
+		       	<![CDATA[
+                ROWNUM <=(
+		        ]]>
+		            select count(*) from hitter WHERE ID=#{USER_ID})
+		            ) 
+				WHERE
+                <![CDATA[
+		            RECORDNO >= (
+		        ]]>
+		            1
+		            ) AND
+                RECORDNO = (SELECT COUNT(*) FROM HITTER WHERE ID= #{USER_ID})    
+		        ORDER BY GAMEDATE DESC, TIME DESC
+	</select>
+	
+	
+	
+	<select id="hitterDetailViewForTeamName" parameterType="java.util.Map" resultType="java.util.Map">
+		 SELECT TEAMNAME TEAMNAMEFORMODAL, COUNT(TEAMNAME) COUNT FROM HITTER WHERE ID=#{USER_ID} GROUP BY TEAMNAME ORDER BY COUNT DESC
+	</select>
+	
+	
+	
+	<select id="hitterDetailViewEachTeam" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM (SELECT ROWNUM AS RECORDNO,  A.* FROM 
+		    (SELECT GAMEDATE, STADIUM, TIME, ID,TEAMNAME, PA, AB, H, B2, B3, HR, R, RBI, SB, CS, BB, HBP, SO, GDP, E, POS, HORDER,
+		        SUM(PA) OVER(ORDER BY GAMEDATE, TIME) SUMPA,
+		        SUM(AB) OVER(ORDER BY GAMEDATE, TIME) SUMAB,
+		        SUM(H) OVER(ORDER BY GAMEDATE, TIME) SUMH,
+		        SUM(B2) OVER(ORDER BY GAMEDATE, TIME) SUMB2,
+		        SUM(B3) OVER(ORDER BY GAMEDATE, TIME) SUMB3,
+		        SUM(HR) OVER(ORDER BY GAMEDATE, TIME) SUMHR,
+		        SUM(R) OVER(ORDER BY GAMEDATE, TIME) SUMR,
+		        SUM(RBI) OVER(ORDER BY GAMEDATE, TIME) SUMRBI,
+		        SUM(SB) OVER(ORDER BY GAMEDATE, TIME) SUMSB,
+		        SUM(CS) OVER(ORDER BY GAMEDATE, TIME) SUMCS,
+		        SUM(BB) OVER(ORDER BY GAMEDATE, TIME) SUMBB,
+		        SUM(HBP) OVER(ORDER BY GAMEDATE, TIME) SUMHBP,
+		        SUM(SO) OVER(ORDER BY GAMEDATE, TIME) SUMSO,
+		        SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,
+		        SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
+		        FROM hitter 
+                WHERE ID=#{USER_ID} AND TEAMNAME= #{USER_TEAMNAME} 
+		        ORDER BY GAMEDATE , time ) A
+		       	WHERE 
+		       	<![CDATA[
+                ROWNUM <=(
+		        ]]>
+		            select count(*) from hitter WHERE ID=#{USER_ID} AND TEAMNAME= #{USER_TEAMNAME} )
+		            ) 
+				WHERE
+                <![CDATA[
+		            RECORDNO >= (
+		        ]]>
+		            1
+		            ) AND
+                RECORDNO = (SELECT COUNT(*) FROM HITTER WHERE ID= #{USER_ID} AND TEAMNAME= #{USER_TEAMNAME} )    
+		        ORDER BY GAMEDATE DESC, TIME DESC
+	</select>
+	
 	
 	
 	
@@ -43,17 +125,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,
 		        SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
 		        FROM hitter
+		        WHERE ID= #{USER_ID}
 		        ORDER BY GAMEDATE , time) A
 		       		<![CDATA[
 		       	WHERE ROWNUM <=(
 		            ]]>
-		            select count(*) from hitter WHERE ID='LIM12')
+		            select count(*) from hitter WHERE ID=#{USER_ID} )
 		            ) 
 				WHERE 
 		            <![CDATA[
 		            RECORDNO > (
 		            ]]>
-		            (select count(*) from hitter WHERE ID='LIM12') 
+		            (select count(*) from hitter WHERE ID=#{USER_ID} ) 
 		            - 5
 		            ) 
 		        ORDER BY GAMEDATE DESC, TIME DESC
@@ -80,12 +163,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,
 		        SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
 		        FROM hitter
+		        WHERE ID= #{USER_ID}
 		        ORDER BY GAMEDATE , time) A
 		        <![CDATA[
 		       	WHERE ROWNUM <=
 		        ]]>
 		            #{RECORDNO } -1
-		     
 		            ) 
 				WHERE 
 		      	<![CDATA[
@@ -95,29 +178,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            - 5
 		            ) 
 		        ORDER BY GAMEDATE DESC, TIME DESC
-			
-		
-	</select>
-	
-
-	
-	
-	
-	<select id="infiniteScrollUp" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM basehitter A
-		WHERE 
-		<![CDATA[
-		ROWNUM <= ( #{RECORDNO }+5 )) 
-		]]>
-		WHERE 
-		<![CDATA[
-		RNUM > (( #{RECORDNO }))
-		]]>
-		ORDER BY recordno desc
 	</select>
 	
 	
+	<!--                      멤버 정보 변경할거임                          -->
 	
+	
+	<update id="profileChange" parameterType="java.util.Map">
+		UPDATE member SET profile = #{MEMBERPROFILE} where ID = #{USER_ID}
+	</update>
+	
+	<select id="getProfile" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT PROFILE, NAME MNAME from MEMBER where ID = #{USER_ID}
+	</select>
+	
+	
+	<!-- select g.*,t.*,(select teamlogo from team  where teamname = g.awayteam) awayteamlogo  from gameschedule g join team t on g.teamname = t.teamname where g.teamname = (select teamname from teammember where id='KIM12'); -->
 	
 	
 </mapper>

@@ -11,7 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 팀게시판 -->
 	<!-- 팀소개 구하기 -->
 	<select id="TeamSelf" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT t.teamlogo, t.teamname, m.name, t.regidate, t.teamloc, t.teaminfo FROM teammember tm JOIN member m ON tm.id=m.id JOIN team t ON tm.teamname=t.teamname WHERE m.id=t.manager_id and t.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+		SELECT t.teamlogo, t.teamname, m.name, t.regidate, t.teamloc, t.teaminfo 
+		FROM teammember tm JOIN member m ON tm.id=m.id JOIN team t ON tm.teamname=t.teamname 
+		WHERE m.id=t.manager_id and t.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
 	</select>
 	<!-- 선수단구하기 -->
 	<select id="TeamBoardList" parameterType="java.util.Map" resultType="TeamBoardDTO">
@@ -82,15 +84,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 투수랭킹 -->
-	<select id="PitcherRank" parameterType="java.util.Map" resultType="PitcherDTO">
-		SELECT p.*, m.name, ROW_NUMBER() OVER(ORDER BY so DESC) as rank FROM pitcher p JOIN member m ON p.id=m.id 
-		WHERE p.teamname = (select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+	<select id="PitcherRank" parameterType="java.util.Map" resultType="java.util.Map">
+		select DISTINCT a.*,
+            DENSE_RANK() OVER(ORDER BY ERA DESC) as rank 
+            from (select DISTINCT SUM(W) OVER(PARTITION BY name) SUMW,
+		        SUM(L) OVER(PARTITION BY name) SUML,
+		        SUM(BLSV) OVER(PARTITION BY name) SUMBLSV,
+		        SUM(CI) OVER(PARTITION BY name) SUMCI,
+		        SUM(CO) OVER(PARTITION BY name) SUMCO,
+		        SUM(SV) OVER(PARTITION BY name) SUSV,
+		        SUM(HOL) OVER(PARTITION BY name) SUMHOL,
+		        SUM(TBF) OVER(PARTITION BY name) SUMTBF,
+		        SUM(IP) OVER(PARTITION BY name) SUMIP,
+		        SUM(H) OVER(PARTITION BY name) SUMH,
+		        SUM(HR) OVER(PARTITION BY name) SUMHR,
+		        SUM(BB) OVER(PARTITION BY name) SUMBB,
+		        SUM(HBP) OVER(PARTITION BY name) SUMHBP,
+		        SUM(SO) OVER(PARTITION BY name) SUMSO,
+                SUM(R) OVER(PARTITION BY name) SUMR,
+                SUM(ER) OVER(PARTITION BY name) SUMER,
+                round( (SUM(ER) OVER(PARTITION BY name) * 9) /SUM(IP) OVER(PARTITION BY name), 3) as ERA,
+                p.id, m.name 
+                from pitcher p JOIN member m ON p.id=m.id 
+                where p.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum=1) order by ERA DESC) a 
+                JOIN pitcher p on a.id=p.id 
+                order by ERA DESC
 	</select>
 	
 	<!-- 타자랭킹 -->
-	<select id="HitterRank" parameterType="java.util.Map" resultType="BaseBall_HitterDTO">
-		SELECT h.*, m.name, ROW_NUMBER() OVER(ORDER BY r DESC) as rank FROM hitter h JOIN member m ON h.id=m.id 
-		WHERE h.teamname = (select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+	<select id="HitterRank" parameterType="java.util.Map" resultType="java.util.Map">
+		select DISTINCT a.*,
+				DENSE_RANK() OVER(ORDER BY BA DESC) as rank 
+				from (select DISTINCT SUM(PA) OVER(PARTITION BY name) SUMPA,
+		        SUM(AB) OVER(PARTITION BY name) SUMAB,
+		        SUM(H) OVER(PARTITION BY name) SUMH,
+		        SUM(B2) OVER(PARTITION BY name) SUMB2,
+		        SUM(B3) OVER(PARTITION BY name) SUMB3,
+		        SUM(HR) OVER(PARTITION BY name) SUMHR,
+		        SUM(R) OVER(PARTITION BY name) SUMR,
+		        SUM(RBI) OVER(PARTITION BY name) SUMRBI,
+		        SUM(SB) OVER(PARTITION BY name) SUMSB,
+		        SUM(CS) OVER(PARTITION BY name) SUMCS,
+		        SUM(BB) OVER(PARTITION BY name) SUMBB,
+		        SUM(HBP) OVER(PARTITION BY name) SUMHBP,
+		        SUM(SO) OVER(PARTITION BY name) SUMSO,
+		        SUM(GDP) OVER(PARTITION BY name) SUMGDP,
+		        SUM(E) OVER(PARTITION BY name) SUME,
+                round( SUM(H) OVER(PARTITION BY name) /SUM(AB) OVER(PARTITION BY name), 3) as BA,
+                h.id, m.name 
+                from hitter h JOIN member m ON h.id=m.id 
+                where h.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum=1) order by BA DESC) a 
+                JOIN hitter h on a.id=h.id 
+                order by BA DESC
 	</select>
 	
 	<!-- 팀기네스 : 최다득점 -->

@@ -64,6 +64,10 @@
 >>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 </style>
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 
 <<<<<<< HEAD
 =======

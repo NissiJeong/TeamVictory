@@ -11,7 +11,22 @@ public class BettingDTO {
 	private String homeScore;
 	private String awayScore;
 	private String gameDay;
+	private String count;  // 해당 경기에 배팅한 인원수
+	private String bettingMember;  // 해당경기에 배팅한 인원 명단 
 	
+
+	public String getBettingMember() {
+		return bettingMember;
+	}
+	public void setBettingMember(String bettingMember) {
+		this.bettingMember = bettingMember;
+	}
+	public String getCount() {
+		return count;
+	}
+	public void setCount(String count) {
+		this.count = count;
+	}
 	public java.sql.Date getGameDate() {
 		return gameDate;
 	}

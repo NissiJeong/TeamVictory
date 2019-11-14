@@ -30,4 +30,24 @@ public class BettingDAO {
 	public MemberDTO memberPoint(Map map) {
 		return template.selectOne("memberPoint",map);
 	}
+
+	public int pointMinus(Map<String, Object> map) {
+		
+		return template.update("bettingPointMinus",map);
+	}
+
+	public int bettingInsert(Map<String, Object> map) {
+		return template.insert("bettingInsert",map);
+	}
+	 
+	public  List<Map> selectMyBettingList(Map map){
+		return template.selectList("MyBettingList",map);
+	}
+
+	public Map bettingSelectOne(Map map) {
+		  
+		return  template.selectOne("bettingSelectOne", map);
+	}
+	
+
 }
