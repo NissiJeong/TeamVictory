@@ -30,10 +30,8 @@ import team.sports.matching.service.MemberDAO;
 import team.sports.matching.service.TeamBoardDAO;
 import team.sports.matching.service.TeamBoardDTO;
 import team.sports.matching.service.TeamDTO;
-
 import team.sports.printdb.baseball.HitterDTO;
 import team.sports.printdb.baseball.PitcherDTO;
-
 import team.sports.matching.service.impl.MatchDAO;
 
 
@@ -157,14 +155,28 @@ public class TeamController {
 		model.addAttribute("list8",list8);
 		
 		//투수랭킹
+		List<Map> list9 = teamDao.pitcherRank(map);
+		/*
 		map.put("id",id);
 		List<PitcherDTO> list9 = teamDao.pitcherRank(map);
+		*/
 		model.addAttribute("pitcherrank",list9);
 		
 		//타자랭킹
+		List<Map> list10 = teamDao.hitterRank(map);
+		/*
 		map.put("id",id);
 		List<HitterDTO> list10 = teamDao.hitterRank(map);
+		*/
+		/*
+		for(int i=0; i<list10.size();i++) {
+			double sumavg= Math.ceil((Double.parseDouble(list10.get(i).get("SUMH").toString()))/(Double.parseDouble(list10.get(i).get("SUMAB").toString())) * 10000)/10000.0;
+			list10.get(i).put("SUMAVG", sumavg);
+			System.out.println(list10.get(i).get("SUMAVG").toString());
+		}
+		System.out.println();*/
 		model.addAttribute("hitterrank",list10);
+		
 		
 		//팀기네스-최다득점
 		map.put("id",id);
