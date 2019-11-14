@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         or g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
 		ORDER BY g.gamedate DESC
 	</select>
-
+	
 	<!-- 투수랭킹 -->
 	<select id="PitcherRank" parameterType="java.util.Map" resultType="java.util.Map">
 		select DISTINCT a.*,
