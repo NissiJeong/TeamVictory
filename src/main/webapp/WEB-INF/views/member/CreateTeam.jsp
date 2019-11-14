@@ -104,7 +104,6 @@ function isBlank(){
 }
 </script>
 
-  
   <!-- contact-section start -->
   <section class="contact-section section-padding" style="margin-top: -50px">
     <div class="container">

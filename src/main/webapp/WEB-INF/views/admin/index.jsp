@@ -13,7 +13,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>백엔드 시작페이지</title>
+  <title>관리자</title>
 
   <!-- Custom fonts for this template-->
   
@@ -48,18 +48,6 @@ $(function(){
 			}
 		});
 	},500);	
-	$('#scheduleDtail').click(function(){
-		$.ajax({
-			url:"<c:url value='/Team/admin/scheduleCount.do'/>",
-			type:'get',
-			dataType:'text',
-			success:function(data){
-				console.log(data);
-				scheduleCount = data;
-				$('#scheduleCount').html(scheduleCount);
-			}
-		});
-	});
 });
 
 </script>
@@ -68,7 +56,7 @@ $(function(){
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top fixed-top">
 
-    <a class="navbar-brand mr-1" href="<c:url value='/index.jsp'/>">팀프로젝트</a>
+    <a class="navbar-brand mr-1" href="<c:url value='/Team/Member/Index.do'/>">TeamMatching</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -203,7 +191,7 @@ $(function(){
  					게임 결과 입력 <span id="scheduleCount" class="badge badge-pill badge-dark">0</span>  					
                </div>
               </div>
-              <a id="scheduleDtail" class="card-footer text-white clearfix small z-1" href="#">
+              <a id="scheduleDtail" class="card-footer text-white clearfix small z-1" href="<c:url value='/Team/admin/gameRecord.do'/>">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>

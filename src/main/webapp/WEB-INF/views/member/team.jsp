@@ -302,10 +302,19 @@ var clickSelectItem = $('#teamName').change(function(){
 
 <!-- blog-details-section start -->
 <section class="blog-details-section section-padding">
-	
+	<div class="container-fluid">
+		<div class="row" style="margin-top: -60px; margin-bottom: 50px;">
+			<div class="col-md-3 offset-md-9">
+	    		<button type="button" class="btn btn-primary upModal" data-toggle="modal" data-target="#myModal">
+			  		<h4 style="display:inline-block;">Matching!</h4> <span style="font-size: 1.3em" class="badge badge-warning">4</span>
+				</button>
+	    	</div>
+		</div>
+	</div>
 	<div class="container">
+		
 		<div class="row" id="team-name">
-			<div class="form" style="margin-bottom:10px ">			      
+			<div class="col-md-3" style="margin-bottom:10px">			      
 			      <select class="form" id="teamName" name="stadium" onchange="selectTeam(this.value)">
 			        <option value="">팀선택</option>
 			        <c:forEach var="item" items="${teams}" varStatus="loop">
@@ -313,7 +322,9 @@ var clickSelectItem = $('#teamName').change(function(){
 			        </c:forEach>
 			      </select>			    			   
 	    	</div>
+	    	
 		</div>
+		
 		<div class="row">
 			<div class="col-lg-3">
 			<input type="hidden" value="${id}" id="auth"/>
@@ -953,3 +964,97 @@ var clickSelectItem = $('#teamName').change(function(){
 	</div>
 </section>
 <!-- blog-details-section end -->
+
+<!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Start Matching With Rival Team</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+         <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-10">         
+                
+	              
+              	
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName">매칭 확인</h2>
+                
+				  </div>
+				   <div class="col-lg-12">
+                <hr style="border:solid 1px">
+                </div>
+                <div class="col-lg-8">
+                <!-- Icon Divider -->
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >상대팀 정보</h3>
+               	<form id="frm">
+               	<input type="hidden" id="user" value="${id }"/>
+               	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+               	<input name="awayteam" id="awayteam" type="hidden" value='sdfg'/>
+			    <div class="form-group" style="margin-bottom:-10px ">
+			      <label for="sel1">Date</label>
+			      <p><input name='date' type="text" id="datepicker" style="width:100%" ></p>
+			      <br>			   
+			    </div>
+			    <div class="form-group" style="margin-bottom:-10px ">
+			      <label for="sel2" >Time</label>
+			      <select class="form-control" id="sel2" name="time" onchange="checkDateTime(this.value)" >
+			        <option selected="selected" value="ti">시간</option>
+			        <option value="00">00</option>
+			        <option value="01">01</option>
+			        <option value="02">02</option>
+			        <option value="03">03</option>
+			        <option value="04">04</option>
+			        <option value="05">05</option>
+			        <option value="06">06</option>
+			        <option value="07">07</option>
+			        <option value="08">08</option>
+			        <option value="09">09</option>
+			        <option value="10">10</option>
+			        <option value="11">11</option>
+			        <option value="12">12</option>
+			        <option value="13">13</option>
+			        <option value="14">14</option>
+			        <option value="15">15</option>
+			        <option value="16">16</option>
+			        <option value="17">17</option>
+			        <option value="18">18</option>
+			        <option value="19">19</option>
+			        <option value="20">20</option>
+			        <option value="21">21</option>
+			        <option value="22">22</option>
+			        <option value="23">23</option>
+			      </select>
+			      <span id="timeError" style="color:red; font-size: 0.8em"></span>
+			      <br>			   
+			    </div>
+			     <div class="form-group" style="margin-bottom:10px ">
+			      <label for="sel3" >Stadium</label>
+			      <select class="form-control" id="sel3" name="stadium" onchange="checkDateTime(this.value)" disabled="true"  >
+			        <option value="stadium">경기장</option>
+			        <option value="1">1</option>
+			        <option value="2">2</option>
+			        <option value="3">3</option>
+			        <option value="4">4</option>
+			      </select>
+			      <span id="stadiumError" style="color:red; font-size: 0.8em"></span>
+			      <br>			   
+			    </div>
+			    <button id="match" type="submit" class="btn btn-primary" href="#" data-dismiss="modal" style="width:100%;line-height: 40px" disabled="true">                  
+                  	매칭 신청
+                </button>
+			  </form>
+			</div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

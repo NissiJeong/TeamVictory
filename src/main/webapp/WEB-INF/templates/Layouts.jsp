@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="shortcut icon" type="image/png" href="<c:url value='/assets/images/favicon.jpg'/>"/>
-  <title>Butlar - Sports Betting HTML Template</title>
+  <title>Matching</title>
   <!-- fontawesome css link -->
   <link rel="stylesheet" href="<c:url value='/assets/css/fontawesome.min.css'/>">
   <!-- flat icon css link -->
