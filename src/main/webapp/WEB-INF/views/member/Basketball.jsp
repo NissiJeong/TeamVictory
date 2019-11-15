@@ -8,11 +8,8 @@
 <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
 <script>
-        //웹소켓 객체 저장용
+       
         var wsocket;
-        //닉 네임 저장용
-        var nickname;
-        var user
         var position = "Select your Position"
         var center = "Center"
         var forwar = "Forward"
@@ -22,59 +19,133 @@
         var roomtitle = $("#roomTitle").val();
         var possible = "possible";
         var room;
-        var user = $("#session").val()
-        $(function(){
-            wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
-            	
+       
+        $(function(){///
+        	var users = $("#auth").val();
+        	console.log(users)
+        	if(users == 'ADMIN'){
+        		wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
+        		//console.log('ADMIN으로 접속')
+        	}
+        	else{
+            	wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
+            	console.log(users,'로 접속')
+        	}
             wsocket.onopen = function(){
-        		 console.log('문이열리네요~')
-        		 wsocket.send('최초접속유저:'+user+':'+'')
-        		 console.log(user)
-        		 wsocket.onmessage = function(msgg){
-             		console.log(msgg)
-             		 wsocket.addEventListener('roomList',roomList);
-             	}
-        		
-        	 }
-            	
+        		 console.log('소켓열림')
+            }
+            wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
+            wsocket.onmessage = function(msgg){
+            	//서버에서 받을때 분기해야돼
+        		 console.log('서버에서 데이터를 받을때마다 : ',msgg.data)
+        		 var chat = msgg.data;
+        		 if(chat.substring(0,4) === 'msg:'){//채팅내용을 서버에서 받을 때.
+        			 console.log('채팅(msg:)로 분기 했을 때',chat)
+        			 var msg = chat.substring(4)
+        			 $('.comment-area').append("<div class='from-them'>"+msg+"</div></br>").scrollTop('9999999');
+        			 return;
+        		 }
+        		 if(chat.substring(0,4) === 'user'){//방클릭시 유저목록 서버에서 받을 때
+        			 //console.log('유저목록(user)으로 분기 했을 때',chat,chat)
+        			 users = JSON.parse('"user"',msgg.data)
+        			 	var user2 = msgg.data.substring(4);
+        		 		//console.log('user없는거 : ',user2)
+        		 		var user3 = JSON.parse(user2)
+        		 		$('#connectionList').text('');
+        		 		$.each(user3, function(index, element){
+        		 			user = element['id']
+         					$("#connectionList").append("<div class='discussion'>"
+         							+"<i class = 'flaticon-user'>" 
+         							+"</i>"
+         							+"<div class='desc-contact'>"
+         							+"<p class='name'>"+user+"</p>"
+         							+"</div>"
+         							+"<div class='timer'>접속시간</div>"
+         							+"<button class='btn btn-info' style='margin-left: 30%' onclick='readyButton"+index+"()'>"
+         							+"Ready</button>"
+         							+"</div>")
+        		 		})
+        			 return;
+        		 }
+        		 if(chat.substring(0,4) === "list"){//방 생성시 방목록 서버에서 받을 때.
+        			 //console.log('From handleTextMessage to clients : roomList')
+        			 $("#chattingRoom").text('')
+        			 chat = JSON.parse('"list"',msgg.data) //서버에서 넘어온 문자열(list)+json객체
+        			 	var chat2 = msgg.data.substring(4); //list 잘라내기
+        		 		//console.log('list없는거 : ',chat2) //여기까지 됨
+        		 		var chat3 = JSON.parse(chat2)//다시 파싱
+        			 		$.each(chat3, function(index, element){
+        			 		titles=element['title']
+        			 		regidate=element['regidate']
+        			 		//console.log('list로 분기한곳에서 title, regidate 찍기',titles, regidate)
+        			 		$("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+regidate+"</span></a></li>");		
+        			 	})
+        			 return;
+        		 }
+        		 if(chat.substring(0,5) === "start"){
+        			 //console.log('From afterConnectionEstablished to Clients')
+        			 $("#chattingRoom").text('')
+            		 chat = JSON.parse('"start"',msgg.data)
+            		 var chat2 = msgg.data.substring(5);
+            		 //console.log('start없는거 : ',chat2);
+            		 var chat3 = JSON.parse(chat2); //JSON 배열 앞 문자열 지운거 다시 파싱하기.
+            		 	 $.each(chat3, function(index, element){
+             				titles=element['title']
+              				regidate=element['regidate']
+             				
+           			 $("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+regidate+"</span></a></li>");		
+        		 }) 	
+        		 }
+        		 /*
+        		 if(chat.substring(0,7)=== "priUser"){
+        			 console.log('From handleTextMessage to clients : priUser')
+        			 $('#connectionList').text('')
+        			 chat = JSON.parse('"priUser"',msgg.data)
+        			 var priUser = msgg.data.substring(7);
+        			 console.log('priUser없는거 : ',priUser)
+        			 var priUsers = JSON.parse(priUser);
+        			 	$.each(priUsers, function(index, element){
+        			 		priUser = element['id']
+        			 		$("#connectionList").append("<div class='discussion'>"
+         							+"<div class='photo'>" 
+         							+"</div>"
+         							+"<div class='desc-contact'>"
+         							+"<p class='name'>"+priUser+"</p>"
+         							+"</div>"
+         							+"<div class='timer'>접속시간</div>"
+         							+"<button class='btn btn-info' style='margin-left: 30%'>"
+         							+"Ready</button>"
+         							+"</div>")
+        			 	})
+        		 }
+        		 */
+        		 	 }
+              
+             
+            
              /* Create room */
              $("#createRoom").click(function(){
                 var position = selected 
-                $('.text').text('')
                 $.ajax({
                    url: "<c:url value='/Team/Matching/createRoom.do'/>",
                    data : $("#create").serialize(),
                    dataType : 'text',
                    type:'post',
                    success:function(data){
-                 	 wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>"); 
-                 	 wsocket.onopen = function(){
-                 		 console.log(user)
-                 		 if(user != null){
-                 			 console.log('만든방 : ',data)
-                 			 wsocket.send("title"+data+"="+user);
-                 			swal(data+"생성에 성공하였습니다!", "", "success");
-                 			 
-                 		 }
-                 		 wsocket.addEventListener('userList',userList);
-                 	 }
-                 	
+                	 console.log('방만들때',users)
+                	 //3:04 추가 방만들었을때 유저목록 초기화 안되서
+                	$('#connectionList').text('');
+               		 if(users != null){
+               			console.log('만든방 : ',data)
+               			wsocket.send("title"+data+"="+users);
+               			swal(data+"생성에 성공하였습니다!", "", "success");
+               		 }
                    }
    				})
                 
             });///ajax
-        
-           
-           //방뿌려주기
-         window.setInterval(function(){
-            $.ajax({
-              url:"<c:url value='/Team/Matching/listRoom.do'/>",
-              dataType : 'json',
-              success:function(data){successList(data,'list')}
-           })
-          },500);
-           
-           //방 만든 후 텍스트 초기화
+
+       		//방 만든 후 텍스트 초기화
            $("#makeRoom").click(function(){
               $("#create input[type=text]").val('');
              
@@ -90,76 +161,45 @@
            
            //메시지 입력후 전송 버튼 클릭이 아닌 엔터키처리
            $('#message').on('keypress',function(e){
-              //console.log('e.keyCode:%s,e.which:%s',e.keyCode,e.which);
+              
               var keyValue = e.keyCode ? e.keyCode:e.which;
               if(keyValue == 13){//엔터 입력
                  send_message();
               }
               e.stopPropagation();
-           });
+           }); 
            
-        });
-        
+        });///
         
         //입장버튼
         var title2;
         function roomBtn(room){
-        	
+        	users = $('#auth').val()
         	$('.text').text('')
         	$("#connectionList").text('')
            console.log('선택한 방 : ',room);
+        	console.log('누른 아이디 : ',users);
            title2 = room;
            $.when($.ajax({
                url:"<c:url value='/Team/Matching/Ent.do'/>",
                dataType : 'text',
-               data : {title:room, id:user},
+               data : {title:room, id:users},
                type:'get',
                success:function(data){
-            	   console.log(data)
-            	 
-            	   if(user != null && data == possible){
-            		   
-                       wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
-                       wsocket.onopen = function(){
-                       	wsocket.send("title"+room+"="+user)
-                       	//joinUser("채팅방에 입장하였습니다.");
+            	   if(users != null && data == possible){
+                       	wsocket.send("title"+room+"="+users)
                        	swal(title2+"에 접속하셨습니다!", "", "success");
-                       }  
-                       wsocket.onclose=function(){appendMessage("연결이 끊어졌어요.")};
-                       wsocket.addEventListener('userList',userList);
-                    }
+            	   }  
                     else{
+                    	wsocket.send("title"+room+"="+users)//안되도 유저목록은 변경없어야되서 추가함(11/14)
                     	swal("입장이 불가능합니다", "", "warning");
                     };
-                    
                }
-            })).done(function(){
-            	/* ajax() */
-            })
+            }))
         };
-        
-        
        
-        /*'_csrf':'${_csrf.token}'*/
 /*===========================================================함수 정의===========================================================*/
-       var userList ; 
-        
-    	  /* var ajax = function(data){
-    		   window.setInterval(function(){
-    			$.ajax({
-               url:"<c:url value='/Team/Matching/ExistUser.do'/>",
-               dataType : 'text',
-               data : {title:title2},
-               type:'post',
-               success:function(data){
-            	   console.log(data)
-            	   $(".discussion").remove()
-            	  
-               }
-	})
-});///ajax 
-    	   } */
-
+       
        var positionCheck = function(data){
        
         var target = document.getElementById("position")
@@ -199,104 +239,18 @@
         };/////checkTitle
         
         var cindex = -1;
-        //방제목 넘기기
-        var successList = function(data,id){
-           
-           $(".small1").remove();
-           $('.post-meta').remove();
-           $.each(data, function(index, element){
-              cindex=index
-              title3=element['title'];
-              regidate=element['regidate'];
-              
-              $("#chattingRoom").append("<li class='small1' id='chat"+index+"'><a onclick='roomBtn(\""+title3+"\")'><i class='flaticon-basketball' style='float:left'></i>"+title3+"<span>"+regidate+"</span></a></li>");
-               
-           })
-        };
-        
-       //접속시 방 목록 서버에서 데이터 받는 곳. 
-       var roomList = function(evt){
-    	   var receiveData = evt.data;
-    	   console.log('접속시 : ',receiveData)
-       } 
        
-       //방 입장시 입장인원 서버에서 데이터 받는곳.
-       var userList = function(evt){
-    	   var receiveData = evt.data;
-    	   console.log('입장시',receiveData);
-       }
-       
-       //서버에서 메시지를 받을때마다 호출되는 함수
-       var message= function(e){
-          //서버로부터 받은 데이타는 이벤트객체(e).data속성에 저장되어 있다
-          var receiveData = e.data;
-          
-          console.log(receiveData)
-          if(receiveData.substring(0,4) =='msg:'){
-             clientMsg(receiveData.substring(4));
-             console.log(receiveData.substring(4))
-          }
-          else if(receiveData.substring(0,4) =='List'){
-        	 userList(receiveData.substring(5))
-          }
-          else if(receiveData.substring(0, 2)=='[{"'){
-        	  $.each(receiveData, function(index, element){
-        		  list = element['title']
-        		  regidate = element['regidate'];
-        		  console.log(list, regidate)
-        		  list(receiveData.substring(3))
-        	  })
-          }
-        };
-        //
-        
-        var deleteList = function(){
-        	$('connectionList').text('')
-        	console.log('되냐?')
-        	
-        }
-       
-        var userList = function(msg){
-        	/*서버에서 데이터 받기전에 초기화 시켜야함*/
-        	if(msg!=$("name").val()){
-        	 $("#connectionList").append("<div class='discussion'>"
-						+"<div class='photo'>" 
-						+"</div>"
-						+"<div class='desc-contact'>"
-						+"<p class='name'>"+msg+"</p>"
-						+"</div>"
-						+"<div class='timer'>접속시간</div>"
-						+"<button class='btn btn-info' style='margin-left: 30%'>"
-						+"Ready</button>"
-						+"</div>")
-        	
-        	}
-        }
-       
-        var joinUser = function(msg){///유저접속하면용
-			
-        	
-           $("#join").append("<span id='join' style='text-align: center; clear: both;'>"+msg+"</span><br/>")
-           
-        };
-        
-         var clientMsg = function(msg){
-        	 
-            $('#chatMessage1').after("<div id='clientsMessage' style='float: left; clear: both;margin-top:10px'><p>"+msg+"</p></div></br>");
-             
-         }
         //메시지를 DIV태그에 뿌려주기 위한 함수]
         var appendMessage=function(msg1){
            //메시지출력
-          
-           $('.chat').after("<div id='chatMessage1' style='float: right; clear: both; margin-top:10px'><p>"+msg1+"</p></div></br>");
-           
+           $('.comment-area').append("<div class='from-me'>"+msg1+"</div></br>").scrollTop('9999999');
+            
         };
+        
         //서버로 메시지 전송하는 함수]
         function send_message(){
-           
            //서버로 메시지 전송
-           wsocket.send('msg:'+user+':'+$('#message').val());//msg:KIM:안녕
+           wsocket.send('msg:'+users+':'+$('#message').val());//msg:KIM:안녕
            //DIV(대화영역)에 메시지 출력
            appendMessage($('#message').val());
            //기존 메시지 클리어
@@ -304,10 +258,100 @@
            //포커스 주기
            $('#message').focus();
         }
+        var readyCount = 0;
+        function readyButton1(){
+        	console.log('123123123123121321312312312312312312312312312')
+          	 readyCount++;
+          		 if(readyCount > 1){
+          			 readyCount = 0;
+          			//console.log('1번 버튼',readyCount)
+          		 }
+          		console.log('1번 버튼',readyCount)
+        }
+        
+        function readyButton2(){
+        	console.log('123123123123121321312312312312312312312312312')
+          	 readyCount++;
+          		 if(readyCount > 1){
+          			 readyCount = 0;
+          			//console.log('1번 버튼',readyCount)
+          		 }
+          		console.log('2번 버튼',readyCount)
+        }
+        
     </script>
 <style>
 
 
+.from-me {
+  position: relative;
+  padding: 10px 20px;
+  color: white;
+  background: #0B93F6;
+  border-radius: 25px;
+  float: right;
+  clear: both;
+  margin-bottom: 10px;
+  margin-right: 15px;
+}
+.from-me:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: -2px;
+  right: -7px;
+  height: 20px;
+  border-right: 20px solid #0B93F6;
+  border-bottom-left-radius: 16px 14px;
+  -webkit-transform: translate(0, -2px);
+}
+.from-me:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: -2px;
+  right: -56px;
+  width: 26px;
+  height: 20px;
+  background: white;
+  border-bottom-left-radius: 10px;
+  -webkit-transform: translate(-30px, -2px);
+}
+
+.from-them {
+  position: relative;
+  padding: 10px 20px;
+  background: #E5E5EA;
+  border-radius: 25px;
+  color: black;
+  float: left;
+  clear: both;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+.from-them:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -2px;
+  left: -7px;
+  height: 20px;
+  border-left: 20px solid #E5E5EA;
+  border-bottom-right-radius: 16px 14px;
+  -webkit-transform: translate(0, -2px);
+}
+.from-them:after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  bottom: -2px;
+  left: 4px;
+  width: 26px;
+  height: 20px;
+  background: white;
+  border-bottom-right-radius: 10px;
+  -webkit-transform: translate(-30px, -2px);
+}
 
 #title{
    background-size: 18px;
@@ -317,9 +361,6 @@
     box-shadow: 0 0 10px 2px rgba(0,0,0,0);
     border: none;
 }
-
-
-
 .discussion{
 width: 100%;
 height: 90px;
@@ -518,7 +559,9 @@ background-repeat: no-repeat;
   background-color: #e3effd !important;
 }
 #clientsMessage{
-
+  float: left; 
+  clear: both; 
+  margin-top:10px;
   font-family: 'Hi Melody', cursive;
   margin-right: 0px !important;
   margin-left:auto; 
@@ -526,11 +569,14 @@ background-repeat: no-repeat;
   opacity: 0.7;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
-  width: 20%
+  width: 50%;
+  font-size: 1.5em;
   	
 }
-#chatMessage1{
-
+#myChat{
+  float: right; 
+  clear: both; 
+  margin-top:10px;
   font-family: 'Hi Melody', cursive;
   margin-right: 0px !important;
   margin-left:auto;
@@ -538,8 +584,8 @@ background-repeat: no-repeat;
   opacity: 0.7;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
-  width: 20%
-  
+  width: 50%;
+  font-size: 1.5em;
 }
 
 
@@ -573,43 +619,21 @@ background-repeat: no-repeat;
          <!-- Member List start -->
          <div id="connectionList">
          <input type="hidden" value="${title }" id="roomTitle">
-         <input type="hidden" value="${id}" id="session" >
+         <input type="hidden" value="${id }" id="auth"/>
+         
            <!-- 유저목록 뿌려주는곳 -->
          </div>
         
             <div class="comment-area" style="overflow: auto; height: 720px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);" >
             <!-- Chatting Start -->
          <section class="chat" >
+         <div class="chatArea" style="width: 100%"></div>
+         
            
-       <i class=""></i>
-        
-        <!-- <div id="join" style="float: right;"><p >right</p></div></br>
-        <div id="join" style="float: left;" ><p >left</p></div></br>
-        <div id="join" style="float: right;"><p >right</p></div></br>
-        <div id="join" style="float: left;"><p >left</p></div></br>
-        <div id="join" style="float: right;"><p >right</p></div></br>
-        <div id="join" style="float: left;"><p >left</p></div></br> -->
-            <!-- <div style="text-align: center;" id=""></div>
-               <span id="join" style="text-align: center;"></span>
-                   
-          <div class="message">
-               
-          <p class="text" id="chatMessage1"></p>
-                 <div id="chatMessage"></div>
-          </div>
-          
-          <div class="message text-only">
-            <div class="response" style="margin-left: auto;float: right;margin-right: 0px">
-              <p class="text" id="chatMessage">
-                 서버로부터 받은 메세지
-              </p>
-            </div>
-          </div> -->
-        
         <!-- Chatting End -->
-        <div id="roomm">
+        <!-- <div id="roomm"> -->
         
-        </div>
+        <!-- </div> -->
         <!-- Insert Text Start -->
         <div class="footer-chat">
           <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>

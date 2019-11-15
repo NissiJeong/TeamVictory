@@ -93,6 +93,11 @@ public class BasketballDAO {
 		return template.selectList("selectTitle",map);
 	}
 	
+	public BasketballDTO newTitle(Map map) {
+		
+		return template.selectOne("newTitle",map);
+	}
+	
 }
 
 

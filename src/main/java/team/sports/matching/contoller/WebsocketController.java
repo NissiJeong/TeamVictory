@@ -70,18 +70,19 @@ public class WebsocketController {
 	@ResponseBody
 	@RequestMapping(value = "/Team/Matching/createRoom.do", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String createRoom(@RequestParam Map map, Authentication auth) {
+		
 		int affected = 0;
 		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+		
 		map.put("id", userDetails.getUsername());
-		String title = map.get("title").toString();
-		System.out.println(title);
-		System.out.println(map.get("position"));
-
+		
+		String title = null; //만든 title
+		
 		affected = bdao.createRoom(map);
 		if (affected == 1) {
 			// System.out.println("방 생성완료");
 			bdao.chatMember(map);
-
+			title = map.get("title").toString();
 		}
 
 		return title;
@@ -129,11 +130,10 @@ public class WebsocketController {
 
 		
 		int enter = Integer.parseInt(bdao.limitRoom(map));
-		System.out.println("컨트롤러 : "+map.get("title"));
-		System.out.println("아이디:"+map.get("id"));
+		
 		int existUser = Integer.parseInt(bdao.existUser(map));
-		System.out.println(existUser);//1일땐 안돼
-		System.out.println("컨트롤러에서 넘겼다"+existUser);
+		
+		
 		System.out.println("클릭한 방의 인원 : "+enter);
 		String impossible = "impossible";
 
