@@ -114,5 +114,10 @@ public class CreatTeamController /*implements HandlerExceptionResolver*/ {
 		view.setUrl("/Team/Matching/createTeam.do");
 		mav.setView(view);
         return mav;		
-	}*/
+
+	}
+	*/
+
+	
+
 }

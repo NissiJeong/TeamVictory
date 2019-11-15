@@ -33,6 +33,8 @@
 
 </head>
 <script>
+var currentCount = 0;
+var badgeCount = 0;
 $(function(){
 	window.setInterval(function(){
 		$.ajax({
@@ -41,9 +43,23 @@ $(function(){
 			dataType:'text',
 			success:function(data){
 				console.log(data);
+				scheduleCount = data;
+				$('#scheduleCount').html(scheduleCount);
 			}
 		});
 	},500);	
+	$('#scheduleDtail').click(function(){
+		$.ajax({
+			url:"<c:url value='/Team/admin/scheduleCount.do'/>",
+			type:'get',
+			dataType:'text',
+			success:function(data){
+				console.log(data);
+				scheduleCount = data;
+				$('#scheduleCount').html(scheduleCount);
+			}
+		});
+	});
 });
 
 </script>
@@ -183,9 +199,11 @@ $(function(){
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-list"></i>
                 </div>
-                <div class="mr-5">11 New Tasks!</div>
+               <div class="mr-5">                	
+ 					게임 결과 입력 <span id="scheduleCount" class="badge badge-pill badge-dark">0</span>  					
+               </div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a id="scheduleDtail" class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>

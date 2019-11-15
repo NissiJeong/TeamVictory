@@ -219,6 +219,7 @@ CREATE TABLE pitcher
 	stadium nvarchar2(20) NOT NULL,
 	time number NOT NULL,
 	ID nvarchar2(15) NOT NULL,
+	teamName nvarchar2(20) NOT NULL,
 	W number,
 	L number,
 	blsv number,
@@ -359,6 +360,12 @@ ALTER TABLE hitter
 
 
 ALTER TABLE matching
+	ADD FOREIGN KEY (teamName)
+	REFERENCES Team (teamName)
+;
+
+
+ALTER TABLE pitcher
 	ADD FOREIGN KEY (teamName)
 	REFERENCES Team (teamName)
 ;

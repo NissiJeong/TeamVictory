@@ -30,8 +30,7 @@ $( function() {
 		  position: 'top-end',
 		  title: receiveData,
 		  showConfirmButton: true
-		}).then((result) => {
-			
+		}).then((result) => {			
 			window.open('<c:url value="/Team/Matching/Team.do"/>');
 		});
 	});

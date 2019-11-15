@@ -219,8 +219,7 @@
 			<!--Body-->
 			<div class="modal-body">
 			
-			<c:forEach var="item" items="${list}" varStatus="loop">
-				<c:if test="${item.TEAMNAME == item.TEAMNAME}" var="result">
+
 				<ul>
 					<li><span class="title">팀장</span>${item.NAME }</li>
 					<li><span class="title">연고지</span>${item.TEAMLOC}</li>
@@ -229,9 +228,7 @@
 						</li>
 						
 				</ul>
-				</c:if>
-				</c:forEach>
-				
+
 			
 				<ul>
 					<li><span class="title">가입자명</span> 박준석</li>
@@ -247,7 +244,11 @@
 				</ul>
 				<div class="joinbtn">
 					<!-- <a href="#none" id="joinBtn"><img src="//img.gameone.kr/club/btn_join.png" alt="가입하기" /></a> -->
+<<<<<<< HEAD
+					<Button type="button" class="btn btn-info">가입하기</Button>
+=======
 					<Button type="button" class="btn btn-info" onclick=" ">가입하기</Button>
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 				</div>
 			</div>
 			<!--  Body -->
