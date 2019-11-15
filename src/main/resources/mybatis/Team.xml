@@ -240,4 +240,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="TeamNameSearch" parameterType="java.util.Map" resultType="Map">
 		SELECT t.*, m.name FROM team t JOIN member m ON m.id=t.manager_id order by teamname
 	</select>
+	<!-- 최신 매칭 카운트 가져오기 -->
+	<select id="selectMatching" parameterType="java.util.Map" resultType="int">
+		select count(*) from matching where enemyteam = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1)
+	</select>
+	<!-- 매칭 대기 상태인 글 가져오기 -->
+	<select id="selectWaiting" parameterType="java.util.Map" resultType="int">
+		select count(*) from matching where enemyteam = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1) and MATCHSTATUS = 'waiting'
+	</select>
+	<!-- 매칭한 팀의 정보 가져오기 -->
+	<select id="selectMatchingInfo" parameterType="java.util.Map" resultType="Map">
+		select * from team t join
+		(select * from 
+		(select T.*,ROWNUM r from
+		(select * from matching where enemyteam = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1) order by matchingno desc) T)
+		<![CDATA[ 
+		where r<=#{matchCount}) N on t.teamname = n.teamname
+		]]>
+	</select>
+	<!-- matchStatus complete으로 update -->
+	<update id="updateMatchStatus" parameterType="java.util.Map">
+		update matching set matchstatus = 'complete' where matchingno=#{MATCHINGNO}
+	</update>
+	<!-- matching reject후 matchStatus cancel로 -->
+	<update id="cancelMatch" parameterType="java.util.Map">
+		update matching set matchstatus = 'cancel' where matchingno=#{MATCHINGNO}
+	</update>
+	<!-- gameSchedule에 insert할 데이터 가져오기 -->
+	<select id="selectGame" parameterType="java.util.Map" resultType="Map">
+		select * from matching where matchingno = #{MATCHINGNO}
+	</select>
+	<!-- gameSchedule에 입력 -->
+	<insert id="insertSchedule" parameterType="java.util.Map">
+		insert into gameschedule(no,gamedate,stadium,time,awayteam,gamestatus,teamname) values(SEQ_GAMESCHEDULE.nextval,#{REQDATE},#{STADIUM},#{TIME},#{ENEMYTEAM},default,#{TEAMNAME})
+	</insert>
+	<!-- 매친 신청한 팀의 최근 5경기 기록 가져오기 -->
+	<select id="selectRecord222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule order by gamedate desc) where (teamname = #{teamName} or awayteam=#{teamName}) and
+		<![CDATA[
+		rownum <= 5 and gamestatus = 'finish'
+		]]> 
+	</select>
 </mapper>

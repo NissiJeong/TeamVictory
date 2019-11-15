@@ -44,7 +44,7 @@ DROP SEQUENCE SEQ_gameRecord;
 DROP SEQUENCE SEQ_Gameschedule;
 DROP SEQUENCE SEQ_matching;
 DROP SEQUENCE SEQ_message;
-
+drop sequence seq_teammember;
 
 
 
@@ -60,6 +60,7 @@ CREATE SEQUENCE SEQ_gameRecord INCREMENT BY 1 START WITH 1 nocache nocycle;
 CREATE SEQUENCE SEQ_Gameschedule INCREMENT BY 1 START WITH 1 nocache nocycle;
 CREATE SEQUENCE SEQ_matching INCREMENT BY 1 START WITH 1 nocache nocycle;
 CREATE SEQUENCE SEQ_message INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE seq_teammember INCREMENT BY 1 START WITH 1 nocache nocycle;
 
 
 
@@ -173,7 +174,7 @@ CREATE TABLE matching
 	stadium nvarchar2(20) NOT NULL,
 	reqDate date NOT NULL,
 	time number NOT NULL,
-	matchStatus nvarchar2(20) DEFAULT 'wating' NOT NULL,
+	matchStatus nvarchar2(20) DEFAULT 'waiting' NOT NULL,
 	PRIMARY KEY (matchingNo)
 );
 
@@ -185,7 +186,7 @@ CREATE TABLE member
 	profile nvarchar2(50),
 	gender nvarchar2(6) NOT NULL,
 	birth nvarchar2(10),
-	PWD varchar2(20) NOT NULL,
+	PWD varchar2(200) NOT NULL,
 	phone varchar2(11) NOT NULL,
 	email nvarchar2(50) NOT NULL,
 	regidate date DEFAULT SYSDATE,
@@ -481,7 +482,7 @@ BEGIN
 	FROM dual;
 END;
 
-/*/
+/
 
 
 

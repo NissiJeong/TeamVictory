@@ -80,6 +80,42 @@ public class MemberDAO {
 	public MemberDTO findByStringId(String username) {
 		return template.selectOne("findByStringId", username);
 	}
+
+	public int selectMatching(Map map) {
+		return template.selectOne("selectMatching", map);
+	}
+	//매칭 신청한 팀 정보 가져오기
+	public List<Map> selectMachingInfo(Map map) {
+		
+		return template.selectList("selectMatchingInfo", map);
+	}
+	//매칭 신청한 팀의 최근 5경기 기록 가져오기
+	public List<Map> selectRecord222(Map map) {		
+		return template.selectList("selectRecord222", map);
+	}
+	//matchStatus update(complete)
+	public int updateMatchStatus(Map map) {
+		return template.update("updateMatchStatus", map);
+		
+	}
+	//게임스케쥴에 넣은 데이터 가져오기
+	public Map selectGame(Map map) {
+		
+		return template.selectOne("selectGame",map);
+	}
+	//게임스케쥴에 인설트
+	public int insertSchedule(Map inMap) {
+		return template.insert("insertSchedule", inMap);
+	}
+	//matching reject 후 matchStatus cancel
+	public int cancelMatch(Map map) {
+		
+		return template.update("cancelMatch", map);
+	}
+	//matchingstatus waiting 가져오기
+	public int selectWaiting(Map map) {
+		return template.selectOne("selectWaiting",map);
+	}
 	
 
 }/////class
