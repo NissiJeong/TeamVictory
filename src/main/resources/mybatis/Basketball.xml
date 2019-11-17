@@ -73,4 +73,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM chatroom WHERE title=#{title}
 	</select>
 	
+	<update id="ready" parameterType="java.util.Map">
+		UPDATE chatroom SET readyCount = readycount+1 WHERE title = (SELECT title from chatmember where id=#{id}) 
+	</update>
+	
+	<update id="cancel" parameterType="java.util.Map">
+	    UPDATE chatroom SET readyCount = readycount-1 WHERE title = (SELECT title from chatmember where id=#{id}) 
+	</update>
+	
+	<select id="startMatcing" parameterType="java.lang.String" resultType="String">
+		SELECT id FROM chatroom WHERE title = (SELECT title FROM chatmember WHERE id = #{id}) AND readyCount = 2
+	</select>
+	
 </mapper>

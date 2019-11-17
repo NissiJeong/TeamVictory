@@ -87,7 +87,7 @@ public class WebsocketController {
 
 		return title;
 	}
-
+/*
 	@RequestMapping(value = "/Team/Matching/listRoom.do", produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String listRoom() {
@@ -112,7 +112,7 @@ public class WebsocketController {
 		return JSONArray.toJSONString(collections);
 
 	}/////////// listRoom
-
+*/
 	@ResponseBody
 	@RequestMapping(value = "/Team/Matching/checkTitle.do", produces = "text/html; charset=UTF-8")
 	public String checkTitle(@RequestParam Map map) {
@@ -144,18 +144,31 @@ public class WebsocketController {
 		return impossible;
 
 	}
+	
+	@ResponseBody
+	@RequestMapping("/Team/Matching/ReadyButton.do")
+	public String readyCount(@RequestParam Map map) {
+		
+		String id = map.get("id").toString();
+		int readyCount = Integer.parseInt(map.get("readyCount").toString());
+		String ready = "ready";
+		if(readyCount == 1) {
+			
+			System.out.println(id+" : "+"준비완료(readyCount 1)");
+			bdao.ready(id);
+			
+		}
+		else {
+			
+			System.out.println(id+" : "+"준비해제(readyCount 0)");
+			bdao.cancel(id);
+			ready = "cancel";
+		}
+		
+		return ready;
+	}
 
 	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("/Team/Matching/ExistUser.do") public String
-	 * userList(@RequestParam Map map) { System.out.println("두번째 AJAX");
-	 * 
-	 * int exist = Integer.parseInt(bdao.existUser(map)); System.out.println(exist);
-	 * 
-	 * return ""; }
-	 */
 	 
 
 }//////////// class

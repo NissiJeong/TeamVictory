@@ -98,6 +98,20 @@ public class BasketballDAO {
 		return template.selectOne("newTitle",map);
 	}
 	
+	public int ready(String id) {
+		return template.update("ready", id);
+	}
+	
+	public int cancel(String id) {
+		return template.update("cancel", id);
+	}
+	
+	public String startMatcing(String id){
+		
+		return template.selectOne("startMatcing",id);
+		
+	}
+	
 }
 
 

@@ -108,6 +108,8 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
         //이전 방
         String priTitle = "";
         
+        
+        
         if(message.getPayload().contains("=")) {
         	
         title = message.getPayload().substring(5,startIndex); 
@@ -202,7 +204,6 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
         
         System.out.println("session.size() : "+clients.size());
         	
-        
         //방 이동시 같은방에 있을 때 접속자목록 뿌리기 / 이전방에도 수정해줘야됨
         List<BasketballDTO> userList = bdao.joinMember(title);
         
@@ -278,7 +279,7 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
                }
             }
             }*/
-        else {
+        else if(message.getPayload().contains(":")){
   		  //같은방에있는사람에게만 메세지보내기
   		  String userId = message.getPayload().split(":")[1];
   		  List<BasketballDTO> chatId = bdao.chatting(userId);
@@ -295,6 +296,72 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
   		  }
 			/* return; */ 
   		  }
+        else if(message.getPayload().contains("@")) {
+        	int end = message.getPayload().indexOf("님");
+        	String userId = message.getPayload().substring(6,end);
+        	List<BasketballDTO> chatId = bdao.chatting(userId);
+        	String host = bdao.startMatcing(userId); //레디카운트 2일때 방장아이디 찾기
+    		  for(int i = 0 ; i < chatId.size(); i++) {
+    			  System.out.println("쿼리로 뽑아낸 아이디 : "+chatId.get(i).getId());//BOK1//여기까지밖에안오네
+    			  for(WebSocketSession client : clients.keySet()) {
+    				  if(clients.get(client).equals(chatId.get(i).getId()) && !userId.equals(clients.get(client))){//같은방에있는 user에게만 message보낸다
+    					  
+    					  client.sendMessage(message);
+						/* System.out.println("서버에서 보낸 채팅 내용 : "+message); */
+    					  
+    				  }
+    			  }
+    		  }
+    		  if(host != null) {
+    			  System.out.println("찾은 아이디 : "+host);
+    			  TextMessage readyComplete = new TextMessage("complete:모든 플레이어가 준비를 완료하였습니다!");
+    			  for(WebSocketSession client : clients.keySet()) {
+    				  if(clients.get(client).equals(host)){
+    					  client.sendMessage(readyComplete);
+    					  System.out.println();
+    				  }
+    			  }
+    		  }
+        	
+        }
+        else if(message.getPayload().contains("#")) {
+        	
+        	int end = message.getPayload().indexOf("님");
+        	String userId = message.getPayload().substring(7,end);
+        	List<BasketballDTO> chatId = bdao.chatting(userId);
+	  		  for(int i = 0 ; i < chatId.size(); i++) {
+	  			  System.out.println("쿼리로 뽑아낸 아이디 : "+chatId.get(i).getId());//BOK1//여기까지밖에안오네
+	  			  for(WebSocketSession client : clients.keySet()) {
+	  				  if(clients.get(client).equals(chatId.get(i).getId()) && !userId.equals(clients.get(client))){//같은방에있는 user에게만 message보낸다
+	  					  
+	  					  client.sendMessage(message);
+	  					  
+	  					  
+  				  }
+  			  }
+  		  }
+        	
+        }
+        else if(message.getPayload().contains("!")) {
+        	
+        	String userId = message.getPayload().split("!")[1];
+        	System.out.println("방장아이디 : "+userId);
+        	List<BasketballDTO> chatId = bdao.chatting(userId);
+        	TextMessage notice = new TextMessage("notice:고고싱");
+    		  for(int i = 0 ; i < chatId.size(); i++) {
+    			  System.out.println("쿼리로 뽑아낸 아이디 : "+chatId.get(i).getId());//BOK1//여기까지밖에안오네
+    			  for(WebSocketSession client : clients.keySet()) {
+    				  if(clients.get(client).equals(chatId.get(i).getId()) && !userId.equals(clients.get(client))){//같은방에있는 user에게만 message보낸다
+    					  
+    					  client.sendMessage(notice);
+    					 
+    					  
+    				  }
+    			  }
+    		  }
+        	
+        }
+       
    }
     //클라이언트와 통신장애시 자동으로 호출되는 메소드]
    @Override

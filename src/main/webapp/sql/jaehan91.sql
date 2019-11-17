@@ -272,6 +272,8 @@ CREATE TABLE TeamMember
 ALTER TABLE chatmember
 	ADD FOREIGN KEY (title)
 	REFERENCES chatroom (title)
+	ON DELETE CASCADE
+	
 ;
 
 
