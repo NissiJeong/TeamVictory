@@ -116,7 +116,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 where p.teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum=1) order by ERA DESC) a 
                 JOIN pitcher p on a.id=p.id 
                 order by ERA DESC
-	</select>
+    </select>
+    
+	<!-- <select id="PitcherRank" parameterType="java.util.Map" resultType="PitcherDTO">
+		SELECT p.*, m.name, ROW_NUMBER() OVER(ORDER BY so DESC) as rank FROM pitcher p JOIN member m ON p.id=m.id 
+		WHERE p.teamname = (select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+	</select> -->
 	
 	<!-- 타자랭킹 -->
 	<select id="HitterRank" parameterType="java.util.Map" resultType="java.util.Map">
@@ -143,7 +148,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 where h.teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum=1) order by BA DESC) a 
                 JOIN hitter h on a.id=h.id 
                 order by BA DESC
-	</select>
+    </select>
+    
+	<!-- <select id="HitterRank" parameterType="java.util.Map" resultType="BaseBall_HitterDTO">
+		SELECT h.*, m.name, ROW_NUMBER() OVER(ORDER BY r DESC) as rank FROM hitter h JOIN member m ON h.id=m.id 
+		WHERE h.teamname = (select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+	</select> -->
 	
 	<!-- 팀기네스 : 최다득점 -->
 	<select id="TeamGuinnessScore" parameterType="java.util.Map" resultType="TeamBoardDTO">
@@ -163,7 +173,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
 		where h.r=(SELECT max(R) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1) 
-		or g.awayteam=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1)) and rownum=1
+		or g.awayteam=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1)) and rownum=1 
 		ORDER BY g.gamedate DESC
 	</select>
 	
@@ -185,7 +195,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
 		where h.hr=(SELECT max(hr) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1) 
-		or g.awayteam=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1)) and rownum=1
+		or g.awayteam=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1)) and rownum=1 
 		ORDER BY g.gamedate DESC
 	</select>
 	
@@ -207,7 +217,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
 		where h.h=(SELECT max(h) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1) 
-		or g.awayteam=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1)) and rownum=1
+		or g.awayteam=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum = 1)) and rownum=1 
 		ORDER BY g.gamedate DESC
 	</select>
 	
@@ -233,6 +243,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY g.gamedate DESC
 	</select>
 	
+	
+	
+	
+	 <select id="TeamGuinness" parameterType="java.util.Map" resultType="TeamBoardDTO">
+		SELECT DISTINCT (SELECT max(R) FROM hitter) as sc, 득점
+		(SELECT max(hr) FROM hitter) as hr,  홈런
+		(SELECT max(so) FROM pitcher) as so, 삼진
+		(SELECT max(h) FROM hitter) as h, 안타
+		(SELECT max(bb) FROM hitter) as bb
+		FROM gameschedule g JOIN hitter h ON g.gamedate=h.gamedate 
+		JOIN pitcher p ON g.gamedate=p.gamedate 
+		WHERE g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+		
+	</select>
+	
+	
 	<!-- 서치팀 sql문 -->
 	<!-- 팀목록 리스트 -->
 	<select id="TeamSearchList" parameterType="java.util.Map" resultType="Map">
@@ -251,7 +277,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 팀 선택시 -->
-	
 	<!-- 팀소개 구하기 -->
 	<select id="TeamSelfSelect" parameterType="java.util.Map" resultType="TeamBoardDTO">
 		SELECT t.*, m.name 

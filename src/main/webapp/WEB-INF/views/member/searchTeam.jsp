@@ -14,11 +14,11 @@
 }
 
 .teaminfoMessage{
-	width: 500px;
+	width: 465px;
 }
 
 .joinContent{
-	width: 500px;
+	width: 465px;
     height: 150px;
     padding: 10px;
 }
@@ -166,9 +166,14 @@
 									
 										<div class="search_contents">
 											<div class="team-image">
-											<a href="#0" target="_blank">
-												<img src="http://file.clubone.kr/symbol/club/20170303145415_022_thumb.jpg"style="width: 88px; height: 88px;" />
-											</a>
+												<c:if test="${! empty item.TEAMLOGO }" var="isLogo">
+													<a href="#0" target="_blank">
+														<img src="/matching/Upload/${item.TEAMLOGO }" alt="image" style="width:80px; height:80px"/>
+													</a>
+												</c:if>
+												<c:if test="${not isLogo}">
+						              				<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:80px; height:80px"/>
+						              			</c:if>
 											</div>
 											<div class="team_cate">
 												<strong>${item.TEAMNAME }</strong><em>|</em>지역(${item.TEAMLOC})
@@ -218,11 +223,10 @@
 
 			<!--Body-->
 			<div class="modal-body">
-			
 
 				<ul>
 					<li><span class="title">팀장</span>${item.NAME }</li>
-					<li><span class="title">연고지</span>${item.TEAMLOC}</li>
+					<li><span class="title">지역</span>${item.TEAMLOC}</li>
 					<li><span class="title" id="teaminfo">팀 소개말</span>
 						<textarea style="resize: none; border: none;" readonly="readonly" class="teaminfoMessage">${item.TEAMINFO }</textarea>
 						</li>
@@ -234,8 +238,8 @@
 					<li><span class="title">가입자명</span> 박준석</li>
 					<li class="tel">
 						<span class="title">연락처</span>
-						<input type="text" class="phoneFirst" maxlength="3" />
-						<input type="text" class="phoneMiddle" maxlength="4" /> 
+						<input type="text" class="phoneFirst" maxlength="3" />-
+						<input type="text" class="phoneMiddle" maxlength="4" />- 
 						<input type="text" class="phoneLast" maxlength="4" />
 						</li>
 					<li class="msg"><span class="title" id="joinMessage">가입메세지</span>
@@ -244,11 +248,7 @@
 				</ul>
 				<div class="joinbtn">
 					<!-- <a href="#none" id="joinBtn"><img src="//img.gameone.kr/club/btn_join.png" alt="가입하기" /></a> -->
-<<<<<<< HEAD
 					<Button type="button" class="btn btn-info">가입하기</Button>
-=======
-					<Button type="button" class="btn btn-info" onclick=" ">가입하기</Button>
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 				</div>
 			</div>
 			<!--  Body -->

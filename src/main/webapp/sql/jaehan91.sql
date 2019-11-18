@@ -117,6 +117,7 @@ CREATE TABLE chatroom
 	position nvarchar2(15) NOT NULL,
 	regidate date DEFAULT SYSDATE,
 	readycount number,
+	remainCount number,
 	PRIMARY KEY (title)
 );
 
@@ -182,7 +183,7 @@ CREATE TABLE member
 	name nvarchar2(20) NOT NULL,
 	gender nvarchar2(6) NOT NULL,
 	birth nvarchar2(10),
-	PWD varchar2(20) NOT NULL,
+	PWD varchar2(200) NOT NULL,
 	phone varchar2(11) NOT NULL,
 	email nvarchar2(50) NOT NULL,
 	regidate date DEFAULT SYSDATE,
@@ -271,6 +272,8 @@ CREATE TABLE TeamMember
 ALTER TABLE chatmember
 	ADD FOREIGN KEY (title)
 	REFERENCES chatroom (title)
+	ON DELETE CASCADE
+	
 ;
 
 

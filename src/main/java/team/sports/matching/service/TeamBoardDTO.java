@@ -42,7 +42,7 @@ public class TeamBoardDTO {
 	private String ot;//경기결과 상대팀이름
 	private String teamlogo;//팀로고
 	private String profile;//개인사진
-	
+
 	//게터 세터
 	public String getName() {
 		return name;

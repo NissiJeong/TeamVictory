@@ -30,8 +30,10 @@ import team.sports.matching.service.MemberDAO;
 import team.sports.matching.service.TeamBoardDAO;
 import team.sports.matching.service.TeamBoardDTO;
 import team.sports.matching.service.TeamDTO;
+
 import team.sports.printdb.baseball.HitterDTO;
 import team.sports.printdb.baseball.PitcherDTO;
+
 import team.sports.matching.service.impl.MatchDAO;
 
 
@@ -141,21 +143,24 @@ public class TeamController {
 			//최다도루 목록
 			List<TeamBoardDTO> list6 = teamDao.bestsbPlayer(map);
 			model.addAttribute("list6",list6);
-			
+			 
 			//경기일정
 			List<TeamBoardDTO> list7 = teamDao.gameSchedule(map);
 			model.addAttribute("list7",list7);
 			
 			//팀소개
-			List<TeamBoardDTO> list8 = teamDao.teamInfo(map);	
+			List<TeamBoardDTO> list8 = teamDao.teamInfo(map);
+			for(TeamBoardDTO team : list8) {
+				System.out.println(team.getManager_id()); 
+			}
 			model.addAttribute("list8",list8);
 			
 			//투수랭킹
-			List<Map> list9 = teamDao.pitcherRank(map);
+			List<PitcherDTO> list9 = teamDao.pitcherRank(map); 
 			model.addAttribute("pitcherrank",list9);
 			
 			//타자랭킹
-			List<Map> list10 = teamDao.hitterRank(map);
+			List<HitterDTO> list10 = teamDao.hitterRank(map);
 			model.addAttribute("hitterrank",list10);
 			
 			//팀기네스-최다득점
@@ -240,7 +245,7 @@ public class TeamController {
 			
 			return "member/team.tiles";
 		}
-	}
+	} 
 	
 	//팀 바꾸기 ajax
 	@ResponseBody

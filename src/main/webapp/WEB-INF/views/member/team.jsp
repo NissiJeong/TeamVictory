@@ -233,7 +233,6 @@ input:checked+label {
     font-size: 18px;
     
 }
-
 </style>
 
 <script>
@@ -307,6 +306,17 @@ var clickSelectItem = $('#teamName').change(function(){
 			        </c:forEach>
 			      </select>			    			   
 	    	</div>
+	    	<div>
+	    		<c:forEach var="item" items="${list8 }" varStatus="loop">
+	    			<c:if test="${id == item.manager_id}" var="isId">
+	    				되냐
+	    			</c:if>
+	    			<c:if test="${not isId}">
+	    				안되냐
+	    			</c:if>
+	    		</c:forEach>
+	    	</div>
+	    
 		</div>
 		<div class="row">
 			<div class="col-lg-3">
@@ -745,23 +755,23 @@ var clickSelectItem = $('#teamName').change(function(){
 													<thead id="th1">
 														<tr id="record-border-menu">
 															<th style="width: 1.5%">순위</th>
-															<th style="width: 4%">이름</th>
+															<th style="width: 3%">이름</th>
 															<th style="width: 2.2%">방어율</th>
-															<th style="width: 0.8%">승</th>
-															<th style="width: 0.8%">패</th>
-															<th style="width: 3.8%">블론세이브</th>
+															<th style="width: 0.4%">승</th>
+															<th style="width: 0.4%">패</th>
+															<th style="width: 4%">블론세이브</th>
 															<th style="width: 3.2%">교체이닝</th>
 															<th style="width: 3.2%">교체타수</th>
 															<th style="width: 2.2%">세이브</th>
-															<th style="width: 1.5%">홀드</th>
-															<th style="width: 3.8%">상대타자수</th>
-															<th style="width: 1.5%">이닝</th>
+															<th style="width: 1.1%">홀드</th>
+															<th style="width: 4%">상대타자수</th>
+															<th style="width: 1.1%">이닝</th>
 															<th style="width: 2.2%">피안타</th>
 															<th style="width: 2.2%">피홈런</th>
-															<th style="width: 1.5%">볼넷</th>
-															<th style="width: 1.5%">사구</th>
-															<th style="width: 1.5%">삼진</th>
-															<th style="width: 1.5%">실점</th>
+															<th style="width: 1.1%">볼넷</th>
+															<th style="width: 1.1%">사구</th>
+															<th style="width: 1.1%">삼진</th>
+															<th style="width: 1.1%">실점</th>
 															<th style="width: 2.2%">자책점</th>
 														</tr>
 													</thead>
@@ -998,7 +1008,7 @@ var clickSelectItem = $('#teamName').change(function(){
 											<c:if test="${! empty teamguinnesshomerun }" var="isGuinnessHomerun">
 												<c:forEach var="item" items="${teamguinnesshomerun}" varStatus="loop">
 														<!-- 기네스 수치 -->
-														<td>${item.sc }점</td>
+														<td>${item.hr }점</td>
 														<!-- 기네스 날짜 -->
 														<td>${item.gamedate } (vs ${item.ot })</td>
 												</c:forEach>
@@ -1021,7 +1031,7 @@ var clickSelectItem = $('#teamName').change(function(){
 											<c:if test="${! empty teamguinnesshit }" var="isGuinnessHit">
 												<c:forEach var="item" items="${teamguinnesshit}" varStatus="loop">
 														<!-- 기네스 수치 -->
-														<td>${item.sc }점</td>
+														<td>${item.h }점</td>
 														<!-- 기네스 날짜 -->
 														<td>${item.gamedate } (vs ${item.ot })</td>
 												</c:forEach>
@@ -1044,7 +1054,7 @@ var clickSelectItem = $('#teamName').change(function(){
 											<c:if test="${! empty teamguinnessstrikeout }" var="isGuinnessStrikeOut">
 												<c:forEach var="item" items="${teamguinnessstrikeout}" varStatus="loop">
 														<!-- 기네스 수치 -->
-														<td>${item.sc }점</td>
+														<td>${item.so }점</td>
 														<!-- 기네스 날짜 -->
 														<td>${item.gamedate } (vs ${item.ot })</td>
 												</c:forEach>

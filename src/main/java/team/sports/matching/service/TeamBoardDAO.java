@@ -46,6 +46,7 @@ public class TeamBoardDAO {
 	public List<TeamBoardDTO> bestsbPlayer(Map map) { 
 		return template.selectList("BestsbPlayer", map); 
 	}
+	
 	//팀목록
 	public List<Map> teamselectList(Map map) { 
 		return template.selectList("TeamSearchList", map); 
@@ -67,11 +68,11 @@ public class TeamBoardDAO {
 	}
 
 	//투수랭킹
-	public List<Map> pitcherRank(Map map) {
+	public List<PitcherDTO> pitcherRank(Map map) {
 		return template.selectList("PitcherRank", map);
 	}
 	//타자랭킹
-	public List<Map> hitterRank(Map map) {
+	public List<HitterDTO> hitterRank(Map map) {
 		return template.selectList("HitterRank", map);
 	}
 
@@ -79,18 +80,15 @@ public class TeamBoardDAO {
 	public List<TeamBoardDTO> teamGuinnessScore(Map map) {
 		return template.selectList("TeamGuinnessScore",map);
 	}
-	
-	//팀기네스 - 최다홈런
+
 	public List<TeamBoardDTO> teamGuinnessHomeRun(Map map) {
 		return template.selectList("TeamGuinnessHomRun",map);
 	}
-	
-	//팀기네스 - 최다안타
+
 	public List<TeamBoardDTO> teamGuinnessHit(Map map) {
 		return template.selectList("TeamGuinnessHit",map);
 	}
-	
-	//팀기네스 - 최다삼진
+
 	public List<TeamBoardDTO> teamGuinnessStrikeOut(Map map) {
 		return template.selectList("TeamGuinnessStrikeOut",map);
 	}
