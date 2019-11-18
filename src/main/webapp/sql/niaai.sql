@@ -130,7 +130,7 @@ CREATE TABLE gameschedule
 	stadium nvarchar2(20) NOT NULL,
 	time number NOT NULL,
 	awayteam nvarchar2(20) NOT NULL,
-	gamestatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
+	gamestatus nvarchar2(10) DEFAULT 'waiting' NOT NULL,
 	homescore number,
 	awayscore number,
 	teamName nvarchar2(20) NOT NULL,

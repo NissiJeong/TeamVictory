@@ -229,6 +229,7 @@ input:checked+label {
 var currentCount = 0;
 var badgeCount = 0;
 var appendStr = '';
+var appendStr22 = '';
 var index= 0;
 var length= 0;
 $(function(){
@@ -238,14 +239,26 @@ $(function(){
 			type:'get',
 			dataType:'text',
 			success:function(data){
-				console.log(data);
+				//console.log(data);
 				machingCount = data;
-				$('.badge-warning').html(machingCount);
+				$('#badge-warning').html(machingCount);
+			}
+		});
+	},500);	
+	window.setInterval(function(){
+		$.ajax({
+			url:"<c:url value='/Team/matching/selectInWaiting.do'/>",
+			type:'get',
+			dataType:'text',
+			success:function(data){
+				//console.log(data);
+				inwaitingCount = data;
+				$('#finish').html(inwaitingCount);
 			}
 		});
 	},500);	
 	$('#newMatching').click(function(){
-		var matchCount = $('.badge-warning').html();
+		var matchCount = $('#badge-warning').html();
 		$.ajax({
 			url:"<c:url value='/Team/matching/selectMatchingInfo.do'/>",
 			type:'get',
@@ -295,6 +308,55 @@ $(function(){
 			}
 		});
 	});
+	$('#fisishButton').click(function(){
+		var finishCount = $('#finish').html();
+		console.log(finishCount);
+		$.ajax({
+			url:"<c:url value='/Team/matching/gameFinish.do'/>",
+			type:'get',
+			data:{'finishCount':finishCount},
+			dataType:'text',
+			success:function(data){		
+				$('#appendTarget22').html('');
+				if(data.indexOf('info')==-1){					
+					console.log('info없다..');
+					appendStr22='<div class="form-group" style="margin-bottom:20px; margin-top:20px "><h5>종료할 경기 정보가 없습니다</h5></div>';
+					$('#appendTarget22').append(appendStr22);
+				}
+				else{
+					console.log('info있다!!');
+					console.log(data);
+					var json = JSON.parse(data);
+					console.log('json',json);
+					appendStr22='<table class="table"><thead class="thead-dark"><tr>'
+						+'<th scope="col">Game Date</th>'
+						+'<th scope="col">Time</th>'
+						+'<th scope="col">Stadium</th>'
+						+'<th scope="col">Home</th>'
+						+'<th scope="col">Away</th>'
+						+'<th scope="col">Score</th>'
+						+'<th scope="col">#</th></tr></thead><tbody>';
+					for(var i=0;i<json['info'].length;i++){
+						length = json['info'].length;
+						console.log('asdfasd',json['info'][i]);
+						appendStr22+='<tr>'
+							+'<td scope="row">'+json['info'][i].GAMEDATE+'</td>'
+							+'<td>'+json['info'][i].TIME+'</td>'
+							+'<td>'+json['info'][i].STADIUM+'</td>'
+							+'<td class="'+i+'">'+json['info'][i].TEAMNAME+'</td>'
+							+'<td class="'+i+'">'+json['info'][i].AWAYTEAM+'</td>'
+							+'<td>'+json['info'][i].HOMESCORE+':'+json['info'][i].AWAYSCORE+'</td>'
+							+'<td><button onclick="finishGame('+i+')" title="'+i+'" class="btn btn-primary" type="button" style="width:70px; margin:1.5px;">Finish</button>'
+							+'</td></tr><input class="'+i+'" type="hidden" value="'+json['info'][i].NO+'"/>';
+					}		
+					appendStr+='</tbody></table>';
+					$('#appendTarget22').append(appendStr22);
+				}
+				
+				$('.badge-warning').html(machingCount);
+			}
+		});
+	})
 });
 
 function selectTeam(team) {
@@ -317,7 +379,8 @@ function selectTeam(team) {
 function decideMatch(decision, index){
 	var match ='';
 	var MATCHINGNO = $('#'+index).val();
-	console.log('teamName:',teamName);
+	console.log('매칭번호',MATCHINGNO);
+	//console.log('teamName:',teamName);
 	if(decision === 'accept'){
 		match = 'yes';
 	}
@@ -341,6 +404,37 @@ function decideMatch(decision, index){
 				  icon: "success",
 				  button: "yes",
 				});
+		}
+	});
+}
+
+function finishGame(index){
+	var no = $('.'+index+':eq(2)').val();
+	var hometeam = $('.'+index+':eq(0)').html();
+	var awayteam = $('.'+index+':eq(1)').html();
+	console.log(no+'/'+hometeam+'/'+awayteam);
+	$.ajax({
+		url : "<c:url value='/Team/Matching/finishGame.do'/>",
+		type : 'post',
+		dataType : 'text',
+		data : { 'no' : no,
+			'hometeam':hometeam,
+			'awayteam':awayteam,
+			'_csrf':'${_csrf.token}'
+		},
+		success : function(data) {
+			if(data === 'No'){
+				alert('팀의 팀장이 아닙니다');
+			}
+			else{
+				console.log('서버로부터 넘어온 데이터',data);
+				swal({
+					  title: "Matching Complete",
+					  text: '게임이 종료 되었습니다 \r\n 팀원들의 마일리지가 +200 되었습니다',
+					  icon: "success",
+					  button: "yes",
+				});
+			}
 		}
 	});
 }
@@ -410,12 +504,21 @@ var clickSelectItem = $('#teamName').change(function(){
 <!-- banner-section end -->
 
 <!-- blog-details-section start -->
-<section class="blog-details-section section-padding">
-	<div class="container-fluid">
+<section class="blog-details-section section-padding" style="margin-top: -50px;">
+	<div class="container-fluid" >
 		<div class="row" style="margin-top: -60px; margin-bottom: 50px;">
+			<div class="col-md-3 offset-md-9" style="margin-bottom: 15px"s>
+	    		<button type="button" class="btn btn-primary upModal" id="newMatching" data-toggle="modal" data-target="#myModal" style="width:160px">
+			  		<h4 style="display:inline-block;">Matching</h4> <span id="badge-warning" style="font-size: 1.3em; " class="badge badge-warning"></span>
+				</button>
+	    	</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row" style="margin-top: -60px; ">
 			<div class="col-md-3 offset-md-9">
-	    		<button type="button" class="btn btn-primary upModal" id="newMatching" data-toggle="modal" data-target="#myModal">
-			  		<h4 style="display:inline-block;">Matching!</h4> <span style="font-size: 1.3em" class="badge badge-warning"></span>
+	    		<button type="button" class="btn btn-primary upModal" id="fisishButton" data-toggle="modal" data-target="#finishModal" style="width:160px">
+			  		<h4 style="display:inline-block;">Finish</h4> <span id="finish" style="font-size: 1.3em; margin-left: 37px;" class="badge badge-warning"></span>
 				</button>
 	    	</div>
 		</div>
@@ -1082,6 +1185,50 @@ var clickSelectItem = $('#teamName').change(function(){
 <!-- blog-details-section end -->
 
 <!-- The Modal -->
+  <div class="modal fade" id="finishModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: #000040;">
+          <h4 class="modal-title" style="color: white">Click Finish</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+         <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-12">         
+                
+	              
+              	
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName">Click Finish</h2>
+                
+				  </div>
+				   <div class="col-lg-12">
+                <hr style="border:solid 1px">
+                </div>
+                <div class="col-lg-12">
+                <!-- Icon Divider -->
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0">Game Information</h3>
+               	<form id="frm">
+               	<input type="hidden" id="user" value="${id }"/>
+               	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+               	<div id="appendTarget22">
+               	
+               	</div> 			    
+                
+			  </form>
+			</div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

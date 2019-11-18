@@ -5,12 +5,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 	<!-- 보안과 관련된 설정파일 -->
+	<security:http security="none" pattern="/ANDROID/**"></security:http>
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/Team/Matching/Login.do" access="permitAll"/>
 		<security:intercept-url pattern="/Team/Matching/Register.do" access="permitAll"/>
 		<security:intercept-url pattern="/Team/Matching/CheckId.do" access="permitAll"/>
 		<security:intercept-url pattern="/Team/Matching/CheckMail.do" access="permitAll"/>
 		<security:intercept-url pattern="/Team/Matching/Registration.do" access="permitAll"/>
+		
 		
 		<security:intercept-url pattern="/Team/Matching/**" access="hasAnyRole('USER','ADMIN')"/>
 		<security:intercept-url pattern="/Team/admin/**" access="hasAnyRole('ADMIN')"/>

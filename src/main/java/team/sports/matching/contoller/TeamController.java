@@ -28,6 +28,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oreilly.servlet.MultipartRequest;
 
+import team.sports.matching.service.CommonUtils;
 import team.sports.matching.service.MemberDAO;
 import team.sports.matching.service.TeamBoardDAO;
 import team.sports.matching.service.TeamBoardDTO;
@@ -85,13 +86,7 @@ public class TeamController {
 		return "member/searchTeam.tiles";
 	}
 	
-	//로그인 하지 않은 상태에서 게시판 url요청시]
-	/*@ExceptionHandler(HttpSessionRequiredException.class)
-	public String isNotMember(Model model) {
-		model.addAttribute("NotMember", "로그인 후 이용하세요");
-		//로그인이 안된 경우 로그인 페이지로
-		return "member/login.tiles";
-	}*/
+	
 	//팀 이름 확인하기
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/checkTeam.do",produces = "text/html; charset=UTF-8")
@@ -119,20 +114,30 @@ public class TeamController {
 		map.put("id", userDetails.getUsername());
 		count = dao.selectMatching(map);
 		countList.add(count);
-		//System.out.println(countList.size()+" : "+countList.get(countList.size()-1));
 		
-		/*if(countList.size()>=2) {
-			if(countList.get(countList.size()-1)>countList.get(countList.size()-2)) {
-				newCount = dao.selectWaiting(map);
-			}
-		}*/
 		newCount = dao.selectWaiting(map);
 		return String.valueOf(newCount);
 	}
+	//inwaiting인 글의 개수 구하기 
+	@ResponseBody
+	@RequestMapping("/Team/matching/selectInWaiting.do")
+	public String selectInWaiting(Authentication auth,@RequestParam Map map) {
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
+		/*int isManager = dao.isManager(map);
+		if(isManager == 0) {
+			return 
+		}*/
+		newCount = dao.selectInWaiting(map);
+		return String.valueOf(newCount);
+	}
+	
 	//매칭 결정 후 데이터베이스 update 메소드
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/decideMatch.do",produces = "text/html; charset=UTF-8")
-	public String decideMatch(@RequestParam Map map) {
+	public String decideMatch(@RequestParam Map map,Authentication auth) {
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
 		//matching 테이블 matchStatus를 complete으로
 		if(map.get("match").toString().trim().equals("yes")) {
 			int update = dao.updateMatchStatus(map);
@@ -140,12 +145,15 @@ public class TeamController {
 			Map inMap = dao.selectGame(map);
 			inMap.put("TIME", (inMap.get("TIME").toString()+"00"));
 			for(Object key : inMap.keySet()) {				
-				System.out.println(key+":"+inMap.get(key));
+				//System.out.println(key+":"+inMap.get(key));
 			}
 			//gameSchedule에 데이터 입력
 			int isInsert = dao.insertSchedule(inMap);
-			System.out.println("123123123");
-			return "Matching Complete";
+			if(isInsert==1) {
+				int mileage = dao.updateMileage222(map);
+			}
+			//System.out.println("123123123");
+			return "매치가 성사되었습니다 \r\n팀원들의 마일리지가 +200 되었습니다";
 		}
 		//matching 테이블 matchingStatus를 cancel로
 		else {
@@ -221,7 +229,96 @@ public class TeamController {
 		System.out.println(newJsonStr);
 		return newJsonStr;
 	}
-
+	//inwaiting 정보 가져오기
+	@ResponseBody
+	@RequestMapping("/Team/matching/gameFinish.do")
+	public String finishInfo(Authentication auth,@RequestParam Map map) throws JsonProcessingException {
+		System.out.println("123123123");
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
+		List<Map> finishInfo = dao.selectFinishInfo(map);
+		//List<String> teamRecord = new Vector<String>();
+		for(int i=0; i<finishInfo.size();i++) {
+			for(Object key : finishInfo.get(i).keySet()) {
+				System.out.print(key+":"+finishInfo.get(i).get(key)+"  /  ");
+			}
+			System.out.println();
+		}
+		for(int i=0; i<finishInfo.size();i++) {
+			finishInfo.get(i).put("GAMEDATE",finishInfo.get(i).get("GAMEDATE").toString().substring(0, 11).trim());			
+			if(finishInfo.get(i).get("TIME").toString().length()==3) {
+				finishInfo.get(i).put("TIME", finishInfo.get(i).get("TIME").toString().substring(0,1)+":"+finishInfo.get(i).get("TIME").toString().substring(1));
+	         }
+	         else if(finishInfo.get(i).get("TIME").toString().length()==4) {
+	        	 finishInfo.get(i).put("TIME", finishInfo.get(i).get("TIME").toString().substring(0,2)+":"+finishInfo.get(i).get("TIME").toString().substring(2));
+	         }
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonStr = mapper.writeValueAsString(finishInfo);
+		//String matchRecord = mapper.writeValueAsString(teamRecord);
+		String newJsonStr = "";
+		if(jsonStr.equals("[]")) {
+			newJsonStr = jsonStr;
+		}
+		else {
+			newJsonStr = "{\"info\":"+jsonStr+"}";
+		}		
+		System.out.println(newJsonStr);
+		return newJsonStr;
+	}
+	
+	//gameFinsh버튼 누른 후 요청
+	@ResponseBody
+	@RequestMapping("/Team/Matching/finishGame.do")
+	public String gameFinish(@RequestParam Map map, Authentication auth) {
+		UserDetails userDetails = (UserDetails)auth.getPrincipal();
+		String id = userDetails.getUsername();
+		map.put("id", id);
+		for(Object key : map.keySet()) {
+			System.out.println(key+":"+map.get(key));
+		}
+		List<Map> managers = dao.selectManagerId(map);
+		String ids = "";
+		//버튼을 누른 팀의 팀장 id를 ids에 저장
+		for(int i=0;i<managers.size();i++) {
+			ids+=managers.get(i).get("MANAGER_ID").toString();
+		}
+		//매니저만 finish 누를 수 있음!!
+		if(ids.indexOf(id)==-1) {
+			return "No";
+		}
+		int affected = dao.updateGameStatus222(map);
+		//finish누른 사람이 manager일때
+		if(affected == 1) {
+			//팀원들의 마일리지 올리기
+			int mileage = dao.updateMileage222(map);
+			//팀 rating 계산하는 로직
+			List<Map> HomeGameList = dao.selectHomeGameSchedule(map);
+			List<Map> AwayGameList = dao.selectAwayGameSchedule(map);
+			String hometeam = HomeGameList.get(0).get("TEAMNAME").toString();
+			int homeRating = Integer.parseInt(HomeGameList.get(HomeGameList.size()-1).get("TEAMRATING").toString());
+			int home_homescore = Integer.parseInt(HomeGameList.get(0).get("HOMESCORE").toString());
+			int home_awayscore = Integer.parseInt(HomeGameList.get(0).get("AWAYSCORE").toString());
+			int homeMatchCount = HomeGameList.size();
+			String awayteam = AwayGameList.get(0).get("AWAYTEAM").toString();
+			int awayRating = Integer.parseInt(AwayGameList.get(AwayGameList.size()-1).get("TEAMRATING").toString());
+			int awayMatchCount = AwayGameList.size();
+			int away_awayscore = Integer.parseInt(AwayGameList.get(0).get("HOMESCORE").toString());
+			int away_homescore = Integer.parseInt(AwayGameList.get(0).get("AWAYSCORE").toString());
+			double homeNewRating = CommonUtils.calcRating(homeRating, awayRating, homeMatchCount, home_homescore, home_awayscore);
+			double awayNewRating = CommonUtils.calcRating(awayRating, homeRating, awayMatchCount, away_homescore, away_awayscore);
+			System.out.println("home Rating:"+hometeam+":"+homeNewRating+"away Rating:"+awayteam+":"+awayNewRating);
+			map.put("homeNewRating", homeNewRating);
+			map.put("awayNewRating", awayNewRating);
+			int isHomeUpdate = dao.updateHomeRating(map);
+			int isAwayUpdate = dao.updateAwayRating(map);
+			return "yes";
+		}
+		return null;
+	}
+	
+	
 	//팀페이지로 이동
 	@RequestMapping("/Team/Matching/Team.do")
 	public String team(Authentication auth,Model model, @RequestParam Map map) {
