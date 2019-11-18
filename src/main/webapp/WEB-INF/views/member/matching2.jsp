@@ -143,7 +143,6 @@ $( function() {
 				$("#sel3").prop("disabled",true);
 			}
 			else if(data =="yes"){
-				console.log('여기는 되는데???')
 				$("#timeError").html("");
 				
 				$("#sel3").prop("disabled",false);

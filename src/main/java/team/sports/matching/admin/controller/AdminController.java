@@ -27,15 +27,15 @@ public class AdminController{
 		//System.out.println("12312312312");
 		return "admin/index";
 	}///////
-	//새글 캐치
+	
 	@ResponseBody
 	@RequestMapping("/Team/admin/scheduleUpdate.do")
 	public String scheduleUpdate() {
 		//System.out.println("1231");
-				 
+				
 		count = dao.selectSchedule(null);
 		countList.add(count);
-		//System.out.println(countList.size()+" : "+countList.get(countList.size()-1));
+		System.out.println(countList.size()+" : "+countList.get(countList.size()-1));
 		
 		if(countList.size()>=2) {
 			if(countList.get(countList.size()-1)>countList.get(countList.size()-2)) {
@@ -45,10 +45,10 @@ public class AdminController{
 		return String.valueOf(newCount);
 	}
 	
-	//리액트 페이지로 이동
-	@RequestMapping("/Team/admin/gameRecord.do")
-	public String toReact() {
+	@ResponseBody
+	@RequestMapping("/Team/admin/scheduleCount.do")
+	public String scheduleCount() {
 		newCount = 0;
-		return "admin/recordEdit";
+		return null;
 	}
 }

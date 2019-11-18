@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 <sec:authentication property="principal.username" var="id"/>
 <sec:authentication property="principal.authorities" var="auth"/>
 
@@ -40,14 +38,14 @@ dd {
 }
 
 #record-rank-table{
-	width: 120%;
+	width: 123%;
 }
 #record-rank-table2{
 	width: 155%;
 }
 
 #guinness-table .all-tbody tr td{
-	font-size: 18px;
+	font-size: 15px;
 }
 
 #guinness-table .all-tbody tr td span{
@@ -62,7 +60,7 @@ dd {
 }
 
 .record-rank {
-	width: 134%;
+	width: 136%;
 }
 
 .right{
@@ -213,13 +211,11 @@ input:checked+label {
 	padding-left: 14px;
 }
 
-.all-tbody tr td{
-    padding-bottom: 6px;
-    padding-top: 6px;
-    padding-left: 6px;
-    padding-right: 6px;
-    font-family: 'Hanna', serif;
-    font-size: 18px;
+.all-tbody td{
+    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-left: 11px;
+    padding-right: 11px;
     
 }
 
