@@ -94,4 +94,71 @@ public class TeamBoardDAO {
 	public List<TeamBoardDTO> teamGuinnessStrikeOut(Map map) {
 		return template.selectList("TeamGuinnessStrikeOut",map);
 	}
+
+	
+	//팀 선택시
+	//선수목록
+	public List<TeamBoardDTO> selectListSelect(Map map) {
+		return template.selectList("TeamBoardListSelect", map);
+	}
+
+	//최다득점 목록
+	public List<TeamBoardDTO> bestrbiPlayerSelect(Map map) {
+		return template.selectList("BestrbiPlayerSelect", map);
+	}
+
+	//최다삼진 목록
+	public List<TeamBoardDTO> bestsoPlayerSelect(Map map) {
+		return template.selectList("BestsoPlayerSelect", map);
+	}
+
+	//최다홈런 목록
+	public List<TeamBoardDTO> besthrPlayerSelect(Map map) {
+		return template.selectList("BesthrPlayerSelect", map);
+	}
+
+	//최다도루 목록
+	public List<TeamBoardDTO> bestsbPlayerSelect(Map map) {
+		return template.selectList("BestsbPlayerSelect", map);
+	}
+
+	//경기일정
+	public List<TeamBoardDTO> gameScheduleSelect(Map map) {
+		return template.selectList("GameScheduleSelect", map);
+	}
+	
+	//팀소개
+	public List<TeamBoardDTO> teamInfoSelect(Map map) {
+		return template.selectList("TeamSelfSelect", map);
+	}
+
+	//투수랭킹
+	public List<Map> pitcherRankSelect(Map map) {
+		return template.selectList("PitcherRankSelect", map);
+	}
+
+	//타자랭킹
+	public List<Map> hitterRankSelect(Map map) {
+		return template.selectList("HitterRankSelect", map);
+	}
+
+	//팀기네스-최다득점
+	public List<TeamBoardDTO> teamGuinnessScoreSelect(Map map) {
+		return template.selectList("TeamGuinnessScoreSelect",map);
+	}
+
+	//팀기네스-최다홈런
+	public List<TeamBoardDTO> teamGuinnessHomeRunSelect(Map map) {
+		return template.selectList("TeamGuinnessHomRunSelect",map);
+	}
+
+	//팀기네스-최다안타
+	public List<TeamBoardDTO> teamGuinnessHitSelect(Map map) {
+		return template.selectList("TeamGuinnessHitSelect",map);
+	}
+
+	//팀기네스-최다삼진
+	public List<TeamBoardDTO> teamGuinnessStrikeOutSelect(Map map) {
+		return template.selectList("TeamGuinnessStrikeOutSelect",map);
+	}
 }

@@ -40,7 +40,7 @@ public class TeamBoardDTO {
 	private String awayscore;//away팀점수
 	private String re;//승패
 	private String ot;//경기결과 상대팀이름
-	private String teamLogo;//팀로고
+	private String teamlogo;//팀로고
 	private String profile;//개인사진
 	
 	//게터 세터
@@ -272,11 +272,11 @@ public class TeamBoardDTO {
 	public void setOt(String ot) {
 		this.ot = ot;
 	}
-	public String getTeamLogo() {
-		return teamLogo;
+	public String getTeamlogo() {
+		return teamlogo;
 	}
-	public void setTeamLogo(String teamLogo) {
-		this.teamLogo = teamLogo;
+	public void setTeamlogo(String teamlogo) {
+		this.teamlogo = teamlogo;
 	}
 	public String getProfile() {
 		return profile;

@@ -17,8 +17,16 @@ dd {
 	padding-bottom: 5px;
 }
 
+#schedule-result-id, #position-id{
+	padding-left: 2px;
+}
+
 #schedule-result-table-menu{
 	padding: 5px 0;
+}
+
+#player-list-id{
+	padding-left:0px;
 }
 
 #top3 {
@@ -85,6 +93,11 @@ display: none;
 .position, .schedule-result, .record-rank {
 	padding-left: 15px;
 	padding-bottom: 15px;
+}
+
+#team-logo-col{
+	margin-right: 30px;
+	padding-top: 0px;
 }
 
 /*라디오버튼 숨김*/
@@ -240,47 +253,23 @@ function selectTeam(team) {
 		}
 	});
 };
-/* 
+/*
 var clickSelectItem = $('#teamName').change(function(){
-    $.ajax({
-        url: "<c:url value='/Team/Matching/teamNameSelect.do'/>",
-        data : { id : $('#auth').val(), teamname : $(this).val() ,'_csrf' : '${_csrf.token}'}, 
-        type: 'post',
-        headers : {         
-           "Content-Type" : "application/json",
-           "X-HTTP-Method-Override" : "POST"
-        },
-        dataType: 'json',
-        success : function(data){
-           
-           if (data != "") {
-	           console.log(data);
-	           $(data).each(
-	              function() {
-	                 $('#hd1').text(this.SUMPA);
-	                 $('#hd2').text(this.PA);
-	              });// each 
-           }
-           
-           else { 
-              $.ajax({
-                    url: "<c:url value='/Team/Matching/hitterDetailView.do'/>",
-                    data : { id : $('#auth').val(), '_csrf' : '${_csrf.token}'},
-                    type: 'post',
-                    dataType: 'json',
-                    success : function(data){
-                       if (data != "") {
-                       $(data).each(
-                          function() {
-                             $('#hd1').text(this.SUMPA);
-                             $('#hd2').text(this.PA);
-                          });// each 
-                       }
-                    }
-                 });  // ajax 
-           }// else
-        }
-     });  // ajax 
+	var teamName = team;
+	$.ajax({
+		url : "<c:url value='/Team/Matching/teamSelect.do'/>",
+		type : 'post',
+		dataType : 'json',
+		data : { 'id' : $('#auth').val(),//아이디
+			'teamName' : teamName,//팀이름
+			'_csrf':'${_csrf.token}'
+		},
+		success : function(data) {
+			console.log(data);
+			
+			alert(data);
+		}
+	});
  */
 </script>
 
@@ -311,10 +300,10 @@ var clickSelectItem = $('#teamName').change(function(){
 	<div class="container">
 		<div class="row" id="team-name">
 			<div class="form" style="margin-bottom:10px ">			      
-			      <select class="form" id="teamName" name="stadium" onchange="selectTeam(this.value)">
+			      <select class="form" id="teamName" name="stadium" onchange="window.open(value,'_self');">
 			        <option value="">팀선택</option>
 			        <c:forEach var="item" items="${teams}" varStatus="loop">
-			        	<option value="${item }" checked>${item }</option>
+			        	<option value="<c:url value='/Team/Matching/Team.do?TEAMNAME222=${item}'/>">${item }</option>
 			        </c:forEach>
 			      </select>			    			   
 	    	</div>
@@ -361,85 +350,137 @@ var clickSelectItem = $('#teamName').change(function(){
 
 						<!-- score start -->
 						<section class="top3-player-score" id="top3-player-score">
-						<c:forEach var="item" items="${list3}" varStatus="loop">
-							<div class="small-post-item">
-								<div class="small-post-thumb">
-									<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-										alt="image" />
+							<!-- 기록 있을시 -->
+							<c:if test="${! empty list3 }" var="isRbi">
+								<c:forEach var="item" items="${list3}" varStatus="loop">
+									<div class="small-post-item">
+										<div class="small-post-thumb">
+											<c:if test="${! empty item.profile }" var="isLogo">
+												<img src="/matching/Upload/${item.profile }" alt="image" style="width:80px; height:80px"/>
+											</c:if>
+											<c:if test="${not isLogo}">
+					              				<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:80px; height:80px"/>
+					              			</c:if>
+										</div>
+										<div class="small-post-content">
+											<h6>
+												<a href="#0">${item.name }</a>
+											</h6>
+											<ul class="post-meta">
+												<li style="font-weight: bold;">${item.rbi}점</li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+							</c:if>
+							<!-- 기록 없을시 -->
+							<c:if test="${not isRbi }">
+								<div class="small-post-item">
+									<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
 								</div>
-								<div class="small-post-content">
-									<h6>
-										<a href="#0">${item.name }</a>
-									</h6>
-									<ul class="post-meta">
-										<li style="font-weight: bold;">${item.rbi}점</li>
-									</ul>
-								</div>
-							</div>
-						</c:forEach>
+							</c:if>
 						</section>
 						<!-- score end -->
 
 						<!-- out start -->
 						<section class="top3-player-out" id="top3-player-out">
-							<c:forEach var="item" items="${list4}" varStatus="loop">
+							<!-- 기록 있을시 -->
+							<c:if test="${! empty list4 }" var="isSo">
+								<c:forEach var="item" items="${list4}" varStatus="loop">
+									<div class="small-post-item">
+										<div class="small-post-thumb">
+											<c:if test="${! empty item.profile }" var="isLogo">
+												<img src="/matching/Upload/${item.profile }" alt="image" style="width:80px; height:80px"/>
+											</c:if>
+											<c:if test="${not isLogo}">
+					              				<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:80px; height:80px"/>
+					              			</c:if>
+										</div>
+										<div class="small-post-content">
+											<h6>
+												<a href="#0">${item.name }</a>
+											</h6>
+											<ul class="post-meta">
+												<li style="font-weight: bold;">${item.so}개</li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+							</c:if>
+							<!-- 기록 없을시 -->
+							<c:if test="${not isSo }">
 								<div class="small-post-item">
-									<div class="small-post-thumb">
-										<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-											alt="image" />
-									</div>
-									<div class="small-post-content">
-										<h6>
-											<a href="#0">${item.name }</a>
-										</h6>
-										<ul class="post-meta">
-											<li style="font-weight: bold;">${item.so}개</li>
-										</ul>
-									</div>
+									<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
 								</div>
-							</c:forEach>
+							</c:if>
 						</section>
 						<!-- out end -->
 
 						<!-- hit start -->
 						<section class="top3-player-hit" id="top3-player-hit">
-							<c:forEach var="item" items="${list5}" varStatus="loop">
+							<!-- 기록 있을시 -->
+							<c:if test="${! empty list5 }" var="isHr">
+								<c:forEach var="item" items="${list5}" varStatus="loop">
+									<div class="small-post-item">
+										<div class="small-post-thumb">
+											<c:if test="${! empty item.profile }" var="isLogo">
+												<img src="/matching/Upload/${item.profile }" alt="image" style="width:80px; height:80px"/>
+											</c:if>
+											<c:if test="${not isLogo}">
+					              				<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:80px; height:80px"/>
+					              			</c:if>
+										</div>
+										<div class="small-post-content">
+											<h6>
+												<a href="#0">${item.name }</a>
+											</h6>
+											<ul class="post-meta">
+												<li style="font-weight: bold;">${item.hr}개</li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+							</c:if>
+							<!-- 기록 없을시 -->
+							<c:if test="${not isHr }">
 								<div class="small-post-item">
-									<div class="small-post-thumb">
-										<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-											alt="image" />
-									</div>
-									<div class="small-post-content">
-										<h6>
-											<a href="#0">${item.name }</a>
-										</h6>
-										<ul class="post-meta">
-											<li style="font-weight: bold;">${item.hr}개</li>
-										</ul>
-									</div>
+									<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
 								</div>
-							</c:forEach>
+							</c:if>
 						</section>
 						<!-- hit end -->
 
 						<!-- run start -->
 						<section class="top3-player-run" id="top3-player-run">
-							<c:forEach var="item" items="${list6}" varStatus="loop">
+							<!-- 기록 있을시 -->
+							<c:if test="${! empty list6 }" var="isSb">
+								<c:forEach var="item" items="${list6}" varStatus="loop">
+									<div class="small-post-item">
+										<div class="small-post-thumb">
+											<c:if test="${! empty item.profile }" var="isLogo">
+												<img src="/matching/Upload/${item.profile }" alt="image" style="width:80px; height:80px"/>
+											</c:if>
+											<c:if test="${not isLogo}">
+					              				<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:80px; height:80px"/>
+					              			</c:if>
+										</div>
+										<div class="small-post-content">
+											<h6>
+												<a href="#0">${item.name }</a>
+											</h6>
+											<ul class="post-meta">
+												<li style="font-weight: bold;">${item.sb}개</li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+							</c:if>
+							<!-- 기록 없을시 -->
+							<c:if test="${not isSb }">
 								<div class="small-post-item">
-									<div class="small-post-thumb">
-										<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-											alt="image" />
-									</div>
-									<div class="small-post-content">
-										<h6>
-											<a href="#0">${item.name }</a>
-										</h6>
-										<ul class="post-meta">
-											<li style="font-weight: bold;">${item.sb}개</li>
-										</ul>
-									</div>
+									<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
 								</div>
-							</c:forEach>
+							</c:if>
 						</section>
 						<!-- run end -->
 					</div>
@@ -455,19 +496,19 @@ var clickSelectItem = $('#teamName').change(function(){
 					<div class="tab-pane fade show active" id="teamprofile">
 						<div class="container">
 							<div class="row justify-content-center">
-								<div class="col-lg-6 col-md-6">
+								<div class="col-lg-5 col-md-5" id="team-logo-col">
 									<div class="about-thumb" id="team-logo">
 										<c:forEach var="item" items="${list8 }" varStatus="loop">
-											<c:if test="${! empty item.teamLogo }" var="isLogo">
-												<img src="/matching/Upload/${item.teamLogo }" alt="about-image" width="200px" height="200px">
+											<c:if test="${! empty item.teamlogo }" var="isLogo">
+												<img src="/matching/Upload/${item.teamlogo }" alt="about-image" style="width:380px; height:430px"/>
 											</c:if>
 											<c:if test="${not isLogo}">
-						              			<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:329px; height:231px"/>
+						              			<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:380px; height:430px"/>
 						              		</c:if>
 					              		</c:forEach>
 									</div>
 								</div>
-								<div class="col-lg-3 col-md-3">
+								<div class="col-lg-4 col-md-4">
 									<div class="team-history">
 									<c:forEach var="item" items="${list8 }" varStatus="loop">
 										<dl class="info">
@@ -496,7 +537,7 @@ var clickSelectItem = $('#teamName').change(function(){
 						<section class="blog-details-section section-padding"
 							id="player-list">
 							<div class="container">
-								<div class="position">
+								<div class="position" id="position-id">
 									<input id="position1" type="radio" name="positions" checked>
 									<label for="position1">전체</label>
 									
@@ -518,10 +559,15 @@ var clickSelectItem = $('#teamName').change(function(){
 
 								<div class="row mt-mb-15" id="player-border-top"> 
 								<c:forEach var="item" items="${list2}" varStatus="loop">
-									<div class="col-lg-3">
+									<div class="col-lg-3" id="player-list-id">
 										<div class="post-item"> 
 											<div class="thumb">
-												<img src="/matching/assets/images/blog/1.jpg" alt="image" />
+												<c:if test="${! empty item.profile }" var="isLogo">
+													<img src="/matching/Upload/${item.profile }" alt="image" style="width:185px; height:190px"/>
+												</c:if>
+												<c:if test="${not isLogo}">
+						              				<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:170px; height:190px"/>
+						              			</c:if>
 											</div>
 											<div class="content" id="player-list-member">
 												<h4 class="post-title">${item.name}</h4>
@@ -543,7 +589,7 @@ var clickSelectItem = $('#teamName').change(function(){
 						<section class="blog-details-section section-padding"
 							id="schedule-list">
 							<div class="container">
-								<div class="schedule-result">
+								<div class="schedule-result" id="schedule-result-id">
 									<input id="schedule-result1" type="radio" name="schedules" checked>
 									<label for="schedule-result1">전체</label>
 								</div>
@@ -582,22 +628,29 @@ var clickSelectItem = $('#teamName').change(function(){
 											</thead>
 											<!-- 테이블 데이터 시작  -->
 											<tbody class="all-tbody">
-												<c:forEach var="item" items="${list7}" varStatus="loop">
-													<!--  1행 -->
-													<tr>
-														<!-- 경기 날짜  -->
-														<td><span bat="1">${item.gamedate}</span></td>
-														<td>${item.stadium}</td>
-														<!--  팀 vs 팀  -->
-														<td>${item.teamname }&nbsp;&nbsp;<span class="blue">${item.homescore }</span>&nbsp;&nbsp;
-															: &nbsp;&nbsp;<span class="red">${item.awayscore }</span>&nbsp;&nbsp; ${item.awayteam }
-														</td>
-														<!-- 경기결과 -->
-														<td>${item.re }</td>
-														<!-- <td><span class="badge badge-primary">승</span></td> -->
-													</tr>
-													<!-- 1행끝 -->
-												</c:forEach>
+												<!-- 기록 있을시 -->
+												<c:if test="${! empty list7 }" var="isGame">
+													<c:forEach var="item" items="${list7}" varStatus="loop">
+														<!--  1행 -->
+														<tr>
+															<!-- 경기 날짜  -->
+															<td><span bat="1">${item.gamedate}</span></td>
+															<td>${item.stadium}</td>
+															<!--  팀 vs 팀  -->
+															<td>${item.teamname }&nbsp;&nbsp;<span class="blue">${item.homescore }</span>&nbsp;&nbsp;
+																: &nbsp;&nbsp;<span class="red">${item.awayscore }</span>&nbsp;&nbsp; ${item.awayteam }
+															</td>
+															<!-- 경기결과 -->
+															<td>${item.re }</td>
+															<!-- <td><span class="badge badge-primary">승</span></td> -->
+														</tr>
+														<!-- 1행끝 -->
+													</c:forEach>
+												</c:if>
+												<!-- 기록 없을시 -->
+												<c:if test="${not isGame }">
+													<td style="font-size:25px" colspan="4">경기 기록이 없습니다</td>
+												</c:if>
 											</tbody>
 										</table>
 										<!--  play-table end -->
@@ -691,73 +744,80 @@ var clickSelectItem = $('#teamName').change(function(){
 												<table class="table table-bordered" id="record-rank-table">
 													<thead id="th1">
 														<tr id="record-border-menu">
-															<th style="width: 0.8%">순위</th>
+															<th style="width: 1.5%">순위</th>
 															<th style="width: 4%">이름</th>
 															<th style="width: 2.2%">방어율</th>
-															<th style="width: 0.1%">승</th>
-															<th style="width: 0.1%">패</th>
+															<th style="width: 0.8%">승</th>
+															<th style="width: 0.8%">패</th>
 															<th style="width: 3.8%">블론세이브</th>
 															<th style="width: 3.2%">교체이닝</th>
 															<th style="width: 3.2%">교체타수</th>
 															<th style="width: 2.2%">세이브</th>
-															<th style="width: 0.8%">홀드</th>
+															<th style="width: 1.5%">홀드</th>
 															<th style="width: 3.8%">상대타자수</th>
-															<th style="width: 0.8%">이닝</th>
+															<th style="width: 1.5%">이닝</th>
 															<th style="width: 2.2%">피안타</th>
 															<th style="width: 2.2%">피홈런</th>
-															<th style="width: 0.8%">볼넷</th>
-															<th style="width: 0.8%">사구</th>
-															<th style="width: 0.8%">삼진</th>
-															<th style="width: 0.8%">실점</th>
+															<th style="width: 1.5%">볼넷</th>
+															<th style="width: 1.5%">사구</th>
+															<th style="width: 1.5%">삼진</th>
+															<th style="width: 1.5%">실점</th>
 															<th style="width: 2.2%">자책점</th>
 														</tr>
 													</thead>
 													<!-- 테이블 데이터 시작  -->
 													<tbody class="all-tbody">
-													<c:forEach var="item" items="${pitcherrank}" varStatus="loop">
-														<!--  1행 -->
-														<tr>
-															<!-- 순위  -->
-															<td><span bat="1">${item.RANK }</span></td>
-															<!-- 이름 -->
-															<td>${item.NAME }</td>
-															<!--  -->
-															<td>${item.ERA}</td>
-															<!--  -->
-															<td>${item.SUMW}</td>
-															<!--  -->
-															<td>${item.SUML }</td>
-															<!--  -->
-															<td>${item.SUMBLSV }</td>
-															<!--  -->
-															<td>${item.SUMCI }</td>
-															<!--  -->
-															<td>${item.SUMCO }</td>
-															<!--  -->
-															<td>${item.SUSV }</td>
-															<!--  -->
-															<td>${item.SUMHOL }</td>
-															<!--  -->
-															<td>${item.SUMTBF }</td>
-															<!--  -->
-															<td>${item.SUMIP }</td>
-															<!--  -->
-															<td>${item.SUMH }</td>
-															<!--  -->
-															<td>${item.SUMHR }</td>
-															<!--  -->
-															<td>${item.SUMBB }</td>
-															<!--  -->
-															<td>${item.SUMHBP }</td>
-															<!--  -->
-															<td>${item.SUMSO }</td>
-															<!--  -->
-															<td>${item.SUMR }</td>
-															<!--  -->
-															<td>${item.SUMER }</td>
-														</tr>
-														<!-- 1행끝 -->
-													</c:forEach>
+													<!-- 기록 있을시 -->
+													<c:if test="${! empty pitcherrank }" var="isPitcherRank">
+														<c:forEach var="item" items="${pitcherrank}" varStatus="loop">
+															<!--  1행 -->
+															<tr>
+																<!-- 순위  -->
+																<td><span bat="1">${item.RANK }</span></td>
+																<!-- 이름 -->
+																<td>${item.NAME }</td>
+																<!--  -->
+																<td>${item.ERA}</td>
+																<!--  -->
+																<td>${item.SUMW}</td>
+																<!--  -->
+																<td>${item.SUML }</td>
+																<!--  -->
+																<td>${item.SUMBLSV }</td>
+																<!--  -->
+																<td>${item.SUMCI }</td>
+																<!--  -->
+																<td>${item.SUMCO }</td>
+																<!--  -->
+																<td>${item.SUSV }</td>
+																<!--  -->
+																<td>${item.SUMHOL }</td>
+																<!--  -->
+																<td>${item.SUMTBF }</td>
+																<!--  -->
+																<td>${item.SUMIP }</td>
+																<!--  -->
+																<td>${item.SUMH }</td>
+																<!--  -->
+																<td>${item.SUMHR }</td>
+																<!--  -->
+																<td>${item.SUMBB }</td>
+																<!--  -->
+																<td>${item.SUMHBP }</td>
+																<!--  -->
+																<td>${item.SUMSO }</td>
+																<!--  -->
+																<td>${item.SUMR }</td>
+																<!--  -->
+																<td>${item.SUMER }</td>
+															</tr>
+															<!-- 1행끝 -->
+														</c:forEach>
+													</c:if>
+													<!-- 기록 없을시 -->
+													<c:if test="${not isPitcherRank }">
+														<td style="font-size:25px" colspan="19">경기 기록이 없습니다</td>
+													</c:if>
 													</tbody>
 												</table>
 												<!--  play-table end -->
@@ -773,70 +833,77 @@ var clickSelectItem = $('#teamName').change(function(){
 												<table class="table table-bordered" id="record-rank-table2">
 													<thead id="th1">
 														<tr id="record-border-menu">
-															<th style="width: 0.8%">순위</th>
+															<th style="width: 1.5%">순위</th>
 															<th style="width: 4%">이름</th>
-															<th style="width: 0.8%">타율</th>
-															<th style="width: 0.8%">타석</th>
-															<th style="width: 0.8%">타수</th>
-															<th style="width: 0.8%">안타</th>
+															<th style="width: 1.5%">타율</th>
+															<th style="width: 1.5%">타석</th>
+															<th style="width: 1.5%">타수</th>
+															<th style="width: 1.5%">안타</th>
 															<th style="width: 2.2%">2루타</th>
 															<th style="width: 2.2%">3루타</th>
-															<th style="width: 0.8%">홈런</th>
-															<th style="width: 0.8%">득점</th>
-															<th style="width: 0.8%">타점</th>
-															<th style="width: 0.8%">도루</th>
+															<th style="width: 1.5%">홈런</th>
+															<th style="width: 1.5%">득점</th>
+															<th style="width: 1.5%">타점</th>
+															<th style="width: 1.5%">도루</th>
 															<th style="width: 3.2%">도루실패</th>
-															<th style="width: 0.8%">볼넷</th>
-															<th style="width: 0.8%">사구</th>
-															<th style="width: 0.8%">삼진</th>
-															<th style="width: 0.8%">병살</th>
-															<th style="width: 0.8%">실책</th>
+															<th style="width: 1.5%">볼넷</th>
+															<th style="width: 1.5%">사구</th>
+															<th style="width: 1.5%">삼진</th>
+															<th style="width: 1.5%">병살</th>
+															<th style="width: 1.5%">실책</th>
 														</tr>
 													</thead>
 													<!-- 테이블 데이터 시작  -->
 													<tbody class="all-tbody">
-													<c:forEach var="item" items="${hitterrank}" varStatus="loop">
-														<!--  1행 -->
-														<tr>
-															<!-- 순위  -->
-															<td><span bat="1">${item.RANK }</span></td>
-															<!-- 이름 -->
-															<td>${item.NAME }</td>
-															<!--  -->
-															<td>${item.BA }</td>
-															<!--  -->
-															<td>${item.SUMPA }</td>
-															<!--  -->
-															<td>${item.SUMAB }</td>
-															<!--  -->
-															<td>${item.SUMH }</td>
-															<!-- 타수 -->
-															<td>${item.SUMB2 }</td>
-															<!-- 득점 -->
-															<td>${item.SUMB3 }</td>
-															<!-- 총안타 -->
-															<td>${item.SUMHR }</td>
-															<!--  -->
-															<td>${item.SUMR }</td>
-															<!--  -->
-															<td>${item.SUMRBI }</td>
-															<!--  -->
-															<td>${item.SUMSB }</td>
-															<!--  -->
-															<td>${item.SUMCS }</td>
-															<!--  -->
-															<td>${item.SUMBB }</td>
-															<!--  -->
-															<td>${item.SUMHBP }</td>
-															<!--  -->
-															<td>${item.SUMSO }</td>
-															<!--  -->
-															<td>${item.SUMGDP }</td>
-															<!--  -->
-															<td>${item.SUME }</td>
-														</tr>
-														<!-- 1행끝 -->
-													</c:forEach>
+													<!-- 기록 있을시 -->
+													<c:if test="${! empty hitterrank }" var="isHitterRank">
+														<c:forEach var="item" items="${hitterrank}" varStatus="loop">
+															<!--  1행 -->
+															<tr>
+																<!-- 순위  -->
+																<td><span bat="1">${item.RANK }</span></td>
+																<!-- 이름 -->
+																<td>${item.NAME }</td>
+																<!--  -->
+																<td>${item.BA }</td>
+																<!--  -->
+																<td>${item.SUMPA }</td>
+																<!--  -->
+																<td>${item.SUMAB }</td>
+																<!--  -->
+																<td>${item.SUMH }</td>
+																<!-- 타수 -->
+																<td>${item.SUMB2 }</td>
+																<!-- 득점 -->
+																<td>${item.SUMB3 }</td>
+																<!-- 총안타 -->
+																<td>${item.SUMHR }</td>
+																<!--  -->
+																<td>${item.SUMR }</td>
+																<!--  -->
+																<td>${item.SUMRBI }</td>
+																<!--  -->
+																<td>${item.SUMSB }</td>
+																<!--  -->
+																<td>${item.SUMCS }</td>
+																<!--  -->
+																<td>${item.SUMBB }</td>
+																<!--  -->
+																<td>${item.SUMHBP }</td>
+																<!--  -->
+																<td>${item.SUMSO }</td>
+																<!--  -->
+																<td>${item.SUMGDP }</td>
+																<!--  -->
+																<td>${item.SUME }</td>
+															</tr>
+															<!-- 1행끝 -->
+														</c:forEach>
+													</c:if>
+													<!-- 기록 없을시 -->
+													<c:if test="${not isHitterRank }">
+														<td style="font-size:25px" colspan="18">경기 기록이 없습니다</td>
+													</c:if>
 													</tbody>
 												</table>
 												<!--  play-table end -->
@@ -901,57 +968,96 @@ var clickSelectItem = $('#teamName').change(function(){
 										<!-- 2행끝 -->
 										
 										<!-- 3행 -->
-										<c:forEach var="item" items="${teamguinnessscore}" varStatus="loop">
-											<tr>
-												<!-- 기네스 제목 -->
-												<td><span>통산 최다 득점게임</span></td>
+										<tr>
+											<!-- 기네스 제목 -->
+											<td><span>통산 최다 득점게임</span></td>
+											<!-- 기록 있을시 -->
+											<c:if test="${! empty teamguinnessscore }" var="isGuinnessScore">
+												<c:forEach var="item" items="${teamguinnessscore}" varStatus="loop">
+														<!-- 기네스 수치 -->
+														<td>${item.sc }점</td>
+														<!-- 기네스 날짜 -->
+														<td>${item.gamedate } (vs ${item.ot })</td>
+												</c:forEach>
+											</c:if>
+											<!-- 기록 없을시 -->
+											<c:if test="${not isGuinnessScore }">
 												<!-- 기네스 수치 -->
-												<td>${item.sc }점</td>
+												<td>-</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate } (vs ${item.ot })</td>
-											</tr>
-										</c:forEach>
+												<td>경기기록이 없습니다</td>
+											</c:if>
+										</tr>
 										<!-- 3행끝 -->
 										
 										<!-- 5행 -->
-										<c:forEach var="item" items="${teamguinnesshomerun}" varStatus="loop">
-											<tr>
-												<!-- 기네스 제목 -->
-												<td><span>통산 최다 홈런게임</span></td>
+										<tr>
+											<!-- 기네스 제목 -->
+											<td><span>통산 최다 홈런게임</span></td>
+											<!-- 기록 있을시 -->
+											<c:if test="${! empty teamguinnesshomerun }" var="isGuinnessHomerun">
+												<c:forEach var="item" items="${teamguinnesshomerun}" varStatus="loop">
+														<!-- 기네스 수치 -->
+														<td>${item.sc }점</td>
+														<!-- 기네스 날짜 -->
+														<td>${item.gamedate } (vs ${item.ot })</td>
+												</c:forEach>
+											</c:if>
+											<!-- 기록 없을시 -->
+											<c:if test="${not isGuinnessHomerun }">
 												<!-- 기네스 수치 -->
-												<td>${item.hr }개</td>
+												<td>-</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate } (vs ${item.ot })</td>
-											</tr>
-										</c:forEach>
+												<td>경기기록이 없습니다</td>
+											</c:if>
+										</tr>
 										<!-- 5행끝 -->
 										
 										<!-- 6행 -->
-										<c:forEach var="item" items="${teamguinnesshit}" varStatus="loop">
-											<tr>
-												<!-- 기네스 제목 -->
-												<td><span>통산 최다 안타게임</span></td>
+										<tr>
+											<!-- 기네스 제목 -->
+											<td><span>통산 최다 안타게임</span></td>
+											<!-- 기록 있을시 -->
+											<c:if test="${! empty teamguinnesshit }" var="isGuinnessHit">
+												<c:forEach var="item" items="${teamguinnesshit}" varStatus="loop">
+														<!-- 기네스 수치 -->
+														<td>${item.sc }점</td>
+														<!-- 기네스 날짜 -->
+														<td>${item.gamedate } (vs ${item.ot })</td>
+												</c:forEach>
+											</c:if>
+											<!-- 기록 없을시 -->
+											<c:if test="${not isGuinnessHit }">
 												<!-- 기네스 수치 -->
-												<td>${item.h }개</td>
+												<td>-</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate } (vs ${item.ot })</td>
-											</tr>
-										</c:forEach>
+												<td>경기기록이 없습니다</td>
+											</c:if>
+										</tr>
 										<!-- 6행끝 -->
 										
 										<!-- 7행 -->
-										<c:forEach var="item" items="${teamguinnessstrikeout}" varStatus="loop">
-											<tr>
-												<!-- 기네스 제목 -->
-												<td><span>통산 최다 삼진</span></td>
+										<tr>
+											<!-- 기네스 제목 -->
+											<td><span>통산 최다 삼진</span></td>
+											<!-- 기록 있을시 -->
+											<c:if test="${! empty teamguinnessstrikeout }" var="isGuinnessStrikeOut">
+												<c:forEach var="item" items="${teamguinnessstrikeout}" varStatus="loop">
+														<!-- 기네스 수치 -->
+														<td>${item.sc }점</td>
+														<!-- 기네스 날짜 -->
+														<td>${item.gamedate } (vs ${item.ot })</td>
+												</c:forEach>
+											</c:if>
+											<!-- 기록 없을시 -->
+											<c:if test="${not isGuinnessStrikeOut }">
 												<!-- 기네스 수치 -->
-												<td>${item.so }개</td>
+												<td>-</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate } (vs ${item.ot })</td>
-											</tr>
-										</c:forEach>
+												<td>경기기록이 없습니다</td>
+											</c:if>
+										</tr>
 										<!-- 7행끝 -->
-									
 									</tbody>
 								</table>
 								<!--  play-table end -->

@@ -35,7 +35,7 @@ import team.sports.printdb.baseball.PitcherDTO;
 import team.sports.matching.service.impl.MatchDAO;
 
 
-@SessionAttributes("id")
+@SessionAttributes("id") 
 @Controller
 public class TeamController {
 	@Resource(name="member")
@@ -43,7 +43,7 @@ public class TeamController {
 	@Resource(name="teamboard")
 	private TeamBoardDAO teamDao;
 	
-	//팀 만들기 페이지로 이동
+	//팀 만들기 페이지로 이동   
 	@RequestMapping("/Team/Matching/createTeam.do")
 	public String toCreateTeam(Authentication auth,Model model) {
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
@@ -107,8 +107,9 @@ public class TeamController {
 	}
 
 	//팀페이지로 이동
-	@RequestMapping("/Team/Matching/Team.do")
+	@RequestMapping("/Team/Matching/Team.do") 
 	public String team(Authentication auth,Model model, @RequestParam Map map) {
+		
 		List<Map> list = new Vector<Map>();
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		String id = userDetails.getUsername();
@@ -119,86 +120,126 @@ public class TeamController {
 		}
 		model.addAttribute("teams", teams);
 		
-		//선수목록 보내기
-		map.put("id", id);
-		List<TeamBoardDTO> list2 = teamDao.selectList(map);
-		model.addAttribute("list2",list2);
-		
-		//최다득점 목록
-		map.put("id", id);
-		List<TeamBoardDTO> list3 = teamDao.bestrbiPlayer(map);
-		model.addAttribute("list3",list3);
-		
-		//최다삼진 목록
-		map.put("id", id);
-		List<TeamBoardDTO> list4 = teamDao.bestsoPlayer(map);
-		model.addAttribute("list4",list4);
-		
-		//최다삼진 목록
-		map.put("id", id);
-		List<TeamBoardDTO> list5 = teamDao.besthrPlayer(map);
-		model.addAttribute("list5",list5);
-		
-		//최다도루 목록
-		map.put("id", id);
-		List<TeamBoardDTO> list6 = teamDao.bestsbPlayer(map);
-		model.addAttribute("list6",list6);
-		
-		//경기일정
-		map.put("id", id);
-		List<TeamBoardDTO> list7 = teamDao.gameSchedule(map);
-		model.addAttribute("list7",list7);
-		
-		//팀소개
-		map.put("id",id);
-		List<TeamBoardDTO> list8 = teamDao.teamInfo(map);
-		model.addAttribute("list8",list8);
-		
-		//투수랭킹
-		List<Map> list9 = teamDao.pitcherRank(map);
-		/*
-		map.put("id",id);
-		List<PitcherDTO> list9 = teamDao.pitcherRank(map);
-		*/
-		model.addAttribute("pitcherrank",list9);
-		
-		//타자랭킹
-		List<Map> list10 = teamDao.hitterRank(map);
-		/*
-		map.put("id",id);
-		List<HitterDTO> list10 = teamDao.hitterRank(map);
-		*/
-		/*
-		for(int i=0; i<list10.size();i++) {
-			double sumavg= Math.ceil((Double.parseDouble(list10.get(i).get("SUMH").toString()))/(Double.parseDouble(list10.get(i).get("SUMAB").toString())) * 10000)/10000.0;
-			list10.get(i).put("SUMAVG", sumavg);
-			System.out.println(list10.get(i).get("SUMAVG").toString());
+		if(map.get("TEAMNAME222") == null) {	
+			//선수목록 보내기
+			map.put("id", id);
+			List<TeamBoardDTO> list2 = teamDao.selectList(map);
+			model.addAttribute("list2",list2);
+			
+			//최다득점 목록
+			List<TeamBoardDTO> list3 = teamDao.bestrbiPlayer(map);
+			model.addAttribute("list3",list3);
+			
+			//최다삼진 목록
+			List<TeamBoardDTO> list4 = teamDao.bestsoPlayer(map);
+			model.addAttribute("list4",list4);
+			
+			//최다삼진 목록
+			List<TeamBoardDTO> list5 = teamDao.besthrPlayer(map);
+			model.addAttribute("list5",list5);
+			
+			//최다도루 목록
+			List<TeamBoardDTO> list6 = teamDao.bestsbPlayer(map);
+			model.addAttribute("list6",list6);
+			
+			//경기일정
+			List<TeamBoardDTO> list7 = teamDao.gameSchedule(map);
+			model.addAttribute("list7",list7);
+			
+			//팀소개
+			List<TeamBoardDTO> list8 = teamDao.teamInfo(map);	
+			model.addAttribute("list8",list8);
+			
+			//투수랭킹
+			List<Map> list9 = teamDao.pitcherRank(map);
+			model.addAttribute("pitcherrank",list9);
+			
+			//타자랭킹
+			List<Map> list10 = teamDao.hitterRank(map);
+			model.addAttribute("hitterrank",list10);
+			
+			//팀기네스-최다득점
+			List<TeamBoardDTO> list11 = teamDao.teamGuinnessScore(map);
+			model.addAttribute("teamguinnessscore",list11);
+			  
+			//팀기네스-최다홈런
+			List<TeamBoardDTO> list12 = teamDao.teamGuinnessHomeRun(map);
+			model.addAttribute("teamguinnesshomerun",list12);
+	
+			//팀기네스-최다안타
+			List<TeamBoardDTO> list13 = teamDao.teamGuinnessHit(map);
+			model.addAttribute("teamguinnesshit",list13);
+	
+			//팀기네스-최다삼진
+			List<TeamBoardDTO> list14 = teamDao.teamGuinnessStrikeOut(map);
+			model.addAttribute("teamguinnessstrikeout",list14);
+			return "member/team.tiles";
 		}
-		System.out.println();*/
-		model.addAttribute("hitterrank",list10);
-		
-		
-		//팀기네스-최다득점
-		map.put("id",id);
-		List<TeamBoardDTO> list11 = teamDao.teamGuinnessScore(map);
-		model.addAttribute("teamguinnessscore",list11);
-		
-		//팀기네스-최다홈런
-		map.put("id",id);
-		List<TeamBoardDTO> list12 = teamDao.teamGuinnessHomeRun(map);
-		model.addAttribute("teamguinnesshomerun",list12);
-
-		//팀기네스-최다안타
-		map.put("id",id);
-		List<TeamBoardDTO> list13 = teamDao.teamGuinnessHit(map);
-		model.addAttribute("teamguinnesshit",list13);
-
-		//팀기네스-최다삼진
-		map.put("id",id);
-		List<TeamBoardDTO> list14 = teamDao.teamGuinnessStrikeOut(map);
-		model.addAttribute("teamguinnessstrikeout",list14);
-				
-		return "member/team.tiles";
+		else {
+			
+			String TEAMNAME222 = map.get("TEAMNAME222").toString();
+			System.out.println("teamname222:"+TEAMNAME222);
+			map.put("TEAMNAME222", TEAMNAME222);
+			for(Object key : map.keySet()) {      
+				String value=(String) map.get(key); 
+				System.out.println("key : " + key + ", value : " +value);
+			}
+			
+			//선수목록 보내기
+			map.put("id", id);
+			List<TeamBoardDTO> list2 = teamDao.selectListSelect(map);
+			model.addAttribute("list2",list2);
+			
+			//최다득점 목록
+			List<TeamBoardDTO> list3 = teamDao.bestrbiPlayerSelect(map);
+			model.addAttribute("list3",list3);  
+			
+			//최다삼진 목록
+			List<TeamBoardDTO> list4 = teamDao.bestsoPlayerSelect(map);
+			model.addAttribute("list4",list4);
+			
+			//최다홈런 목록
+			List<TeamBoardDTO> list5 = teamDao.besthrPlayerSelect(map);
+			model.addAttribute("list5",list5);
+			
+			//최다도루 목록
+			List<TeamBoardDTO> list6 = teamDao.bestsbPlayerSelect(map);
+			model.addAttribute("list6",list6);
+			
+			//경기일정
+			List<TeamBoardDTO> list7 = teamDao.gameScheduleSelect(map);
+			model.addAttribute("list7",list7);
+			
+			//팀소개
+			List<TeamBoardDTO> list8 = teamDao.teamInfoSelect(map);	
+			model.addAttribute("list8",list8);
+			
+			//투수랭킹
+			List<Map> list9 = teamDao.pitcherRankSelect(map);
+			model.addAttribute("pitcherrank",list9);
+			
+			//타자랭킹
+			List<Map> list10 = teamDao.hitterRankSelect(map);
+			model.addAttribute("hitterrank",list10);
+			
+			//팀기네스-최다득점
+			List<TeamBoardDTO> list11 = teamDao.teamGuinnessScoreSelect(map);
+			model.addAttribute("teamguinnessscore",list11);
+			
+			//팀기네스-최다홈런
+			List<TeamBoardDTO> list12 = teamDao.teamGuinnessHomeRunSelect(map);
+			model.addAttribute("teamguinnesshomerun",list12);
+	
+			//팀기네스-최다안타
+			List<TeamBoardDTO> list13 = teamDao.teamGuinnessHitSelect(map);
+			model.addAttribute("teamguinnesshit",list13);
+	
+			//팀기네스-최다삼진
+			List<TeamBoardDTO> list14 = teamDao.teamGuinnessStrikeOutSelect(map);
+			model.addAttribute("teamguinnessstrikeout",list14);
+			
+			return "member/team.tiles";
+		}
 	}
 	
 	//팀 바꾸기 ajax
