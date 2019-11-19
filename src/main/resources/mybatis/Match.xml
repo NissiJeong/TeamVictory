@@ -16,11 +16,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="teamSelectList" parameterType="java.util.Map" resultType="TeamDTO">
 		<if test="manager == 0">
-			SELECT * FROM team
+			SELECT * FROM team order by teamrating desc
 		</if>
 		<if test="manager != 0">
-			SELECT t.* from team t join teammember m on t.teamname = m.teamname where not m.teamname = (select teamname from team where manager_id=#{id}) 
-			and category = (select category from team where manager_id=#{id})
+			SELECT t.*, ABS(t.teamrating - (select teamrating from team where manager_id=#{id})) as drating from team t where not teamname = (select teamname from team where manager_id=#{id}) 
+			and category = (select category from team where manager_id=#{id}) order by drating
 		</if> 
 	</select>
 	<select id="oneSelect" parameterType="java.util.Map" resultType="TeamDTO">
@@ -45,4 +45,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkManager" parameterType="java.util.Map" resultType="int">
 		select count(*) from team where manager_id =#{id}
 	</select>
+	<!-- gameSchedule에서 gameStatus=wating 가져오기 -->
+	<select id="selectGameSchedule" parameterType="java.util.Map" resultType="Map">
+		select * from gameschedule where GAMESTATUS = 'waiting'
+	</select>
+	<!-- 종료 버튼을 누른 사람이 해당 팀의 팀장인지 -->
+	<select id="isManager22" parameterType="java.util.Map" resultType="Map">
+		select manager_id from team where teamname=#{hometeam} or teamname=#{awayteam}
+	</select>
+	<!-- 종료 버튼 누른 후 gameStatus를 inwaiting으로 변경 -->
+	<update id="updateGameStatus" parameterType="java.util.Map">
+		update gameschedule set GAMESTATUS = 'inwaiting',homescore=#{homescore},awayscore=#{awayscore} where gamedate=#{gamedate} and time=#{time} and stadium=#{stadium} 
+	</update>
+	<!-- gameSchedule gamestats inwating인 글의 개수 가져오기 -->
+	<select id="selectInWaiting" parameterType="java.util.Map" resultType="int">
+		select count(*) from gameschedule where gamestatus = 'inwaiting' and 
+		(teamname= (select teamname from (select * from teammember order by regidate) where rownum = 1 and id=#{id}) 
+		or awayteam = (select teamname from (select * from teammember order by regidate) where rownum = 1 and id=#{id}))
+	</select>
+	<!-- 상대가 finish누른 경기 기록들 가져오기 -->
+	<select id="selectInwaiting" parameterType="java.util.Map" resultType="Map">
+		select * from gameschedule where gamestatus = 'inwaiting' and (teamname = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1) or AWAYTEAM = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1))
+	</select>
+	<!-- 최종 finish누른 후 gameStatus를 finish로 바꾸기 -->
+	<update id="updateGameStatus222" parameterType="java.util.Map">
+		update gameschedule set gamestatus = 'finish' where no=#{no}
+	</update>
+	<!-- 매칭 신청한 팀의 팀원들 마일리지 +300 -->
+	<update id="updateMileage" parameterType="java.util.Map">
+		MERGE INTO member m USING teammember t ON (m.id = t.id)  WHEN MATCHED THEN UPDATE SET m.point = m.point+300 where t.teamname = (select teamname from team where team.manager_id=#{id})
+	</update>
 </mapper>
