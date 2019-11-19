@@ -35,7 +35,7 @@ public class AdminController{
 				
 		count = dao.selectSchedule(null);
 		countList.add(count);
-		System.out.println(countList.size()+" : "+countList.get(countList.size()-1));
+		
 		
 		if(countList.size()>=2) {
 			if(countList.get(countList.size()-1)>countList.get(countList.size()-2)) {
