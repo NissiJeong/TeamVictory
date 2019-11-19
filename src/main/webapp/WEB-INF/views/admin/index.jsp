@@ -183,10 +183,10 @@ $(function(){
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-comments"></i>
                 </div>
-                <div class="mr-5">26 New Messages!</div>
+                <div class="mr-5">문의 게시판</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
-                <span class="float-left">View Details</span>
+              <a class="card-footer text-white clearfix small z-1" href="<c:url value='/Team/admin/qa.do'/>">
+                <span class="float-left">게시판 이동</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
                 </span>

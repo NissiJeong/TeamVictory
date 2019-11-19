@@ -11,7 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 팀게시판 -->
 	<!-- 팀소개 구하기 -->
 	<select id="TeamSelf" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT t.teamname, m.name, t.regidate, t.teamloc, t.teaminfo FROM teammember tm JOIN member m ON tm.id=m.id JOIN team t ON tm.teamname=t.teamname WHERE m.id=t.manager_id and t.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+		SELECT t.teamlogo, t.teamname, m.name, t.regidate, t.teamloc, t.teaminfo 
+		FROM teammember tm JOIN member m ON tm.id=m.id JOIN team t ON tm.teamname=t.teamname 
+		WHERE m.id=t.manager_id and t.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
 	</select>
 	<!-- 선수단구하기 -->
 	<select id="TeamBoardList" parameterType="java.util.Map" resultType="TeamBoardDTO">
@@ -58,63 +60,176 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 경기일정 -->
 	<select id="GameSchedule" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT g.* FROM gameschedule g JOIN team t ON g.teamname=t.teamname 
-		WHERE g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) or g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
+		SELECT g.*, 
+        case WHEN <![CDATA[g.awayscore > g.homescore ]]> 
+		and g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) THEN '승'
+        
+        WHEN <![CDATA[ g.awayscore < g.homescore ]]> 
+        and g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) THEN '승'  
+        
+        WHEN <![CDATA[ g.awayscore < g.homescore ]]> 
+        and g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) THEN '패' 
+        
+        WHEN <![CDATA[ g.awayscore > g.homescore ]]> 
+        and g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) THEN '패' 
+         
+        WHEN <![CDATA[ g.gamedate > (select sysdate from dual) ]]> 
+        THEN '경기예정'
+        
+    	ELSE '무승부' END as re 
+    	FROM gameschedule g JOIN team t ON g.teamname=t.teamname 
+		WHERE g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
+        or g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
 		ORDER BY g.gamedate DESC
 	</select>
 	
 	<!-- 투수랭킹 -->
-	<select id="PitcherRank" parameterType="java.util.Map" resultType="PitcherDTO">
-		SELECT p.*, m.name, ROW_NUMBER() OVER(ORDER BY so DESC) as rank FROM pitcher p JOIN member m ON p.id=m.id 
-		WHERE p.teamname = (select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+	<select id="PitcherRank" parameterType="java.util.Map" resultType="java.util.Map">
+		select DISTINCT a.*,
+            DENSE_RANK() OVER(ORDER BY ERA DESC) as rank 
+            from (select DISTINCT SUM(W) OVER(PARTITION BY name) SUMW,
+		        SUM(L) OVER(PARTITION BY name) SUML,
+		        SUM(BLSV) OVER(PARTITION BY name) SUMBLSV,
+		        SUM(CI) OVER(PARTITION BY name) SUMCI,
+		        SUM(CO) OVER(PARTITION BY name) SUMCO,
+		        SUM(SV) OVER(PARTITION BY name) SUSV,
+		        SUM(HOL) OVER(PARTITION BY name) SUMHOL,
+		        SUM(TBF) OVER(PARTITION BY name) SUMTBF,
+		        SUM(IP) OVER(PARTITION BY name) SUMIP,
+		        SUM(H) OVER(PARTITION BY name) SUMH,
+		        SUM(HR) OVER(PARTITION BY name) SUMHR,
+		        SUM(BB) OVER(PARTITION BY name) SUMBB,
+		        SUM(HBP) OVER(PARTITION BY name) SUMHBP,
+		        SUM(SO) OVER(PARTITION BY name) SUMSO,
+                SUM(R) OVER(PARTITION BY name) SUMR,
+                SUM(ER) OVER(PARTITION BY name) SUMER,
+                round( (SUM(ER) OVER(PARTITION BY name) * 9) /SUM(IP) OVER(PARTITION BY name), 3) as ERA,
+                p.id, m.name 
+                from pitcher p JOIN member m ON p.id=m.id 
+                where p.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum=1) order by ERA DESC) a 
+                JOIN pitcher p on a.id=p.id 
+                order by ERA DESC
 	</select>
 	
 	<!-- 타자랭킹 -->
-	<select id="HitterRank" parameterType="java.util.Map" resultType="BaseBall_HitterDTO">
-		SELECT h.*, m.name, ROW_NUMBER() OVER(ORDER BY r DESC) as rank FROM hitter h JOIN member m ON h.id=m.id 
-		WHERE h.teamname = (select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
+	<select id="HitterRank" parameterType="java.util.Map" resultType="java.util.Map">
+		select DISTINCT a.*,
+				DENSE_RANK() OVER(ORDER BY BA DESC) as rank 
+				from (select DISTINCT SUM(PA) OVER(PARTITION BY name) SUMPA,
+		        SUM(AB) OVER(PARTITION BY name) SUMAB,
+		        SUM(H) OVER(PARTITION BY name) SUMH,
+		        SUM(B2) OVER(PARTITION BY name) SUMB2,
+		        SUM(B3) OVER(PARTITION BY name) SUMB3,
+		        SUM(HR) OVER(PARTITION BY name) SUMHR,
+		        SUM(R) OVER(PARTITION BY name) SUMR,
+		        SUM(RBI) OVER(PARTITION BY name) SUMRBI,
+		        SUM(SB) OVER(PARTITION BY name) SUMSB,
+		        SUM(CS) OVER(PARTITION BY name) SUMCS,
+		        SUM(BB) OVER(PARTITION BY name) SUMBB,
+		        SUM(HBP) OVER(PARTITION BY name) SUMHBP,
+		        SUM(SO) OVER(PARTITION BY name) SUMSO,
+		        SUM(GDP) OVER(PARTITION BY name) SUMGDP,
+		        SUM(E) OVER(PARTITION BY name) SUME,
+                round( SUM(H) OVER(PARTITION BY name) /SUM(AB) OVER(PARTITION BY name), 3) as BA,
+                h.id, m.name 
+                from hitter h JOIN member m ON h.id=m.id 
+                where h.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum=1) order by BA DESC) a 
+                JOIN hitter h on a.id=h.id 
+                order by BA DESC
 	</select>
 	
 	<!-- 팀기네스 : 최다득점 -->
 	<select id="TeamGuinnessScore" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT (SELECT max(R) FROM hitter) as sc, g.*, h.r FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
-		where h.r=(SELECT max(R) FROM hitter) 
+		SELECT (SELECT max(R) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) as sc, g.*, 
+		case when h.r=(select max(R) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	    	then (select g.awayteam from gameschedule g join hitter h on g.gamedate=h.gamedate 
+	            	where g.teamname=(select teamname from (select * from teammember order by regidate) 
+	            	where id=#{id}  and rownum = 1) and rownum=1 and h.r=(select max(R) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)))
+	
+	    	when h.r=(select max(R) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	        then (select g.teamname from gameschedule g join hitter h on g.gamedate=h.gamedate 
+	                where g.awayteam=(select teamname from (select * from teammember order by regidate) 
+	                where id=#{id}  and rownum = 1) and rownum=1 and h.r=(select max(R) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1))) 
+		end as "ot" 
+		FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
+		where h.r=(SELECT max(R) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
-		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) 
+		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) and rownum=1
 		ORDER BY g.gamedate DESC
 	</select>
 	
 	<!-- 팀기네스 : 최다홈런 -->
 	<select id="TeamGuinnessHomRun" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT (SELECT max(hr) FROM hitter) as hr, g.*, h.r FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
-		where h.r=(SELECT max(R) FROM hitter) 
+		SELECT (SELECT max(hr) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) as hr, g.*, 
+		case when h.hr=(select max(hr) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	    	then (select g.awayteam from gameschedule g join hitter h on g.gamedate=h.gamedate 
+	            	where g.teamname=(select teamname from (select * from teammember order by regidate) 
+	            	where id=#{id}  and rownum = 1) and rownum=1 and h.hr=(select max(hr) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)))
+	
+	    	when h.hr=(select max(hr) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	        then (select g.teamname from gameschedule g join hitter h on g.gamedate=h.gamedate 
+	                where g.awayteam=(select teamname from (select * from teammember order by regidate) 
+	                where id=#{id}  and rownum = 1) and rownum=1 and h.hr=(select max(hr) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1))) 
+		end as "ot" 
+		FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
+		where h.hr=(SELECT max(hr) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
-		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) 
+		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) and rownum=1
 		ORDER BY g.gamedate DESC
 	</select>
 	
 	<!-- 팀기네스 : 최다안타 -->
 	<select id="TeamGuinnessHit" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT (SELECT max(h) FROM hitter) as h, g.*, h.r FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
-		where h.r=(SELECT max(R) FROM hitter) 
+		SELECT (SELECT max(h) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) as h, g.*, 
+		case when h.h=(select max(h) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	    	then (select g.awayteam from gameschedule g join hitter h on g.gamedate=h.gamedate 
+	            	where g.teamname=(select teamname from (select * from teammember order by regidate) 
+	            	where id=#{id}  and rownum = 1) and rownum=1 and h.h=(select max(h) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)))
+	
+	    	when h.h=(select max(h) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	        then (select g.teamname from gameschedule g join hitter h on g.gamedate=h.gamedate 
+	                where g.awayteam=(select teamname from (select * from teammember order by regidate) 
+	                where id=#{id}  and rownum = 1) and rownum=1 and h.h=(select max(h) from hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1))) 
+		end as "ot" 
+		FROM hitter h JOIN gameschedule g ON h.gamedate=g.gamedate 
+		where h.h=(SELECT max(h) FROM hitter where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
-		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) 
+		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) and rownum=1
 		ORDER BY g.gamedate DESC
 	</select>
 	
 	<!-- 팀기네스 : 최다삼진 -->
 	<select id="TeamGuinnessStrikeOut" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT (SELECT max(so) FROM pitcher) as so, g.* FROM pitcher p JOIN gameschedule g ON p.gamedate=g.gamedate 
-		where p.so=(SELECT max(so) FROM pitcher) 
+		SELECT (SELECT max(so) FROM pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) as so, g.*, 
+		case when h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	    	then (select g.awayteam from gameschedule g join pitcher h on g.gamedate=h.gamedate 
+	            	where g.teamname=(select teamname from (select * from teammember order by regidate) 
+	            	where id=#{id}  and rownum = 1) and rownum=1 and h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)))
+	
+	    	when h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+            and g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
+	        then (select g.teamname from gameschedule g join pitcher h on g.gamedate=h.gamedate 
+	                where g.awayteam=(select teamname from (select * from teammember order by regidate) 
+	                where id=#{id}  and rownum = 1) and rownum=1 and h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1))) 
+		end as "ot" 
+		FROM pitcher h JOIN gameschedule g ON h.gamedate=g.gamedate 
+		where h.so=(SELECT max(so) FROM pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
-		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) 
+		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) and rownum=1
 		ORDER BY g.gamedate DESC
 	</select>
 	
 	
 	
 	
-	<!-- <select id="TeamGuinness" parameterType="java.util.Map" resultType="TeamBoardDTO">
+ <select id="TeamGuinness" parameterType="java.util.Map" resultType="TeamBoardDTO">
 		SELECT DISTINCT (SELECT max(R) FROM hitter) as sc, 득점
 		(SELECT max(hr) FROM hitter) as hr,  홈런
 		(SELECT max(so) FROM pitcher) as so, 삼진
@@ -124,7 +239,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN pitcher p ON g.gamedate=p.gamedate 
 		WHERE g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)
 		
-	</select> -->
+	</select> 
 	
 	
 	<!-- 서치팀 sql문 -->
@@ -141,4 +256,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="TeamNameSearch" parameterType="java.util.Map" resultType="Map">
 		SELECT t.*, m.name FROM team t JOIN member m ON m.id=t.manager_id order by teamname
 	</select>
+	<!-- 최신 매칭 카운트 가져오기 -->
+	<select id="selectMatching" parameterType="java.util.Map" resultType="int">
+		select count(*) from matching where enemyteam = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1)
+	</select>
+	<!-- 매칭 대기 상태인 글 가져오기 -->
+	<select id="selectWaiting" parameterType="java.util.Map" resultType="int">
+		select count(*) from matching where enemyteam = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1) and MATCHSTATUS = 'waiting'
+	</select>
+	<!-- 매칭한 팀의 정보 가져오기 -->
+	<select id="selectMatchingInfo" parameterType="java.util.Map" resultType="Map">
+		select * from team t join
+		(select * from 
+		(select T.*,ROWNUM r from
+		(select * from matching where enemyteam = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1) order by matchingno desc) T)
+		<![CDATA[ 
+		where r<=#{matchCount}) N on t.teamname = n.teamname
+		]]>
+	</select>
+	<!-- matchStatus complete으로 update -->
+	<update id="updateMatchStatus" parameterType="java.util.Map">
+		update matching set matchstatus = 'complete' where matchingno=#{MATCHINGNO}
+	</update>
+	<!-- matching reject후 matchStatus cancel로 -->
+	<update id="cancelMatch" parameterType="java.util.Map">
+		update matching set matchstatus = 'cancel' where matchingno=#{MATCHINGNO}
+	</update>
+	<!-- gameSchedule에 insert할 데이터 가져오기 -->
+	<select id="selectGame" parameterType="java.util.Map" resultType="Map">
+		select * from matching where matchingno = #{MATCHINGNO}
+	</select>
+	<!-- gameSchedule에 입력 -->
+	<insert id="insertSchedule" parameterType="java.util.Map">
+		insert into gameschedule(no,gamedate,stadium,time,awayteam,gamestatus,teamname) values(SEQ_GAMESCHEDULE.nextval,#{REQDATE},#{STADIUM},#{TIME},#{ENEMYTEAM},default,#{TEAMNAME})
+	</insert>
+	<!-- 매친 신청한 팀의 최근 5경기 기록 가져오기 -->
+	<select id="selectRecord222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule order by gamedate desc) where (teamname = #{teamName} or awayteam=#{teamName}) and
+		<![CDATA[
+		rownum <= 5 and gamestatus = 'finish'
+		]]> 
+	</select>
+	<!-- 매칭 승인한 팀의 팀원들 마일리지 +200 -->
+	<update id="updateMileage22" parameterType="java.util.Map">
+		MERGE INTO member m USING teammember t ON (m.id = t.id)  WHEN MATCHED THEN UPDATE SET m.point = m.point+200 where t.teamname = (select teamname from team where team.manager_id=#{id})
+	</update>
+	<!-- 경기 최종 종료 누른 후 경기 끝난 Home 팀의 쿼리 가져오기 -->
+	<select id="selectHomeGameSchedule" parameterType="java.util.Map" resultType="Map">
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.teamname = t.teamname where (g.teamname = #{hometeam} or g.awayteam = #{hometeam}) order by no desc
+	</select>
+	<!-- 경기 최종 종료 누른 후 경기 끝난 Away 팀의 쿼리 가져오기 -->
+	<select id="selectAwayGameList" parameterType="java.util.Map" resultType="Map">
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.awayteam = t.teamname where (g.teamname = #{awayteam} or g.awayteam = #{awayteam}) order by no desc
+	</select>
+	<!-- Home team rating update -->
+	<update id="updateHomeRating" parameterType="java.util.Map">
+		update team set TEAMRATING = #{homeNewRating} where teamname = #{hometeam}
+	</update>
+	<!-- away team rating update -->
+	<update id="updateAwayRaing" parameterType="java.util.Map">
+		update team set TEAMRATING = #{awayNewRating} where teamname = #{awayteam}
+	</update>
 </mapper>

@@ -74,7 +74,7 @@
 		<websocket:mapping handler="BasketballPushApp" path="/match.do"/>
 		<websocket:mapping path="/chat-ws.do" handler="chatServer"/>
 		<websocket:handshake-interceptors>
-		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	<beans:bean class="team.sports.matching.BasketballMatchingHandler" id="chatServer"/>

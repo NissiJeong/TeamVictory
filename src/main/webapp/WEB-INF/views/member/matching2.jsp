@@ -249,7 +249,7 @@ function notifyme(message){
 	        </div>
         <div class="col-lg-12">
           <div class="statistics-table-result-part">
-            <ul class="nav justify-content-around" id="myTab" role="tablist">
+            <!-- <ul class="nav justify-content-around" id="myTab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="teamMatch-tab" data-toggle="tab" href="#teamMatch" role="tab" aria-controls="all" aria-selected="true">
                   <i class="flaticon-match"></i>
@@ -273,7 +273,7 @@ function notifyme(message){
 	            <input type="button"  class="btn btn-info" value="search" style="margin-left: 5px"/>
                 </a>
               </li>
-            </ul>
+            </ul> -->
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="teamMatch" role="tabpanel" aria-labelledby="all-tab">
                 
@@ -322,7 +322,7 @@ function notifyme(message){
                   
                 
               </div>
-			<div class="tab-pane fade" id="soloMatch" role="tabpanel" aria-labelledby="all-tab">
+			<!-- <div class="tab-pane fade" id="soloMatch" role="tabpanel" aria-labelledby="all-tab">
                 <div class="accordion" id="accordionExample-2">
                   <div class="card">
                     <div class="card-header" id="one-world-cup">
@@ -372,7 +372,7 @@ function notifyme(message){
                                 </li>
                               </ul>
                             </div>
-                          </div><!-- statistics-team-area end -->
+                          </div>statistics-team-area end
                           <div class="statistics-result-area">
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
@@ -396,7 +396,7 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
+                            </div>result-single end
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
                                 <p>Sat 01 Mar</p>
@@ -419,7 +419,7 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
+                            </div>result-single end
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
                                 <p>Sat 01 Mar</p>
@@ -442,7 +442,7 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
+                            </div>result-single end
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
                                 <p>Sat 01 Mar</p>
@@ -465,16 +465,16 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
-                          </div><!-- statistics-result-area end -->
-                        </div><!-- statistics-result-table end -->
+                            </div>result-single end
+                          </div>statistics-result-area end
+                        </div>statistics-result-table end
                       </div>
                     </div>
-                  </div><!-- card end -->
+                  </div>card end
                   
                 </div>
-              </div>
-              <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="all-tab">
+              </div> -->
+              <!-- <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="all-tab">
                 <div class="accordion" id="accordionExample-2">
                   <div class="card">
                     <div class="card-header" id="one-world-cup">
@@ -524,7 +524,7 @@ function notifyme(message){
                                 </li>
                               </ul>
                             </div>
-                          </div><!-- statistics-team-area end -->
+                          </div>statistics-team-area end
                           <div class="statistics-result-area">
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
@@ -548,7 +548,7 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
+                            </div>result-single end
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
                                 <p>Sat 01 Mar</p>
@@ -571,7 +571,7 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
+                            </div>result-single end
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
                                 <p>Sat 01 Mar</p>
@@ -594,7 +594,7 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
+                            </div>result-single end
                             <div class="result-single d-flex align-items-center">
                               <div class="details">
                                 <p>Sat 01 Mar</p>
@@ -617,15 +617,15 @@ function notifyme(message){
                                   <span class="result">1</span>
                                 </div>
                               </div>
-                            </div><!-- result-single end -->
-                          </div><!-- statistics-result-area end -->
-                        </div><!-- statistics-result-table end -->
+                            </div>result-single end
+                          </div>statistics-result-area end
+                        </div>statistics-result-table end
                       </div>
                     </div>
-                  </div><!-- card end -->
+                  </div>card end
                   
                 </div>
-              </div>
+              </div> -->
             </div>
           </div><!-- online-play-tab-part end -->
         </div>
