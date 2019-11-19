@@ -1,8 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <sec:authentication property="principal.username" var="id"/>
 <sec:authentication property="principal.authorities" var="auth"/>
 
@@ -40,6 +40,9 @@ dd {
 #record-rank-table{
 	width: 123%;
 }
+#record-rank-table2{
+	width: 155%;
+}
 
 #guinness-table .all-tbody tr td{
 	font-size: 15px;
@@ -68,14 +71,14 @@ dd {
 .record-right {
 	display: none;
 	position: absolute;
-	right: -30%;
+	right: -28%;
     top: 3%;
 }
 
 .record-batter-right{
 display: none;
 	position: absolute;
-    right: -24%;
+    right: -28%;
     top: 3%;
 }
 
@@ -219,6 +222,139 @@ input:checked+label {
 </style>
 
 <script>
+var currentCount = 0;
+var badgeCount = 0;
+var appendStr = '';
+var appendStr22 = '';
+var index= 0;
+var length= 0;
+$(function(){
+	window.setInterval(function(){
+		$.ajax({
+			url:"<c:url value='/Team/matching/selectMatching.do'/>",
+			type:'get',
+			dataType:'text',
+			success:function(data){
+				//console.log(data);
+				machingCount = data;
+				$('#badge-warning').html(machingCount);
+			}
+		});
+	},500);	
+	window.setInterval(function(){
+		$.ajax({
+			url:"<c:url value='/Team/matching/selectInWaiting.do'/>",
+			type:'get',
+			dataType:'text',
+			success:function(data){
+				//console.log(data);
+				inwaitingCount = data;
+				$('#finish').html(inwaitingCount);
+			}
+		});
+	},500);	
+	$('#newMatching').click(function(){
+		var matchCount = $('#badge-warning').html();
+		$.ajax({
+			url:"<c:url value='/Team/matching/selectMatchingInfo.do'/>",
+			type:'get',
+			data:{matchCount:matchCount},
+			dataType:'text',
+			success:function(data){		
+				$('#appendTarget').html('');
+				if(data.indexOf('info')==-1){					
+					console.log('info없다..');
+					appendStr='<div class="form-group" style="margin-bottom:20px; margin-top:20px "><h5>신청된 매칭 정보가 없습니다</h5></div>';
+					$('#appendTarget').append(appendStr);
+				}
+				else{
+					console.log('info있다!!');
+					console.log(data);
+					var json = JSON.parse(data);
+					console.log('json',json);
+					appendStr='<table class="table"><thead class="thead-dark"><tr>'
+						+'<th scope="col">Team</th>'
+						+'<th scope="col">T.Name</th>'
+						+'<th scope="col">Rating</th>'
+						+'<th scope="col">Record 5</th>'
+						+'<th scope="col">Match Date</th>'
+						+'<th scope="col">Time</th>'
+						+'<th scope="col">Stadium</th>'
+						+'<th scope="col">#</th></tr></thead><tbody>';
+					for(var i=0;i<json['info'].length;i++){
+						length = json['info'].length;
+						console.log('asdfasd',json['info'][i]);
+						appendStr+='<tr>'
+							+'<td scope="row"><img src="/matching/Upload/'+json['info'][i].TEAMLOGO+'" style="width:50px; height:50px"/></td>'
+							+'<td>'+json['info'][i].TEAMNAME+'</td>'
+							+'<td>'+json['info'][i].TEAMRATING+'</td>'
+							+'<td>'+json['record'][i]+'</td>'
+							+'<td>'+json['info'][i].REQDATE+'</td>'
+							+'<td>'+json['info'][i].TIME+'</td>'
+							+'<td>'+json['info'][i].STADIUM+'</td>'
+							+'<td><button onclick="decideMatch(\'accept\','+i+')" title="'+i+'" class="btn btn-primary" type="button" style="width:50px; margin:1.5px;">O</button>'
+							+'<button onclick="decideMatch(\'reject\','+i+')" title="'+i+'" class="btn btn-primary" type="button" style="width:50px; margin:1.5px;">X</button></td></tr><input id="'+i+'" type="hidden" value="'+json['info'][i].MATCHINGNO+'"/>';
+					}		
+					appendStr+='</tbody></table>';
+					$('#appendTarget').append(appendStr);
+				}
+				machingCount = 0;
+				$('.badge-warning').html(machingCount);
+				
+			}
+		});
+	});
+	$('#fisishButton').click(function(){
+		var finishCount = $('#finish').html();
+		console.log(finishCount);
+		$.ajax({
+			url:"<c:url value='/Team/matching/gameFinish.do'/>",
+			type:'get',
+			data:{'finishCount':finishCount},
+			dataType:'text',
+			success:function(data){		
+				$('#appendTarget22').html('');
+				if(data.indexOf('info')==-1){					
+					console.log('info없다..');
+					appendStr22='<div class="form-group" style="margin-bottom:20px; margin-top:20px "><h5>종료할 경기 정보가 없습니다</h5></div>';
+					$('#appendTarget22').append(appendStr22);
+				}
+				else{
+					console.log('info있다!!');
+					console.log(data);
+					var json = JSON.parse(data);
+					console.log('json',json);
+					appendStr22='<table class="table"><thead class="thead-dark"><tr>'
+						+'<th scope="col">Game Date</th>'
+						+'<th scope="col">Time</th>'
+						+'<th scope="col">Stadium</th>'
+						+'<th scope="col">Home</th>'
+						+'<th scope="col">Away</th>'
+						+'<th scope="col">Score</th>'
+						+'<th scope="col">#</th></tr></thead><tbody>';
+					for(var i=0;i<json['info'].length;i++){
+						length = json['info'].length;
+						console.log('asdfasd',json['info'][i]);
+						appendStr22+='<tr>'
+							+'<td scope="row">'+json['info'][i].GAMEDATE+'</td>'
+							+'<td>'+json['info'][i].TIME+'</td>'
+							+'<td>'+json['info'][i].STADIUM+'</td>'
+							+'<td class="'+i+'">'+json['info'][i].TEAMNAME+'</td>'
+							+'<td class="'+i+'">'+json['info'][i].AWAYTEAM+'</td>'
+							+'<td>'+json['info'][i].HOMESCORE+':'+json['info'][i].AWAYSCORE+'</td>'
+							+'<td><button onclick="finishGame('+i+')" title="'+i+'" class="btn btn-primary" type="button" style="width:70px; margin:1.5px;">Finish</button>'
+							+'</td></tr><input class="'+i+'" type="hidden" value="'+json['info'][i].NO+'"/>';
+					}		
+					appendStr+='</tbody></table>';
+					$('#appendTarget22').append(appendStr22);
+				}
+				
+				$('.badge-warning').html(machingCount);
+			}
+		});
+	})
+});
+
 function selectTeam(team) {
 	var teamName = team;
 	$.ajax({
@@ -235,6 +371,69 @@ function selectTeam(team) {
 		}
 	});
 };
+
+function decideMatch(decision, index){
+	var match ='';
+	var MATCHINGNO = $('#'+index).val();
+	console.log('매칭번호',MATCHINGNO);
+	//console.log('teamName:',teamName);
+	if(decision === 'accept'){
+		match = 'yes';
+	}
+	else{
+		match = 'no';
+	}
+	$.ajax({
+		url : "<c:url value='/Team/Matching/decideMatch.do'/>",
+		type : 'post',
+		dataType : 'text',
+		data : { 'match' : match,
+			'MATCHINGNO':MATCHINGNO,
+			'length':length,
+			'_csrf':'${_csrf.token}'
+		},
+		success : function(data) {
+			console.log('서버로부터 넘어온 데이터',data);
+			swal({
+				  title: "Matching Complete",
+				  text: data,
+				  icon: "success",
+				  button: "yes",
+				});
+		}
+	});
+}
+
+function finishGame(index){
+	var no = $('.'+index+':eq(2)').val();
+	var hometeam = $('.'+index+':eq(0)').html();
+	var awayteam = $('.'+index+':eq(1)').html();
+	console.log(no+'/'+hometeam+'/'+awayteam);
+	$.ajax({
+		url : "<c:url value='/Team/Matching/finishGame.do'/>",
+		type : 'post',
+		dataType : 'text',
+		data : { 'no' : no,
+			'hometeam':hometeam,
+			'awayteam':awayteam,
+			'_csrf':'${_csrf.token}'
+		},
+		success : function(data) {
+			if(data === 'No'){
+				alert('팀의 팀장이 아닙니다');
+			}
+			else{
+				console.log('서버로부터 넘어온 데이터',data);
+				swal({
+					  title: "Matching Complete",
+					  text: '게임이 종료 되었습니다 \r\n 팀원들의 마일리지가 +200 되었습니다',
+					  icon: "success",
+					  button: "yes",
+				});
+			}
+		}
+	});
+}
 /* 
 var clickSelectItem = $('#teamName').change(function(){
     $.ajax({
@@ -301,11 +500,29 @@ var clickSelectItem = $('#teamName').change(function(){
 <!-- banner-section end -->
 
 <!-- blog-details-section start -->
-<section class="blog-details-section section-padding">
-	
+<section class="blog-details-section section-padding" style="margin-top: -50px;">
+	<div class="container-fluid" >
+		<div class="row" style="margin-top: -60px; margin-bottom: 50px;">
+			<div class="col-md-3 offset-md-9" style="margin-bottom: 15px"s>
+	    		<button type="button" class="btn btn-primary upModal" id="newMatching" data-toggle="modal" data-target="#myModal" style="width:160px">
+			  		<h4 style="display:inline-block;">Matching</h4> <span id="badge-warning" style="font-size: 1.3em; " class="badge badge-warning"></span>
+				</button>
+	    	</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row" style="margin-top: -60px; ">
+			<div class="col-md-3 offset-md-9">
+	    		<button type="button" class="btn btn-primary upModal" id="fisishButton" data-toggle="modal" data-target="#finishModal" style="width:160px">
+			  		<h4 style="display:inline-block;">Finish</h4> <span id="finish" style="font-size: 1.3em; margin-left: 37px;" class="badge badge-warning"></span>
+				</button>
+	    	</div>
+		</div>
+	</div>
 	<div class="container">
+		
 		<div class="row" id="team-name">
-			<div class="form" style="margin-bottom:10px ">			      
+			<div class="col-md-3" style="margin-bottom:10px">			      
 			      <select class="form" id="teamName" name="stadium" onchange="selectTeam(this.value)">
 			        <option value="">팀선택</option>
 			        <c:forEach var="item" items="${teams}" varStatus="loop">
@@ -313,7 +530,9 @@ var clickSelectItem = $('#teamName').change(function(){
 			        </c:forEach>
 			      </select>			    			   
 	    	</div>
+	    	
 		</div>
+		
 		<div class="row">
 			<div class="col-lg-3">
 			<input type="hidden" value="${id}" id="auth"/>
@@ -452,8 +671,14 @@ var clickSelectItem = $('#teamName').change(function(){
 							<div class="row justify-content-center">
 								<div class="col-lg-6 col-md-6">
 									<div class="about-thumb" id="team-logo">
-										<img src="<c:url value='/assets/images/teamlogo/logo.jpg'/>"
-											alt="about-image" width="200px" height="200px">
+										<c:forEach var="item" items="${list8 }" varStatus="loop">
+											<c:if test="${! empty item.teamLogo }" var="isLogo">
+												<img src="/matching/Upload/${item.teamLogo }" alt="about-image" width="200px" height="200px">
+											</c:if>
+											<c:if test="${not isLogo}">
+						              			<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:329px; height:231px"/>
+						              		</c:if>
+					              		</c:forEach>
 									</div>
 								</div>
 								<div class="col-lg-3 col-md-3">
@@ -582,6 +807,7 @@ var clickSelectItem = $('#teamName').change(function(){
 															: &nbsp;&nbsp;<span class="red">${item.awayscore }</span>&nbsp;&nbsp; ${item.awayteam }
 														</td>
 														<!-- 경기결과 -->
+														<td>${item.re }</td>
 														<!-- <td><span class="badge badge-primary">승</span></td> -->
 													</tr>
 													<!-- 1행끝 -->
@@ -681,6 +907,7 @@ var clickSelectItem = $('#teamName').change(function(){
 														<tr id="record-border-menu">
 															<th style="width: 0.8%">순위</th>
 															<th style="width: 4%">이름</th>
+															<th style="width: 2.2%">방어율</th>
 															<th style="width: 0.1%">승</th>
 															<th style="width: 0.1%">패</th>
 															<th style="width: 3.8%">블론세이브</th>
@@ -705,41 +932,43 @@ var clickSelectItem = $('#teamName').change(function(){
 														<!--  1행 -->
 														<tr>
 															<!-- 순위  -->
-															<td><span bat="1">${item.rank }</span></td>
+															<td><span bat="1">${item.RANK }</span></td>
 															<!-- 이름 -->
-															<td>${item.name }</td>
+															<td>${item.NAME }</td>
 															<!--  -->
-															<td>${item.w}</td>
+															<td>${item.ERA}</td>
 															<!--  -->
-															<td>${item.l }</td>
+															<td>${item.SUMW}</td>
 															<!--  -->
-															<td>${item.blsv }</td>
+															<td>${item.SUML }</td>
 															<!--  -->
-															<td>${item.ci }</td>
+															<td>${item.SUMBLSV }</td>
 															<!--  -->
-															<td>${item.co }</td>
+															<td>${item.SUMCI }</td>
 															<!--  -->
-															<td>${item.sv }</td>
+															<td>${item.SUMCO }</td>
 															<!--  -->
-															<td>${item.hol }</td>
+															<td>${item.SUSV }</td>
 															<!--  -->
-															<td>${item.tbf }</td>
+															<td>${item.SUMHOL }</td>
 															<!--  -->
-															<td>${item.ip }</td>
+															<td>${item.SUMTBF }</td>
 															<!--  -->
-															<td>${item.h }</td>
+															<td>${item.SUMIP }</td>
 															<!--  -->
-															<td>${item.hr }</td>
+															<td>${item.SUMH }</td>
 															<!--  -->
-															<td>${item.bb }</td>
+															<td>${item.SUMHR }</td>
 															<!--  -->
-															<td>${item.hbp }</td>
+															<td>${item.SUMBB }</td>
 															<!--  -->
-															<td>${item.so }</td>
+															<td>${item.SUMHBP }</td>
 															<!--  -->
-															<td>${item.r }</td>
+															<td>${item.SUMSO }</td>
 															<!--  -->
-															<td>${item.er }</td>
+															<td>${item.SUMR }</td>
+															<!--  -->
+															<td>${item.SUMER }</td>
 														</tr>
 														<!-- 1행끝 -->
 													</c:forEach>
@@ -755,14 +984,15 @@ var clickSelectItem = $('#teamName').change(function(){
 									<section class="record-batter" id="record-batter">
 										<div class="row mt-mb-15" id="record-border-top">
 											<div class="play-table">
-												<table class="table table-bordered" id="record-rank-table">
+												<table class="table table-bordered" id="record-rank-table2">
 													<thead id="th1">
 														<tr id="record-border-menu">
 															<th style="width: 0.8%">순위</th>
 															<th style="width: 4%">이름</th>
+															<th style="width: 0.8%">타율</th>
 															<th style="width: 0.8%">타석</th>
 															<th style="width: 0.8%">타수</th>
-															<th style="width: 0.8%">타수</th>
+															<th style="width: 0.8%">안타</th>
 															<th style="width: 2.2%">2루타</th>
 															<th style="width: 2.2%">3루타</th>
 															<th style="width: 0.8%">홈런</th>
@@ -775,8 +1005,6 @@ var clickSelectItem = $('#teamName').change(function(){
 															<th style="width: 0.8%">삼진</th>
 															<th style="width: 0.8%">병살</th>
 															<th style="width: 0.8%">실책</th>
-															<th style="width: 3.8%">수비포지션</th>
-															<th style="width: 0.8%">타순</th>
 														</tr>
 													</thead>
 													<!-- 테이블 데이터 시작  -->
@@ -785,43 +1013,41 @@ var clickSelectItem = $('#teamName').change(function(){
 														<!--  1행 -->
 														<tr>
 															<!-- 순위  -->
-															<td><span bat="1">${item.rank }</span></td>
+															<td><span bat="1">${item.RANK }</span></td>
 															<!-- 이름 -->
-															<td>${item.name }</td>
+															<td>${item.NAME }</td>
 															<!--  -->
-															<td>${item.pa }</td>
+															<td>${item.BA }</td>
 															<!--  -->
-															<td>${item.ab }</td>
+															<td>${item.SUMPA }</td>
 															<!--  -->
-															<td>${item.h }</td>
+															<td>${item.SUMAB }</td>
+															<!--  -->
+															<td>${item.SUMH }</td>
 															<!-- 타수 -->
-															<td>${item.b2 }</td>
+															<td>${item.SUMB2 }</td>
 															<!-- 득점 -->
-															<td>${item.b3 }</td>
+															<td>${item.SUMB3 }</td>
 															<!-- 총안타 -->
-															<td>${item.hr }</td>
+															<td>${item.SUMHR }</td>
 															<!--  -->
-															<td>${item.r }</td>
+															<td>${item.SUMR }</td>
 															<!--  -->
-															<td>${item.rbi }</td>
+															<td>${item.SUMRBI }</td>
 															<!--  -->
-															<td>${item.sb }</td>
+															<td>${item.SUMSB }</td>
 															<!--  -->
-															<td>${item.cs }</td>
+															<td>${item.SUMCS }</td>
 															<!--  -->
-															<td>${item.bb }</td>
+															<td>${item.SUMBB }</td>
 															<!--  -->
-															<td>${item.hbp }</td>
+															<td>${item.SUMHBP }</td>
 															<!--  -->
-															<td>${item.so }</td>
+															<td>${item.SUMSO }</td>
 															<!--  -->
-															<td>${item.gdp }</td>
+															<td>${item.SUMGDP }</td>
 															<!--  -->
-															<td>${item.e }</td>
-															<!--  -->
-															<td>${item.pos }</td>
-															<!--  -->
-															<td>${item.horder }</td>
+															<td>${item.SUME }</td>
 														</tr>
 														<!-- 1행끝 -->
 													</c:forEach>
@@ -896,7 +1122,7 @@ var clickSelectItem = $('#teamName').change(function(){
 												<!-- 기네스 수치 -->
 												<td>${item.sc }점</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate }</td>
+												<td>${item.gamedate } (vs ${item.ot })</td>
 											</tr>
 										</c:forEach>
 										<!-- 3행끝 -->
@@ -909,7 +1135,7 @@ var clickSelectItem = $('#teamName').change(function(){
 												<!-- 기네스 수치 -->
 												<td>${item.hr }개</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate }</td>
+												<td>${item.gamedate } (vs ${item.ot })</td>
 											</tr>
 										</c:forEach>
 										<!-- 5행끝 -->
@@ -922,7 +1148,7 @@ var clickSelectItem = $('#teamName').change(function(){
 												<!-- 기네스 수치 -->
 												<td>${item.h }개</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate }</td>
+												<td>${item.gamedate } (vs ${item.ot })</td>
 											</tr>
 										</c:forEach>
 										<!-- 6행끝 -->
@@ -935,7 +1161,7 @@ var clickSelectItem = $('#teamName').change(function(){
 												<!-- 기네스 수치 -->
 												<td>${item.so }개</td>
 												<!-- 기네스 날짜 -->
-												<td>${item.gamedate }</td>
+												<td>${item.gamedate } (vs ${item.ot })</td>
 											</tr>
 										</c:forEach>
 										<!-- 7행끝 -->
@@ -953,3 +1179,92 @@ var clickSelectItem = $('#teamName').change(function(){
 	</div>
 </section>
 <!-- blog-details-section end -->
+
+<!-- The Modal -->
+  <div class="modal fade" id="finishModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: #000040;">
+          <h4 class="modal-title" style="color: white">Click Finish</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+         <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-12">         
+                
+	              
+              	
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName">Click Finish</h2>
+                
+				  </div>
+				   <div class="col-lg-12">
+                <hr style="border:solid 1px">
+                </div>
+                <div class="col-lg-12">
+                <!-- Icon Divider -->
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0">Game Information</h3>
+               	<form id="frm">
+               	<input type="hidden" id="user" value="${id }"/>
+               	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+               	<div id="appendTarget22">
+               	
+               	</div> 			    
+                
+			  </form>
+			</div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: #000040;">
+          <h4 class="modal-title" style="color: white">Start Matching With Rival Team</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+         <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div class="col-lg-12">         
+                
+	              
+              	
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName">New Matching</h2>
+                
+				  </div>
+				   <div class="col-lg-12">
+                <hr style="border:solid 1px">
+                </div>
+                <div class="col-lg-12">
+                <!-- Icon Divider -->
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0">매칭 정보</h3>
+               	<form id="frm">
+               	<input type="hidden" id="user" value="${id }"/>
+               	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+               	<div id="appendTarget">
+               	
+               	</div> 			    
+                
+			  </form>
+			</div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

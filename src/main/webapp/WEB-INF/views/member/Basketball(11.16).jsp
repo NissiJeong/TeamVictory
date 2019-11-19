@@ -7,7 +7,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
-
 <script>
        
         var wsocket;
@@ -25,11 +24,11 @@
         	var auth = $("#auth").val();
         	console.log(auth) 
         	if(auth == 'ADMIN'){
-        		wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
+        		wsocket = new WebSocket("ws://192.168.200.177:8080<c:url value='/chat-ws.do'/>");
         		//console.log('ADMIN으로 접속')
         	}
         	else{
-            	wsocket = new WebSocket("ws://172.30.1.14:8080<c:url value='/chat-ws.do'/>");
+            	wsocket = new WebSocket("ws://192.168.200.177:8080<c:url value='/chat-ws.do'/>");
             	console.log(auth,'로 접속')
         	}
             wsocket.onopen = function(){
@@ -52,10 +51,19 @@
         			 	var user2 = msgg.data.substring(4);
         		 		//console.log('user없는거 : ',user2)
         		 		var user3 = JSON.parse(user2)
-        		 		$('#userList').text('');
+        		 		$('#connectionList').text('');
         		 		$.each(user3, function(index, element){
         		 			user = element['id']
-         					$("#userList").append("<li><a href=''>"+user+"<span>(54)</span></a></li>")
+         					$("#connectionList").append("<div class='discussion'>"
+         							+"<i class = 'flaticon-user'>" 
+         							+"</i>"
+         							+"<div class='desc-contact'>"
+         							+"<p class='name'>"+user+"</p>"
+         							+"</div>"
+         							+"<div class='timer'>접속시간</div>"
+         							+"<button class='btn btn-info' style='margin-left: 30%' id='"+index+"' onclick='readyButton"+index+"()'>"
+         							+"Ready</button>"
+         							+"</div>")
         		 		})
         			 return;
         		 }
@@ -69,9 +77,8 @@
         			 		$.each(chat3, function(index, element){
         			 		titles=element['title']
         			 		regidate=element['regidate']
-        			 		area = element['position']
         			 		//console.log('list로 분기한곳에서 title, regidate 찍기',titles, regidate)
-        			 		$("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+area+"</span></a></li>");		
+        			 		$("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+regidate+"</span></a></li>");		
         			 	})
         			 return;
         		 }
@@ -83,83 +90,11 @@
             		 //console.log('start없는거 : ',chat2);
             		 var chat3 = JSON.parse(chat2); //JSON 배열 앞 문자열 지운거 다시 파싱하기.
             		 	 $.each(chat3, function(index, element){
-             				titles = element['title']
-              				regidate = element['regidate']
-             				area = element['position']
-           			 $("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+area+"</span></a></li>");		
+             				titles=element['title']
+              				regidate=element['regidate']
+             				
+           			 $("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+regidate+"</span></a></li>");		
         		 }) 	
-        		 }
-        		 if(chat.substring(0,5) === "ready"){
-        			 var ready = chat.substring(6)
-        			 $('#div1').empty()
-        			 $('#div2').empty()
-        			 $(".comment-area").append("<div style='text-align: center;' id='div1'><span id='myChat'>"+ready+"</span></div>")
-        			 /*뿌려줄곳*/
-        		 }
-        		 if(chat.substring(0,6) === "cancel"){
-        			 var cancel = chat.substring(7)
-        			 $('#div2').empty()
-        			 $('#div1').empty()
-        			  $(".comment-area").append("<div style='text-align: center;' id='div2'><span id='myChat'>"+cancel+"</span></div>")
-        			 /*뿌려줄곳*/
-        		 }
-        		 if(chat.substring(0,9) === 'complete:'){
-        			 console.log(chat.substring(9))
-        			 
-        			 swal({
-        				  title: "모든 플레이어가 준비를 완료했습니다!",
-        				  text: "시작하시겠습니까?",
-        				  type: "warning",
-        				  showCancelButton: true,
-        				  confirmButtonClass: "btn-danger",
-        				  confirmButtonText: "매칭시작!",
-        				  cancelButtonText: "아니요",
-        				  closeOnConfirm: false,
-        				  closeOnCancel: false,
-        				  showLoaderOnConfirm: true
-        				})
-        				.then((result) => {			
-        					setTimeout(function(){
-        					if(result){
-        						swal("매칭이 완료되었습니다!","","success")
-        						wsocket.send('msg!'+auth+'!d')
-        						/*매칭신청하는곳으로 이동*/
-        						/* window.open("<c:url value='/Team/Matching/BasketMatching.do'/>");  */
-        						window.location.href = "<c:url value='/Team/Matching/BasketMatching.do'/>";
-        					}
-        					else{
-        						swal("취소하셨습니다.","","error")
-        					}}, 2000)
-        					
-        				});
-        		 }
-        		 if(chat.substring(0,6) === 'notice'){
-        			 swal({
-       				  title: "매칭이 잡혔습니다!",
-       				  text: "페이지 이동을 하시겠습니까?",
-       				  type: "warning",
-       				  showCancelButton: true,
-       				  confirmButtonClass: "btn-danger",
-       				  confirmButtonText: "매칭시작!",
-       				  cancelButtonText: "아니요",
-       				  closeOnConfirm: false,
-       				  closeOnCancel: false,
-       				  showLoaderOnConfirm: true
-       				})
-       				.then((result) => {			
-       					setTimeout(function(){
-       					if(result){
-       						swal("매칭이 완료되었습니다!","","success")
-       						/* window.open()  */
-       						 window.location.href = "<c:url value='/Team/Matching/BasketMatching.do'/>";
-       						/*매칭신청하는곳으로 이동*/
-       						
-       					}
-       					else{
-       						swal("취소하셨습니다.","","error")
-       					}}, 1500)
-       					
-       				});
         		 }
         		 /*
         		 if(chat.substring(0,7)=== "priUser"){
@@ -190,7 +125,8 @@
             
              /* Create room */
              $("#createRoom").click(function(){
-                var area = selected 
+                var position = selected 
+                
                 $.ajax({
                    url: "<c:url value='/Team/Matching/createRoom.do'/>",
                    data : $("#create").serialize(),
@@ -326,14 +262,13 @@
         }
         
         var readyCount = 0;
-        function readyButton(){
+        function readyButton0(){
         	
          	 readyCount++;
          		 if(readyCount > 1){
          			 readyCount = 0;
          			//console.log('1번 버튼',readyCount)
          			//이모티콘으로 바꾸기
-         			
          		 }
          		console.log('0번 버튼',readyCount)
          		$.ajax({
@@ -342,22 +277,52 @@
 		           dataType:'text',
 		           data:{readyCount:readyCount, id:auth},
 		           success:function(data){	
-		        	   if(data == 'ready'){
-		        		   $('#readyBtn').css('background-color','#696969').val('     Cancel')
-		        		    $(".comment-area").append("<div style='text-align: center;'><span id='myChat'>준비하였습니다!</span></div>")
-		        		   wsocket.send('ready@'+auth+'님이 준비하였습니다.')
-		        		   
-		        	   }
-		        	   else{
-		        		   $('#readyBtn').css('background-color','#DC143C').val('       Get Ready')
-		        		    $(".comment-area").append("<div style='text-align: center;'><span id='myChat'>취소하였습니다!</span></div>")
-		        		   wsocket.send('cancel#'+auth+'님이 준비를 해제하셨습니다.')
-		        	   }
+		        	   console.log(data)
 		           }
          		})
        }
         
+        function readyButton1(){
+        	
+          	 readyCount++;
+          		 if(readyCount > 1){
+          			 readyCount = 0;
+          			//console.log('1번 버튼',readyCount)
+          		 }
+          		 else{
+          			 
+          		 }
+          		console.log('1번 버튼',readyCount)
+          		$.ajax({
+		    	   url: "<c:url value='/Team/Matching/ReadyButton.do'/>",
+		           type:'get',
+		           dataType:'text',
+		           data:{readyCount:readyCount, id:auth},
+		           success:function(data){	
+		        	   console.log(data)
+		           }
+          		})
+        }
         
+        function readyButton2(){
+        	
+          	 readyCount++;
+          		 if(readyCount > 1){
+          			 readyCount = 0;
+          			//console.log('1번 버튼',readyCount)
+          			
+          		 }
+          		console.log('2번 버튼',readyCount)
+          		$.ajax({
+		    	   url: "<c:url value='/Team/Matching/ReadyButton.do'/>",
+		           type:'get',
+		           dataType:'text',
+		           data:{readyCount:readyCount, id:auth},
+		           success:function(data){	
+		        	   console.log(data)
+		           }
+          		})
+        }
         
     </script>
 <style>
@@ -654,7 +619,7 @@ background-repeat: no-repeat;
   	
 }
 #myChat{
- 
+  float: right; 
   clear: both; 
   margin-top:10px;
   font-family: 'Hi Melody', cursive;
@@ -665,7 +630,7 @@ background-repeat: no-repeat;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   width: 50%;
-  font-size: 1.0em;
+  font-size: 1.5em;
 }
 
 
@@ -679,10 +644,10 @@ background-repeat: no-repeat;
          <div class="row">
             <div class="col-lg-12">
                <div class="breadcum-content text-center">
-                  <h3 class="title">Basketball!</h3>
+                  <h3 class="title">Blog details</h3>
                   <ol class="breadcrumb">
                      <li class="breadcrumb-item"><a href="index.html">home</a></li>
-                     <li class="breadcrumb-item active">Basketball</li>
+                     <li class="breadcrumb-item active">blog details</li>
                   </ol>
                </div>
             </div>
@@ -706,7 +671,6 @@ background-repeat: no-repeat;
         
             <div class="comment-area" style="overflow: auto; height: 720px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);" >
             <!-- Chatting Start -->
-           
          <section class="chat" >
          <div class="chatArea" style="width: 100%"></div>
          
@@ -728,32 +692,38 @@ background-repeat: no-repeat;
          </div>
          <div class="col-lg-4">
             <div class="sidebar">
-              
+               <div class="widget widget-search">
                   <form class="widget-search-form">
-                     <input type="button" class="btn btn-danger" style="margin-top: 50px; background-color: #DC143C; text-align: center;" value="      Get Ready" onclick="readyButton()" id="readyBtn"/>
-                     
+                     <input type="search" name="search" id="widget-search"
+                        placeholder="Searching Position">
+                     <button class="widget-search-btn">
+                        <i class="fa fa-search"></i>
+                     </button>
                   </form>
-               
+               </div>
                <div style="text-align: center; margin-top: 15px">
                   <button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="width: 50%" id="makeRoom">방만들기</button>
                </div>
                <!-- widget end -->
                <div class="widget widget-categories" style="margin-top: 15px">
-                  <h4 class="widget-title" style="text-align: center;">User List</h4>
-                  <ul id="userList">
-                    
+                  <h4 class="widget-title" style="text-align: center;">Now Wanted Position</h4>
+                  <ul>
+                     <li><a href="#0">Forward<span>(54)</span></a></li>
+                     <li><a href="#0">Center<span>(22)</span></a></li>
+                     <li><a href="#0">Shooter<span>(33)</span></a></li>
+                     <li><a href="#0">All Rounder<span>(12)</span></a></li>
+                     <li><a href="#0">ETC<span>(05)</span></a></li>
                   </ul>
                </div>
                
                <!-- widget end -->
                <div class="widget widget-categories" style="overflow: auto;" id="ddo">
                   <h4 class="widget-title" style="text-align: center;">Waiting Room</h4>
-                  
                     <form action="<c:url value='/Team/Matching/Ent.do'/>">
                      <div id="chattingRoom1" style="text-align: center;">
                      
                          <ul id="chattingRoom">
-                     
+                 
                   		 </ul>
                       </div>
                     </form>
@@ -812,32 +782,10 @@ background-repeat: no-repeat;
         <div style="text-align: center;margin-top: 15px">
            <!-- <input type="text" placeholder="Postion" name="position" id="position" style="border-bottom: 1.5px solid navy"> -->
            <select class="custom-select" id="position" name="position" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;" onchange="positionCheck()"> 
-               <option value="position">Select your AREA</option>      
-               <option value="강서구">강서구</option>      
-               <option value="양천구">양천구</option>      
-               <option value="구로구">구로구</option>      
-               <option value="영등포구">영등포구</option>      
-               <option value="금천구">금천구</option>      
-               <option value="관악구">관악구</option>      
-               <option value="동작구">동작구</option>      
-               <option value="서초구">서초구</option>      
-               <option value="강남구">강남구</option>      
-               <option value="송파구">송파구</option>      
-               <option value="강동구">강동구</option>      
-               <option value="도봉구">도봉구</option>      
-               <option value="노원구">노원구</option>      
-               <option value="강북구">강북구</option>      
-               <option value="성북구">성북구</option>      
-               <option value="종로구">종로구</option>      
-               <option value="은평구">은평구</option>      
-               <option value="서대문구">서대문구</option>      
-               <option value="마포구">마포구</option>      
-               <option value="용산구">용산구</option>      
-               <option value="중구">중구</option>      
-               <option value="성동구">성동구</option>      
-               <option value="동대문구">동대문구</option>      
-               <option value="광진구">광진구</option>      
-               <option value="중랑구">중랑구</option>    
+               <option value="position">Select your Position</option>      
+               <option value="Center">Center</option>      
+               <option value="Guard">Guard</option>      
+               <option value="Forward">Forward</option>      
             </select>
         </div>
            <span id="impossible" >${x}</span>

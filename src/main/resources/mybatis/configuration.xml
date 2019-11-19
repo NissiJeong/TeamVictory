@@ -33,5 +33,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Message.xml" />
 		<mapper resource="mybatis/Basketball.xml" />
 		<mapper resource="mybatis/Admin.xml" />
+		<mapper resource="mybatis/Android.xml" />
 	</mappers>
 </configuration>

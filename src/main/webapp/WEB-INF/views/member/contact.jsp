@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <sec:authentication property="principal.username" var="id"/>
 <sec:authentication property="principal.authorities" var="auth"/>
 
-<script type="text/javascript">
+<script>
 	//이메일 입력방식 선택
 	
 	function select(){
@@ -15,17 +16,31 @@
 				$("#str_email02").attr("disabled", false); //활성화 
 			} else { //직접입력이 아닐경우 
 				$("#str_email02").val($(this).text()); //선택값 입력
-				var mail = $("#str_email02").val();
-				console.log(mail)
+				var mail = $("#str_email02").val();			
 				$("#str_email02").attr("disabled", true); //비활성화
 			}
 		});
 	}
+		
+	$('#btnAjaxText').click(function(){		
+		$.ajax({
+			url:"/Team/admin/AdminIndex.do",//요청할 서버의 URL주소
+			type:'get',//데이타 전송방식(디폴트는 get방식)
+			date:"message="+Message,
+			chche:false,
+			success:function(result){
+				console.log("success")
+				console.log(result)
+				alert(result)
+			}
+			
+		});
+	});///////////
 	
 	
+
 	
 </script>
-
 
 <!-- faq-section start  -->
   <section class="faq-section section-padding section-bg">
@@ -262,11 +277,11 @@
 					</tr>				
 					
 					<tr>
-						<th scope="row"><label for="email">이메일</label></th>
+						<th scope="row"><label for="mail">이메일</label></th>
 						<td>
 							<input type="text" name="str_email01" id="str_email01" style="width:100px">@ 
 							<input type="text" name="str_email02" id="str_email02" style="width:100px;"> 
-							<select style="width:100px;margin-right:10px" name="email" id="selectEmail" onchange="select()"> 
+							<select style="width:100px;margin-right:10px" name="mail" id="selectEmail" onchange="select()"> 
 								<option value="1">직접입력</option> 
 								<option value="naver.com">naver.com</option> 
 								<option value="hanmail.net">hanmail.net</option> 
@@ -293,7 +308,7 @@
 					</tr>
 				</table>
 			</div>
-				<input type="submit" value="보내기" class="btn btn-info"/>
+				<input type="submit" value="보내기" id="btnAjaxText" class="btn btn-info"/>
 			</form>			
 					
 					
@@ -306,7 +321,4 @@
   
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 
-  
-
- 
   
