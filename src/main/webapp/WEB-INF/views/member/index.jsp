@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<<<<<<< HEAD
+
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-=======
+
 <script>
 /* $(function(){
     
@@ -20,7 +20,7 @@
 </script>
    <style>
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
@@ -61,21 +61,14 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
     
 
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
 </style>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
-
-<<<<<<< HEAD
-=======
 
   
 
-    
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+
   <!-- banner-section start -->
   <section class="banner-section">
     <div class="banner-image-part">

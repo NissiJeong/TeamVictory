@@ -13,8 +13,24 @@ public class BettingDTO {
 	private String gameDay;
 	private String count;  // 해당 경기에 배팅한 인원수
 	private String bettingMember;  // 해당경기에 배팅한 인원 명단 
-	
+	private String category; // 종목
+	private boolean bettingConfirm;
 
+
+	public boolean isBettingConfirm() {
+		return bettingConfirm;
+	}
+	public void setBettingConfirm(boolean bettingConfirm) {
+		this.bettingConfirm = bettingConfirm;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getBettingMember() {
 		return bettingMember;
 	}
