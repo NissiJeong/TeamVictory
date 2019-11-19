@@ -105,6 +105,7 @@ CREATE TABLE chatmember
 	no number NOT NULL,
 	ID nvarchar2(15) NOT NULL,
 	title nvarchar2(20) NOT NULL,
+	position nvarchar2(15) NOT NULL,
 	PRIMARY KEY (no)
 );
 
@@ -117,12 +118,14 @@ CREATE TABLE chatroom
 	position nvarchar2(15) NOT NULL,
 	regidate date DEFAULT SYSDATE,
 	readycount number,
+	remainCount number,
 	PRIMARY KEY (title)
 );
 
 
 CREATE TABLE gameschedule
 (
+	no number,
 	gameDate date NOT NULL,
 	stadium nvarchar2(20) NOT NULL,
 	time number NOT NULL,
@@ -159,7 +162,7 @@ CREATE TABLE hitter
 	e number DEFAULT 0,
 	pos number DEFAULT 0,
 	horder number DEFAULT 0,
-	CONSTRAINT pk primary key (gameDate, time, ID)
+	CONSTRAINT pk UNIQUE (gameDate, time, ID)
 );
 
 
@@ -171,7 +174,7 @@ CREATE TABLE matching
 	stadium nvarchar2(20) NOT NULL,
 	reqDate date NOT NULL,
 	time number NOT NULL,
-	matchStatus nvarchar2(20) DEFAULT 'wating' NOT NULL,
+	matchStatus nvarchar2(20) DEFAULT 'waiting' NOT NULL,
 	PRIMARY KEY (matchingNo)
 );
 
@@ -180,6 +183,7 @@ CREATE TABLE member
 (
 	ID nvarchar2(15) NOT NULL,
 	name nvarchar2(20) NOT NULL,
+	profile nvarchar2(50),
 	gender nvarchar2(6) NOT NULL,
 	birth nvarchar2(10),
 	PWD varchar2(20) NOT NULL,
@@ -197,6 +201,7 @@ CREATE TABLE member
 	base_mainhand nvarchar2(10),
 	-- 선택하면 1
 	basket_ltmatch number DEFAULT 0,
+	school nvarchar2(20),
 	PRIMARY KEY (ID)
 );
 
@@ -207,7 +212,8 @@ CREATE TABLE message
 	ID nvarchar2(15) NOT NULL,
 	title nvarchar2(50) NOT NULL,
 	content nvarchar2(2000) NOT NULL,
-	postDate date DEFAULT SYSDATE,
+	sendDate date DEFAULT SYSDATE,
+	openDate date,
 	PRIMARY KEY (no)
 );
 
@@ -219,22 +225,24 @@ CREATE TABLE pitcher
 	time number NOT NULL,
 	ID nvarchar2(15) NOT NULL,
 	teamName nvarchar2(20) NOT NULL,
-	W number,
-	L number,
-	blsv number,
-	ci number,
-	co number,
-	sv number,
-	hol number,
-	tbf number,
-	ip number,
-	h number,
-	hr number,
-	bb number,
-	hbp number,
-	so number,
-	r number,
-	er number,
+	W number DEFAULT 0,
+	L number DEFAULT 0,
+	sv number DEFAULT 0,
+	hol number DEFAULT 0,
+	blsv number DEFAULT 0,
+	ci number DEFAULT 0,
+	co number DEFAULT 0,
+	tbf number DEFAULT 0,
+	pitch number DEFAULT 0,
+	pr number DEFAULT 0,
+	per number DEFAULT 0,
+	ph number DEFAULT 0,
+	pb2 number DEFAULT 0,
+	pb3 number DEFAULT 0,
+	phr number DEFAULT 0,
+	pbb number DEFAULT 0,
+	phbp number DEFAULT 0,
+	pso number DEFAULT 0,
 	CONSTRAINT pk_pitcher UNIQUE (gameDate, time, ID)
 );
 
@@ -248,7 +256,6 @@ CREATE TABLE Team
 	manager_id nvarchar2(20) NOT NULL UNIQUE,
 	teamInfo nvarchar2(2000) NOT NULL,
 	regidate date DEFAULT SYSDATE,
-	teamPicture nvarchar2(100),
 	teamLogo nvarchar2(200),
 	PRIMARY KEY (teamName)
 );
@@ -259,8 +266,9 @@ CREATE TABLE TeamMember
 	teamName nvarchar2(20) NOT NULL,
 	ID nvarchar2(15) NOT NULL,
 	no number,
-	self nvarchar2(150) NOT NULL,
+	self nvarchar2(150),
 	registatus nvarchar2(10) DEFAULT 'waiting',
+	regidate date,
 	CONSTRAINT pk_teamMember UNIQUE (teamName, ID)
 );
 
@@ -271,6 +279,7 @@ CREATE TABLE TeamMember
 ALTER TABLE chatmember
 	ADD FOREIGN KEY (title)
 	REFERENCES chatroom (title)
+	ON DELETE CASCADE
 ;
 
 

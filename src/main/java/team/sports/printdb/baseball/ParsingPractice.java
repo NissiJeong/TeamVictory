@@ -12,9 +12,7 @@ import org.jsoup.select.Elements;
 
 public class ParsingPractice {
 
-	public static void main(String[] args) throws IOException {
-			
-		HitterDTO dto = new HitterDTO();
+public static void main(String[] args) throws IOException {
 
 		// 크롤링할 주소
 		String URL = "http://www.statiz.co.kr/boxscore.php?date=2018-10-12&stadium=%EC%9E%A0%EC%8B%A4&hour=18&opt=4";
@@ -22,29 +20,9 @@ public class ParsingPractice {
 
 		Elements elem = doc.select("section.content div div:nth-child(2) div:nth-child(1) div div div.box-body.no-padding.table-responsive table tbody tr");
 		Elements elem2 = doc.select("section.content div div:nth-child(2) div:nth-child(2) div div div.box-body.no-padding.table-responsive table tbody tr");
-		
-		
-		
-		Elements elemTest = doc.select("section.content > div > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(3)");
+		Elements elem3 = doc.select("section.content div div:nth-child(2) div:nth-child(3) div div div.box-body.no-padding.table-responsive table tbody tr");
+		Elements elem4 = doc.select("section.content div div:nth-child(2) div:nth-child(4) div div div.box-body.no-padding.table-responsive table tbody tr");
 
-		
-		String[] test = elemTest.text().split(":");
-		
-		for(String s: test) {
-			System.out.println(s);
-		}
-		
-	
-		
-		      
-		
-		/*
-		String[] listTest = elemTest.text().toString().split(",");
-		
-		for(String s: listTest) {
-			System.out.println(s);
-		}
-		*/
 		
 		StringBuffer start = new StringBuffer();
 		StringBuffer change = new StringBuffer();
@@ -52,17 +30,28 @@ public class ParsingPractice {
 		StringBuffer start2 = new StringBuffer();
 		StringBuffer change2 = new StringBuffer();
 		
+		StringBuffer start3 = new StringBuffer();
+		StringBuffer start4 = new StringBuffer();
+		
+		
+		
+		
+		
+		
 		for(int i=1; i<elem.size() -1;i++) {
 		 	
 			if( !((elem.get(i).child(0).text().trim()).isEmpty() )) { 
 				
-				String name = elem.get(i).child(1).text();
-				String position = elem.get(i).child(2).text();
+				String gamedate = "gamedate1";
+				String stadium = "stadium1";
+				String time = "time1";
+				String id = "주전1";
+				String teamname="홈팀1";
 				
 				int pa = Integer.parseInt(elem.get(i).child(3).text());
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
-    			int r = Integer.parseInt(elem.get(i).child(5).text());
     			int h = Integer.parseInt(elem.get(i).child(6).text());
+    			int r = Integer.parseInt(elem.get(i).child(5).text());
     			int hr = Integer.parseInt(elem.get(i).child(7).text());
     			int rbi = Integer.parseInt(elem.get(i).child(8).text());
     			int bb = Integer.parseInt(elem.get(i).child(9).text());
@@ -70,15 +59,44 @@ public class ParsingPractice {
     			int so = Integer.parseInt(elem.get(i).child(11).text());
     			int gdp = Integer.parseInt(elem.get(i).child(12).text());
     			
-    			String startMember = String.format("홈팀 스타트멤버[타자] - %s : 타석%s 타수%s 안타%s %n", name,pa,ab,h);
-    			start.append(startMember);
+    			int b2 = 0;
+    			for(int k=0;k<h;k++) {
+    				b2 +=(Math.random()<0.25?1:0);
+    			}
+    			int b3 = 0;
+    			for(int k=0;k<(h-b2);k++) {
+    				b3 +=(Math.random()<0.1?1:0);
+    			}
+    			int sb = 0;
+    			for(int k=0;k<(h+bb);k++) {
+    				sb +=(Math.random()<0.2?1:0);
+    			}
+    			int cs = 0;
+    			for(int k=0;k<(h-sb);k++) {
+    				cs +=(Math.random()<0.2?1:0);
+    			}
+    			int e = 0;
+    			for(int k=0;k<9;k++) {
+    				e +=(Math.random()<0.1?1:0);
+    			}
     			
+    			int pos = 1;
+    			int horder = 1;
+    			
+    			String startMember = 
+					String.format(
+					"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
+					+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);   %n", 
+					gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
+    			start.append(startMember);
             }
 		
         	else {
-        		
-        		String name = elem.get(i).child(1).text();
-        		String position = elem.get(i).child(2).text();
+        		String gamedate = "gamedate1";
+				String stadium = "stadium1";
+				String time = "time1";
+				String id = "교체1";
+				String teamname="홈팀1";
         		
         		int pa = Integer.parseInt(elem.get(i).child(3).text());
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
@@ -91,14 +109,41 @@ public class ParsingPractice {
     			int so = Integer.parseInt(elem.get(i).child(11).text());
     			int gdp = Integer.parseInt(elem.get(i).child(12).text());
     			
+    			int b2 = 0;
+    			for(int k=0;k<h;k++) {
+    				b2 +=(Math.random()<0.25?1:0);
+    			}
+    			int b3 = 0;
+    			for(int k=0;k<(h-b2);k++) {
+    				b3 +=(Math.random()<0.1?1:0);
+    			}
+    			int sb = 0;
+    			for(int k=0;k<(h+bb);k++) {
+    				sb +=(Math.random()<0.2?1:0);
+    			}
+    			int cs = 0;
+    			for(int k=0;k<(h-sb);k++) {
+    				cs +=(Math.random()<0.2?1:0);
+    			}
+    			int e = 0;
+    			for(int k=0;k<9;k++) {
+    				e +=(Math.random()<0.1?1:0);
+    			}
     			
-    			String changeMember = String.format("홈팀 교체멤버[타자] - %s : 타석%s 타수%s 안타%s %n", name,pa,ab,r);
+    			int pos = 1;
+    			int horder = 1;
+    			
+    			String changeMember = 
+					String.format(
+							"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
+							+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);%n", 
+							gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
     			change.append(changeMember);
-                
             }
         	
         }
 		System.out.print(start);
+		System.out.println();
 		System.out.print(change);
 		System.out.println();
 		
@@ -108,8 +153,11 @@ public class ParsingPractice {
 		 	
 			if( !((elem2.get(i).child(0).text().trim()).isEmpty() )) { 
 				
-				String name = elem2.get(i).child(1).text();
-				String position = elem2.get(i).child(2).text();
+				String gamedate = "gamedate1";
+				String stadium = "stadium1";
+				String time = "time1";
+				String id = "주전1";
+				String teamname="원정팀1";
 				
 				int pa = Integer.parseInt(elem2.get(i).child(3).text());
     			int ab = Integer.parseInt(elem2.get(i).child(4).text());
@@ -122,17 +170,46 @@ public class ParsingPractice {
     			int so = Integer.parseInt(elem2.get(i).child(11).text());
     			int gdp = Integer.parseInt(elem2.get(i).child(12).text());
     			
+    			int b2 = 0;
+    			for(int k=0;k<h;k++) {
+    				b2 +=(Math.random()<0.25?1:0);
+    			}
+    			int b3 = 0;
+    			for(int k=0;k<(h-b2);k++) {
+    				b3 +=(Math.random()<0.1?1:0);
+    			}
+    			int sb = 0;
+    			for(int k=0;k<(h+bb);k++) {
+    				sb +=(Math.random()<0.2?1:0);
+    			}
+    			int cs = 0;
+    			for(int k=0;k<(h-sb);k++) {
+    				cs +=(Math.random()<0.2?1:0);
+    			}
+    			int e = 0;
+    			for(int k=0;k<9;k++) {
+    				e +=(Math.random()<0.1?1:0);
+    			}
     			
-    			String startMember2 = String.format("원정팀 스타트멤버[타자] - %s : 타석%s 타수%s 안타%s %n", name,pa,ab,h);
+    			int pos = 1;
+    			int horder = 1;
+    			
+    			String startMember2 = 
+    					String.format(
+						"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
+						+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);%n", 
+						gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
     			start2.append(startMember2);
     			
             }
 		
         	else {
-        		
-        		String name = elem2.get(i).child(1).text();
-        		String position = elem2.get(i).child(2).text();
-        		
+        		String gamedate = "gamedate1";
+				String stadium = "stadium1";
+				String time = "time1";
+				String id = "교체1";
+				String teamname="원정팀1";
+        	
         		int pa = Integer.parseInt(elem2.get(i).child(3).text());
     			int ab = Integer.parseInt(elem2.get(i).child(4).text());
     			int r = Integer.parseInt(elem2.get(i).child(5).text());
@@ -144,17 +221,170 @@ public class ParsingPractice {
     			int so = Integer.parseInt(elem2.get(i).child(11).text());
     			int gdp = Integer.parseInt(elem2.get(i).child(12).text());
     			
-    			String changeMember2 = String.format("원정팀 교체멤버[타자] - %s : 타석%s 타수%s 안타%s %n", name,pa,ab,r);
+    			int b2 = 0;
+    			for(int k=0;k<h;k++) {
+    				b2 +=(Math.random()<0.25?1:0);
+    			}
+    			int b3 = 0;
+    			for(int k=0;k<(h-b2);k++) {
+    				b3 +=(Math.random()<0.1?1:0);
+    			}
+    			int sb = 0;
+    			for(int k=0;k<(h+bb);k++) {
+    				sb +=(Math.random()<0.2?1:0);
+    			}
+    			int cs = 0;
+    			for(int k=0;k<(h-sb);k++) {
+    				cs +=(Math.random()<0.2?1:0);
+    			}
+    			int e = 0;
+    			for(int k=0;k<9;k++) {
+    				e +=(Math.random()<0.1?1:0);
+    			}
+    			
+    			int pos = 1;
+    			int horder = 1;
+    			
+    			String changeMember2 = 
+					String.format(
+							"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
+							+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);%n", 
+							gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
     			change2.append(changeMember2);
-                
             }
-			
         	
         }
 		System.out.print(start2);
+		System.out.println();
 		System.out.print(change2);
+		System.out.println();
+		
+		/** 투수 파싱 시작!!!!  **/
+		
+		for(int i=1; i<elem3.size() -1;i++) {
+		 	
+			if( !((elem3.get(i).child(0).text().trim()).isEmpty() )) { 
+				
+				String gamedate = "gamedate1";
+				String stadium = "stadium1";
+				String time = "time1";
+				String id = "투수1";
+				String teamname="홈팀";
+				
+				int w=0;
+				int l=0;
+				
+				
+				String tempName = elem3.get(i).child(0).text();
+				//System.out.println(tempName);
+				if(tempName.length()>7) {
+					String[] tempWL = tempName.split(",");
+					if(tempWL[0].contains("승")) w=1;
+					else l = 1;
+				}
+				//System.out.println("w"+w+",l"+l);
+				String temptemp = elem3.get(i).child(1).child(0).text();
+				int ci = Integer.parseInt(temptemp.substring(0, temptemp.indexOf(".")));
+				int co = Integer.parseInt(temptemp.substring(temptemp.length()-1));
+				
+				
+				int tbf = Integer.parseInt(elem3.get(i).child(2).text());
+				//System.out.println(tbf);
+    			int h = Integer.parseInt(elem3.get(i).child(3).text());
+    			int r = Integer.parseInt(elem3.get(i).child(4).text());
+    			int er = Integer.parseInt(elem3.get(i).child(5).text());
+    			int bb = Integer.parseInt(elem3.get(i).child(6).text());
+    			int hbp = Integer.parseInt(elem3.get(i).child(7).text());
+    			int so = Integer.parseInt(elem3.get(i).child(8).text());
+    			int hr = Integer.parseInt(elem3.get(i).child(9).text());
+    			//System.out.println(hr);
+    			
+    			String[] tempPitch=elem3.get(i).child(12).text().split("-");
+    			int pitch = Integer.parseInt(tempPitch[0]);
+    			
+    			int b2 = 0; for(int k=0;k<h;k++) {b2 +=(Math.random()<0.25?1:0);}
+    			int b3 = 0; for(int k=0;k<(h-b2);k++) {b3 +=(Math.random()<0.1?1:0);}
+    			int hol = 0;
+    			int blsv = 0;
+    			int sv = 0;
+    			String startMember3 = 
+					String.format(
+					"insert into pitcher(gamedate,stadium,time,id,teamname,W,L,SV,HOL,BLSV,CI,CO,TBF,PITCH,PR,PER,PH,PB2,PB3,PHR,PBB,PHBP,PSO) "
+					+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);   %n", 
+					gamedate,stadium,time,id,teamname,w,l,sv,hol,blsv,ci,co,tbf,pitch,r,er,h,b2,b3,hr,bb,hbp,so);
+    			start3.append(startMember3);
+            }
+		
+			
+        	
+        }
+		System.out.print(start3);
+		System.out.println();
+		
+		for(int i=1; i<elem4.size() -1;i++) {
+		 	
+			if( !((elem4.get(i).child(0).text().trim()).isEmpty() )) { 
+				
+				String gamedate = "gamedate1";
+				String stadium = "stadium1";
+				String time = "time1";
+				String id = "투수1";
+				String teamname="원정팀";
+				
+				int w=0;
+				int l=0;
+				
+				String tempName = elem4.get(i).child(0).text();
+				//System.out.println(tempName);
+				if(tempName.length()>7) {
+					String[] tempWL = tempName.split(",");
+					if(tempWL[0].contains("승")) w=1;
+					else l = 1;
+				}
+				//System.out.println("w"+w+",l"+l);
+				String temptemp = elem4.get(i).child(1).child(0).text();
+				int ci = Integer.parseInt(temptemp.substring(0, temptemp.indexOf(".")));
+				int co = Integer.parseInt(temptemp.substring(temptemp.length()-1));
+				
+				
+				int tbf = Integer.parseInt(elem4.get(i).child(2).text());
+				//System.out.println(tbf);
+    			int h = Integer.parseInt(elem4.get(i).child(3).text());
+    			int r = Integer.parseInt(elem4.get(i).child(4).text());
+    			int er = Integer.parseInt(elem4.get(i).child(5).text());
+    			int bb = Integer.parseInt(elem4.get(i).child(6).text());
+    			int hbp = Integer.parseInt(elem4.get(i).child(7).text());
+    			int so = Integer.parseInt(elem4.get(i).child(8).text());
+    			int hr = Integer.parseInt(elem4.get(i).child(9).text());
+    			//System.out.println(hr);
+    			
+    			String[] tempPitch=elem4.get(i).child(12).text().split("-");
+    			int pitch = Integer.parseInt(tempPitch[0]);
+    			
+    			int b2 = 0; for(int k=0;k<h;k++) {b2 +=(Math.random()<0.25?1:0);}
+    			int b3 = 0; for(int k=0;k<(h-b2);k++) {b3 +=(Math.random()<0.1?1:0);}
+    			int hol = 0;
+    			int blsv = 0;
+    			int sv = 0;
+    			String startMember4 = 
+					String.format(
+					"insert into pitcher(gamedate,stadium,time,id,teamname,W,L,SV,HOL,BLSV,CI,CO,TBF,PITCH,PR,PER,PH,PB2,PB3,PHR,PBB,PHBP,PSO) "
+					+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);   %n", 
+					gamedate,stadium,time,id,teamname,w,l,sv,hol,blsv,ci,co,tbf,pitch,r,er,h,b2,b3,hr,bb,hbp,so);
+    			start4.append(startMember4);
+            }
+        	
+        }
+		System.out.print(start4);
+		System.out.println();
 		
 		
-	}
-	
+		
+		
+		
+		
+		
+	} // main
+
+
 }

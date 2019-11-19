@@ -68,7 +68,7 @@ public class HomeController {
 //	public String board() { 
 //	return "community/bbs/Board.tiles"; 
 //	}
-	 
+	
 	 
 	
 	@RequestMapping("/Team/Matching/FAQ.do")

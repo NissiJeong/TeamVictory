@@ -54,9 +54,9 @@ public class WebsocketController {
 		UserDetails userDetails = (UserDetails) auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
 		String id = userDetails.getUsername();
-
+		
 		// System.out.println("id : "+id);
-
+		//System.out.println(map.get("position"));
 		logger.info("chat.-ws.do RUN ! / Run Time : " + new Date());
 		if (id == null) {
 
@@ -70,23 +70,26 @@ public class WebsocketController {
 	@ResponseBody
 	@RequestMapping(value = "/Team/Matching/createRoom.do", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String createRoom(@RequestParam Map map, Authentication auth) {
+		
 		int affected = 0;
 		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+		
 		map.put("id", userDetails.getUsername());
-		String title = map.get("title").toString();
-		System.out.println(title);
-		System.out.println(map.get("position"));
-
+		
+		String title = null; //만든 title
+		
 		affected = bdao.createRoom(map);
 		if (affected == 1) {
+			
 			// System.out.println("방 생성완료");
 			bdao.chatMember(map);
-
+			
+			title = map.get("title").toString();
 		}
 
 		return title;
 	}
-
+/*
 	@RequestMapping(value = "/Team/Matching/listRoom.do", produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String listRoom() {
@@ -111,7 +114,7 @@ public class WebsocketController {
 		return JSONArray.toJSONString(collections);
 
 	}/////////// listRoom
-
+*/
 	@ResponseBody
 	@RequestMapping(value = "/Team/Matching/checkTitle.do", produces = "text/html; charset=UTF-8")
 	public String checkTitle(@RequestParam Map map) {
@@ -129,11 +132,10 @@ public class WebsocketController {
 
 		
 		int enter = Integer.parseInt(bdao.limitRoom(map));
-		System.out.println("컨트롤러 : "+map.get("title"));
-		System.out.println("아이디:"+map.get("id"));
+		
 		int existUser = Integer.parseInt(bdao.existUser(map));
-		System.out.println(existUser);//1일땐 안돼
-		System.out.println("컨트롤러에서 넘겼다"+existUser);
+		
+		
 		System.out.println("클릭한 방의 인원 : "+enter);
 		String impossible = "impossible";
 
@@ -144,18 +146,34 @@ public class WebsocketController {
 		return impossible;
 
 	}
+	
+	@ResponseBody
+	@RequestMapping("/Team/Matching/ReadyButton.do")
+	public String readyCount(@RequestParam Map map, Authentication auth) {
+		
+		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
+		String id = userDetails.getUsername();
+		
+		int readyCount = Integer.parseInt(map.get("readyCount").toString());
+		String ready = "ready";
+		if(readyCount == 1) {
+			
+			System.out.println(id+" : "+"준비완료(readyCount 1)");
+			bdao.ready(id);
+			
+		}
+		else {
+			
+			System.out.println(id+" : "+"준비해제(readyCount 0)");
+			bdao.cancel(id);
+			ready = "cancel";
+		}
+		
+		return ready;
+	}
 
 	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("/Team/Matching/ExistUser.do") public String
-	 * userList(@RequestParam Map map) { System.out.println("두번째 AJAX");
-	 * 
-	 * int exist = Integer.parseInt(bdao.existUser(map)); System.out.println(exist);
-	 * 
-	 * return ""; }
-	 */
 	 
 
 }//////////// class

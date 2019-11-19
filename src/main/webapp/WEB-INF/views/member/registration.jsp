@@ -164,22 +164,25 @@ function checkMail(){
                console.log(data);
                if(data == duplicate){
                     $("#email").css("background-color", "#FFCECE");
-                    $("#eError").text("이미 등록된 메일입니다.").css({"font-weight":"bold"});
+                    /* $("#eError").text("이미 등록된 메일입니다.").css({"font-weight":"bold"}); */
                     $("#btnRegist").css("background-color","#808080").prop("disabled",true)
-                    
+                    $("#sendmail").css("background-color","#808080").prop("disabled",true);
                  }
                  else if(id == ""){
                     $("#eError").text("필수항목입니다.").css({"font-weight":"bold"})
                     $("#email").css("background-color", "#FFCECE");
                     $("#btnRegist").css("background-color","#808080").prop("disabled",true)
+                    $("#sendmail").css("background-color","#808080").prop("disabled",true);
                  }
                  else if(id.indexOf("@") == -1){
                     console.log("no")
                     $("#email").css("background-color", "#FFFFFF");
                     $("#eError").text("잘못된 메일형식입니다.").css({"font-weight":"bold"});
                     $("#btnRegist").css("background-color","#808080").prop("disabled",true)
+                    $("#sendmail").css("background-color","#808080").prop("disabled",true);
                  }
                  else{
+                	$("#sendmail").css("background-color","#FF3952").prop("disabled",false);
                     $("#email").css("background-color", "#FFFFFF");
                     $("#eError").text("사용가능한 메일입니다.").css({"font-weight":"bold"});
                      regiComplete()
@@ -190,6 +193,19 @@ function checkMail(){
          });///////////////메일중복확인
          
     }//////////checkMail()
+    
+/*     function sendMail(){
+        var id = $('#email').val();
+        var sendingsucc = "성공";
+       var sendingfail = "실패";
+       
+        $.ajax({
+             url:"<c:url value='/Team/Matching/SendMail.do'/>",
+             type:'post',
+             dataType:'text',
+             data:{email:id,'_csrf':'${_csrf.token}'},   
+    	
+    }///////sendMail */
     
     function userName(){
        var user_name = $("#User_name").val();
@@ -420,9 +436,6 @@ function checkMail(){
        }
     }///////
     
-    
-  	
-    
      
     function regiComplete(){
        var gender = "성별"
@@ -561,6 +574,10 @@ function checkMail(){
    
 }
 
+#sendmail {
+	 padding:15px 0px 15px 0px; !Important;
+}
+
 span{
 
    margin-top: 10px;
@@ -612,6 +629,7 @@ span{
                 </div> 
                 <div class="frm-group">
                   <input type="text" name="email" id="email" placeholder="Your Email" style="width: 50%" value="${param.email }" oninput="checkMail()">
+                  <%-- <input id="sendmail" name="sendmail" type="button" class="submit-btn" value="인증" style="width: 10%; background-color: gray;" onclick="location.href='<c:url value="/Team/Matching/SendMail.do"/>';"/> --%>
                   <div>
                      <span id="eError">${emailError }</span>
                      </div>
@@ -646,7 +664,7 @@ span{
                      </div>
                 </div>
                 <div class="frm-group">
-                     <select class="custom-select" style="width: 15%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" name="year" id="year" onchange="selectYear()">
+                     <select class="custom-select" style="width: 20%;display: inline; border-style: none; border-bottom: 1.5px solid orange;" name="year" id="year" onchange="selectYear()">
                  <option value="">년도</option>
                      </select>
                      

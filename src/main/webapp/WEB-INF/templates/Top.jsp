@@ -62,6 +62,7 @@
                <%--    <li><a href="<c:url value='/Team/Matching/about.do'/>">About us</a></li> --%>
                   <li><a href="<c:url value='/Team/Matching/createTeam.do'/>">Create Team</a></li>
                   <li><a href="<c:url value='/Team/Matching/searchTeam.do'/>">Search Team</a></li>
+                  <li><a href="<c:url value='/Team/Matching/gameSchedule.do'/>">Game Schedule</a></li>
                   <%-- <li><a href="<c:url value='/Team/Matching/service.do'/>">Services</a></li> --%>
                   <sec:authorize access="isAnonymous()"> 
                  		<li><a href="<c:url value='/Team/Matching/Register.do'/>">Registration</a></li>

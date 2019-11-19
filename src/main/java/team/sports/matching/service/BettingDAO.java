@@ -48,6 +48,22 @@ public class BettingDAO {
 		  
 		return  template.selectOne("bettingSelectOne", map);
 	}
-	
+
+	public List<Map> bettingInfo(Map<String, Object> map) {
+		
+		return template.selectList("bettingInfoSelectList", map);
+	}
+
+	public List<Map> myBettingListChk(String id) {
+		
+		return template.selectList("myBettingListChk",id);
+	}
+
+	/*
+	public List<Map<String, Object>> dividendUpdate(Map<String, Object> map) {
+		
+		return template.selectList("dividendUpdate", map);
+	}
+*/	
 
 }

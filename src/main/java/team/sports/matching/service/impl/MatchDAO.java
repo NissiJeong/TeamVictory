@@ -51,4 +51,19 @@ public class MatchDAO {
 	public int selectManagerId(Map map) {
 		return template.selectOne("checkManager",map);
 	}
+	//gameSchedule페이지에 gameStatus = 'wating'인 스케쥴만 가져오기
+	public List<Map> selectGameSchedule(Map map) {
+		return template.selectList("selectGameSchedule", map);
+	}
+	public List<Map> isManager(Map map) {
+		
+		return template.selectList("isManager22", map);
+	}
+	public int updateGameStatus(Map map) {
+		return template.update("updateGameStatus", map);
+	}
+	//매칭 신청한 팀의 팀원들 마일리지 300+
+	public int updateMileage(Map map) {
+		return template.update("updateMileage", map);
+	}
 }

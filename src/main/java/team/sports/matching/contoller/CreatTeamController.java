@@ -115,10 +115,8 @@ public class CreatTeamController /*implements HandlerExceptionResolver*/ {
 		mav.setView(view);
         return mav;		
 
-
 	}
 	*/
-
 
 	
 

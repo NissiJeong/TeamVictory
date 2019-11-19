@@ -1,6 +1,6 @@
 
 /* Drop Triggers */
-
+/*
 DROP TRIGGER TRI_baseteam_baseteamno;
 DROP TRIGGER TRI_Betting_bettingIndex;
 DROP TRIGGER TRI_betting_no;
@@ -11,7 +11,7 @@ DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
 DROP TRIGGER TRI_message_no;
-
+*/
 
 
 /* Drop Tables */
@@ -34,32 +34,33 @@ DROP TABLE Team CASCADE CONSTRAINTS;
 
 /* Drop Sequences */
 
-DROP SEQUENCE SEQ_baseteam_baseteamno;
-DROP SEQUENCE SEQ_Betting_bettingIndex;
-DROP SEQUENCE SEQ_betting_no;
-DROP SEQUENCE SEQ_board_no;
-DROP SEQUENCE SEQ_chatmember_no;
-DROP SEQUENCE SEQ_contact_no;
-DROP SEQUENCE SEQ_gameRecord_teamGameNo;
-DROP SEQUENCE SEQ_Gameschedule_gameNo;
-DROP SEQUENCE SEQ_matching_matchingNo;
-DROP SEQUENCE SEQ_message_no;
-
+DROP SEQUENCE SEQ_baseteam;
+DROP SEQUENCE SEQ_Betting;
+DROP SEQUENCE SEQ_betting;
+DROP SEQUENCE SEQ_board;
+DROP SEQUENCE SEQ_chatmember;
+DROP SEQUENCE SEQ_contact;
+DROP SEQUENCE SEQ_gameRecord;
+DROP SEQUENCE SEQ_Gameschedule;
+DROP SEQUENCE SEQ_matching;
+DROP SEQUENCE SEQ_message;
+drop sequence seq_teammember;
 
 
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_baseteam_baseteamno INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Betting_bettingIndex INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_betting_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_board_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_chatmember_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_contact_no INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_gameRecord_teamGameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_Gameschedule_gameNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_matching_matchingNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_message_no INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_baseteam INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_Betting INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_betting INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_board INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_chatmember INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_contact INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_gameRecord INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_Gameschedule INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_matching INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE SEQ_message INCREMENT BY 1 START WITH 1 nocache nocycle;
+CREATE SEQUENCE seq_teammember INCREMENT BY 1 START WITH 1 nocache nocycle;
 
 
 
@@ -95,7 +96,7 @@ CREATE TABLE board
 	content nvarchar2(2000) NOT NULL,
 	postDate date DEFAULT SYSDATE,
 	ID nvarchar2(15) NOT NULL,
-	count  DEFAULT 0,
+	count number DEFAULT 0,
 	PRIMARY KEY (no)
 );
 
@@ -129,11 +130,11 @@ CREATE TABLE gameschedule
 	stadium nvarchar2(20) NOT NULL,
 	time number NOT NULL,
 	awayteam nvarchar2(20) NOT NULL,
-	gamestatus nvarchar2(10) DEFAULT 'wating' NOT NULL,
+	gamestatus nvarchar2(10) DEFAULT 'waiting' NOT NULL,
 	homescore number,
 	awayscore number,
 	teamName nvarchar2(20) NOT NULL,
-	CONSTRAINT gameno UNIQUE (gameDate, stadium, time)
+	CONSTRAINT gameno primary key (gameDate, stadium, time)
 );
 
 
@@ -161,7 +162,7 @@ CREATE TABLE hitter
 	e number DEFAULT 0,
 	pos number DEFAULT 0,
 	horder number DEFAULT 0,
-	CONSTRAINT pk UNIQUE (gameDate, time, ID)
+	CONSTRAINT pk primary key (gameDate, time, ID)
 );
 
 
@@ -173,7 +174,7 @@ CREATE TABLE matching
 	stadium nvarchar2(20) NOT NULL,
 	reqDate date NOT NULL,
 	time number NOT NULL,
-	matchStatus nvarchar2(20) DEFAULT 'wating' NOT NULL,
+	matchStatus nvarchar2(20) DEFAULT 'waiting' NOT NULL,
 	PRIMARY KEY (matchingNo)
 );
 
@@ -185,7 +186,7 @@ CREATE TABLE member
 	profile nvarchar2(50),
 	gender nvarchar2(6) NOT NULL,
 	birth nvarchar2(10),
-	PWD varchar2(20) NOT NULL,
+	PWD varchar2(200) NOT NULL,
 	phone varchar2(11) NOT NULL,
 	email nvarchar2(50) NOT NULL,
 	regidate date DEFAULT SYSDATE,
@@ -262,10 +263,10 @@ CREATE TABLE TeamMember
 	teamName nvarchar2(20) NOT NULL,
 	ID nvarchar2(15) NOT NULL,
 	no number,
-	self nvarchar2(150) NOT NULL,
+	self nvarchar2(150),
 	registatus nvarchar2(10) DEFAULT 'waiting',
 	regidate date,
-	CONSTRAINT pk_teamMember UNIQUE (teamName, ID)
+	CONSTRAINT pk_teamMember primary key (teamName, ID)
 );
 
 
@@ -382,7 +383,7 @@ ALTER TABLE TeamMember
 
 
 /* Create Triggers */
-
+/*
 CREATE OR REPLACE TRIGGER TRI_baseteam_baseteamno BEFORE INSERT ON baseteam
 FOR EACH ROW
 BEGIN
