@@ -71,7 +71,7 @@
 	
 	<websocket:handlers>
 		<websocket:mapping handler="pushApp" path="/push.do"/>
-		<websocket:mapping handler="basketballPushApp" path="/match.do"/>
+		<websocket:mapping handler="BasketballPushApp" path="/match.do"/>
 		<websocket:mapping path="/chat-ws.do" handler="chatServer"/>
 		<websocket:handshake-interceptors>
 		<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
@@ -79,7 +79,7 @@
 	</websocket:handlers>
 	<beans:bean class="team.sports.matching.BasketballMatchingHandler" id="chatServer"/>
 	<beans:bean class="team.sports.matching.PushAppHandler" id="pushApp"/>
-	<beans:bean class="team.sports.matching.basketballPushAppHandler" id="basketballPushApp"/>
+	<beans:bean class="team.sports.matching.BasketMatchingHandler" id="BasketballPushApp"/>
 	<context:property-placeholder location="classpath:board/board.properties"/>
 		
 	</beans:beans>
