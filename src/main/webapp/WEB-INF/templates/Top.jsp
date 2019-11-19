@@ -52,7 +52,7 @@
               <li class="menu_has_children"><a href="#0">Community</a>              
                 <ul class="sub-menu">                 
                   <li><a href="<c:url value='/Team/Matching/Board.do'/>">자유게시판</a></li>                
-                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>   
+                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>  
                    <li><a href="<c:url value='/Team/Matching/Notice.do'/>">공지사항</a></li>                  
                 </ul>
               </li>
