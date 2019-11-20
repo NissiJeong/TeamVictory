@@ -160,6 +160,14 @@ public class MemberDAO {
 	public boolean andLogin(Map map) {
 		return (Integer)template.selectOne("AndLogin", map)==1?true:false;
 	}
+	//경기가 끝난 경기에 베팅한 사람들 가져오기
+	public List<Map> selectBettings(Map map) {
+		return template.selectList("selectBettings", map);
+	}
+	//경기 끝난 후 경기 결과에 따라 point update
+	public int updatePoint(Map map) {
+		return template.update("updatePoint", map);
+	}
 	
 
 }/////class

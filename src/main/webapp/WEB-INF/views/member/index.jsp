@@ -2,8 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+
+
 
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 
@@ -45,8 +48,14 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
- 
+    
+
+
 </style>
+
+
+
+  
 
 
   <!-- banner-section start -->

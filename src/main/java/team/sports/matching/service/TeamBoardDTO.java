@@ -38,7 +38,35 @@ public class TeamBoardDTO {
 	private String awayteam;//away팀
 	private String homescore;//팀점수
 	private String awayscore;//away팀점수
+	private String re;//승패
+   private String ot;//경기결과 상대팀이름
+   private String teamLogo;//팀로고
+   private String profile;//개인사진
 
+	public String getRe() {
+	return re;
+}
+public void setRe(String re) {
+	this.re = re;
+}
+public String getOt() {
+	return ot;
+}
+public void setOt(String ot) {
+	this.ot = ot;
+}
+public String getTeamLogo() {
+	return teamLogo;
+}
+public void setTeamLogo(String teamlogo) {
+	this.teamLogo = teamlogo;
+}
+public String getProfile() {
+	return profile;
+}
+public void setProfile(String profile) {
+	this.profile = profile;
+}
 	//게터 세터
 	public String getName() {
 		return name;

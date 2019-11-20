@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 01/11/2019 07:21
+  	Creation date: 19/11/2019 10:24
   	*/
 
 @font-face {
@@ -27,7 +27,7 @@
   font-family: Flaticon;
         font-size: 20px;
 font-style: normal;
-margin-left: 20px; 
+margin-left: 20px;
 }
 
 .flaticon-soccer:before { content: "\f100"; }
