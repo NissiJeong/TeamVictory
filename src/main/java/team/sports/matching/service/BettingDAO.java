@@ -59,6 +59,12 @@ public class BettingDAO {
 		return template.selectList("myBettingListChk",id);
 	}
 
+	public List<Map> test( List<Map> mapperList) {
+		
+		return  template.selectList("test", mapperList);
+	}
+
+
 	/*
 	public List<Map<String, Object>> dividendUpdate(Map<String, Object> map) {
 		
