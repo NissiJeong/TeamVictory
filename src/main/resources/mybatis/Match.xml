@@ -75,4 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateMileage" parameterType="java.util.Map">
 		MERGE INTO member m USING teammember t ON (m.id = t.id)  WHEN MATCHED THEN UPDATE SET m.point = m.point+300 where t.teamname = (select teamname from team where team.manager_id=#{id})
 	</update>
+	<!-- 경기 종료 후 경기 결과에 따라 point update -->
+	<update id="updatePoint" parameterType="java.util.Map">
+		UPDATE member SET point = point + #{myMileage} WHERE id=#{id}
+	</update>
 </mapper>

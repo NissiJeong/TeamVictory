@@ -63,7 +63,7 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
     	  }
       }
       
-     
+     /*ReadyCount == 3 인 방 뿌리기 누른 타이틀이랑 같은 타이틀에 있는 id한테 푸쉬알람보내기*/
       
    }
    
@@ -97,6 +97,7 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
         String title="";
         //방 만들거나 들어오면 넘어오는 ID
         String id ="";
+        String position = "";
         //INSERT용
         int affected=0;
         //DELETE용
@@ -112,15 +113,22 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
         
         if(message.getPayload().contains("=")) {
         	
-        title = message.getPayload().substring(5,startIndex); 
+        /*title = message.getPayload().substring(5,startIndex); */
+        title = message.getPayload().split("=")[1];
+        id = message.getPayload().split("=")[2];
+        position = message.getPayload().split("=")[3];
         
-        id = message.getPayload().substring(startIndex+1);
+        //id = message.getPayload().substring(startIndex+1);
+        
+        //position = message.getPayload().substring(beginIndex)
         
         connection.put("id", id);
         connection.put("title", title);
-        
+        connection.put("position", position);
+        System.out.println(connection.get("position"));
         int count = Integer.parseInt(bdao.limitRoom(connection)); //3
-       
+        
+       System.out.println("지역 : "+position);
         System.out.println("접속한 아이디 : "+id);
         System.out.println("접속한 방 : "+title);
         System.out.println("방접속인원 : "+count);
@@ -196,7 +204,7 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
         }
         
         //이전방의 카운트
-        delete = bdao.deleteChat(connection);// 접속하면 DELETE  //DELETE가 안되고 INSERT되버림
+        delete = bdao.deleteChat(connection);// 접속하면 DELETE
         
         affected = bdao.chatMember(connection);// 후 INSERT
         
@@ -289,7 +297,6 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
   				  if(clients.get(client).equals(chatId.get(i).getId()) && !userId.equals(clients.get(client))){//같은방에있는 user에게만 message보낸다
   					  System.out.println("메세지 보낸 ID : "+userId+" 타이틀이 같은 ID : "+(chatId.get(i).getId()));
   					  client.sendMessage(message);
-  					  System.out.println("서버에서 보낸 채팅 내용 : "+message);
   					  
   				  }
   			  }

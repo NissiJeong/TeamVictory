@@ -71,6 +71,11 @@ public class BasketballDAO {
 		return template.selectList("chatting",userId);
 	}
 	
+	public List<BasketballDTO> matchUp(String hostId){
+		
+		return template.selectList("matchUp",hostId);
+	}
+	
 	public int remainCountInc(Map map) {
 		
 		return template.update("remainCountInc",map);
@@ -111,6 +116,12 @@ public class BasketballDAO {
 		return template.selectOne("startMatcing",id);
 		
 	}
+	
+	public List<BasketballDTO> waitPlay(Map map) {
+		
+		return template.selectList("waitPlay",map);
+		
+	}/////////listRoom
 	
 }
 

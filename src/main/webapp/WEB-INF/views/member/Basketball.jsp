@@ -21,6 +21,7 @@
         var possible = "possible";
         var room;
         var auth;
+        var area='';
         $(function(){///
         	var auth = $("#auth").val();
         	console.log(auth) 
@@ -29,7 +30,7 @@
         		//console.log('ADMIN으로 접속')
         	}
         	else{
-            	wsocket = new WebSocket("ws://172.30.1.14:8080<c:url value='/chat-ws.do'/>");
+            	wsocket = new WebSocket("ws://192.168.0.5:8080<c:url value='/chat-ws.do'/>");
             	console.log(auth,'로 접속')
         	}
             wsocket.onopen = function(){
@@ -55,7 +56,7 @@
         		 		$('#userList').text('');
         		 		$.each(user3, function(index, element){
         		 			user = element['id']
-         					$("#userList").append("<li><a href=''>"+user+"<span>(54)</span></a></li>")
+         					$("#userList").append("<li id="+user+"><a href=''>"+user+"<span>(54)</span></a></li>")
         		 		})
         			 return;
         		 }
@@ -71,7 +72,7 @@
         			 		regidate=element['regidate']
         			 		area = element['position']
         			 		//console.log('list로 분기한곳에서 title, regidate 찍기',titles, regidate)
-        			 		$("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+area+"</span></a></li>");		
+        			 		$("#chattingRoom").append("<li class='small1' id='chat'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span value='"+area+"'>"+area+"</span></a></li>");		
         			 	})
         			 return;
         		 }
@@ -91,16 +92,23 @@
         		 }
         		 if(chat.substring(0,5) === "ready"){
         			 var ready = chat.substring(6)
-        			 $('#div1').empty()
-        			 $('#div2').empty()
+        			 var users = chat.indexOf('님');
+        			 var user = chat.substring(6,users);
+        			 console.log('레디한 유저',user)
+        			 
+        			 $(".comment-area").text('')//뿌리기 전에 데이터 지우기
+        			 $("#"+user).css('background-color', '#00FA9A'); 
         			 $(".comment-area").append("<div style='text-align: center;' id='div1'><span id='myChat'>"+ready+"</span></div>")
-        			 /*뿌려줄곳*/
+        			
         		 }
         		 if(chat.substring(0,6) === "cancel"){
         			 var cancel = chat.substring(7)
-        			 $('#div2').empty()
-        			 $('#div1').empty()
-        			  $(".comment-area").append("<div style='text-align: center;' id='div2'><span id='myChat'>"+cancel+"</span></div>")
+        			 var users = chat.indexOf('님');
+        			 var user = chat.substring(7,users);
+        			 console.log('취소한 유저',user)
+        			 $(".comment-area").text('')//뿌리기 전에 데이터 지우기
+        			 $("#"+user).css('background-color', ''); 
+        			 $(".comment-area").append("<div style='text-align: center;' id='div2'><span id='canceled'>"+cancel+"</span></div>")
         			 /*뿌려줄곳*/
         		 }
         		 if(chat.substring(0,9) === 'complete:'){
@@ -123,13 +131,11 @@
         					if(result){
         						swal("매칭이 완료되었습니다!","","success")
         						wsocket.send('msg!'+auth+'!d')
-        						/*매칭신청하는곳으로 이동*/
-        						/* window.open("<c:url value='/Team/Matching/BasketMatching.do'/>");  */
         						window.location.href = "<c:url value='/Team/Matching/BasketMatching.do'/>";
         					}
         					else{
         						swal("취소하셨습니다.","","error")
-        					}}, 2000)
+        					}}, 1500)
         					
         				});
         		 }
@@ -150,10 +156,7 @@
        					setTimeout(function(){
        					if(result){
        						swal("매칭이 완료되었습니다!","","success")
-       						/* window.open()  */
        						 window.location.href = "<c:url value='/Team/Matching/BasketMatching.do'/>";
-       						/*매칭신청하는곳으로 이동*/
-       						
        					}
        					else{
        						swal("취소하셨습니다.","","error")
@@ -186,11 +189,12 @@
         		 */
         		 	 }
               
-             
-            
              /* Create room */
              $("#createRoom").click(function(){
                 var area = selected 
+                var target = document.getElementById("position");
+                var selected = (target.options[target.selectedIndex].text)
+                console.log(selected)
                 $.ajax({
                    url: "<c:url value='/Team/Matching/createRoom.do'/>",
                    data : $("#create").serialize(),
@@ -198,11 +202,11 @@
                    type:'post',
                    success:function(data){
                 	 console.log('방만들때',auth)
-                	 //3:04 추가 방만들었을때 유저목록 초기화 안되서
+                	 
                 	$('#connectionList').text('');
                		 if(auth != null){
                			console.log('만든방 : ',data)
-               			wsocket.send("title"+data+"="+auth);
+               			wsocket.send("msg="+data+"="+auth+"="+selected);
                			swal(data+"생성에 성공하였습니다!", "", "success");
                		 }
                    }
@@ -215,21 +219,34 @@
               $("#create input[type=text]").val('');
              
            });
-           
-           user = $("#session").val()
+           /* user = $("#session").val() */
           
-           
            //전송버튼 클릭시]
            $('#sendBtn').click(function(){
-              send_message();
+        	   console.log("전송버튼 클릭시 : ",auth)
+        	 
+               wsocket.send('msg:'+auth+':'+$('#message').val());
+              
+               appendMessage($('#message').val());
+              
+               $('#message').val('');
+              
+               $('#message').focus();
            });
            
            //메시지 입력후 전송 버튼 클릭이 아닌 엔터키처리
            $('#message').on('keypress',function(e){
-              
+        	   console.log('엔터키 처리 : ',auth)
               var keyValue = e.keyCode ? e.keyCode:e.which;
-              if(keyValue == 13){//엔터 입력
-                 send_message();
+              if(keyValue == 13){
+            	 
+                  wsocket.send('msg:'+auth+':'+$('#message').val());//msg:KIM:안녕
+                  
+                  appendMessage($('#message').val());
+                  
+                  $('#message').val('');
+                  
+                  $('#message').focus();
               }
               e.stopPropagation();
            }); 
@@ -244,6 +261,7 @@
         	$("#connectionList").text('')
            console.log('선택한 방 : ',room);
         	console.log('누른 아이디 : ',auth);
+        	console.log('누른지역 : ',area)
            title2 = room;
            $.when($.ajax({
                url:"<c:url value='/Team/Matching/Ent.do'/>",
@@ -252,11 +270,11 @@
                type:'get',
                success:function(data){
             	   if(auth != null && data == possible){
-                       	wsocket.send("title"+room+"="+auth)
+                       	wsocket.send("title="+room+"="+auth+"="+area)
                        	swal(title2+"에 접속하셨습니다!", "", "success");
             	   }  
                     else{
-                    	wsocket.send("title"+room+"="+auth)//안되도 유저목록은 변경없어야되서 추가함(11/14)
+                    	wsocket.send("title="+room+"="+auth+"="+area)//안되도 유저목록은 변경없어야되서 추가함(11/14)
                     	swal("입장이 불가능합니다", "", "warning");
                     };
                }
@@ -266,10 +284,8 @@
 /*===========================================================함수 정의===========================================================*/
        
        var positionCheck = function(data){
-       
         var target = document.getElementById("position")
         var selected = (target.options[target.selectedIndex].text)
-        
         };
        
         ////title 확인용
@@ -313,8 +329,8 @@
         };
         
         //서버로 메시지 전송하는 함수]
-        function send_message(){
-        
+        /* function send_message(){
+           console.log('메세지 전송 : ',auth)
            //서버로 메시지 전송
            wsocket.send('msg:'+auth+':'+$('#message').val());//msg:KIM:안녕
            //DIV(대화영역)에 메시지 출력
@@ -323,7 +339,7 @@
            $('#message').val('');
            //포커스 주기
            $('#message').focus();
-        }
+        } */
         
         var readyCount = 0;
         function readyButton(){
@@ -331,8 +347,6 @@
          	 readyCount++;
          		 if(readyCount > 1){
          			 readyCount = 0;
-         			//console.log('1번 버튼',readyCount)
-         			//이모티콘으로 바꾸기
          			
          		 }
          		console.log('0번 버튼',readyCount)
@@ -343,14 +357,19 @@
 		           data:{readyCount:readyCount, id:auth},
 		           success:function(data){	
 		        	   if(data == 'ready'){
+		        		   $('.comment-area').text('')
 		        		   $('#readyBtn').css('background-color','#696969').val('     Cancel')
+		        		   $("#"+auth).css('background-color', '#00FA9A'); 
+		        		   console.log("#"+auth);
 		        		    $(".comment-area").append("<div style='text-align: center;'><span id='myChat'>준비하였습니다!</span></div>")
 		        		   wsocket.send('ready@'+auth+'님이 준비하였습니다.')
 		        		   
 		        	   }
 		        	   else{
+		        		   $('.comment-area').text('')
+		        		   $("#"+auth).css('background-color', ''); 
 		        		   $('#readyBtn').css('background-color','#DC143C').val('       Get Ready')
-		        		    $(".comment-area").append("<div style='text-align: center;'><span id='myChat'>취소하였습니다!</span></div>")
+		        		    $(".comment-area").append("<div style='text-align: center;'><span id='canceled'>취소하였습니다!</span></div>")
 		        		   wsocket.send('cancel#'+auth+'님이 준비를 해제하셨습니다.')
 		        	   }
 		           }
@@ -362,6 +381,12 @@
     </script>
 <style>
 
+.breadcum-section{
+	position: relative;
+    background-image: url(<c:url value='/assets/images/chatting.jpg'/>);
+    background-position: center;
+    background-size: cover;
+}
 
 .from-me {
   position: relative;
@@ -665,7 +690,24 @@ background-repeat: no-repeat;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   width: 50%;
-  font-size: 1.0em;
+  font-size: 1.5em;
+  font-weight: bold;
+  
+}
+
+#canceled{
+  clear: both; 
+  margin-top:10px;
+  font-family: 'Hi Melody', cursive;
+  margin-right: 0px !important;
+  margin-left:auto;
+  background-color: #DC143C !important;
+  opacity: 0.7;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  width: 50%;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 
@@ -700,6 +742,7 @@ background-repeat: no-repeat;
          <div id="connectionList">
          <input type="hidden" value="${title }" id="roomTitle">
          <input type="hidden" value="${id }" id="auth"/>
+        
          
            <!-- 유저목록 뿌려주는곳 -->
          </div>

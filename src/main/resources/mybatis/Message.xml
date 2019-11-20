@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mybatis.Board">
 	<insert id="messageInsert">
 		INSERT INTO message (no,title,mail,content,id)
-		VALUES (SEQ_message.NEXTVAL, #{title},#{email},#{content},#{id})
+		VALUES (SEQ_message.NEXTVAL, #{title},#{mail},#{content},#{id})
 	</insert>
 	<select id="messageSelectList" parameterType="java.util.Map" resultType="MessageDTO">
   	select * from (select t.*,rownum r from (select * from message order by no desc) t) where r between #{start} and #{end}  	
@@ -20,6 +20,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
   	</if>
   </select>
+  <delete id="messageDelete" parameterType="java.util.Map">
+  	DELETE message WHERE no=#{no}
+  </delete>
   
 </mapper>
 

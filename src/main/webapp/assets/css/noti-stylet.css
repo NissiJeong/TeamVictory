@@ -7359,7 +7359,7 @@ a.rate-review:hover {
 }
 
 .paging ul,
-.paging-next-prev ul {	padding: 0; list-style-type: none;}
+.paging-next-prev ul { margin-bottom: 10px;	padding: 0; list-style-type: none;}
 
 
 /* Listings paging */
@@ -11942,7 +11942,7 @@ a.dashboard-responsive-nav-trigger { display: none; }
 	border-radius: 50%;
 }
 
-.messages-inbox ul li a {
+.messages-inbox ul li > a {
 	position: relative;
 	display: block;
 	padding: 30px;
@@ -11959,13 +11959,13 @@ a.dashboard-responsive-nav-trigger { display: none; }
 .messages-inbox .message-avatar {
 	position: absolute;
 	left: 30px;
-	top: 50%;
+	top: 55px;
 	transform: translateY(-50%);
 }
 
 .messages-inbox .message-by {
 	margin-left: 85px;
-	font-size: 15px;
+	font-size: 20px;
 	color: #666;
 }
 

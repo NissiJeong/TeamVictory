@@ -54,9 +54,9 @@ public class WebsocketController {
 		UserDetails userDetails = (UserDetails) auth.getPrincipal();
 		map.put("id", userDetails.getUsername());
 		String id = userDetails.getUsername();
-
+		
 		// System.out.println("id : "+id);
-
+		//System.out.println(map.get("position"));
 		logger.info("chat.-ws.do RUN ! / Run Time : " + new Date());
 		if (id == null) {
 
@@ -80,8 +80,10 @@ public class WebsocketController {
 		
 		affected = bdao.createRoom(map);
 		if (affected == 1) {
+			
 			// System.out.println("방 생성완료");
 			bdao.chatMember(map);
+			
 			title = map.get("title").toString();
 		}
 
@@ -147,9 +149,12 @@ public class WebsocketController {
 	
 	@ResponseBody
 	@RequestMapping("/Team/Matching/ReadyButton.do")
-	public String readyCount(@RequestParam Map map) {
+	public String readyCount(@RequestParam Map map, Authentication auth) {
 		
-		String id = map.get("id").toString();
+		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+		map.put("id", userDetails.getUsername());
+		String id = userDetails.getUsername();
+		
 		int readyCount = Integer.parseInt(map.get("readyCount").toString());
 		String ready = "ready";
 		if(readyCount == 1) {

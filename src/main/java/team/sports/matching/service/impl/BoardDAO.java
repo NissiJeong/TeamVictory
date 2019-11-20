@@ -15,14 +15,12 @@ import team.sports.matching.service.BoardService;
 @Repository
 @Service("boardServiceDAO")
 public class BoardDAO implements BoardService {
-	
 	//SqlSessionTemplate객체 주입]
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	//로그인 용]
 	@Override
 	public boolean isLogin(Map map) {
-		
 		return (Integer)template.selectOne("boardIsLogin",map)==0?false:true;
 	}
 	//전체 목록용]
@@ -30,11 +28,16 @@ public class BoardDAO implements BoardService {
 	public List<BoardDTO> selectList(Map map) {		
 		return template.selectList("boardSelectList",map);
 	}
+	//공지사항 리스트
+	@Override
+	public List<BoardDTO> noticeList(Map map) {		
+		return template.selectList("noticeList",map);
+	}
+	
 	//조회수 올리는 메소드]
 	public int getCountNo(Map map) {
 		return template.update("updateboardcount",map);
 	}
-	
 
 	@Override
 	public int getTotalRecord(Map map) {		

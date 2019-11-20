@@ -45,11 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT teamname FROM teammember where id=#{id}
 	</select>
 
-	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="isDuplicate">
+	<select id="isDuplicate" resultType="java.lang.Integer" parameterType="java.util.Map">
 		SELECT COUNT(*) FROM member WHERE id=#{id}
 	 </select>
 
-	<select resultType="java.lang.Integer" parameterType="java.util.Map" id="mIsDuplicate">
+	<select id="mIsDuplicate" resultType="java.lang.Integer" parameterType="java.util.Map">
 		SELECT COUNT(*) FROM member WHERE email=#{email}
 	</select>
 	
@@ -59,4 +59,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="" parameterType="String" resultType="MemberDTO">
 		SELECT * FROM member WHERE id=#{username}
 	</select>
+	
+	<update id="updateMailkey">
+		UPDATE member
+		set mailkey = #{mailkey}
+		where email = #{email}
+	</update>
+	
+	<update id="updateMailstatus">
+		UPDATE member
+		set mailstatus = #{mailstatus}
+		where mailkey = #{mailkey}
+	</update>
+	
 </mapper>

@@ -262,7 +262,7 @@
 			<h3 class="contentTit" >문의게시판</h3>
 
 			<form name="frm_write" id="frm_write" method="POST"
-			action="<c:url value='/Team/Matching/contact.do?${_csrf.parameterName}=${_csrf.token}'/>">
+			action="<c:url value='/Team/Matching/contactWrite.do'/>">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			
 			<div class="formArea">

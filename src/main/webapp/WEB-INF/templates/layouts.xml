@@ -20,5 +20,6 @@
 	<definition name="*/*/*.tiles" extends="layouts">
 		<put-attribute name="Body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
+	
 
 </tiles-definitions>

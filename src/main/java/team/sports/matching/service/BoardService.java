@@ -8,6 +8,7 @@ public interface BoardService {
 	boolean isLogin(Map map);
 	//목록용]
 	List<BoardDTO> selectList(Map map);
+	List<BoardDTO> noticeList(Map map);
 	//전체 레코드 수]
 	int getTotalRecord(Map map);
 	//상세보기용]
@@ -16,5 +17,4 @@ public interface BoardService {
 	int delete(Map map);
 	int insert(Map map);
 	int update(Map map);
-	
 }

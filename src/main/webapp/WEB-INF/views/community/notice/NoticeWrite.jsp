@@ -36,17 +36,18 @@
 	#headtitle { 
 		font-weight: bold;
 	}
+/*  	*, ::after, ::before {
+	box-sizing: content-box;!important
+	}  */
 	
+/* 	.message-avatar{
+		text-align: left;
+	} */
 	#postBtn {
 		text-align: right;
 		padding-right: 60px;
 	}
-	
-	#contentBox {
-    	word-break:break-all;
-		overflow:hidden;
-		width : 900px;
-	}    
+
 </style>
 
 <!-- 실제 내용 시작 -->
@@ -69,9 +70,9 @@
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="<c:url value='/Team/Member/Index.do'/>">Home</a></li>
-							<li><a href="<c:url value='/Team/Matching/Board.do'/>">BBS</a></li>
-							<li>수 정</li>
+							<li><a href="<c:url value='/Team/admin/AdminIndex.do'/>">Home</a></li>
+							<li><a href="<c:url value='/Team/Matching/Notice.do'/>">공 지 사 항</a></li>
+							<li>등 록</li>
 						</ul>
 					</nav>
 				</div>
@@ -83,54 +84,54 @@
 	
 					<div class="messages-container margin-top-0">
 						<div class="messages-headline">
-							<h4>수 정</h4>
+							<h4>작성 및 등록</h4>
 						</div>
 						
 						<div class="messages-inbox">
 	
 							<ul>
 								<li class="unread">
+								
 								  <a>
-								  
 									<div class="row">
 										<div class="message-by">
-									      	<div class="message-avatar">
-												<img src="https://placeimg.com/100/100/people" alt="" />
-											</div>
-									      
-									         <form class="form-horizontal" method="post"
-									            action="<c:url value='/Team/Matching/Edit.do?nowPage=${param.nowPage }'/>">
-									            <div class="form-group">
-											    	<div class="col-md-2 control-label">작성자</div>
-											    	<div class="col-md-6">${record.id}</div>
-											    </div>
-									            
-									            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-									            <input type="hidden" name="no" value="${record.no}" />
-									            <div class="form-group">
-									               <div class="col-md-2 control-label">제목</div>
-									               <div class="col-md-10">
-									                  <input value="${record.title }" type="text" class="form-control" name="title" id="title"
-									                     placeholder="제목을 입력하세요" />
-									               </div>
-									            </div>
-									            
-									            <div class="form-group" id="contentBox">
-									               <div class="col-md-2 control-label">내용</div>
-									               <div class="col-md-10">
-									                  <textarea rows="10" name="content" id="content" 
-									                     class="summernote" placeholder="내용을 입력하세요">${record.content}</textarea>
-									               </div>
-									            </div>
-									         
-									            <div class="form-group">
-									               	<div id="postBtn" class="col-md-12">
-									                  <button type="submit" class="btn btn-info btn-lg">수  정</button>
-									                </div>
-									            </div>
-									         </form>
+										      	<div class="message-avatar">
+													<img src="https://placeimg.com/100/100/people" alt="" />
+												</div>
+										      
+										         <form class="form-horizontal" method="post"
+										            action="<c:url value='/Team/Matching/NoticeWrite.do'/>">
+										            <div class="form-group">
+												    	<div class="col-md-2 control-label">작성자</div>
+												    	<div class="col-md-6">${id}</div>
+												    </div>
+										            
+										            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+										            <div class="form-group">
+										               <div class="col-md-2 control-label">제목</div>
+										               <div class="col-md-10">
+										                  <input type="text" class="form-control" name="title" id="title"
+										                     placeholder="제목을 입력하세요" />
+										               </div>
+										            </div>
+						
+										            <div class="form-group">
+										               <div class="col-md-2 control-label">내용</div>
+										               <div class="col-md-10">
+										                  <textarea rows="10" name="content" id="content" 
+										                     class="summernote" placeholder="내용을 입력하세요"></textarea>
+										               </div>
+										            </div>
+										         
+										            <div class="form-group">
+										               	<div id="postBtn" class="col-md-12">
+										                  <button type="submit" class="btn btn-info btn-lg">등  록</button>
+										                </div>
+										            </div>
+										         </form>
+											
+											</div><!-- ROW -->
 										</div><!-- mb -->
-									</div><!-- ROW -->
 											
 									</a>
 								</li>
@@ -147,7 +148,6 @@
 	
 </div><!-- dashboard -->
 </div><!-- wrapper -->
-<!-- 실제 내용 끝 -->
 
 <script>
 $(function() {
@@ -156,5 +156,7 @@ $(function() {
       lang: 'ko-KR'
      })
    });
+   
 </script>
+
 
