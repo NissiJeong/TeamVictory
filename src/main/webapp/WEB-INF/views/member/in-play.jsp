@@ -1022,7 +1022,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 				
 				setTimeout(function(){                                      
 					
-				}
+				
 					callComet();
 					},10000);    //loop
 		};
