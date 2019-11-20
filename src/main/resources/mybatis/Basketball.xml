@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	 <insert id="chatMember" parameterType="java.util.Map">
-	 	INSERT INTO chatmember VALUES(SEQ_chatmember.nextval,#{id},#{title})
+	 	INSERT INTO chatmember VALUES(SEQ_chatmember.nextval,#{id},#{title},#{position})
 	 </insert>
 	 
 	<select id="roomList" parameterType="java.util.Map" resultType="BasketballDTO"> 
@@ -84,5 +84,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="startMatcing" parameterType="java.lang.String" resultType="String">
 		SELECT id FROM chatroom WHERE title = (SELECT title FROM chatmember WHERE id = #{id}) AND readyCount = 2
 	</select>
+	
+	<select id="matchUp"  parameterType="java.lang.String" resultType="BasketballDTO">
+	 	SELECT position, id, title FROM CHATMEMBER WHERE title = (SELECT title FROM CHATMEMBER WHERE id = #{id})
+	 </select>
+	 
+	 <select id="waitPlay" parameterType="java.util.Map" resultType="BasketballDTO">
+	 	SELECT title, position FROM chatroom WHERE title != (SELECT title FROM chatmember WHERE id=#{id}) and readycount = 2
+	 </select>
 	
 </mapper>

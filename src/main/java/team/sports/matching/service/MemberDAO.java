@@ -169,5 +169,14 @@ public class MemberDAO {
 		return template.update("updatePoint", map);
 	}
 	
+	//email key
+	public void updateMailkey(Map map) throws Exception {
+		template.update("updateMailkey", map);
+	}
+	
+	public void updateMailstatus(Map map) throws Exception {
+		template.update("updateMailstatus", map);
+	}
+
 
 }/////class

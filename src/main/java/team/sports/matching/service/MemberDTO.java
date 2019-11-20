@@ -20,6 +20,8 @@ public class MemberDTO {
 	private String location;
 	private java.sql.Date regidate;
 	private String point;
+	private String mailkey;
+	private int mailstatus;
 	
 	public String getPoint() {
 		return point;
@@ -80,6 +82,21 @@ public class MemberDTO {
 	}
 	public void setRegidate(java.sql.Date regidate) {
 		this.regidate = regidate;
+	}
+	
+	//mail
+	public String getMailkey() {
+		return mailkey;
+	}
+	public void setMailkey(String mailkey) {
+		this.mailkey = mailkey;
+	}
+
+	public int getMailstatus() {
+		return mailstatus;
+	}
+	public void setMailstatus(int mailstatus) {
+		this.mailstatus = mailstatus;
 	}
 	
 	

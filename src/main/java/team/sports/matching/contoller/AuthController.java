@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import team.sports.matching.UserSha256;
+import team.sports.matching.mail.MailUtils;
+import team.sports.matching.mail.TempKey;
 import team.sports.matching.service.MemberDAO;
 
 @SessionAttributes("id")
@@ -31,6 +35,9 @@ public class AuthController {
 	
 	@Resource(name="member")
 	private MemberDAO dao;
+	
+	@Resource(name="mailSender")
+	private JavaMailSender mailSender;
 	
 	//로그인 폼으로 이동
 	@RequestMapping("/Team/Matching/Login.do")
@@ -47,6 +54,7 @@ public class AuthController {
 		JSONObject json = new JSONObject();
 		json.put("isLogin", isLogin?"Y":"N");
 		return json.toJSONString();
+		
 	}
 	
 
@@ -96,8 +104,7 @@ public class AuthController {
 
 	//회원가입
 	@RequestMapping("/Team/Matching/Registration.do")
-	public String registration(@RequestParam Map map, Model model) {
-		
+	public String registration(@RequestParam Map map, Model model) throws Exception{
 		
 		String year = map.get("year").toString();
 		String month = map.get("month").toString();
@@ -105,6 +112,7 @@ public class AuthController {
 		String location = map.get("addr_road").toString();
 		map.put("birth", year+month+day); //생년월일
 		map.put("location", location); // 지역 
+		
 		//System.out.println("사용자가 적은 암호: "+map.get("pass").toString());
 		//String encryPass = UserSha256.encrypt(map.get("pass").toString());
 		//map.put("pass", encryPass);
@@ -130,10 +138,32 @@ public class AuthController {
 			dao.deleteMember(map);
 		}
 		
+		/////email
+        String mailkey = new TempKey().getKey(50, false);
+        map.put("mailkey", mailkey);
+        dao.updateMailkey(map);
+        
+        MailUtils sendMail = new MailUtils(mailSender);
+        
+        sendMail.setSubject("[ ★SPORTING★ World Wide Sports Betting Clubs] 회원가입 이메일 인증");
+        sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
+        									.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
+							                .append("<a href='http://localhost:8080/matching/Team/Matching/Login.do")
+							                .append("' target='_blenk'>이메일 인증 확인</a>")
+							                .toString());
+        sendMail.setFrom("songsig22@gmail.com", "admin");
+        sendMail.setTo(map.get("email").toString());
+        sendMail.send();
+        
+		/*
+		 * .append(map.get("id")) .append("&email=") .append(map.get("email"))
+		 * .append("&mailkey=") .append(mailkey)
+		 */
+		
 		System.out.println("affected:" +affected);
 		return "member/login.tiles";
 
-		}
+	}////////
 	
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/CheckId.do",produces = "text/html; charset=UTF-8")

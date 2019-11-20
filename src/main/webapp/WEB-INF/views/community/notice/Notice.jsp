@@ -71,12 +71,12 @@
 			<div class="row">
 				<div class="col-md-12">
 	
-					<h2>자 유 게 시 판</h2>
+					<h2>공 지 사 항</h2>
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="<c:url value='/Team/Member/Index.do'/>">Home</a></li>
-							<li>BBS</li>
+							<li><a href="<c:url value='/Team/admin/AdminIndex.do'/>">Home</a></li>
+							<li>공 지 사 항</li>
 						</ul>
 					</nav>
 				</div>
@@ -94,41 +94,31 @@
 						<div class="messages-inbox">
 	
 							<ul>
-								<c:if test="${empty list }" var="isEmpty">
+								<c:if test="${empty list}" var="isEmpty">
 									<p align="center">등록된 게시물이 없습니다</p>
 								</c:if>
 								
-								<c:if test="${!isEmpty }">
-									<c:forEach var="item" items="${list }" varStatus="loop">
-									
+								<c:if test="${!isEmpty}">
+									<c:forEach var="item" items="${list}" varStatus="loop">
+								
 									<li class="unread">
-									
-									  <a ><%-- id="validate" href="<c:url value='/Team/Matching/View.do?no=${item.no }&nowPage=${param.nowPage}'/>" --%>
-										<%-- <c:out value='${param.nowPage}' default='5'/> --%>
+									  <a>
 										<div class="message-avatar">
 											<img src="https://placeimg.com/50/50/people" alt="" />
 										</div>
 										
-										<%-- <div class="textout" data-rel=${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}> --%>
-										
-											<div class="message-by">
-												<div class="message-by-headline">
-													<span>작성일 ${item.postDate }</span>
-													<p>글번호 ${item.no}</p>
-													   
-													
-													<h5>아이디 ${item.id }</h5>
-													<%-- <i id="unread${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}">Unread</i> --%>
-													
-													<span>조회수 ${item.countNo}</span>
-													
-													<h4 id="linkTitle">
-														<%-- <a href="<c:url value='/Team/Matching/View.do?no=${item.no }&nowPage='/><c:out value='${param.nowPage}' default='1'/>">${item.title }</a> --%>
-														<div onclick='location.href="<c:url value='/Team/Matching/View.do?no=${item.no }&nowPage='/><c:out value='${nowPage}' default='1'/>"'>${item.title }</div>
-														<%-- <c:out value='${param.nowPage}' default='1'/>${item.title } --%>
-													</h4>
-												</div>
-											</div>	
+										<div class="message-by">
+											<div class="message-by-headline">
+												<span>작성일 ${item.postDate }</span>
+												<p>글번호 ${item.no}</p>
+												<h5>아이디 ${item.id }</h5>
+												<span>조회수 ${item.countNo}</span>
+												
+												<h4 id="linkTitle">
+													<div onclick='location.href="<c:url value='/Team/Matching/NoticeView.do?no=${item.no }&nowPage='/><c:out value='${nowPage}' default='1'/>"'>${item.title }</div>
+												</h4>
+											</div>
+										</div>	
 											
 										<!-- </div>textout -->
 										
@@ -151,7 +141,7 @@
 				<div class="col-md-10">
 				<div class="text-center">
 					<form class="form-inline" method="post"
-						action="<c:url value='/Team/Matching/Board.do?${_csrf.parameterName}=${_csrf.token}'/>">
+						action="<c:url value='/Team/Matching/Notice.do?${_csrf.parameterName}=${_csrf.token}'/>">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<div class="form-group-search">
 							<select name="searchColumn" class="form-control">
@@ -168,9 +158,11 @@
 				</div>
 						
 				<!-- Write -->
-				<div class="col-md-2 WriteBtn">
-					<a href="<c:url value='/Team/Matching/Write.do?id=${item.id}'/>" class="btn btn-info">글쓰기</a>
-				</div>
+				<c:if test="${id == 'admin'}">
+					<div class="col-md-2 WriteBtn">
+						<a href="<c:url value='/Team/Matching/NoticeWrite.do?id=${item.id}'/>" class="btn btn-info">글쓰기</a>
+					</div>
+				</c:if>
 			
 			</div><!-- search row -->
 					
@@ -193,4 +185,3 @@
 		</div><!-- cont -->
 	</div><!-- dash -->
 </div><!-- wrap -->
-<!-- END -->
