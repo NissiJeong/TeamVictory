@@ -11,6 +11,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from member where id=#{id} and pwd=#{pwd}
 	</select>
 	<select id="andSelectTeams" parameterType="java.util.Map" resultType="TeamDTO">
-		select * from team
+		select * from team where not manager_id=#{id}
+	</select>
+	<!-- 안드로이드에서 매칭 신청하면 isert -->
+	<insert id="insertMatch" parameterType="java.util.Map">
+		INSERT INTO matching VALUES(SEQ_MATCHING.NEXTVAL,(select teamname from team where manager_id=#{id}),#{awayteam},#{matchStadium},#{matchDate},#{matchTime},default)
+	</insert>
+	<!-- 안드로이드에 토큰 추가 -->
+	<insert id="insertToken" parameterType="java.util.Map">
+		INSERT INTO fcm_tokens values(SEQ_fcm_tokens.nextval,#{token})
+	</insert>
+	<!-- 나에게 신청한 매칭 리스트 가져오기 -->
+	<select id="selectMatchList" parameterType="java.util.Map" resultType="MatchDTO">
+		select m.*,t.teamloc,t.teamlogo,t.teamrating from matching m join team t on m.teamname = t.teamname 
+		where m.enemyteam = (select teamname from team where manager_id=#{id}) and m.matchstatus='waiting' order by m.matchingno desc
+	</select>
+	<!-- 매칭 승인후 -->
+	<update id="updateMatchStatus22222" parameterType="java.util.Map">
+		update matching set matchstatus='finish' where matchingno = #{no}
+	</update>
+	<!-- 매칭 거절 후  -->
+	<update id="updateMatchStatus333" parameterType="java.util.Map">
+		update matching set matchstatus='cancle' where matchingno = #{no}
+	</update>
+	<!-- 매칭 승인 후 경기 정보 가져오기 -->
+	<select id="selectGame2222" parameterType="java.util.Map" resultType="Map">
+		select * from matching where matchingno = #{no}
+	</select>
+	<!-- 매칭 승인 후 경기 입력 -->
+	<insert id="insertGameSchedule22222" parameterType="java.util.Map">
+		insert into gameschedule(no,gamedate,stadium,time,awayteam,gamestatus,teamname)
+		values(SEQ_GAMESCHEDULE.nextval,#{REQDATE},#{STADIUM},#{TIME},#{ENEMYTEAM},default,#{TEAMNAME})
+	</insert>
+	<!-- 게임 list가져오기 -->
+	<select id="selectGameList2333" parameterType="java.util.Map" resultType="GameDTO">
+		select g.gamedate,g.time,g.stadium,t.teamname,t.teamrating,t.teaminfo,t.teamlogo from gameschedule g join team t on g.awayteam = t.teamname or g.teamname = t.teamname 
+		where (g.teamname = (select teamname from team where manager_id=#{id}) or g.awayteam = (select teamname from team where manager_id=#{id})) 
+		and not t.teamname = (select teamname from team where manager_id=#{id}) order by g.gamedate desc
 	</select>
 </mapper>

@@ -34,10 +34,6 @@ public static void main(String[] args) throws IOException {
 		StringBuffer start4 = new StringBuffer();
 		
 		
-		
-		
-		
-		
 		for(int i=1; i<elem.size() -1;i++) {
 		 	
 			if( !((elem.get(i).child(0).text().trim()).isEmpty() )) { 
@@ -377,9 +373,6 @@ public static void main(String[] args) throws IOException {
         }
 		System.out.print(start4);
 		System.out.println();
-		
-		
-		
 		
 		
 		

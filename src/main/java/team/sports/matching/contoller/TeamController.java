@@ -143,7 +143,9 @@ public class TeamController {
 			int update = dao.updateMatchStatus(map);
 			//matchingNo 이용해서 gameSchedule에 insert시킬 데이터 가져오기
 			Map inMap = dao.selectGame(map);
-			inMap.put("TIME", (inMap.get("TIME").toString()+"00"));
+			if(inMap.get("TIME").toString().length()==2) {
+				inMap.put("TIME", (inMap.get("TIME").toString()+"00"));
+			}
 			for(Object key : inMap.keySet()) {				
 				//System.out.println(key+":"+inMap.get(key));
 			}

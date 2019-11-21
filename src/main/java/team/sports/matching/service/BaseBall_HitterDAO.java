@@ -93,6 +93,19 @@ public class BaseBall_HitterDAO {
 	public List<Map> playerInfo(Map map) {
 		return template.selectList("playerInfo", map);
 	}
+	public List<Map> bettingInfo(Map map) {
+		return template.selectList("bettingInfo", map);
+	}
+	public List<Map> bettingInfo2(Map map) {
+		return template.selectList("bettingInfo2", map);
+	}
+	public List<Map> getCount(Map map) {
+		return template.selectList("getCount", map);
+	}
+	public List<Map> getRate(Map map) {
+		return template.selectList("getRate", map);
+	}
+	
 	
 	
 	
