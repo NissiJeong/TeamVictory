@@ -66,4 +66,11 @@ public class MatchDAO {
 	public int updateMileage(Map map) {
 		return template.update("updateMileage", map);
 	}
+	//내팀 가져오기
+	public String getMyTeam(Map map) {
+		return template.selectOne("getMyTeam",map);
+	}
+	public List<Map> getTokens(Map map) {
+		return template.selectList("getTokens", map);
+	}
 }

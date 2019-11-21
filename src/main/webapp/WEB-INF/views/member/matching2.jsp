@@ -84,9 +84,6 @@ $( function() {
     	}); 
     });    
     
-    
-
-  
     $("#match").click(function(){
     	date = $('#datepicker').val();
     	time = $('#sel2').val();

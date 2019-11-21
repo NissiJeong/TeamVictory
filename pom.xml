@@ -442,11 +442,18 @@
           
       </dependency>
       <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
-<dependency>
-    <groupId>org.jsoup</groupId>
-    <artifactId>jsoup</artifactId>
-    <version>1.12.1</version>
-</dependency>
+	<dependency>
+	    <groupId>org.jsoup</groupId>
+	    <artifactId>jsoup</artifactId>
+	    <version>1.12.1</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.google.gcm/gcm-server -->
+	<dependency>
+	    <groupId>com.google.gcm</groupId>
+	    <artifactId>gcm-server</artifactId>
+	    <version>1.0.0</version>
+	</dependency>
+	
       
    </dependencies>
 

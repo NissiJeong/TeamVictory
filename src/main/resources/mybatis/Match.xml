@@ -79,4 +79,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatePoint" parameterType="java.util.Map">
 		UPDATE member SET point = point + #{myMileage} WHERE id=#{id}
 	</update>
+	<!-- 내팀 가져오기 -->
+	<select id="getMyTeam" parameterType="java.util.Map" resultType="String">
+		select teamname from team where manager_id = #{id}
+	</select>
+	<!-- 저장된 토큰들 가져오기 -->
+	<select id="getTokens" parameterType="java.util.Map" resultType="Map">
+		select * from fcm_tokens
+	</select>
 </mapper>
