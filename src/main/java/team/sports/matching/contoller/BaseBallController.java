@@ -60,7 +60,7 @@ public class BaseBallController {
 			System.out.println(records.get(i).get("TBF")==null ? records.get(i).get("RECORDNO").toString() +"번째 투수기록이 존재하지 않음"  : records.get(i).get("RECORDNO").toString() +"번째 투수기록이 존재함");
 		}
 		
-		System.out.println(getProfile.size()!=0 ? "사진 가져와짐 : "+getProfile.get(0).toString()  : "사진 소환 실패");
+		System.out.println(getProfile.size()!=0 ? "사진 가져와짐 : "+getProfile.get(0).toString() : "사진 소환 실패");
 		model.addAttribute("records", records);
 		model.addAttribute("TEAMNAMES", teamName);
 		model.addAttribute("PTEAMNAMES", teamName2);
@@ -107,7 +107,6 @@ public class BaseBallController {
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		System.out.println("userDetails 잘 찍히나 확인 : "+userDetails.getUsername().toString());
 		
-		
 		map.put("USER_ID", userDetails.getUsername().toString());
 		
 		List<Map> details = hitterDAO.hitterDetailView(map);
@@ -121,15 +120,12 @@ public class BaseBallController {
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		System.out.println("userDetails 잘 찍히나 확인 : "+userDetails.getUsername().toString());
 		
-		
 		map.put("USER_ID", userDetails.getUsername().toString());
 		
 		List<Map> details = hitterDAO.pitcherDetailView(map);
 		
 		return details;
 	}
-	
-	
 	
 	
 	@RequestMapping(value="/Team/Matching/hitterDetailViewEachTeam.do", method = RequestMethod.POST) 
@@ -161,17 +157,6 @@ public class BaseBallController {
 		
 		return details;
 	}
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
 	
 }
 

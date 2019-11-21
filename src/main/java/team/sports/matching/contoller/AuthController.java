@@ -1,5 +1,6 @@
 package team.sports.matching.contoller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -24,7 +26,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import team.sports.matching.UserSha256;
 import team.sports.matching.mail.MailUtils;
 import team.sports.matching.mail.TempKey;
+import team.sports.matching.service.CommonUtils;
 import team.sports.matching.service.MemberDAO;
+import team.sports.matching.service.MemberDTO;
 
 @SessionAttributes("id")
 @Controller
@@ -110,15 +114,22 @@ public class AuthController {
 		String month = map.get("month").toString();
 		String day = map.get("day").toString();
 		String location = map.get("addr_road").toString();
+		
+		
 		map.put("birth", year+month+day); //생년월일
 		map.put("location", location); // 지역 
-		
+		map.put("HITPOWER", Math.ceil(Math.random() * 10000)/10000.0);
+		map.put("PITPOWER", Math.ceil(Math.random() * 10000)/10000.0);
 		//System.out.println("사용자가 적은 암호: "+map.get("pass").toString());
 		//String encryPass = UserSha256.encrypt(map.get("pass").toString());
 		//map.put("pass", encryPass);
 		//System.out.println("암호화된 암호: "+map.get("pass").toString());
 		String encryPass = passwordEncoder.encode(map.get("pass").toString());
+		
+		
 		map.put("pass", encryPass);
+		
+		
 		  for(Object key : map.keySet()) {
 		  
 		  String value = map.get(key).toString();
@@ -126,6 +137,7 @@ public class AuthController {
 		  //System.out.println(key+":"+value);
 		  
 		  }
+		  
 		int comple= 0;
 		int affected = dao.memberRegi(map);
 		if(affected==1) {
@@ -139,22 +151,25 @@ public class AuthController {
 		}
 		
 		/////email
-        String mailkey = new TempKey().getKey(50, false);
-        map.put("mailkey", mailkey);
-        dao.updateMailkey(map);
-        
-        MailUtils sendMail = new MailUtils(mailSender);
-        
-        sendMail.setSubject("[ ★SPORTING★ World Wide Sports Betting Clubs] 회원가입 이메일 인증");
-        sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
-        									.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-							                .append("<a href='http://localhost:8080/matching/Team/Matching/Login.do")
-							                .append("' target='_blenk'>이메일 인증 확인</a>")
-							                .toString());
-        sendMail.setFrom("songsig22@gmail.com", "admin");
-        sendMail.setTo(map.get("email").toString());
-        sendMail.send();
-        
+		if(map.get("mailkey")==null) {
+			String mailkey = new TempKey().getKey(50, false);
+	        map.put("mailkey", mailkey);
+	        dao.updateMailkey(map);
+	        
+	        MailUtils sendMail = new MailUtils(mailSender);
+	        
+	        sendMail.setSubject("[ ★SPORTING★ World Wide Sports Betting Clubs] 회원가입 이메일 인증");
+	        sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
+	        									.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
+								                .append("<a href='http://localhost:8080/matching/Team/Matching/Login.do")
+								                .append("' target='_blenk'>이메일 인증 확인</a>")
+								                .toString());
+	        sendMail.setFrom("songsig22@gmail.com", "admin");
+	        sendMail.setTo(map.get("email").toString());
+	        sendMail.send();
+	        map.put("mailstatus", 1);
+	   	 	dao.updateMailstatus(map);
+		}
 		/*
 		 * .append(map.get("id")) .append("&email=") .append(map.get("email"))
 		 * .append("&mailkey=") .append(mailkey)
@@ -193,7 +208,6 @@ public class AuthController {
 		}
 		return reject;
 	}
-
 	
-
+	
 }

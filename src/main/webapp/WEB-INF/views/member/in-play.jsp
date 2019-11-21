@@ -7,17 +7,24 @@
 <sec:authentication property="principal.username" var="id" />
 <sec:authentication property="principal.authorities" var="auth" />
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- <script src="https://kit.fontawesome.com/1d75ae587d.js" crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 
+
 $(function(){
-	  //배팅카운트 롱폴링 
-	  
+	
+	// 역순으로 진행된다   선택자중에 맨위의 tr은 last()로 접근  맨아래는 first()로 접근
+	//console.log( $('.all-tbody #test_tr').prevAll().first().html())	
+		
+	 //배팅카운트 롱폴링 
+	callComet();
+	
+
+
 	//스프링 시큐리티 아이디 가져오기
 	 console.log( $('#auth').val() )
 	 //myBettingList( $.trim($('#auth').val()));
@@ -223,7 +230,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 						},3500);
 						
 						var count = $('.bettingBtn').eq(index).find('span').text();
-						$('.bettingBtn').eq(index).find('span').text(Number(count)+1);
+						//$('.bettingBtn').eq(index).find('span').text(Number(count)+1);
 						
 				 }
 					
@@ -967,6 +974,107 @@ $('#myModal').on('hidden.bs.modal', function (e) {
     
     
     
+    
+	function callComet(){
+		
+		var pollArr=[];
+		$('.all-tbody   tr:lt(17)').each(function(index){	
+			
+			pollArr.push({index :index , 
+				       gamedate : $.trim($(this).children('td:eq(1)').find('span:eq(0)').text()),//경기일시
+ 				       time : $.trim($(this).children('td:eq(1)').find('span:eq(2)').text().replace(':','')), // 시간
+				       stadium : $.trim($(this).children('td:eq(4)').find('.stadium').data('value')) // 장소 data(key)로 읽어온다 data-value -> value가 key
+				       });
+	
+	  });
+		  $.ajax({ 
+			  
+					type:"POST",
+					beforeSend : function(xhr) {
+						 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		            },
+				url:"<c:url value='/Team/Matching/longpoll.do'/>",
+				dataType:"json",
+				data: JSON.stringify(pollArr),
+				 contentType : "application/json; charset=utf-8",
+				success:callBack,
+				error:function(data){
+				    console.log('에러 : '+data); // 에러코드 출력 
+					console.log('에러 : '+data.responseText); //  에러내용 출력
+				},
+				complete:function(xhr,status,error){
+		 
+				}
+		
+			});//// ajax
+		 
+	};/// callComet
+
+
+		function callBack(data){
+				 console.log(data);
+		  
+				 $.each(data, function(key, value) {
+						
+					$('.all-tbody tr:lt(17)').eq(key).children("td:eq(5)").find('.badge').text(value['count']);
+					})
+				
+				
+				setTimeout(function(){                                      
+					
+				
+					callComet();
+					},10000);    //loop
+		};
+	
+		
+		/*
+
+		(function poll(){ 
+			
+		
+			var pollArr=[];
+			$('.all-tbody   tr:lt(17)').each(function(index){	
+				
+				pollArr.push({index :index , 
+		       gamedate : $.trim($(this).children('td:eq(1)').find('span:eq(0)').text()),//경기일시
+			       time : $.trim($(this).children('td:eq(1)').find('span:eq(2)').text().replace(':','')), // 시간
+		       stadium : $.trim($(this).children('td:eq(4)').find('.stadium').data('value')) // 장소 data(key)로 읽어온다 data-value -> value가 key
+		       });
+		
+		  });
+					
+			
+		
+			$.ajax({
+				type:"POST",
+				beforeSend : function(xhr) {
+					 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+		
+				url:"<c:url value='/Team/Matching/longpoll.do'/>",
+				
+				dataType: "json", 
+				data: JSON.stringify(pollArr),
+				 contentType : "application/json; charset=utf-8",
+				success: function(data){ 
+					
+				
+					 $.each(data, function(key, value) {
+							
+					$('.all-tbody tr:lt(17)').eq(key).children("td:eq(5)").find('.badge').text(value['count']);
+					});
+				
+					
+				}, 
+				timeout: 3000,
+				complete: 
+					
+					setTimeout(function() { poll(); }, 6000)  });
+			   })();
+	
+*/
+	
    
     
     
@@ -999,11 +1107,12 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 	white-space: nowrap
 }
 
+
 /*  반짝반짝  */
 .blinking{
-	-webkit-animation:blink 0.5s ease-in-out infinite alternate;
-    -moz-animation:blink 0.5s ease-in-out infinite alternate;
-    animation:blink 0.5s ease-in-out infinite alternate;
+	-webkit-animation:blink 0.8s ease-in-out infinite alternate;
+    -moz-animation:blink 0.8s ease-in-out infinite alternate;
+    animation:blink  0.8s ease-in-out infinite alternate;
 }
 @-webkit-keyframes blink{
     0% {opacity:0;}
@@ -1019,7 +1128,6 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 }
 
 
-  
 .pointFont {
 	font-size: 30px;
 	color: #217f84;
@@ -1037,12 +1145,12 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 }
 
 .show {
-display: ;
-}
-.hide {
-display : none;
+	display:;
 }
 
+.hide {
+	display: none;
+}
 </style>
 
 <%-- <meta name="_csrf" content="${_csrf.token}"/>
@@ -1233,16 +1341,11 @@ display : none;
 															</c:if>
 														</td>
 
-														<td>
-															<!--  
-	    										
-	    										<c:if test="${item.category=='축구'}">
-	    										<i class="far fa-futbol fa-2x"></i>
-	    										</c:if>
-	    										<c:if test="${item.category=='야구'}">
-	    										<i class="fas fa-baseball-ball fa-2x"></i>
-	    										</c:if>
-	    										--> 기타 <span class="stadium" data-value="${item.stadium}"></span>
+														<td><c:if test="${item.category=='축구'}">
+																<i class="far fa-futbol fa-2x"></i>
+															</c:if> <c:if test="${item.category=='야구'}">
+																<i class="fas fa-baseball-ball fa-2x"></i>
+															</c:if> <span class="stadium" data-value="${item.stadium}"></span>
 														</td>
 														<td>
 															<button type="button" class="btn btn-warning bettingBtn"
@@ -1250,11 +1353,11 @@ display : none;
 																style="height: 33px; width: 90.53px">
 																<!-- data-toggle="modal" data-target="#myModal" -->
 																배 팅<span class="badge badge-secondary ml-2">${item.count}</span>
-															 
+
 																<c:if test="${item.bettingConfirm}">
 																	<i class="fas fa-check chk"></i>
 																</c:if>
-															
+
 															</button>
 														</td>
 														<!-- <i class="fas fa-sign-out-alt fa-rotate-90"></i> -->
@@ -1272,7 +1375,7 @@ display : none;
 
 											<!--  1행 -->
 
-											<tr>
+											<tr class="test_tr">
 												<td>
 													<!-- <div class="team-name-part"> </div> --> 1
 												</td>
@@ -1301,7 +1404,7 @@ display : none;
 											<!-- 1행끝 -->
 
 
-											<tr>
+											<tr class="test_tr">
 												<!-- 번호 -->
 												<td>2</td>
 												<!-- 경기 날짜  -->
@@ -1339,7 +1442,7 @@ display : none;
 
 											<!-- 3행 시작 -->
 
-											<tr>
+											<tr class="test_tr">
 												<!-- 번호 -->
 												<td>3</td>
 												<!-- 경기 날짜  -->
@@ -1685,21 +1788,28 @@ display : none;
 
 												<div class="row">
 													<div class="col-md mb-3">
-														<div class="custom-control custom-radio" style="display: inline;">
-															<input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-															 <label style="font-weight: bold;" class="custom-control-label homeLabel" for="customRadio1">HOME</label>
-															 <span class="modal_homeSpan ml-2"></span>
+														<div class="custom-control custom-radio"
+															style="display: inline;">
+															<input type="radio" id="customRadio1" name="customRadio"
+																class="custom-control-input"> <label
+																style="font-weight: bold;"
+																class="custom-control-label homeLabel"
+																for="customRadio1">HOME</label> <span
+																class="modal_homeSpan ml-2"></span>
 														</div>
-														<div class="progress " id="homeProgressDiv "style="height: 25px; width: 70%; float: right;">
-															
-															<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger homeProgressBar"
-																style="font-weight: bold;">
-															</div>
-																
-															<div class="text-center w-100  bg-info homeProgressBar_Info" style="display: none">
+														<div class="progress " id="homeProgressDiv "
+															style="height: 25px; width: 70%; float: right;">
+
+															<div
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger homeProgressBar"
+																style="font-weight: bold;"></div>
+
+															<div
+																class="text-center w-100  bg-info homeProgressBar_Info"
+																style="display: none">
 																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
 															</div>
-															
+
 														</div>
 													</div>
 												</div>
@@ -1708,17 +1818,24 @@ display : none;
 
 												<div class="row">
 													<div class="col-md mb-3">
-														<div class="custom-control custom-radio" style="display: inline">
-															<input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"> 
-															 <label  style="font-weight: bold;" class="custom-control-label awayLabel " for="customRadio2">AWAY</label>
-															 <span class="modal_awaySpan ml-2"></span>
+														<div class="custom-control custom-radio"
+															style="display: inline">
+															<input type="radio" id="customRadio2" name="customRadio"
+																class="custom-control-input"> <label
+																style="font-weight: bold;"
+																class="custom-control-label awayLabel "
+																for="customRadio2">AWAY</label> <span
+																class="modal_awaySpan ml-2"></span>
 														</div>
-														<div class="progress" style="height: 25px; width: 70%; float: right;">
-															<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger awayProgressBar" 
-															style="font-weight: bold;">
-															</div>
-															
-															<div class="text-center w-100 bg-info awayProgressBar_Info" style=" display: none">
+														<div class="progress"
+															style="height: 25px; width: 70%; float: right;">
+															<div
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger awayProgressBar"
+																style="font-weight: bold;"></div>
+
+															<div
+																class="text-center w-100 bg-info awayProgressBar_Info"
+																style="display: none">
 																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
 															</div>
 														</div>
@@ -1731,17 +1848,24 @@ display : none;
 
 												<div class="row">
 													<div class="col-md">
-														<div class="custom-control custom-radio" style="display: inline;">
-															<input type="radio" id="customRadio3" name="customRadio" class="custom-control-input"> 
-															<label style="font-weight: bold;" class="custom-control-label drawLabel " for="customRadio3">DRAW</label>
-															<span class="modal_drawSpan ml-2"></span>
+														<div class="custom-control custom-radio"
+															style="display: inline;">
+															<input type="radio" id="customRadio3" name="customRadio"
+																class="custom-control-input"> <label
+																style="font-weight: bold;"
+																class="custom-control-label drawLabel "
+																for="customRadio3">DRAW</label> <span
+																class="modal_drawSpan ml-2"></span>
 														</div>
-														<div class="progress" style="height: 25px; width: 70%; float: right;">
-															<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger drawProgressBar"
-																style="font-weight: bold;">
-														    </div>
-														    
-														    <div class="text-center  w-100 bg-info drawProgressBar_Info" style="display: none">
+														<div class="progress"
+															style="height: 25px; width: 70%; float: right;">
+															<div
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger drawProgressBar"
+																style="font-weight: bold;"></div>
+
+															<div
+																class="text-center  w-100 bg-info drawProgressBar_Info"
+																style="display: none">
 																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
 															</div>
 														</div>

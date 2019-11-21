@@ -104,6 +104,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           group by selectteam
 	</select>
 	
+ 
+	<select id="test" parameterType="java.util.List" resultType="java.util.Map">
+	 select   g.gamedate ,g.stadium , g.time ,(select count(*) from betting b 
+   where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) as count
+   from gameschedule g join team t on g.teamname =  t.teamname 
+
+ where g.gamedate  in 
+ <foreach collection="list" item="item_g" index="index" open="(" close=") " separator=",">
+ #{item_g.gamedate}
+ </foreach>
+ and g.time in
+ <foreach collection="list" item="item_t" index="index" open="(" close=") " separator=",">
+ #{item_t.time}
+  </foreach>
+ and   g.stadium in 
+ <foreach collection="list" item="item_s" index="index" open="(" close=") " separator=",">
+ #{item_s.stadium}
+  </foreach>
+ 
+ 
+ order by g.gamedate desc
 	
+	</select>
 	
 </mapper>

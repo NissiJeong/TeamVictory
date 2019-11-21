@@ -6,15 +6,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<!-- 매퍼파일에서 dto객체 가져다 쓰려고 별칭 하는것 -->
 	<typeAliases>
-
-		<typeAlias alias="TeamDTO" type="team.sports.matching.service.TeamDTO"/>		
+		<typeAlias alias="TeamDTO" type="team.sports.matching.service.TeamDTO"/>
 		<typeAlias alias="BettingDTO" type="team.sports.matching.service.BettingDTO"/>
 		<typeAlias alias="BoardDTO" type="team.sports.matching.service.BoardDTO"/>			
 		<typeAlias alias="BaseBall_HitterDTO" type="team.sports.printdb.baseball.BaseBall_HitterDTO"/>
 		<typeAlias alias="PitcherDTO" type="team.sports.printdb.baseball.PitcherDTO"/>
 		<typeAlias alias="TeamBoardDTO" type="team.sports.matching.service.TeamBoardDTO"/>
 		<typeAlias alias="MemberDTO" type="team.sports.matching.service.MemberDTO"/>		
-
 		<typeAlias alias="MessageDTO" type="team.sports.matching.service.MessageDTO"/>
 		<typeAlias alias="BasketballDTO" type="team.sports.matching.service.BasketballDTO"/>
 		<typeAlias alias="MatchDTO" type="team.sports.matching.service.MatchDTO"/>

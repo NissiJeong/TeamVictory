@@ -19,4 +19,50 @@ public class AdminDAO {
 		return template.selectOne("selectSchedule", map);
 	}////
 
+/** 기생 중  **/
+	
+	public List<Map> openInsertData(Map map) {
+		return template.selectList("openInsertData", map);
+	}
+
+	public List<Map> insertParsingData(Map map) {
+		return template.selectList("insertParsingData", map);
+	}
+	
+	public List<Map> getMembersWithParsing(Map map) {
+		return template.selectList("getMembersWithParsing", map);
+	}
+	public List<Map> getMembersWithParsingPITCHER(Map map) {
+		return template.selectList("getMembersWithParsingPITCHER", map);
+	}
+	
+	
+	public int updateGameSchedule(Map map) {
+		return template.update("updateScheduleWithParsing", map);
+	}
+
+	public int insertHitter(Map map) {
+		return template.insert("insertHitterWithParsing", map);
+		
+	}
+	public int insertPitcher(Map map) {
+		return template.insert("insertPitcherWithParsing", map);
+	}
+	
+	public List<Map> getScoreLogo(Map map) {
+		return template.selectList("getScoreLogo", map);
+	}
+	
+	public List<Map> getDetailInfo(Map map) {
+		return template.selectList("getDetailInfo", map);
+	}
+	
+	public List<Map> getSummary(Map map) {
+		return template.selectList("getSummary", map);
+	}
+	public List<Map> getEachResult(Map map) {
+		return template.selectList("getEachResult", map);
+	
+	}
+	
 }
