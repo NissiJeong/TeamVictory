@@ -143,20 +143,17 @@ public class AuthController {
 		String mailkey = new TempKey().getKey(50, false);
         map.put("mailkey", mailkey);
         dao.updateMailkey(map);
-		
         MailUtils sendMail = new MailUtils(mailSender);
 		/* String contents = "<img src='cid:/assets/images/mailimg.JPG'>"; .append(contents)*/
         sendMail.setSubject("[ ★SPORTING★ World Wide Sports Betting Clubs] "+map.get("id")+"님 회원가입 이메일 인증");
         sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
         									.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-        									.append("<a href='http://localhost:8080/matching/Team/Matching/Login?")
-        									
+        									.append("<a href='http://localhost:8080/matching/Team/Matching/Login.do")
 							                .append("' target='_blenk'>이메일 인증 확인</a>")
 							                .toString());
         sendMail.setFrom("songsig22@gmail.com", "admin");
         sendMail.setTo(map.get("email").toString());
         sendMail.send();
-        
         map.put("mailstatus", 1);
    	 	dao.updateMailstatus(map);
         
