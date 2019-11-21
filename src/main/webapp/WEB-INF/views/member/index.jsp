@@ -54,7 +54,71 @@
 </style>
 
 
+  <meta charset="UTF-8">
 
+    <title>유튜브 동영상 배경</title>
+
+    <style type="text/css">
+
+    * { box-sizing: border-box; }
+
+    .video-background {
+
+        background: #000;
+
+        position: fixed;
+
+        top: 0; right: 0; bottom: 0; left: 0;
+
+        z-index: -99;
+
+    }
+
+    .video-foreground,
+
+    .video-background iframe {
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        width: 100%;
+
+        height: 100%;
+
+        pointer-events: none;
+
+    }
+
+    @media (min-aspect-ratio: 16/9) {
+
+    .video-foreground { height: 300%; top: -100%; }
+
+    }
+
+    @media (max-aspect-ratio: 16/9) {
+
+    .video-foreground { width: 300%; left: -100%; }
+
+    }
+
+    h1{ color:white;}
+
+    </style>
+<!-- 
+<div class="video-background">
+
+    <div class="video-foreground">
+
+      <iframe src="https://www.youtube.com/embed/sbc2yBheAbo?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=sbc2yBheAbo" frameborder="0" allowfullscreen></iframe>
+
+    </div>
+
+  </div>
+
+<h1>악동뮤지션</h1> -->
   
 
 
@@ -82,12 +146,17 @@
         <div class="row align-items-center">
           <div class="col-lg-4 col-md-4">
             <div class="thumb">
-              <img src="<c:url value='/assets/images/banner-bottom.jpg'/>" alt="banner-bottom-image">
+              <%-- <img src="<c:url value='/assets/images/banner-bottom.jpg'/>" alt="banner-bottom-image"> --%>
+				<div style="position: relative; height:0; padding-bottom: 100%; margin: 0px 0px;">
+					<!-- <iframe width="350" height="210" src="https://www.youtube.com/embed/ybhXVSAdIRE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; width:100%; height:100%;"></iframe> -->
+					<iframe width="350" height="210" src="https://www.youtube.com/embed/bDgUEt-HJJA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe src="https://www.youtube.com/embed/sbc2yBheAbo?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=sbc2yBheAbo" frameborder="0" allowfullscreen></iframe> -->
+				</div>
             </div>
           </div>
           <div class="col-lg-3 col-md-4">
-            <div class="promo-video-part d-flex">
-              <a href="https://www.youtube.com/embed/aFYlAzQHnY4" data-rel="lightcase:myCollection" class="round-video-btn"><i class="fa fa-play"></i></a>
+            <div class="promo-video-part d-flex"><!-- https://youtu.be/rrFAxo8Jz-k -->
+              <a href="https://www.youtube.com/embed/rrFAxo8Jz-k" data-rel="lightcase:myCollection" class="round-video-btn"><i class="fa fa-play"></i></a>
               <div class="content">
                 <span>Promo Video</span>
                 <p>Watch our intro</p>
@@ -106,7 +175,7 @@
   </section>
   <!-- banner-section end -->
 
- <section class="feature-section section-padding" style="background: #f4f8f9">
+ <!-- <section class="feature-section section-padding" style="background: #f4f8f9">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-6">
@@ -120,7 +189,7 @@
         <div class="col-lg-4 col-sm-6">
           <div class="feature-item text-center">
             <div class="icon"><div class="rotate-icon"><i class="flaticon-shield"></i></div></div>
-            <h3 class="title">Fotsal</h3>
+            <h3 class="title">Futsal</h3>
             <p>May indulgence difficulty ham can put especially. Bringing remember for supplied her why was confined.</p>
           </div>
         </div>
@@ -161,7 +230,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
  
 
 <section class="service-section section-padding section-bg">
