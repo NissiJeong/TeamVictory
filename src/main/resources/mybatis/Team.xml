@@ -32,11 +32,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 최다삼진 TOP3 -->
 	<select id="BestsoPlayer" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		select p.so, t.teamname, m.name from teammember t JOIN pitcher p ON t.id=p.id JOIN member m ON t.id=m.id where t.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) and  
+		select p.pso, t.teamname, m.name from teammember t JOIN pitcher p ON t.id=p.id JOIN member m ON t.id=m.id where t.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) and  
 		<![CDATA[ 
 		 rownum<=3  
 		]]> 
-		 ORDER BY p.so DESC
+		 ORDER BY p.pso DESC
 	</select>
 	
 	<!-- 최다홈런 TOP3 -->
@@ -95,15 +95,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SUM(SV) OVER(PARTITION BY name) SUSV,
 		        SUM(HOL) OVER(PARTITION BY name) SUMHOL,
 		        SUM(TBF) OVER(PARTITION BY name) SUMTBF,
-		        SUM(IP) OVER(PARTITION BY name) SUMIP,
-		        SUM(H) OVER(PARTITION BY name) SUMH,
-		        SUM(HR) OVER(PARTITION BY name) SUMHR,
-		        SUM(BB) OVER(PARTITION BY name) SUMBB,
-		        SUM(HBP) OVER(PARTITION BY name) SUMHBP,
-		        SUM(SO) OVER(PARTITION BY name) SUMSO,
-                SUM(R) OVER(PARTITION BY name) SUMR,
-                SUM(ER) OVER(PARTITION BY name) SUMER,
-                round( (SUM(ER) OVER(PARTITION BY name) * 9) /SUM(IP) OVER(PARTITION BY name), 3) as ERA,
+		        SUM(PH) OVER(PARTITION BY name) SUMH,
+		        SUM(PHR) OVER(PARTITION BY name) SUMHR,
+		        SUM(PBB) OVER(PARTITION BY name) SUMBB,
+		        SUM(PHBP) OVER(PARTITION BY name) SUMHBP,
+		        SUM(pso) OVER(PARTITION BY name) SUMso,
+                SUM(PR) OVER(PARTITION BY name) SUMR,
+                SUM(PER) OVER(PARTITION BY name) SUMER,
+                <!-- NVL(분자 / DECODE(분모, 0, NULL, 분모), 0) -->
+               round(NVL((SUM(PER) OVER(PARTITION BY name)*9) / DECODE(SUM(CI) OVER(PARTITION BY name), 0, NULL, SUM(CI) OVER(PARTITION BY name)), 0) ,3) as ERA,
+               <!--  round((SUM(PER) OVER(PARTITION BY name)*9)  /SUM(CI) OVER(PARTITION BY name),3) as ERA, -->
                 p.id, m.name 
                 from pitcher p JOIN member m ON p.id=m.id 
                 where p.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum=1) order by ERA DESC) a 
@@ -130,7 +131,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SUM(SO) OVER(PARTITION BY name) SUMSO,
 		        SUM(GDP) OVER(PARTITION BY name) SUMGDP,
 		        SUM(E) OVER(PARTITION BY name) SUME,
-                round( SUM(H) OVER(PARTITION BY name) /SUM(AB) OVER(PARTITION BY name), 3) as BA,
+                round(NVL((SUM(H) OVER(PARTITION BY name)*9) / DECODE(SUM(AB) OVER(PARTITION BY name), 0, NULL, SUM(AB) OVER(PARTITION BY name)), 0) ,3) as BA,
+                <!-- round( SUM(H) OVER(PARTITION BY name) /SUM(AB) OVER(PARTITION BY name), 3) as BA, -->
                 h.id, m.name 
                 from hitter h JOIN member m ON h.id=m.id 
                 where h.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum=1) order by BA DESC) a 
@@ -206,21 +208,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 팀기네스 : 최다삼진 -->
 	<select id="TeamGuinnessStrikeOut" parameterType="java.util.Map" resultType="TeamBoardDTO">
-		SELECT (SELECT max(so) FROM pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) as so, g.*, 
-		case when h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+		SELECT (SELECT max(pso) FROM pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) as pso, g.*, 
+		case when h.pso=(select max(pso) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
             and g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
 	    	then (select g.awayteam from gameschedule g join pitcher h on g.gamedate=h.gamedate 
 	            	where g.teamname=(select teamname from (select * from teammember order by regidate) 
-	            	where id=#{id}  and rownum = 1) and rownum=1 and h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)))
+	            	where id=#{id}  and rownum = 1) and rownum=1 and h.pso=(select max(pso) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)))
 	
-	    	when h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+	    	when h.pso=(select max(pso) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
             and g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1) 
 	        then (select g.teamname from gameschedule g join pitcher h on g.gamedate=h.gamedate 
 	                where g.awayteam=(select teamname from (select * from teammember order by regidate) 
-	                where id=#{id}  and rownum = 1) and rownum=1 and h.so=(select max(so) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1))) 
+	                where id=#{id}  and rownum = 1) and rownum=1 and h.pso=(select max(pso) from pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1))) 
 		end as "ot" 
 		FROM pitcher h JOIN gameschedule g ON h.gamedate=g.gamedate 
-		where h.so=(SELECT max(so) FROM pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
+		where h.pso=(SELECT max(pso) FROM pitcher where teamname=(select teamname from (select * from teammember order by regidate) where id=#{id} and rownum = 1)) 
 		and (g.teamname=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1) 
 		or g.awayteam=(select teamname from (select * from teammember order by regidate) where id=#{id}  and rownum = 1)) and rownum=1
 		ORDER BY g.gamedate DESC
@@ -232,7 +234,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="TeamGuinness" parameterType="java.util.Map" resultType="TeamBoardDTO">
 		SELECT DISTINCT (SELECT max(R) FROM hitter) as sc, 득점
 		(SELECT max(hr) FROM hitter) as hr,  홈런
-		(SELECT max(so) FROM pitcher) as so, 삼진
+		(SELECT max(pso) FROM pitcher) as so, 삼진
 		(SELECT max(h) FROM hitter) as h, 안타
 		(SELECT max(bb) FROM hitter) as bb
 		FROM gameschedule g JOIN hitter h ON g.gamedate=h.gamedate 

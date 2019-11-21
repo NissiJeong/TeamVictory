@@ -1,5 +1,6 @@
 package team.sports.matching.contoller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import team.sports.matching.UserSha256;
 import team.sports.matching.mail.MailUtils;
 import team.sports.matching.mail.TempKey;
+import team.sports.matching.service.CommonUtils;
 import team.sports.matching.service.MemberDAO;
 
 @SessionAttributes("id")
@@ -110,15 +112,22 @@ public class AuthController {
 		String month = map.get("month").toString();
 		String day = map.get("day").toString();
 		String location = map.get("addr_road").toString();
+		
+		
 		map.put("birth", year+month+day); //생년월일
 		map.put("location", location); // 지역 
-		
+		map.put("HITPOWER", Math.ceil(Math.random() * 10000)/10000.0);
+		map.put("PITPOWER", Math.ceil(Math.random() * 10000)/10000.0);
 		//System.out.println("사용자가 적은 암호: "+map.get("pass").toString());
 		//String encryPass = UserSha256.encrypt(map.get("pass").toString());
 		//map.put("pass", encryPass);
 		//System.out.println("암호화된 암호: "+map.get("pass").toString());
 		String encryPass = passwordEncoder.encode(map.get("pass").toString());
+		
+		
 		map.put("pass", encryPass);
+		
+		
 		  for(Object key : map.keySet()) {
 		  
 		  String value = map.get(key).toString();
@@ -126,6 +135,7 @@ public class AuthController {
 		  //System.out.println(key+":"+value);
 		  
 		  }
+		  
 		int comple= 0;
 		int affected = dao.memberRegi(map);
 		if(affected==1) {
@@ -193,7 +203,6 @@ public class AuthController {
 		}
 		return reject;
 	}
-
 	
-
+	
 }

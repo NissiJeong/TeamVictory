@@ -235,7 +235,7 @@ $(function(){
                 </div>
                 <div class="mr-5">13 New Tickets!</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="#">
+              <a id="insertByParsing" class="card-footer text-white clearfix small z-1"  href="<c:url value='/Team/admin/insertData.do'/>">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>
