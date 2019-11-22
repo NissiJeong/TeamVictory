@@ -98,7 +98,7 @@
 											
 											<h5>아이디 ${record.id }</h5>
 											
-											<span>조회수 ${record.countNo}</span>
+											<span>조회수 ${record.count}</span>
 											
 											<h4>
 												${record.title }

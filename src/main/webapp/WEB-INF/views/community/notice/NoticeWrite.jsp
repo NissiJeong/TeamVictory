@@ -47,6 +47,11 @@
 		text-align: right;
 		padding-right: 60px;
 	}
+	
+	#contentBox {
+		overflow:hidden;
+		width : 900px;
+	}
 
 </style>
 
@@ -115,7 +120,7 @@
 										               </div>
 										            </div>
 						
-										            <div class="form-group">
+										            <div class="form-group"  id="contentBox">
 										               <div class="col-md-2 control-label">내용</div>
 										               <div class="col-md-10">
 										                  <textarea rows="10" name="content" id="content" 

@@ -112,7 +112,7 @@
 												<span>작성일 ${item.postDate }</span>
 												<p>글번호 ${item.no}</p>
 												<h5>아이디 ${item.id }</h5>
-												<span>조회수 ${item.countNo}</span>
+												<span>조회수 ${item.count}</span>
 												
 												<h4 id="linkTitle">
 													<div onclick='location.href="<c:url value='/Team/Matching/NoticeView.do?no=${item.no }&nowPage='/><c:out value='${nowPage}' default='1'/>"'>${item.title }</div>

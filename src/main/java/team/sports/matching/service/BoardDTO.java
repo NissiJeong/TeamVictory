@@ -7,7 +7,7 @@ public class BoardDTO {
 	private String content;
 	private String id;
 	private java.sql.Date postDate;
-	private int countNo;
+	private int count;
 	//프로그램 효율성을 위한 속성 추가]
 	//이름 저장
 	private String name;
@@ -50,11 +50,11 @@ public class BoardDTO {
 	public void setPostDate(java.sql.Date postDate) {
 		this.postDate = postDate;
 	}
-	public int getCountNo() {
-		return countNo;
+	public int getCount() {
+		return count;
 	}
-	public void setCountNo(int countNo) {
-		this.countNo = countNo;
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 }

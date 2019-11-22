@@ -48,78 +48,8 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-    
-
-
+   
 </style>
-
-
-  <meta charset="UTF-8">
-
-    <title>유튜브 동영상 배경</title>
-
-    <style type="text/css">
-
-    * { box-sizing: border-box; }
-
-    .video-background {
-
-        background: #000;
-
-        position: fixed;
-
-        top: 0; right: 0; bottom: 0; left: 0;
-
-        z-index: -99;
-
-    }
-
-    .video-foreground,
-
-    .video-background iframe {
-
-        position: absolute;
-
-        top: 0;
-
-        left: 0;
-
-        width: 100%;
-
-        height: 100%;
-
-        pointer-events: none;
-
-    }
-
-    @media (min-aspect-ratio: 16/9) {
-
-    .video-foreground { height: 300%; top: -100%; }
-
-    }
-
-    @media (max-aspect-ratio: 16/9) {
-
-    .video-foreground { width: 300%; left: -100%; }
-
-    }
-
-    h1{ color:white;}
-
-    </style>
-<!-- 
-<div class="video-background">
-
-    <div class="video-foreground">
-
-      <iframe src="https://www.youtube.com/embed/sbc2yBheAbo?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=sbc2yBheAbo" frameborder="0" allowfullscreen></iframe>
-
-    </div>
-
-  </div>
-
-<h1>악동뮤지션</h1> -->
-  
 
 
   <!-- banner-section start -->
@@ -165,7 +95,7 @@
           </div>
           <div class="col-lg-5 col-md-4">
             <div class="btn-area">
-              <a href="#" class="cmn-btn btn-lg">beting now</a>
+              <a href="<c:url value='/Team/Matching/Betting.do'/>" class="cmn-btn btn-lg">betting now</a>
               <a href="#" class="cmn-btn border-btn btn-lg">explore more</a>
             </div>
           </div>
@@ -233,7 +163,7 @@
   </section> -->
  
 
-<section class="service-section section-padding section-bg">
+<section class="service-section section-padding section-bg" style="padding-top: 80px !important;">
     <div class="service-chart-image">
      
     </div>
@@ -271,7 +201,7 @@
 
 
   <!-- blog-section start -->
-  <section class="blog-section section-padding section-bg">
+  <%-- <section class="blog-section section-padding section-bg">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-7">
@@ -326,7 +256,7 @@
         </div><!-- post-item end -->
       </div>
     </div>
-  </section>
+  </section> --%>
   <!-- blog-section end -->
    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5e4493e8237510bfdecd5f7f8fe62c64&libraries=services"></script>
 <script>
