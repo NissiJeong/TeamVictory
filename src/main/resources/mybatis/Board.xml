@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="boardSelectList" parameterType="java.util.Map" resultType="BoardDTO">
   	select * from (select t.*,rownum r from (select * from board where 
   	<if test="searchColumn != null">
-  		where ${searchColumn} like '%' || #{searchWord} || '%'
+  		 ${searchColumn} like '%' || #{searchWord} || '%' and
   	</if>  	
   	not id='admin' order by no desc) t) where r between #{start} and #{end} 	
   </select>
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="noticeList" parameterType="java.util.Map" resultType="BoardDTO">
 	select * from (select t.*,rownum r from (select * from board where 
 	<if test="searchColumn != null">
-		where ${searchColumn} like '%' || #{searchWord} || '%'
+		 ${searchColumn} like '%' || #{searchWord} || '%' and
 	</if>  	
 	id = 'admin' order by no desc) t) where r between #{start} and #{end} 	
   </select>
@@ -36,12 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
 	<update id="updateboardcount" parameterType="java.util.Map">
         UPDATE board
-              SET countNo = countNo + 1
+              SET count = count + 1
          WHERE no=#{no}
 	</update>
   
   <insert id="boardInsert" parameterType="java.util.Map">
-  	INSERT INTO board(no,title,content,id,countNo)
+  	INSERT INTO board(no,title,content,id,count)
   	VALUES(SEQ_BOARD.NEXTVAL,#{title},#{content},#{id},default)
   </insert>
   

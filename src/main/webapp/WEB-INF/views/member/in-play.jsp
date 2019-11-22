@@ -1151,6 +1151,9 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 .hide {
 	display: none;
 }
+#paddingTop{
+	padding-top: 0px !important;
+}
 </style>
 
 <%-- <meta name="_csrf" content="${_csrf.token}"/>
@@ -1181,11 +1184,11 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 
 
 <!-- play-section start -->
-<section class="play-section section-padding section-bg">
+<section id="paddingTop" class="play-section section-padding section-bg">
 	<div class="container" style="border: 1px solid red">
 
 		<div class="row justify-content-center">
-			<div class="col-lg-6">
+			<div class="col-lg-6" style="padding-top: 70px !important;">
 				<div class="section-header text-center">
 					<h2 class="section-title">Bet & Playing Now</h2>
 					<p>On insensible possession oh particular attachment at

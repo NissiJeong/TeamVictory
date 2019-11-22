@@ -153,19 +153,21 @@ function isBlank(){
           </div>
         </div>contact-item end
       </div> -->
+     <div class="container">
       <div class="row" style="margin-top: -50px">
-        <div class="col-lg-8">
+        <div class="offset-md-1 col-lg-10">
        	<c:if test="${dupliManager == 1 }" var="isDupli">
        	<script>
       
        		alert('사용자는 이미 팀장을 맡고 있습니다');
         	window.location = '<c:url value="/Team/Member/Index.do"/>';
-       
 	       
        	</script>
        	</c:if>
        	<c:if test="${not isDupli}">
 		
+		
+	 	
           <div class="contact-form-area">
           	
             <form class="cmn-form contact-form" action="<c:url value='/Team/matching/teamJoin.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
@@ -244,8 +246,12 @@ function isBlank(){
             </div>
            
           </div>
+        
           </c:if>
-        </div>
+          
+        </div><!-- row -->
+       </div><!-- container -->
+       
       </div>
     </div>
   </section>

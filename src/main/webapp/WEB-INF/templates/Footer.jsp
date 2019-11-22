@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-lg-3 col-sm-6">
             <div class="footer-widget widget-about">
-              <a class="logo"><img src="<c:url value='/assets/images/logo.png'/>" alt="image"/></a>
+              <a class="logo"><img src="<c:url value='/assets/images/logo2smalledit.png'/>" alt="image" style="height: 200px !important;"/></a>
               <ul class="address-list">
                 <li>9288 Peninsula Court Meriden, CT 06450</li>
                 <li>demo@demomail.com</li>

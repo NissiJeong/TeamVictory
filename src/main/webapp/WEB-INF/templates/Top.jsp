@@ -28,9 +28,9 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
   <style>
-  	#equal {
+  	/* #equal {
   		margin-left: 5%;
-  	}
+  	} */
   	
   	#topLogo {
   		height: 150px !important;
