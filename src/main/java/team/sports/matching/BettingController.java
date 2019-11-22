@@ -414,6 +414,8 @@ public class BettingController {
 				
 			}////
 			 List<Map>  list =bettingDao.test(mapperList);
+			
+			 
 			 for (int i=0; i<paramToJsonArr.size(); i++) {
 					((Map)paramToJsonArr.get(i)).put("count",list.get(i).get("COUNT") );
 					

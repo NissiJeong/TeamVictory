@@ -978,7 +978,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 	function callComet(){
 		
 		var pollArr=[];
-		$('.all-tbody   tr:lt(17)').each(function(index){	
+		$('.all-tbody  .tRow').each(function(index){	
 			
 			pollArr.push({index :index , 
 				       gamedate : $.trim($(this).children('td:eq(1)').find('span:eq(0)').text()),//경기일시
@@ -1016,7 +1016,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 		  
 				 $.each(data, function(key, value) {
 						
-					$('.all-tbody tr:lt(17)').eq(key).children("td:eq(5)").find('.badge').text(value['count']);
+					$('.all-tbody .tRow').eq(key).children("td:eq(5)").find('.badge').text(value['count']);
 					})
 				
 				
@@ -1295,7 +1295,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 													<fmt:parseNumber value="${item.awayScore}" type="number"
 														var="awayScore" />
 
-													<tr>
+													<tr class="tRow">
 
 														<td>${loop.count}</td>
 

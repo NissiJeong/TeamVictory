@@ -7,10 +7,12 @@ DROP TRIGGER TRI_betting_no;
 DROP TRIGGER TRI_board_no;
 DROP TRIGGER TRI_chatmember_no;
 DROP TRIGGER TRI_contact_no;
+DROP TRIGGER TRI_fcm_tokens_no;
 DROP TRIGGER TRI_gameRecord_teamGameNo;
 DROP TRIGGER TRI_Gameschedule_gameNo;
 DROP TRIGGER TRI_matching_matchingNo;
 DROP TRIGGER TRI_message_no;
+DROP TRIGGER TRI_NEW_TABLE_no;
 */
 
 
@@ -21,6 +23,7 @@ DROP TABLE betting CASCADE CONSTRAINTS;
 DROP TABLE board CASCADE CONSTRAINTS;
 DROP TABLE chatmember CASCADE CONSTRAINTS;
 DROP TABLE chatroom CASCADE CONSTRAINTS;
+DROP TABLE fcm_tokens CASCADE CONSTRAINTS;
 DROP TABLE hitter CASCADE CONSTRAINTS;
 DROP TABLE pitcher CASCADE CONSTRAINTS;
 DROP TABLE gameschedule CASCADE CONSTRAINTS;
@@ -33,18 +36,20 @@ DROP TABLE Team CASCADE CONSTRAINTS;
 
 
 /* Drop Sequences */
-
-DROP SEQUENCE SEQ_baseteam;
-DROP SEQUENCE SEQ_Betting;
-DROP SEQUENCE SEQ_betting;
-DROP SEQUENCE SEQ_board;
-DROP SEQUENCE SEQ_chatmember;
-DROP SEQUENCE SEQ_contact;
-DROP SEQUENCE SEQ_gameRecord;
-DROP SEQUENCE SEQ_Gameschedule;
-DROP SEQUENCE SEQ_matching;
-DROP SEQUENCE SEQ_message;
-drop sequence seq_teammember;
+/*
+DROP SEQUENCE SEQ_baseteam_baseteamno;
+DROP SEQUENCE SEQ_Betting_bettingIndex;
+DROP SEQUENCE SEQ_betting_no;
+DROP SEQUENCE SEQ_board_no;
+DROP SEQUENCE SEQ_chatmember_no;
+DROP SEQUENCE SEQ_contact_no;
+DROP SEQUENCE SEQ_fcm_tokens_no;
+DROP SEQUENCE SEQ_gameRecord_teamGameNo;
+DROP SEQUENCE SEQ_Gameschedule_gameNo;
+DROP SEQUENCE SEQ_matching_matchingNo;
+DROP SEQUENCE SEQ_message_no;
+DROP SEQUENCE SEQ_NEW_TABLE_no;
+*/
 
 
 
@@ -63,6 +68,8 @@ CREATE SEQUENCE SEQ_message INCREMENT BY 1 START WITH 1 nocache nocycle;
 CREATE SEQUENCE seq_teammember INCREMENT BY 1 START WITH 1 nocache nocycle;
 
 CREATE SEQUENCE SEQ_fcm_tokens INCREMENT BY 1 START WITH 1 nocache nocycle;
+
+
 
 /* Create Tables */
 
@@ -106,6 +113,7 @@ CREATE TABLE chatmember
 	no number NOT NULL,
 	ID nvarchar2(15) NOT NULL,
 	title nvarchar2(20) NOT NULL,
+	position nvarchar2(15) NOT NULL,
 	PRIMARY KEY (no)
 );
 
@@ -120,6 +128,14 @@ CREATE TABLE chatroom
 	readycount number,
 	remainCount number,
 	PRIMARY KEY (title)
+);
+
+
+CREATE TABLE fcm_tokens
+(
+	no number NOT NULL,
+	token nvarchar2(400) NOT NULL,
+	PRIMARY KEY (no)
 );
 
 
@@ -191,6 +207,7 @@ CREATE TABLE member
 	email nvarchar2(50) NOT NULL,
 	regidate date DEFAULT SYSDATE,
 	location nvarchar2(50) NOT NULL,
+	location_2 nvarchar2(50),
 	height number,
 	point number DEFAULT 5000,
 	weight number,
@@ -201,6 +218,12 @@ CREATE TABLE member
 	base_mainhand nvarchar2(10),
 	-- 선택하면 1
 	basket_ltmatch number DEFAULT 0,
+	school nvarchar2(20),
+	mailstatus varchar2(500),
+	mailkey varchar2(500),
+	hitpower float,
+	pitpower float,
+	base_backnumber number,
 	PRIMARY KEY (ID)
 );
 
@@ -211,8 +234,8 @@ CREATE TABLE message
 	ID nvarchar2(15) NOT NULL,
 	title nvarchar2(50) NOT NULL,
 	content nvarchar2(2000) NOT NULL,
-	sendDate date DEFAULT SYSDATE,
-	openDate date,
+	postDate date DEFAULT SYSDATE,
+	mail nvarchar2(30) NOT NULL,
 	PRIMARY KEY (no)
 );
 
@@ -224,22 +247,24 @@ CREATE TABLE pitcher
 	time number NOT NULL,
 	ID nvarchar2(15) NOT NULL,
 	teamName nvarchar2(20) NOT NULL,
-	W number,
-	L number,
-	blsv number,
-	ci number,
-	co number,
-	sv number,
-	hol number,
-	tbf number,
-	ip number,
-	h number,
-	hr number,
-	bb number,
-	hbp number,
-	so number,
-	r number,
-	er number,
+	W number DEFAULT 0,
+	L number DEFAULT 0,
+	sv number DEFAULT 0,
+	hol number DEFAULT 0,
+	blsv number DEFAULT 0,
+	ci number DEFAULT 0,
+	co number DEFAULT 0,
+	tbf number DEFAULT 0,
+	pitch number DEFAULT 0,
+	pr number DEFAULT 0,
+	per number DEFAULT 0,
+	ph number DEFAULT 0,
+	pb2 number DEFAULT 0,
+	pb3 number DEFAULT 0,
+	phr number DEFAULT 0,
+	pbb number DEFAULT 0,
+	phbp number DEFAULT 0,
+	pso number DEFAULT 0,
 	CONSTRAINT pk_pitcher primary key (gameDate, time, ID)
 );
 
@@ -444,6 +469,16 @@ END;
 
 /
 
+CREATE OR REPLACE TRIGGER TRI_fcm_tokens_no BEFORE INSERT ON fcm_tokens
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_fcm_tokens_no.nextval
+	INTO :new.no
+	FROM dual;
+END;
+
+/
+
 CREATE OR REPLACE TRIGGER TRI_gameRecord_teamGameNo BEFORE INSERT ON gameRecord
 FOR EACH ROW
 BEGIN
@@ -478,6 +513,16 @@ CREATE OR REPLACE TRIGGER TRI_message_no BEFORE INSERT ON message
 FOR EACH ROW
 BEGIN
 	SELECT SEQ_message_no.nextval
+	INTO :new.no
+	FROM dual;
+END;
+
+/
+
+CREATE OR REPLACE TRIGGER TRI_NEW_TABLE_no BEFORE INSERT ON NEW_TABLE
+FOR EACH ROW
+BEGIN
+	SELECT SEQ_NEW_TABLE_no.nextval
 	INTO :new.no
 	FROM dual;
 END;

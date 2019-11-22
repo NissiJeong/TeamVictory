@@ -17,6 +17,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias alias="BasketballDTO" type="team.sports.matching.service.BasketballDTO"/>
 		<typeAlias alias="MatchDTO" type="team.sports.matching.service.MatchDTO"/>
 		<typeAlias alias="GameDTO" type="team.sports.matching.service.GameDTO"/>
+		<typeAlias alias="AndBettingDTO" type="team.sports.matching.service.AndBettingDTO"/>
+		<typeAlias alias="FinishGameDTO" type="team.sports.matching.service.FinishGameDTO"/>
 
 	</typeAliases>
 	

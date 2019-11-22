@@ -49,4 +49,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where (g.teamname = (select teamname from team where manager_id=#{id}) or g.awayteam = (select teamname from team where manager_id=#{id})) 
 		and not t.teamname = (select teamname from team where manager_id=#{id}) order by g.gamedate desc
 	</select>
+	<!-- Betting List가져오기 -->
+	<select id="selectBettingList222" parameterType="java.util.Map" resultType="AndBettingDTO">
+		select g.no,g.gamedate,g.stadium,g.time,t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname
+		where (g.teamname != (select teamname from team where manager_id = #{id}) and g.awayteam != (select teamname from team where manager_id = #{id})) and gamestatus = 'waiting'
+	</select>
+	<!-- finish list가져오기 -->
+	<select id="selectFinishList222" parameterType="java.util.Map" resultType="FinishGameDTO">
+		select g.no,g.gamedate,g.time,g.homescore,g.awayscore, t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname where gamestatus = 'finish'
+	</select>
+	<!-- 내 마일리지 가져오기 -->
+	<select id="selectMyMileage222" parameterType="java.util.Map" resultType="int">
+		select point from member where id = #{id}
+	</select>
+	<!-- home팀 5경기 정보 가져오기 -->
+	<select id="selectHomeList222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule where (teamname = #{hometeam} or awayteam = #{hometeam}) and GAMESTATUS ='finish' order by gamedate desc)
+		<![CDATA[  
+		where rownum <= 5
+		]]> 
+	</select>
+	<!-- away팀 5경기 정보 가져오기 -->
+	<select id="selectAwayList222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule where (teamname = #{awayteam} or awayteam = #{awayteam}) and GAMESTATUS ='finish' order by gamedate desc)
+		<![CDATA[  
+		where rownum <= 5
+		]]> 
+	</select>
+	<!-- hometeam rating -->
+	<select id="selectHomeRating222" parameterType="java.util.Map" resultType="int">
+		select teamrating from team where teamname = #{hometeam}
+	</select>
+	<!-- awayteam rating -->
+	<select id="selectAwayRating222" parameterType="java.util.Map" resultType="int">
+		select teamrating from team where teamname = #{awayteam}
+	</select>
+	<!-- 배팅버튼 클릭시 insert -->
+	<insert id="insertBetting2222" parameterType="java.util.Map">
+		insert into betting values(seq_bettingno.nextval,#{date},#{stadium},#{time},#{id},#{selectteam},#{bettingmileage})
+	</insert>
+	<!-- 배팅 후에 마일리지 차감 -->
+	<update id="updateMyMileage222222" parameterType="java.util.Map">
+		update member set point=point-#{bettingmileage} where id=#{id}
+	</update>
+	<!-- 내 아이디로 해당 경기에 베팅 기록 있는지 -->
+	<select id="selectBettingMyId" parameterType="java.util.Map" resultType="Map">
+		select * from betting where id=#{id} and gamedate=#{date} and time=#{time} and stadium=#{stadium}
+	</select>
 </mapper>
