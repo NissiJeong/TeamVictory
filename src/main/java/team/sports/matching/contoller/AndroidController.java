@@ -1,5 +1,7 @@
 package team.sports.matching.contoller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +13,11 @@ import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import team.sports.matching.service.AndBettingDTO;
 import team.sports.matching.service.AndroidDAO;
@@ -221,7 +226,7 @@ public class AndroidController {
 	}
 	//배팅버튼 클릭시
 	@CrossOrigin
-	@RequestMapping(value="ANDROID/gettingToGame.do", produces = "text/plain; charset=UTF-8")
+	@RequestMapping(value="/ANDROID/gettingToGame.do", produces = "text/plain; charset=UTF-8")
 	public String bettingToGame(@RequestParam Map map) {
 		String betting="no";
 		int betmileage = Integer.parseInt(map.get("bettingmileage").toString());
@@ -237,5 +242,152 @@ public class AndroidController {
 			betting="yes";
 		}
 		return betting;
+	}
+	//사진 업로드시
+	@CrossOrigin
+	@RequestMapping(value="/ANDROID/upload.do",method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
+	public String uploadProfile(MultipartHttpServletRequest mhsr,@RequestParam Map map) throws IllegalStateException,IOException {
+		//System.out.println(mhsr.getFileNames());
+		String path = mhsr.getSession().getServletContext().getRealPath("/Upload");
+		String id = map.get("id").toString();
+		System.out.println("id: "+id);
+		System.out.println(path);
+		
+		MultipartFile upload = mhsr.getFile("files");
+		//System.out.println(upload.getOriginalFilename());
+		String newFilename = FileUpDownUtils.getNewFileName(path, upload.getOriginalFilename());
+		File file = new File(path+File.separator+newFilename);
+		upload.transferTo(file);
+		map.put("profile",newFilename);
+		int affected = dao.profileupdate(map);
+		return null;
+	}
+	//내 사진 가져오기
+	@CrossOrigin
+	@RequestMapping(value="/ANDROID/getMyProfile.do", produces = "text/plain; charset=UTF-8")
+	public String getMyProfile(@RequestParam Map map) {
+		String profile = dao.selectProfile(map);
+		String result = "no";
+		if(profile.indexOf("png")!=-1) {
+			return profile;
+		}
+		return result;
+	}
+	//개인페이지 정보 가져오기
+	@CrossOrigin
+	@RequestMapping(value="/ANDROID/getMyInfo22.do", produces ="text/plain; charset=UTF-8" )
+	public String getMyInfo22(@RequestParam Map map) {
+		System.out.println("id:"+map.get("id"));
+		String personInfo = dao.selectMyInfo222(map);
+		String totalRecord = dao.selectRecord222(map);
+		String personRecord = dao.select1Record222(map);
+		System.out.println(personInfo+"/"+totalRecord+"/"+personRecord);
+		return personInfo+"="+totalRecord+"="+personRecord;
+	}
+	//팀정보, 마일리지 정보 가져오기
+	@CrossOrigin
+	@RequestMapping(value="/ANDROID/getGamePredicInfo22.do", produces ="text/plain; charset=UTF-8" )
+	public String getTeamPridecInfo22(@RequestParam Map map) {
+		String realResult = "";
+		List<Map> homeList = dao.selectMyTeamGameList(map);
+		String homeRecord="No Record";
+		int homewin = 0;
+		int homedraw = 0;
+		int homelose = 0;
+		for(int i=0;i<homeList.size();i++) {
+			for(Object key : homeList.get(i).keySet()) {
+				//System.out.print(key+":"+homeList.get(i).get(key)+" / ");
+			}
+			if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())>Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
+				homewin++;
+			}
+			else if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())<Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
+				homelose++;
+			}
+			else {
+				homedraw ++;
+			}
+			//System.out.println();
+		}
+		if(homewin!=0 || homedraw!=0 || homelose !=0) {
+			homeRecord = (homewin+homedraw+homelose)+"G "+homewin+"W "+homedraw+"D "+homelose+"L";
+		}
+		Map myTeamInfo = dao.selectMyTeamInfo(map);
+		for(Object key : myTeamInfo.keySet())
+			System.out.println(key+":"+myTeamInfo.get(key));
+		String name = myTeamInfo.get("TEAMNAME").toString();
+		String info = myTeamInfo.get("TEAMINFO").toString();
+		String loc = myTeamInfo.get("TEAMLOC").toString();
+		String logo = myTeamInfo.get("TEAMLOGO").toString();
+		String rating = myTeamInfo.get("TEAMRATING").toString();
+		String regidate = myTeamInfo.get("REGIDATE").toString().substring(0, 11).trim();
+		String member = dao.selectMember(map);
+		System.out.println("member: "+member);
+		realResult = name+":"+logo+":"+regidate+":"+loc+":"+rating+":"+homeRecord+":"+member+":"+info+"=";
+		Map lastPredic = dao.selectLastPredic(map);
+		for(Object key:lastPredic.keySet())
+			System.out.println(key+":"+lastPredic.get(key));
+		String hometeam = lastPredic.get("TEAMNAME").toString();
+		String awayteam = lastPredic.get("AWAYTEAM").toString();
+		String game = lastPredic.get("GAMEDATE").toString().substring(0, 11).trim()+" "+lastPredic.get("TIME").toString().substring(0,2).trim()+"시 경기장 "+lastPredic.get("STADIUM")+" "+lastPredic.get("TEAMNAME").toString()+" vs "+lastPredic.get("AWAYTEAM").toString();
+		String mileage = lastPredic.get("MILEAGE").toString()+" point";
+		int homescore = Integer.parseInt(lastPredic.get("HOMESCORE").toString());
+		int awayscore = Integer.parseInt(lastPredic.get("AWAYSCORE").toString());
+		realResult+=game+":"+mileage+":";
+		List<Map> bettingPersons = dao.selectBettings222(lastPredic);
+		double totalMileage = 0;
+		double homeMileage = 0;
+		double drawMileage = 0;
+		double awayMileage = 0;		
+		for(int i=0; i<bettingPersons.size();i++) {
+			totalMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+			if(hometeam.equals(lastPredic.get("SELECTTEAM").toString())) {
+				homeMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+			}
+			else if("DRAW".equals(lastPredic.get("SELECTTEAM").toString())) {
+				drawMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+			}
+			else {
+				awayMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+			}				
+			for(Object key : bettingPersons.get(i).keySet()) {
+				//System.out.print(key+":"+bettingPersons.get(i).get(key)+"/");
+			}
+			System.out.println();
+		}
+		double myMileage = 0;
+		for(int i=0; i<bettingPersons.size();i++) {
+			if(homescore>awayscore) {
+				if(hometeam.equals(lastPredic.get("SELECTTEAM").toString())) {
+					myMileage =  totalMileage * (Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString())/homeMileage);
+					System.out.println("홈팀이 이겼을 때 내가 딴 돈:"+myMileage);
+				}
+				else {
+					myMileage = 0;
+				}					
+			}
+			else if(homescore==awayscore) {
+				if("DRAW".equals(lastPredic.get("SELECTTEAM").toString())) {
+					myMileage = totalMileage * (Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString())/drawMileage);
+					System.out.println("draw했을 떄 내가 딴 돈:"+myMileage);
+				}
+				else {
+					myMileage = 0;
+				}
+			}
+			else {
+				if(awayteam.equals(lastPredic.get("SELECTTEAM").toString())) {
+					myMileage =  totalMileage * (Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString())/awayMileage);
+					System.out.println("away팀이 이겼을 때 내가 딴 돈:"+myMileage);
+				}
+				else {
+					myMileage = 0;
+				}
+			}
+		}
+		realResult+=(int)myMileage;
+		System.out.println("내가 딴 돈: "+myMileage);
+		System.out.println(realResult);
+		return realResult;
 	}
 }

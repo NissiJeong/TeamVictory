@@ -87,5 +87,67 @@ public class AndroidDAO {
 	public Map selectBettingMyId(Map map) {
 		return template.selectOne("selectBettingMyId", map);
 	}
+
+	public int profileupdate(Map map) {
+		return template.update("updatePfrofile222",map);
+	}
+
+	public String selectProfile(Map map) {
+		return template.selectOne("selectProfile222", map);
+	}
+	//이름, 생년월일, 연락처
+	public String selectMyInfo222(Map map) {
+		String name = template.selectOne("selectName222",map);
+		String birth = template.selectOne("selectBirth222", map);
+		String contact = template.selectOne("selectContact222", map);
+		return name+":"+birth+":"+contact;
+	}
+
+	public String selectRecord222(Map map) {
+		String tasu = template.selectOne("tasu222",map);
+		String tasu2 = tasu==null?"0":tasu;
+		String anta = template.selectOne("anta222",map);
+		String anta2 = anta==null?"0":anta;
+		String tajeom = template.selectOne("tajeom222",map);
+		String tajeom2 = tajeom==null?"0":tajeom;
+		String ballnet = template.selectOne("ballnet222",map);
+		String ballnet2 = ballnet==null?"0":ballnet;
+		String tayoul = template.selectOne("tayoul222",map);
+		String tayoul2 = tayoul==null?"0":tayoul;
+		return tasu2+"타수 "+anta2+"안타 "+tajeom2+"타점 "+ballnet2+"볼넷 "+tayoul2;
+	}
+
+	public String select1Record222(Map map) {
+		String tasu = template.selectOne("tasu333",map);
+		String tasu2 = tasu==null?"0":tasu;
+		String anta = template.selectOne("anta333",map);
+		String anta2 = anta==null?"0":anta;
+		String tajeom = template.selectOne("tajeom333",map);
+		String tajeom2 = tajeom==null?"0":tajeom;
+		String ballnet = template.selectOne("ballnet333",map);
+		String ballnet2 = ballnet==null?"0":ballnet;
+		return tasu2+"타수 "+anta2+"안타 "+tajeom2+"타점 "+ballnet2+"볼넷 ";
+	}
+	//내팀 최근 5경기 기록
+	public List<Map> selectMyTeamGameList(Map map) {
+		return template.selectList("selectMyTeamGameList222", map);
+	}
+	//내 팀 기록
+	public Map selectMyTeamInfo(Map map) {
+		return template.selectOne("selectRegidate222",map);
+	}
+	//팀원 수 구하기
+	public String selectMember(Map map) {
+		return template.selectOne("selectMember2222", map);
+	}
+	//최근 1경기 예측 이력
+	public Map selectLastPredic(Map map) {
+		return template.selectOne("selectLastPredic222", map);
+	}
+	//내가 배팅한 경기의 배당률 구하기 위한 쿼리
+	public List<Map> selectBettings222(Map map) {
+		return template.selectList("selectBettings2222", map);
+	}
+	
 	
 }

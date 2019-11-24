@@ -98,4 +98,87 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectBettingMyId" parameterType="java.util.Map" resultType="Map">
 		select * from betting where id=#{id} and gamedate=#{date} and time=#{time} and stadium=#{stadium}
 	</select>
+	<!-- 프로필 업데이트 -->
+	<update id="updatePfrofile222" parameterType="java.util.Map">
+		update member set PROFILE= #{profile} where id=#{id} 
+	</update>
+	<!-- 내 프로필 가져오기 -->
+	<select id="selectProfile222" parameterType="java.util.Map" resultType="String">
+		select profile from member where id=#{id}
+	</select>
+	<!-- 이름 가져오기 -->
+	<select id="selectName222" parameterType="java.util.Map" resultType="String">
+		select name from member where id=#{id}
+	</select>
+	<!-- 생일 가져오기 -->
+	<select id="selectBirth222" parameterType="java.util.Map" resultType="String">
+		select BIRTH from member where id=#{id}
+	</select>
+	<!-- 연락처 가져오기 -->
+	<select id="selectContact222" parameterType="java.util.Map" resultType="String">
+		select PHONE from member where id=#{id}
+	</select>
+	<!-- 총 타수 가져오기 -->
+	<select id="tasu222" parameterType="java.util.Map" resultType="String">
+		select sum(pa) tpa from hitter where id=#{id}
+	</select>
+	<!-- 총 안타 가져오기 -->
+	<select id="anta222" parameterType="java.util.Map" resultType="String">
+		select sum(h) th from hitter where id=#{id}
+	</select>
+	<!-- 총 타점 가져오기 -->
+	<select id="tajeom222" parameterType="java.util.Map" resultType="String">
+		select sum(rbi) trbi from hitter where id=#{id}
+	</select>
+	<!-- 총 볼넷 가져오기 -->
+	<select id="ballnet222" parameterType="java.util.Map" resultType="String">
+		select sum(bb) tbb from hitter where id=#{id}
+	</select>
+	<!-- 총 타율 가져오기 -->
+	<select id="tayoul222" parameterType="java.util.Map" resultType="String">
+		select nvl(sum(h)/decode(sum(ab),0,null,sum(ab)),0) avg from hitter where id=#{id}
+	</select>
+	<!-- 한경기 타수 가져오기 -->
+	<select id="tasu333" parameterType="java.util.Map" resultType="String">
+		select pa from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 한경기 안타 가져오기 -->
+	<select id="anta333" parameterType="java.util.Map" resultType="String">
+		select h from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 한경기 타점 가져오기 -->
+	<select id="tajeom333" parameterType="java.util.Map" resultType="String">
+		select rbi from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 한경기 볼넷 가져오기 -->
+	<select id="ballnet333" parameterType="java.util.Map" resultType="String">
+		select bb from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 내팀 5경기 정보 가져오기 -->
+	<select id="selectMyTeamGameList222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule where (teamname = (select teamname from team where manager_id=#{id}) or awayteam = (select teamname from team where manager_id=#{id})) and GAMESTATUS ='finish' order by gamedate desc)
+		<![CDATA[  
+		where rownum <= 5
+		]]> 
+	</select>
+	<!-- 내 팀 정보 가져오기 -->
+	<select id="selectRegidate222" parameterType="java.util.Map" resultType="Map">
+		select * from team where manager_id='nissi'
+	</select>
+	<!-- 팀원 수 구하기 -->
+	<select id="selectMember2222" parameterType="java.util.Map" resultType="String">
+		select count(*) from teammember where teamname = (select teamname from team where manager_id=#{id})
+	</select>
+	<!-- 최근 1경기 경기 이력 가져오기 -->
+	<select id="selectLastPredic222" parameterType="java.util.Map" resultType="Map">
+		select b.*,g.* from betting b join gameschedule g on b.gamedate = g.gamedate and b.time = g.time and b.stadium = g.stadium where b.id=#{id} and rownum=1 and g.gamestatus='finish' order by b.no desc
+	</select>
+	<!-- 내가 배팅한 팀의 배당률 구하려고 -->
+	<select id="selectBettings" parameterType="java.util.Map" resultType="Map">
+		select * from betting where gamedate = #{gamedate} and stadium=#{stadium} and time=#{time}
+	</select>
+	<!-- 배당률 구하기 -->
+	<select id="selectBettings2222" parameterType="java.util.Map" resultType="Map">
+		select * from betting where gamedate = #{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
+	</select>
 </mapper>
