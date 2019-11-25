@@ -674,23 +674,23 @@ input:checked+label {
 </script>
 
 <!-- banner-section start -->
-<%-- <section class="breadcum-section">
+ <section class="breadcum-section">
 	<div class="breadcum-area">
 		<div class="container" style="padding: 0 !important;">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcum-content text-center">
-						<h3 class="title">팀사진 넣는곳</h3>
+<!-- 						<h3 class="title">팀사진 넣는곳</h3>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="index.html">home</a></li>
 							<li class="breadcrumb-item active">Promotions</li>
-						</ol>
+						</ol> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</section> --%>
+</section>
 <!-- banner-section end -->
 
 <!-- blog-details-section start -->
@@ -1154,7 +1154,7 @@ input:checked+label {
 																<!-- 2루타 -->
 																<td>${item.SUMB2 }</td>
 																<!-- 3루타 -->
-																<td>${item.SUMB3 }</td>
+																<td>${item.SUMB3 }</td>11111111
 															</tr>
 															<!-- 1행끝 -->
 														</c:forEach>
