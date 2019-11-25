@@ -341,7 +341,7 @@ public class TeamController {
 		int affected = teamDao.updateRegiStatus(map);
 		System.out.println("===================");
 		
-		//System.out.println(affected);
+		//System.out.println(affected); 
 		//if(affected == 1) {
 			System.out.println("들어오냐???");
 		//}
