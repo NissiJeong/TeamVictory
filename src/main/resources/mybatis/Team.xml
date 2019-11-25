@@ -395,7 +395,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 투수랭킹 -->
 	<select id="PitcherRankSelect" parameterType="java.util.Map" resultType="java.util.Map">
 		select DISTINCT a.*,
-            DENSE_RANK() OVER(ORDER BY ERA DESC) as rank 
+            DENSE_RANK() OVER(ORDER BY ERA ASC) as rank 
             from (select DISTINCT SUM(W) OVER(PARTITION BY name) SUMW,
 		        SUM(L) OVER(PARTITION BY name) SUML,
 		        SUM(BLSV) OVER(PARTITION BY name) SUMBLSV,
@@ -404,19 +404,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SUM(SV) OVER(PARTITION BY name) SUSV,
 		        SUM(HOL) OVER(PARTITION BY name) SUMHOL,
 		        SUM(TBF) OVER(PARTITION BY name) SUMTBF,
-		        SUM(H) OVER(PARTITION BY name) SUMH,
-		        SUM(HR) OVER(PARTITION BY name) SUMHR,
-		        SUM(BB) OVER(PARTITION BY name) SUMBB,
-		        SUM(HBP) OVER(PARTITION BY name) SUMHBP,
-		        SUM(SO) OVER(PARTITION BY name) SUMSO,
-                SUM(R) OVER(PARTITION BY name) SUMR,
-                SUM(ER) OVER(PARTITION BY name) SUMER,
-                round( (SUM(ER) OVER(PARTITION BY name) * 9) /SUM(CO) OVER(PARTITION BY name), 3) as ERA,
+		        SUM(PH) OVER(PARTITION BY name) SUMH,
+		        SUM(PHR) OVER(PARTITION BY name) SUMHR,
+		        SUM(PBB) OVER(PARTITION BY name) SUMBB,
+		        SUM(PHBP) OVER(PARTITION BY name) SUMHBP,
+		        SUM(PSO) OVER(PARTITION BY name) SUMSO,
+                SUM(PR) OVER(PARTITION BY name) SUMR,
+                SUM(PER) OVER(PARTITION BY name) SUMER,
+                SUM(PB2) OVER(PARTITION BY name) SUMB2,
+                SUM(PB3) OVER(PARTITION BY name) SUMB3,
+                SUM(PITCH) OVER(PARTITION BY name) SUMPIT,
+                round( (SUM(PER) OVER(PARTITION BY name) * 9) /SUM(CO) OVER(PARTITION BY name), 3) as ERA,
                 p.id, m.name 
                 from pitcher p JOIN member m ON p.id=m.id 
                 where p.teamname=#{TEAMNAME222} order by ERA DESC) a 
                 JOIN pitcher p on a.id=p.id 
-                order by ERA DESC
+                order by ERA ASC
 	</select>
 	
 	<!-- 타자랭킹 -->
@@ -505,18 +508,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 팀기네스 : 최다삼진 -->
 	<select id="TeamGuinnessStrikeOutSelect" parameterType="java.util.Map" resultType="TeamBoardDTO">
 		SELECT (SELECT max(pso) FROM pitcher where teamname=#{TEAMNAME222}) as so, g.*, 
-		case when p.so=(select max(pso) from pitcher where teamname=#{TEAMNAME222}) 
+		case when p.pso=(select max(pso) from pitcher where teamname=#{TEAMNAME222}) 
             and g.teamname=#{TEAMNAME222} 
 	    	then (select g.awayteam from gameschedule g join pitcher p on g.gamedate=p.gamedate 
 	            	where g.teamname=#{TEAMNAME222} and rownum=1 and p.pso=(select max(pso) from pitcher where teamname=#{TEAMNAME222}))
 	
-	    	when p.so=(select max(pso) from pitcher where teamname=#{TEAMNAME222}) 
+	    	when p.pso=(select max(pso) from pitcher where teamname=#{TEAMNAME222}) 
             and g.awayteam=#{TEAMNAME222} 
 	        then (select g.teamname from gameschedule g join pitcher p on g.gamedate=h.gamedate 
 	                where g.awayteam=#{TEAMNAME222} and rownum=1 and p.pso=(select max(pso) from pitcher where teamname=#{TEAMNAME222})) 
 		end as "ot" 
 		FROM pitcher p JOIN gameschedule g ON .gamedate=g.gamedate 
-		where p.so=(SELECT max(pso) FROM pitcher where teamname=#{TEAMNAME222}) 
+		where p.pso=(SELECT max(pso) FROM pitcher where teamname=#{TEAMNAME222}) 
 		and (g.teamname=#{TEAMNAME222} 
 		or g.awayteam=#{TEAMNAME222}) and rownum=1
 		ORDER BY g.gamedate DESC
