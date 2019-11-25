@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-=======
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
-
 
 <sec:authentication property="principal.username" var="id"/>
 <sec:authentication property="principal.authorities" var="auth"/>
@@ -463,20 +451,15 @@
 <div class="modal fade" id="infoModal">
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<div class="modal-content">
-
 			<!-- Modal Header -->
 			<div class="modal-header text-center" style="background-color: #000040;">
-
 				<h5 class="modal-title w-100" style="color: white">정보 수정</h5>
-				
 				<button type="button" class="close" data-dismiss="modal"
 					style="color: white; font-weight: bold;">×</button>
-
 			</div>
 
 			<!--Body-->
 			<div class="modal-body">
-			
 				<div class="row">
 				<div class="col">
 					<form class="cmn-form contact-form" action="<c:url value='/Team/Matching/profileChange.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
@@ -485,13 +468,11 @@
 			              	<div class="col-md-6">
 			                  <div class="frm-group">
 								    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
-							   		
 							   		<c:forEach var="PROFILE" items="${profile }" >
 										<span class="image">
 											<img id="image_section" src="<c:url value='/Upload/${PROFILE.PROFILE}'/>" style="width:190px;height:190px" />
 										</span>
 									</c:forEach>
-							   		
 							   		<label for="imgInput" class="btn btn-info">사진 선택</label>
 			                  </div>
 			                </div>

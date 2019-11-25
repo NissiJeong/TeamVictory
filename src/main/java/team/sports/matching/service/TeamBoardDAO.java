@@ -159,4 +159,37 @@ public class TeamBoardDAO {
 	public List<TeamBoardDTO> teamGuinnessStrikeOutSelect(Map map) {
 		return template.selectList("TeamGuinnessStrikeOutSelect",map);
 	}
+
+	public List<Map> getTeamManagement(Map map) {
+		return template.selectList("getTeamManagement", map);
+	}
+
+	public int TeamManagementChange(Map map) {
+		return template.update("TeamManagementChange",map);
+	}
+
+	public int insertTeamMember(Map map) {
+		return template.insert("TeammemberInsert", map);
+	}
+
+	public List<Map> myinfo(Map map) {
+		return template.selectList("MyInfo", map);
+	}
+
+	public int selectTeamWaiting(Map map) {
+		return template.selectOne("SignUpList", map);
+	}
+
+	public List<Map> selectSignup(Map map) {
+		return template.selectList("SignUpMember", map);
+	}
+
+	public int updateTeammember(Map map) {
+		return template.update("signupteammember", map);
+	}
+
+	public int updateRegiStatus(Map map) {
+		// TODO Auto-generated method stub
+		return template.update("updateRegiStatus",map);
+	}
 }

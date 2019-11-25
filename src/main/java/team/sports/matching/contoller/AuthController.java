@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +36,17 @@ public class AuthController {
 	@RequestMapping("/Team/Matching/Login.do")
 	public String login() { 
 		return "member/login.tiles";
+	}
+	
+	//안드로이드 로그인 처리 
+	@ResponseBody
+	@RequestMapping(value="/ANDROID/AndIsMember.do",produces="text/html; charset=UTF-8")
+	public String isMember(@RequestParam Map map) {
+		System.out.println("안드로이드에서 들어옴");
+		boolean isLogin = dao.andLogin(map);
+		JSONObject json = new JSONObject();
+		json.put("isLogin", isLogin?"Y":"N");
+		return json.toJSONString();
 	}
 	
 

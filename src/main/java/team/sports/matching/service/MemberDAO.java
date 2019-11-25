@@ -80,6 +80,86 @@ public class MemberDAO {
 	public MemberDTO findByStringId(String username) {
 		return template.selectOne("findByStringId", username);
 	}
+
+	public int selectMatching(Map map) {
+		return template.selectOne("selectMatching", map);
+	}
+	//매칭 신청한 팀 정보 가져오기
+	public List<Map> selectMachingInfo(Map map) {
+		
+		return template.selectList("selectMatchingInfo", map);
+	}
+	//매칭 신청한 팀의 최근 5경기 기록 가져오기
+	public List<Map> selectRecord222(Map map) {		
+		return template.selectList("selectRecord222", map);
+	}
+	//matchStatus update(complete)
+	public int updateMatchStatus(Map map) {
+		return template.update("updateMatchStatus", map);
+		
+	}
+	//게임스케쥴에 넣은 데이터 가져오기
+	public Map selectGame(Map map) {
+		
+		return template.selectOne("selectGame",map);
+	}
+	//게임스케쥴에 인설트
+	public int insertSchedule(Map inMap) {
+		return template.insert("insertSchedule", inMap);
+	}
+	//matching reject 후 matchStatus cancel
+	public int cancelMatch(Map map) {
+		
+		return template.update("cancelMatch", map);
+	}
+	//matchingstatus waiting 가져오기
+	public int selectWaiting(Map map) {
+		return template.selectOne("selectWaiting",map);
+	}
+	//gameSchedule에서 inwating 개수 가져오기
+	public int selectInWaiting(Map map) {
+		return template.selectOne("selectInWaiting", map);
+	}
+
+	public int isManager(Map map) {		
+		return template.selectOne("checkManager", map);
+	}
+	//gameSchedule에서 inwaiting의 정보들 가져오기
+	public List<Map> selectFinishInfo(Map map) {
+		return template.selectList("selectInwaiting44", map);
+	}
+	//종료 버튼 누른 사람이 팀장인지
+	public List<Map> selectManagerId(Map map) {
+		return template.selectList("isManager22", map);
+	}
+
+	public int updateGameStatus222(Map map) {
+		return template.update("updateGameStatus222", map);
+	}
+	//매칭 승인 누르면 마일리지 +200하기
+	public int updateMileage222(Map map) {
+		return template.update("updateMileage22", map);
+	}
+	//hometeam rating 올리기 위한 게임정보
+	public List<Map> selectHomeGameSchedule(Map map) {
+		return template.selectList("selectHomeGameSchedule", map);
+	}
+	//awayteam rating 올리기 위한 게임정보
+	public List<Map> selectAwayGameSchedule(Map map) {
+		return template.selectList("selectAwayGameList", map);
+	}
+	//hometeam rating update
+	public int updateHomeRating(Map map) {
+		return template.update("updateHomeRating", map);
+	}
+	//awayteam rating update
+	public int updateAwayRating(Map map) {
+		return template.update("updateAwayRaing", map);
+	}
+	//안드로이드 로그인 처리
+	public boolean andLogin(Map map) {
+		return (Integer)template.selectOne("AndLogin", map)==1?true:false;
+	}
 	
 
 }/////class
