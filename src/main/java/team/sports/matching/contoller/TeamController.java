@@ -50,7 +50,7 @@ public class TeamController {
 	List<Integer> countList = new Vector<Integer>();
 	int newCount=0;
 	
-	//팀 만들기 페이지로 이동   
+	//팀 만들기 페이지로 이동    
 	@RequestMapping("/Team/Matching/createTeam.do")
 	public String toCreateTeam(Authentication auth,Model model) {
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
