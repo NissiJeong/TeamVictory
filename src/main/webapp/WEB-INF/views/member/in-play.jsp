@@ -1186,7 +1186,6 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 <!-- play-section start -->
 <section id="paddingTop" class="play-section section-padding">
 	<div class="container" ><!-- style="border: 1px solid red" -->
-
 		<div class="row justify-content-center">
 			<div class="col-lg-6" style="padding-top: 70px !important;">
 				<div class="section-header text-center">

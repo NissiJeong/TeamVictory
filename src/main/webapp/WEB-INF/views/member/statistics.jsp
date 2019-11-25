@@ -33,7 +33,6 @@
 <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
 <script src="<c:url value='/assets/js/utils.js' />"></script>
 <script src="<c:url value='/assets/js/daumpost.js' />"></script>
-<!-- >>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -508,12 +507,7 @@ tbody tr td {
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<div class="modal-content">
 			<!-- Modal Header -->
-<<<<<<< HEAD
 			<div class="modal-header text-center" style="background-color: #000040;">
-=======
-			<div class="modal-header text-center"
-				style="background-color: #000040;">
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 				<h5 class="modal-title w-100" style="color: white">정보 수정</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					style="color: white; font-weight: bold;">×</button>
@@ -521,7 +515,6 @@ tbody tr td {
 			<!--Body-->
 			<div class="modal-body">
 				<div class="row">
-<<<<<<< HEAD
 				<div class="col">
 					<form class="cmn-form contact-form" action="<c:url value='/Team/Matching/profileChange.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
          			   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -546,29 +539,6 @@ tbody tr td {
 			                    <input type="text" id="infoName" name="infoName">
 			                  </div>
 			                </div>
-=======
-					<div class="col">
-						<form class="cmn-form contact-form"
-							action="<c:url value='/Team/Matching/profileChange.do?${_csrf.parameterName}=${_csrf.token}'/>"
-							id="form" runat="server" method="post"
-							enctype="multipart/form-data">
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
-							<div class="row">
-								<div class="col-md-6">
-									<div class="frm-group">
-										<input type='file' id="imgInput" name="upload"
-											style="display: none" />
-										<c:forEach var="PROFILE" items="${profile }">
-											<span class="image"> <img id="image_section"
-												src="<c:url value='/Upload/${PROFILE.PROFILE}'/>"
-												style="width: 190px; height: 190px" />
-											</span>
-										</c:forEach>
-										<label for="imgInput" class="btn btn-info">사진 선택</label>
-									</div>
-								</div>
->>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 
 								<div class="col-md-6">
 									<div class="frm-group">
