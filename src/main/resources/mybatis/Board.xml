@@ -10,39 +10,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="boardIsLogin" parameterType="java.util.Map" resultType="int">
   	SELECT COUNT(*) FROM member WHERE id=#{id} AND pwd=#{pwd}
   </select>
+  
   <select id="boardSelectList" parameterType="java.util.Map" resultType="BoardDTO">
-  	select * from (select t.*,rownum r from (select * from board 
+  	select * from (select t.*,rownum r from (select * from board where 
   	<if test="searchColumn != null">
-  		where ${searchColumn} like '%' || #{searchWord} || '%'
+  		 ${searchColumn} like '%' || #{searchWord} || '%' and
   	</if>  	
-  	order by no desc) t) where r between #{start} and #{end}  	
+  	not id='admin' order by no desc) t) where r between #{start} and #{end} 	
   </select>
+  
+   <select id="noticeList" parameterType="java.util.Map" resultType="BoardDTO">
+	select * from (select t.*,rownum r from (select * from board where 
+	<if test="searchColumn != null">
+		 ${searchColumn} like '%' || #{searchWord} || '%' and
+	</if>  	
+	id = 'admin' order by no desc) t) where r between #{start} and #{end} 	
+  </select>
+  
   <select id="boardTotal" parameterType="java.util.Map" resultType="int">
   	SELECT COUNT(*) FROM board
   	<if test="searchColumn != null">
   		WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
   	</if>
   </select>
+  
 	<update id="updateboardcount" parameterType="java.util.Map">
         UPDATE board
-              SET countNo = countNo + 1
+              SET count = count + 1
          WHERE no=#{no}
 	</update>
   
   <insert id="boardInsert" parameterType="java.util.Map">
-  	INSERT INTO board(no,title,content,id,countNo)
+  	INSERT INTO board(no,title,content,id,count)
   	VALUES(SEQ_BOARD.NEXTVAL,#{title},#{content},#{id},default)
   </insert>
+  
   <select id="boardSelectOne" parameterType="java.util.Map" resultType="BoardDTO">
   	SELECT o.*,name FROM board o JOIN member m ON o.id=m.id
   	WHERE o.no = #{no}
-  	
   </select>
+  
   <select id="boardUpdate" parameterType="java.util.Map">
   	UPDATE board SET title=#{title},content=#{content} WHERE no=#{no}
   
   </select>
+  
   <delete id="boardDelete" parameterType="java.util.Map">
   	DELETE board WHERE no=#{no}
   </delete>
+  
 </mapper>

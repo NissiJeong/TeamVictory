@@ -117,7 +117,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 SUM(PB2) OVER(PARTITION BY name) SUMB2,
                 SUM(PB3) OVER(PARTITION BY name) SUMB3,
                 SUM(PITCH) OVER(PARTITION BY name) SUMPIT,
-                round( (SUM(PER) OVER(PARTITION BY name) * 9) /SUM(CO) OVER(PARTITION BY name), 3) as ERA,
+ 				<!-- NVL(분자 / DECODE(분모, 0, NULL, 분모), 0) -->
+                round(NVL((SUM(PER) OVER(PARTITION BY name)*9) / DECODE(SUM(CI) OVER(PARTITION BY name), 0, NULL, SUM(CI) OVER(PARTITION BY name)), 0) ,3) as ERA,
                 p.id, m.name 
                 from pitcher p JOIN member m ON p.id=m.id 
                 where p.teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum=1) order by ERA DESC) a 
@@ -144,7 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SUM(SO) OVER(PARTITION BY name) SUMSO,
 		        SUM(GDP) OVER(PARTITION BY name) SUMGDP,
 		        SUM(E) OVER(PARTITION BY name) SUME,
-                round( SUM(H) OVER(PARTITION BY name) /SUM(AB) OVER(PARTITION BY name), 3) as BA,
+				round(NVL((SUM(H) OVER(PARTITION BY name)*9) / DECODE(SUM(AB) OVER(PARTITION BY name), 0, NULL, SUM(AB) OVER(PARTITION BY name)), 0) ,3) as BA,
                 h.id, m.name 
                 from hitter h JOIN member m ON h.id=m.id 
                 where h.teamname=(select teamname from (select * from teammember order by regidate DESC) where id=#{id}  and rownum=1) order by BA DESC) a 
@@ -515,10 +516,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	    	when p.pso=(select max(pso) from pitcher where teamname=#{TEAMNAME222}) 
             and g.awayteam=#{TEAMNAME222} 
-	        then (select g.teamname from gameschedule g join pitcher p on g.gamedate=h.gamedate 
+	        then (select g.teamname from gameschedule g join pitcher p on g.gamedate=p.gamedate 
 	                where g.awayteam=#{TEAMNAME222} and rownum=1 and p.pso=(select max(pso) from pitcher where teamname=#{TEAMNAME222})) 
 		end as "ot" 
-		FROM pitcher p JOIN gameschedule g ON .gamedate=g.gamedate 
+		FROM pitcher p JOIN gameschedule g ON p.gamedate=g.gamedate 
 		where p.pso=(SELECT max(pso) FROM pitcher where teamname=#{TEAMNAME222}) 
 		and (g.teamname=#{TEAMNAME222} 
 		or g.awayteam=#{TEAMNAME222}) and rownum=1

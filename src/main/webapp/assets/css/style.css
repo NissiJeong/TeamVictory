@@ -369,7 +369,7 @@ span.is-active:after {
 /* banner-section css start */
 .banner-section {
   position: relative;
-  background-image: url('../images/banner-bg.jpg');
+  /* background-image: url('../images/banner-bg.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1488,7 +1488,8 @@ span.is-active:after {
 /* breadcum-section css start */
 .breadcum-section {
   position: relative;
-  background-image: url('../images/inner-bg.jpg');
+  /* background-image: url('../images/inner-bg.jpg'); */
+  background-image: url('../images/Betting.jpg');
   background-position: center;
   background-size: cover;
 }

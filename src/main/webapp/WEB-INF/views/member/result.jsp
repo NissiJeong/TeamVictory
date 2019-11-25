@@ -21,7 +21,7 @@ video {
 }
 
 #localVideo {
-	width: 500px;
+	width: 400px;
 	height: 500px;
 	position: absolute;
 	top: 15px;
@@ -48,9 +48,9 @@ p{
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 
-				<label for="usernameInput" class="sr-only">ID</label> <input
+				<label for="usernameInput" class="sr-only">이름</label> <input
 					type="email" id="usernameInput" c lass="form-control formgroup"
-					placeholder="Login" required="" autofocus="">
+					placeholder="이름" required="" autofocus="">
 				<button id="loginBtn" class="btn btn-lg btn-primary btnblock">
 					Live 방송보기</button>
 
@@ -209,3 +209,5 @@ p{
 	</div>
 </section>
 <!-- league-result-section end -->
+
+

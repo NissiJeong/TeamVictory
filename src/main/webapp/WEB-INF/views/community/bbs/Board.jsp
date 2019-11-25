@@ -6,8 +6,6 @@
 <sec:authentication property="principal.authorities" var="auth"/>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-
-
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
@@ -18,64 +16,8 @@
 <link rel="stylesheet" href="<c:url value='/assets/css/noti-stylet.css'/>">
 <link rel="stylesheet" href="<c:url value='/assets/css/noti-main-color.css'/>" id="colors">
 
-<script>
-$(function () {
-	// Hide all elements which id starts with text.
-	$("[id^=text]").hide();
-	
-	$(".textout").click(function () {
-		$("#text" + $(this).data("rel")).toggle();
-		$("#unread" + $(this).data("rel")).hide();
-		$("#btns" + $(this).data("rel")).toggle();
-	});
-	
-});
-</script>
-
-<script>
-	function countUp() {
-			countNo+1;
-	}
-</script>
-
-<!-- <script>
-$(".textout").click(function () {
-    // 페이지 전환
-    $("#count").load("/Team/Matching/Edit.do");
-});
-	// 페이지 전환 시 특정 태그만 load
-    $("#count").load("/test/test.do #target");
- 
-    // 페이지 전환 시 data도 함께 보냄
-    $("#count").load("/test/test.do", {"name" : "Kim"});
- 
-    // 페이지 전환 후 callback 함수 사용
-    $("#count").load("/test/test.do", function(){
-        alert("success");
-    });
-    
-    // 페이지 전환, data도 함께 보냄, callback 함수 활용
-    $("#count").load("/test/test.do", {"name" : "Kim"}, function(){
-        alert("success");
-    }); 
-    
-</script> -->
-
-<!-- <script>
-		$("#validate").submit(function( event ) {
-			#("#count").load("/Team/Matching/Edit.do")
-			
-			event.preventDefault();
-			
-			});
-
-			$("#validate").submit();
-		}
-
-
-</script> -->
-
 <style>
+
 .WriteBtn{
 	margin-top: 10px; 
 	text-align: right;
@@ -102,7 +44,16 @@ $(".textout").click(function () {
 	text-align: center;
 }
 
+#linkTitle {
+	color: 	#191970;
+}
+
+#linkTitle div {
+	cursor : pointer;
+}
+
 </style>
+
 
 <!-- Wrapper -->
 <div id="wrapper">
@@ -152,14 +103,13 @@ $(".textout").click(function () {
 									
 									<li class="unread">
 									
-									<a ><%-- id="validate" href="<c:url value='/Team/Matching/View.do?no=${item.no }&nowPage=${param.nowPage}'/>" --%>
+									  <a ><%-- id="validate" href="<c:url value='/Team/Matching/View.do?no=${item.no }&nowPage=${param.nowPage}'/>" --%>
 										<%-- <c:out value='${param.nowPage}' default='5'/> --%>
 										<div class="message-avatar">
 											<img src="https://placeimg.com/50/50/people" alt="" />
 										</div>
 										
-										<div id="count" onclick="countUp()" class="textout" data-rel=${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}
-											>
+										<%-- <div class="textout" data-rel=${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}> --%>
 										
 											<div class="message-by">
 												<div class="message-by-headline">
@@ -167,47 +117,25 @@ $(".textout").click(function () {
 													<p>글번호 ${item.no}</p>
 													   
 													
-													<h5>아이디 ${item.id }
-													<i id="unread${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}">Unread</i>
-													</h5>
-													<span>조회수 ${item.countNo}</span>
+													<h5>아이디 ${item.id }</h5>
+													<%-- <i id="unread${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}">Unread</i> --%>
 													
-													<h4>
-														<c:out value='${item.title }'/>
+													<span>조회수 ${item.count}</span>
+													
+													<h4 id="linkTitle">
+														<%-- <a href="<c:url value='/Team/Matching/View.do?no=${item.no }&nowPage='/><c:out value='${param.nowPage}' default='1'/>">${item.title }</a> --%>
+														<div onclick='location.href="<c:url value='/Team/Matching/View.do?no=${item.no }&nowPage='/><c:out value='${nowPage}' default='1'/>"'>${item.title }</div>
 														<%-- <c:out value='${param.nowPage}' default='1'/>${item.title } --%>
 													</h4>
-													
 												</div>
-												
-												<div id="text${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}">
-													${item.content}
-												</div>
-												
-												<div id="btns${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}" style="display: none;">
-													<c:if test="${id == item.id}">
-														<button type="button" class="btn btn-success btn-sm" onclick="location.href='<c:url value="/Team/Matching/Edit.do?no=${item.no}&nowPage=${param.nowPage }"/>';">
-															<%-- <a href="<c:url value='/Team/Matching/Edit.do?no=${item.no}'/>">수정</a> --%>
-															수정
-														</button>
-														<button type="button" class="btn btn-success btn-sm" onclick="location.href='<c:url value="/Team/Matching/Delete.do?no=${item.no}"/>'">
-															삭제<!-- onclick="isDelete()" -->
-														</button>
-													</c:if>
-														<button type="button" class="btn btn-success btn-sm" onclick="location.href='<c:url value="/Team/Matching/Board.do?nowPage=${param.nowPage}"/>';">
-															<%-- <a href="<c:url value='/Team/Matching/Board.do?nowPage=${param.nowPage}'/>">목록</a> --%>
-															목록
-														</button>
-												</div>
+											</div>	
+											
+										<!-- </div>textout -->
 										
-												
-											</div>
-										</div><!-- textout -->
-										
-										
-									</a>
-								</li>
-							</c:forEach>
-						</c:if>
+										</a>
+									</li>
+								</c:forEach>
+							</c:if>
 								
 						</ul>
 							
@@ -228,7 +156,7 @@ $(".textout").click(function () {
 						<div class="form-group-search">
 							<select name="searchColumn" class="form-control">
 								<option value="title">제목</option>
-								<option value="name">작성자</option>
+								<option value="id">작성자</option>
 								<option value="content">내용</option>
 							</select>
 							<input type="text" name="searchWord" class="form-control" />
@@ -241,10 +169,10 @@ $(".textout").click(function () {
 						
 				<!-- Write -->
 				<div class="col-md-2 WriteBtn">
-					<a href="<c:url value='/Team/Matching/Write.do'/>" class="btn btn-info">글쓰기</a>
+					<a href="<c:url value='/Team/Matching/Write.do?id=${item.id}'/>" class="btn btn-info">글쓰기</a>
 				</div>
 			
-				</div><!-- search row -->
+			</div><!-- search row -->
 					
 				<!-- Pagination -->
 				<div id="page" class="row">
@@ -265,5 +193,4 @@ $(".textout").click(function () {
 		</div><!-- cont -->
 	</div><!-- dash -->
 </div><!-- wrap -->
-
-
+<!-- END -->

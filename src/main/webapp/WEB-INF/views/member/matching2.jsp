@@ -84,15 +84,12 @@ $( function() {
     	}); 
     });    
     
-    
-
-  
     $("#match").click(function(){
     	date = $('#datepicker').val();
     	time = $('#sel2').val();
     	stadium =$('#sel3').val();
     	//console.log(websocket)
-    	websocket.send('awayteam:'+teamname+',date:'+date+',time:'+time+",stadium:"+stadium);
+    	//websocket.send('awayteam:'+teamname+',date:'+date+',time:'+time+",stadium:"+stadium);
     	$.ajax({
     		url:"<c:url value='/Team/Matching/matching.do'/>",
     		type:'post',
@@ -219,6 +216,7 @@ function notifyme(message){
 
    <!-- banner-section start -->  
   <section class="breadcum-section" style="margin-bottom: -70px">
+  	<%-- <img src="<c:url value='/assets/images/Betting.jpg'/>"> --%>
     <div class="breadcum-area">
       <div class="container">
         <div class="row">
@@ -241,13 +239,13 @@ function notifyme(message){
   <section class="statistics-section section-padding padding-top-95">
     <div class="container">
       <div class="row justify-content-center">
-      		<div class="col-lg-6">
-	          <div class="section-header text-center">
+      		<div class="col-lg-6" style="padding-top: 0 !important; ">
+	          <div class="section-header text-center" style="margin-bottom: 5px !important;">
 	            <h2 class="section-title fadeIn"  style="color:black">Start Matching!</h2>
 	            <p>On insensible possession oh particular attachment at excellence in. The books arose but miles happy she.</p>
 	          </div>
 	        </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="padding-left: 0px !important;">
           <div class="statistics-table-result-part">
             <!-- <ul class="nav justify-content-around" id="myTab" role="tablist">
               <li class="nav-item">
@@ -284,7 +282,7 @@ function notifyme(message){
                       </h2>
                     </div>
                     <div id="one-collapseOne" class="collapse show" aria-labelledby="one-world-cup" data-parent="#accordionExample-2">
-                      <section class="blog-section section-padding" style="margin-top: -80px">
+                      <section class="blog-section section-padding" style="margin-top: -100px; padding-bottom: 40px !important;">
 					    <div class="container">
 					      <div class="row mt-mb-15">
 					        
@@ -306,7 +304,7 @@ function notifyme(message){
 						              <h3 class="post-title"><a href="#0"><label class="teamName" title="${item.teamName }" >${item.teamName }</label></a></h3>
 						             	 지역 <span style="font-size: 1.3em; color: navy; font-weight: bold"> ${item.teamLoc }</span>
 						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.teamRating }</span> </p>
-						              <button  type="button" class="btn btn-primary upModal"  data-toggle="modal" data-target="#myModal" title="${loop.index }">
+						              <button style="margin-top: 5px;" type="button" class="btn btn-primary upModal"  data-toggle="modal" data-target="#myModal" title="${loop.index }">
 									    Matching Start!
 									  </button>
 						            </div>

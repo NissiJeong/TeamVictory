@@ -1,5 +1,6 @@
 package team.sports.matching.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public List<BoardDTO> noticeList(Map map) {		
+		return dao.noticeList(map);
+	}
+	
+	@Override
 	public int getTotalRecord(Map map) {		
 		return dao.getTotalRecord(map);
 	}
@@ -45,5 +51,7 @@ public class BoardServiceImpl implements BoardService {
 	public int update(Map map) {		
 		return dao.update(map);
 	}
+
+
 
 }

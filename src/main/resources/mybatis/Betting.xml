@@ -12,9 +12,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 <!--   select gameschedule.* from gameschedule  join team  on gameschedule.teamname = team.teamname-->
 		
 		 select <!-- g.gamedate , g.stadium, g.time --> g.* ,(select count(*) from betting b 
-		where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) count
+		where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) count ,t.category
 		from gameschedule g join team t on g.teamname =  t.teamname  order by  g.gamedate desc
 	</select>
+	
+	<select id="myBettingListChk" parameterType="java.lang.String" resultType="java.util.Map">
+	   SELECT gamedate,time,stadium,
+  		LISTAGG(to_char(ID)) WITHIN GROUP (ORDER BY gamedate) AS "BETTINGMEMBER"
+   		 FROM BETTING  where id=#{id}  group by gamedate,time,stadium order by  gamedate desc
+	
+	</select>
+	
+	
 	  <!--  상세보기 클릭시  홈팀, 어웨이팀 경기정보 가져오기 -->
 	<select id="selectListTeamInfo" parameterType="java.util.Map" resultType="java.util.Map">
 	  select g.gamedate, g.time , t.teamname as hometeam,g.awayteam  ,g.homescore ,g.awayscore 
@@ -32,10 +41,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    -->
    <!--  홈팀 정보 가져올떄 -->
   <if test="home != null">
-  from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{hometeam} or g.awayteam= #{hometeam} ) and not g.homescore is null order by g.gamedate
+  from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{hometeam} or g.awayteam= #{hometeam} ) 
+  and not g.homescore is null and rownum between 1 and 10 order by g.gamedate
 	</if>
 	 <if test="home == null">
-	 from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{awayteam} or g.awayteam= #{awayteam} ) and not g.homescore is null order by g.gamedate
+	 from team t join gameschedule g on t.teamname = g.teamname and (t.teamname = #{awayteam} or g.awayteam= #{awayteam} )
+	  and not g.homescore is null and rownum between 1 and 10 order by g.gamedate
 	</if>
 	</select>
 	
@@ -46,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!--  배팅완료시  배팅정보 betting 테이블에 입력 -->
 	<insert id="bettingInsert" parameterType="java.util.Map">
-	 insert into betting values(seq_bettingno.nextval,#{date},#{stadium},#{time},#{id},
+	 insert into betting values(seq_bettingno.nextval,#{gamedate},#{stadium},#{time},#{id},
 	 <choose>
 	 	<when test='choice != null and choice == "DRAW".toString()'>
 	 			  'DRAW'
@@ -73,8 +84,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="bettingSelectOne" parameterType="java.util.Map"  resultType="java.util.Map">
-	select * from betting where  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and id=#{id}
+	<!--   select * from betting where  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and id=#{id} -->
+
+	select b.*,m.point from betting b join member m on b.id = m.id and  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and m.id=#{id}
 	</select>
 	
+   <!-- 해당매치의 배팅 버튼 클릭시 / 배팅완료 후  각각의 경기결과에 대한 총 배팅인원수 , 모든경기결과의 배팅한 마일리지합, 각팀명 으로 셀렉트  -->
+	<select id="bettingInfoSelectList"  parameterType="java.util.Map"  resultType="java.util.Map">
+	 select count(id) as MemberCount , sum(mileage) as totalMileage , selectteam from betting where gamedate=#{gamedate} and stadium= #{stadium} and time=#{time} group by selectteam
+	</select>
+	
+	
+	<!--  배팅완료시 내가 선택한 경기결과의   배당률 프로그래스바 업데이트 -->
+	<select id="dividendUpdate" parameterType="java.util.Map" resultType="java.util.Map">
+		
+           select count(id) as memberCount , sum(mileage) totalMileage , selectteam 
+          from betting
+          where gamedate=#{date} and stadium=#{stadium} and time=#{time} and selectteam=#{choice}
+          group by selectteam
+	</select>
+	
+ 
+	<select id="test" parameterType="java.util.List" resultType="java.util.Map">
+	 select   g.gamedate ,g.stadium , g.time ,(select count(*) from betting b 
+   where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) as count
+   from gameschedule g join team t on g.teamname =  t.teamname 
+
+ where g.gamedate  in 
+ <foreach collection="list" item="item_g" index="index" open="(" close=") " separator=",">
+ #{item_g.gamedate}
+ </foreach>
+ and g.time in
+ <foreach collection="list" item="item_t" index="index" open="(" close=") " separator=",">
+ #{item_t.time}
+  </foreach>
+ and   g.stadium in 
+ <foreach collection="list" item="item_s" index="index" open="(" close=") " separator=",">
+ #{item_s.stadium}
+  </foreach>
+ 
+ 
+ order by g.gamedate desc
+	
+	</select>
 	
 </mapper>

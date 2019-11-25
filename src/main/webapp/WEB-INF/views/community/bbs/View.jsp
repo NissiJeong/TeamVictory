@@ -1,108 +1,149 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-<sec:authentication property="principal.username" var="id" />
-<sec:authentication property="principal.authorities" var="auth" />
-<c:forEach items="${auth}" var="item">
-	<h2>${item }</h2>
-</c:forEach>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal.username" var="id"/>
+<sec:authentication property="principal.authorities" var="auth"/>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<!-- Basic Page Needs
+================================================== -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="<c:url value='/assets/css/noti-stylet.css'/>">
+<link rel="stylesheet" href="<c:url value='/assets/css/noti-main-color.css'/>" id="colors">
+<link rel="shortcut icon" href="#">
+
 <style>
-.w-1 {
-	width: 80px;
-	text-align: center;
-	border: 1px solid #333333;
-}
-
-.w-2 {
-	width: 1600px;
-	border: 1px solid #333333;
-}
-
-.w-3 {
-	width: 200px;
-	text-align: center;
-	border: 1px solid #333333;
-}
-
-.w-4 {
-	width: 250px;
-	text-align: center;
-	border: 1px solid #40A940;
-}
-
-.w-5 {
-	width: 150px;
-	text-align: center;
-	border: 1px solid #40A940;
-}
+    textarea{
+          width:100%;
+        }
+    .reply_reply {
+            border: 2px solid #FF50CF;
+        }
+    .reply_modify {
+            border: 2px solid #FFBB00;
+        }
+        
+    #text {
+    	word-break:break-all;
+		overflow:hidden;
+		width : 700px;
+	}    
+	
+	.replyBox {
+		display: block;
+		word-break:break-all;
+		overflow:hidden;
+		width : 1000px;
+	}
+        
 </style>
+
+
+
 <!-- 실제 내용 시작 -->
-<div class="container">
-	<!-- 점보트론(Jumbotron) -->
-	<div class="jumbotron">
-		<h1>
-			자유 게시판<small>상세보기 페이지</small>
-		</h1>
-	</div>
-	<div class="row">
-		<div class="col-md-offset-2 col-md-6">
-			<table class="table table-bordered table-striped">
-				<tr>
-					<th class="w-1;col-md-2 text-center">번호</th>
-					<td>${record.no}</td>
-				</tr>
-				<tr>
-					<th class="text-center">제목</th>
-					<td>${record.title}</td>
-				</tr>
-				<tr>
-					<th class="text-center">작성자</th>
-					<td>${record.name}</td>
-				</tr>
-				<tr>
-					<th class="text-center">등록일</th>
-					<td>${record.postDate}</td>
-				</tr>
-				<tr>
-					<th class="text-center" colspan="2">내용</th>
-				</tr>
-				<tr>
-					<td colspan="2">${record.content}</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	<!-- row -->
-	<div class="row">
-		<div class="col-md-offset-2 col-md-8">
-			<!-- .center-block 사용시 해당 블락의 크기를 지정하자 -->
-			<ul id="pillMenu" class="nav nav-pills center-block"
-				style="width: 280px">
-				<c:if test="${id == record.id }">
-					<li><a class="btn btn-success"
-						href="<c:url value='/Team/Matching/Edit.do?no=${record.no}'/>">수정</a></li>
-					<li><a class="btn btn-success" href="javascript:isDelete()">삭제</a></li>
-				</c:if>
-				<li><a class="btn btn-success"
-					href="<c:url value='/Team/Matching/Board.do?nowPage=${param.nowPage}'/>">목록</a></li>
-			</ul>
-		</div>
-	</div>
-	<!-- row -->
+<!-- Wrapper -->
+<div id="wrapper">
 
+<!-- Dashboard -->
+<div id="dashboard">
 
-</div>
-<!-- container -->
+<!-- Content
+================================================== -->
+	<div class="container">
+		<div class="dashboard-content">
+			<!-- Titlebar -->
+			<div id="titlebar">
+			<div class="row">
+				<div class="col-md-12">
+	
+					<h2>상 세 보 기</h2>
+					<!-- Breadcrumbs -->
+					<nav id="breadcrumbs">
+						<ul>
+							<li><a href="<c:url value='/Team/Member/Index.do'/>">Home</a></li>
+							<li><a href="<c:url value='/Team/Matching/Board.do'/>">BBS</a></li>
+							<li>${record.no }</li>
+						</ul>
+					</nav>
+				</div>
+			</div><!-- row -->
+			</div><!-- title -->
+	
+			<div class="row">
+				<div class="col-lg-12 col-md-12">
+	
+					<div class="messages-container margin-top-0">
+						<div class="messages-headline">
+							<h4>현재 페이지 ${nowPage}</h4>
+						</div>
+						
+						<div class="messages-inbox">
+	
+							<ul>
+								<li class="unread">
+								  <a >
+									<div class="message-by">
+										<div class="message-avatar">
+											<img src="https://placeimg.com/50/50/people" alt="" />
+										</div>
+										
+										<div class="message-by-headline">
+											<span>작성일 ${record.postDate }</span>
+											<p>글번호 ${record.no}</p>
+											
+											<h5>아이디 ${record.id }</h5>
+											
+											<span>조회수 ${record.count}</span>
+											
+											<h4>
+												${record.title }
+											</h4>
+										</div>
+										<div id="text">
+											${record.content}
+										</div>
+										
+										<div id="btns">
+											<c:if test="${id == record.id}">
+												<button type="button" class="btn btn-success btn-sm" onclick="location.href='<c:url value="/Team/Matching/Edit.do?no=${record.no}&nowPage=${param.nowPage}"/>';">
+													수정
+												</button>
+												<button type="button" class="btn btn-success btn-sm" onclick="isDelete()">
+													삭제
+												</button>
+											</c:if>
+												<button type="button" class="btn btn-success btn-sm" onclick="location.href='<c:url value="/Team/Matching/Board.do?nowPage=${param.nowPage}"/>';">
+													목록
+												</button>
+										</div>
+									</div>	
+											
+									</a>
+								</li>
+							</ul>
+							
+						</div><!-- messages-inbox -->
+					</div><!-- messages-container -->
+	
+				</div>
+		
+       </div><!-- row -->
+       </div><!-- dashboard -->
+       </div><!-- container -->
+</div> 
+</div><!-- adfdasf -->
 
-<!-- 실제 내용 끝 -->
+        
 
 <script>
 	function isDelete() {
 		if (confirm("정말로 삭제 하시겠습니까?")) {
-			location
-					.replace("<c:url value='/Team/Matching/Delete.do?no=${record.no}'/>");
+			location.replace("<c:url value='/Team/Matching/Delete.do?no=${record.no}&nowPage=${param.nowPage}'/>");
 		}
 	}
 	function fnMovePage() {

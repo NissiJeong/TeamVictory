@@ -27,6 +27,16 @@
   <!-- Alert UI -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
+  <style>
+  	/* #equal {
+  		margin-left: 5%;
+  	} */
+  	
+  	#topLogo {
+  		height: 150px !important;
+  	}
+  </style>
+  
 <!-- preloader start -->
   <div id="preloader"></div>
   <!-- preloader end -->
@@ -36,13 +46,14 @@
   <header class="header-section">
     <div class="header-bottom">
       <div class="container">
-        <nav class="navbar navbar-expand-lg">
-          <a class="site-logo site-title" href="<c:url value='/Team/Member/Index.do'/>"><img src="<c:url value='/assets/images/logo2.png'/>" alt="site-logo"></a>
+      
+        <nav id="equal" class="navbar navbar-expand-lg">
+          <a class="site-logo site-title" href="<c:url value='/Team/Member/Index.do'/>"><img id="topLogo" src="<c:url value='/assets/images/logo2.png'/>" alt="site-logo"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="menu-toggle"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav main-menu ml-auto">
+            <ul class="navbar-nav main-menu">
               <li><a href="<c:url value='/Team/Matching/Matching.do'/>">Matching</a></li>
               <li><a href="<c:url value='/Team/Matching/Betting.do'/>">Betting</a></li>
               <li><a href="<c:url value='/Team/Matching/Team.do'/>">Team</a></li>              
@@ -52,7 +63,7 @@
               <li class="menu_has_children"><a href="#0">Community</a>              
                 <ul class="sub-menu">                 
                   <li><a href="<c:url value='/Team/Matching/Board.do'/>">자유게시판</a></li>                
-                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>   
+                   <li><a href="<c:url value='/Team/Matching/contact.do'/>">Q&A</a></li>  
                    <li><a href="<c:url value='/Team/Matching/Notice.do'/>">공지사항</a></li>                  
                 </ul>
               </li>

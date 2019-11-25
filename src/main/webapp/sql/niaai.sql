@@ -62,7 +62,7 @@ CREATE SEQUENCE SEQ_matching INCREMENT BY 1 START WITH 1 nocache nocycle;
 CREATE SEQUENCE SEQ_message INCREMENT BY 1 START WITH 1 nocache nocycle;
 CREATE SEQUENCE seq_teammember INCREMENT BY 1 START WITH 1 nocache nocycle;
 
-
+CREATE SEQUENCE SEQ_fcm_tokens INCREMENT BY 1 START WITH 1 nocache nocycle;
 
 /* Create Tables */
 

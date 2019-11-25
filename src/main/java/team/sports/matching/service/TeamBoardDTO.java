@@ -413,7 +413,7 @@ public class TeamBoardDTO {
 	public void setPb3(String pb3) {
 		this.pb3 = pb3;
 	}
-	public String getSc() {
+	public String getSc() { 
 		return sc;
 	}
 	public void setSc(String sc) {
