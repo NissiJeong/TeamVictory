@@ -1,3 +1,22 @@
+<%-- <<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authentication property="principal.username" var="id"/>
+<sec:authentication property="principal.authorities" var="auth"/>
+<input type="hidden" value= "${id}" id="auth"/>
+
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script	src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
+<script src="<c:url value='/assets/js/utils.js' />"></script>
+<script src="<c:url value='/assets/js/daumpost.js' />"></script>
+======= --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -14,14 +33,12 @@
 <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
 <script src="<c:url value='/assets/js/utils.js' />"></script>
 <script src="<c:url value='/assets/js/daumpost.js' />"></script>
+<!-- >>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
-
-
-
 
 
 <style>
@@ -39,6 +56,15 @@
 	position: absolute;
 	right: 20%;
 }
+
+thead tr th {
+	 border: 1px solid #dee2e6;
+}
+
+tbody tr td {
+	 border: 1px solid #dee2e6;
+}
+
 </style>
 
 <!-- banner-section start -->
@@ -71,7 +97,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-5"
-								style="border: 1px solid magenta; text-align: center">
+								style=" text-align: center; box-shadow: 0 5px 15px -2px rgba(0, 0, 64, 0.15); padding-top: 15px;">
 								<div></div>
 								<div>
 									<c:forEach var="PROFILE" items="${profile }">
@@ -82,7 +108,7 @@
 										</span>
 										<h1 class="my-4">${PROFILE.NAME}</h1>
 									</c:forEach>
-									<div class="list-group">
+									<div class="list-group" style="box-shadow: 0 5px 15px -2px rgba(0, 0, 64, 0.15);">
 
 										<a href="#" class="list-group-item" id="hitterDetailbtn"
 											data-toggle="modal" data-target="#recordModal">타자 기록</a> <a
@@ -106,8 +132,8 @@
 								<div class="col-lg-1"></div>
 							</div>
 							<!-- div col-lg-5 -->
-							<div class="col-lg-6" style="border: 1px solid gold">
-								<div style="margin-top: -100px; text-align: center">
+							<div class="col-lg-6" style="padding-top: 50px !important;">
+								<div style="margin-top: -100px; text-align: center;">
 									<!-- 데이터 출력!!! -->
 									<c:forEach var="hitters" items="${records}">
 										<div class="play-table-part listToChange scrollLocation">
@@ -127,7 +153,7 @@
 															</dl>
 														</div>
 														<div class="parent1" style="margin-top: 50px">
-															<div class="child1">
+															<div class="child1" style="box-shadow: 0 5px 15px -2px rgba(0, 0, 64, 0.15);"> 
 																<dl>
 																	<dt>
 																		<a href="/club/?club_idx=14322"> <img
@@ -156,7 +182,7 @@
 																	</dd>
 																</dl>
 															</div>
-															<div class="child2">
+															<div class="child2" style="box-shadow: 0 5px 15px -2px rgba(0, 0, 64, 0.15);">
 																<dl>
 																	<dt>
 																		<a href="/club/?club_idx=19031"> <img
@@ -482,8 +508,12 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<div class="modal-content">
 			<!-- Modal Header -->
+<<<<<<< HEAD
+			<div class="modal-header text-center" style="background-color: #000040;">
+=======
 			<div class="modal-header text-center"
 				style="background-color: #000040;">
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 				<h5 class="modal-title w-100" style="color: white">정보 수정</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					style="color: white; font-weight: bold;">×</button>
@@ -491,6 +521,32 @@
 			<!--Body-->
 			<div class="modal-body">
 				<div class="row">
+<<<<<<< HEAD
+				<div class="col">
+					<form class="cmn-form contact-form" action="<c:url value='/Team/Matching/profileChange.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
+         			   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			              <div class="row">
+			              	<div class="col-md-6">
+			                  <div class="frm-group">
+								    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
+							   		<c:forEach var="PROFILE" items="${profile }" >
+										<span class="image">
+											<img id="image_section" src="<c:url value='/Upload/${PROFILE.PROFILE}'/>" style="width:190px;height:190px" />
+										</span>
+									</c:forEach>
+							   		<label for="imgInput" class="btn btn-info">사진 선택</label>
+			                  </div>
+			                </div>
+			               
+			                <div class="col-md-6">
+			                  <div class="frm-group">
+			                  <label for="sel3" >ID</label>
+			                    <input type="text"  id="manager_id" name="manager_id" disabled value="${id }">
+			                  <label for="sel3" >이름</label>
+			                    <input type="text" id="infoName" name="infoName">
+			                  </div>
+			                </div>
+=======
 					<div class="col">
 						<form class="cmn-form contact-form"
 							action="<c:url value='/Team/Matching/profileChange.do?${_csrf.parameterName}=${_csrf.token}'/>"
@@ -512,6 +568,7 @@
 										<label for="imgInput" class="btn btn-info">사진 선택</label>
 									</div>
 								</div>
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 
 								<div class="col-md-6">
 									<div class="frm-group">

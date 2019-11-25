@@ -396,7 +396,8 @@
   border-radius: 25px;
   float: right;
   clear: both;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
   margin-right: 15px;
 }
 .from-me:before {
@@ -431,8 +432,9 @@
   color: black;
   float: left;
   clear: both;
-  margin-bottom: 10px;
-  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-right: 15px;
 }
 .from-them:before {
   content: "";
@@ -734,7 +736,7 @@ background-repeat: no-repeat;
 </section>
 <!-- banner-section end -->
 <!-- blog-details-section start -->
-<section class="blog-details-section section-padding">
+<section class="blog-details-section section-padding" style="padding-top: 50px;">
    <div class="container">
       <div class="row">
          <div class="col-lg-8" style="border-color: black;">
@@ -747,27 +749,29 @@ background-repeat: no-repeat;
            <!-- 유저목록 뿌려주는곳 -->
          </div>
         
-            <div class="comment-area" style="overflow: auto; height: 720px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);" >
+         <div class="comment-area" style="margin-bottom: 10%; overflow-x: hidden; height: 400px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);" >
             <!-- Chatting Start -->
-           
-         <section class="chat" >
-         <div class="chatArea" style="width: 100%"></div>
-         
-           
-        <!-- Chatting End -->
-        <!-- <div id="roomm"> -->
-        
-        <!-- </div> -->
-        <!-- Insert Text Start -->
-        <div class="footer-chat">
-          <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
-          <input id="message" type="text" class="write-message" placeholder="Type your message here"></input>
-          <button id="sendBtn"><i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i></button>
+	           
+	         <section class="chat" >
+	         
+	         <!-- <div class="chatArea" style="width: 100%"></div> -->
+	           
+	        <!-- Chatting End -->
+	        <!-- <div id="roomm"> -->
+	        
+	        <!-- </div> -->
+	        <!-- Insert Text Start -->
+	        <div class="footer-chat" style="box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1); width:96%; height: 50px;">
+	          <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
+	          <input style="width: 70%;" id="message" type="text" class="write-message" placeholder="Type your message here"></input>
+	          <button id="sendBtn" style="background-color: transparent; padding-left: 30px; padding-bottom: 5px;">
+	          	<i style="position: inherit !important;" class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i>
+	          </button>
+	        </div>
+	        <!-- Insert Text End -->
+	        
+	     	</section>   
         </div>
-        <!-- Insert Text End -->
-        
-      </section>   
-            </div>
          </div>
          <div class="col-lg-4">
             <div class="sidebar">
@@ -778,7 +782,7 @@ background-repeat: no-repeat;
                   </form>
                
                <div style="text-align: center; margin-top: 15px">
-                  <button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="width: 50%" id="makeRoom">방만들기</button>
+                  <button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="width: 50%; background-color: dodgerblue;" id="makeRoom">방만들기</button>
                </div>
                <!-- widget end -->
                <div class="widget widget-categories" style="margin-top: 15px">
@@ -832,7 +836,7 @@ background-repeat: no-repeat;
 <!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-xl">
-      <div class="modal-content">
+      <div class="modal-content" style="width: 50% !important; height: 380px !important;">
       
         <!-- Modal Header -->
         <div class="modal-header" >
@@ -843,18 +847,18 @@ background-repeat: no-repeat;
         <form action="<c:url value='/Team/Matching/createRoom.do'/>" id="create" name="create" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div style="text-align: center;margin-top: 25px" >
-           <input type="text" placeholder="Title" name="title" id="title" oninput="checkTitle()" style="border-bottom: 1.5px solid navy;">
+           <input type="text" placeholder="Title" name="title" id="title" oninput="checkTitle()" style="border-bottom: 1.5px solid dodgerblue;">
         </div>
            <div style="text-align: center;">
            <span id="impossible">${impossible}</span>
            </div>
         <div style="text-align: center;margin-top: 15px">
-           <input type="text" placeholder="Area" name="area" id="area" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;">
+           <input type="text" placeholder="Area" name="area" id="area" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid dodgerblue;">
         </div>
            <span id="impossible">${x}</span>
         <div style="text-align: center;margin-top: 15px">
            <!-- <input type="text" placeholder="Postion" name="position" id="position" style="border-bottom: 1.5px solid navy"> -->
-           <select class="custom-select" id="position" name="position" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid navy;" onchange="positionCheck()"> 
+           <select class="custom-select" id="position" name="position" style="width: 50%;display: inline; border-style: none; border-bottom: 1.5px solid dodgerblue;" onchange="positionCheck()"> 
                <option value="position">Select your AREA</option>      
                <option value="강서구">강서구</option>      
                <option value="양천구">양천구</option>      
@@ -886,10 +890,10 @@ background-repeat: no-repeat;
            <span id="impossible" >${x}</span>
         
          <div class="col-lg-12" style="text-align: center;">
-            <hr style="border:solid 1px">
+            <!-- <hr style="border:solid 1px navy"> -->
              </div>
              <div style="text-align: center;">
-             <button type="button" class="submit-btn" href="#" data-dismiss="modal" style="width:50%;line-height: 40px" id="createRoom" name="createRoom" >                  
+             <button type="button" class="submit-btn" href="#" data-dismiss="modal" style="width:50%;line-height: 40px; margin-bottom: 10px;" id="createRoom" name="createRoom" >                  
                       Create Room
              </button>
              </div>

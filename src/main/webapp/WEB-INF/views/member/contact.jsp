@@ -59,7 +59,9 @@
               <div class="card">
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-question-circle"></i>팀 폐쇄 방법 안내</button>
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    	<i class="fa fa-question-circle"></i>팀 폐쇄 방법 안내
+                    </button>
                   </h2>
                 </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -90,7 +92,9 @@
               <div class="card">
                 <div class="card-header" id="headingTwo">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-question-circle"></i>팀 탈퇴 방법</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	                    <i class="fa fa-question-circle"></i>팀 탈퇴 방법
+	                </button>
                   </h2>
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
@@ -103,7 +107,9 @@
               <div class="card">
                 <div class="card-header" id="headingThree">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"><i class="fa fa-question-circle"></i>팀 폐쇄방법 </button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    	<i class="fa fa-question-circle"></i>팀 폐쇄방법 
+                    </button>
                   </h2>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
@@ -120,7 +126,9 @@
               <div class="card">
                 <div class="card-header" id="headingFour">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><i class="fa fa-question-circle"></i>농구 매칭 안내</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    	<i class="fa fa-question-circle"></i>농구 매칭 안내
+                    </button>
                   </h2>
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
@@ -139,7 +147,9 @@
               <div class="card">
                 <div class="card-header" id="headingFive">
                   <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive"><i class="fa fa-question-circle"></i>이름변경(개명) 신청안내 </button>
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    	<i class="fa fa-question-circle"></i>이름변경(개명) 신청안내 
+                    </button>
                   </h2>
                 </div>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample2">
@@ -158,7 +168,9 @@
               <div class="card">
                 <div class="card-header" id="headingSix">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix"><i class="fa fa-question-circle"></i>팀마스터 선수사진 등록방법</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    	<i class="fa fa-question-circle"></i>팀마스터 선수사진 등록방법
+                    </button>
                   </h2>
                 </div>
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample2">
@@ -177,7 +189,9 @@
               <div class="card">
                 <div class="card-header" id="headingSeven">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven"><i class="fa fa-question-circle"></i>팀마스터 변경요청 안내 (팀 양도 요청서)</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    	<i class="fa fa-question-circle"></i>팀마스터 변경요청 안내 (팀 양도 요청서)
+                    </button>
                   </h2>
                 </div>
                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample2">
@@ -195,7 +209,9 @@
               <div class="card">
                 <div class="card-header" id="headingEight">
                   <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight"><i class="fa fa-question-circle"></i>등업 관련</button>
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    	<i class="fa fa-question-circle"></i>등업 관련
+                    </button>
                   </h2>
                 </div>
                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample2">
@@ -209,7 +225,7 @@
               </div><!-- card end -->
             </div>
           </div>
-        </div>
+        </div><!-- row -->
       </div>
     </section>
     <!-- faq-section end  -->
@@ -255,11 +271,11 @@
             </div>
           </div>
         </div><!-- contact-item end -->
-      </div>
-      <div id="container">
-		<div id="contentArea">
+      </div><!-- row -->
+      <!-- <div id="container"> -->
+		<div id="contentArea" style="margin-left: 19%; margin-top: 3%;">
 		<div class="contentBody" >
-			<h3 class="contentTit" >문의게시판</h3>
+			<h3 class="contentTit" style="margin-left: 11%; margin-bottom: 1%;">문의게시판</h3>
 
 			<form name="frm_write" id="frm_write" method="POST"
 			action="<c:url value='/Team/Matching/contactWrite.do'/>">
@@ -268,7 +284,7 @@
 			<div class="formArea">
 				<table class="form">
 					<caption></caption>
-					<colgroup><col width="160"><col width="*"></colgroup>				
+					<colgroup><col width="100"><col width="*"></colgroup>				
 					<tr>
 						<th scope="row"><label for="title">제목</label></th>
 						<td>
@@ -278,7 +294,7 @@
 					
 					<tr>
 						<th scope="row"><label for="mail">이메일</label></th>
-						<td>
+						<td style="padding-top: 2%;">
 							<input type="text" name="str_email01" id="str_email01" style="width:100px">@ 
 							<input type="text" name="str_email02" id="str_email02" style="width:100px;"> 
 							<select style="width:100px;margin-right:10px" name="mail" id="selectEmail" onchange="select()"> 
@@ -308,13 +324,14 @@
 					</tr>
 				</table>
 			</div>
-				<input type="submit" value="보내기" id="btnAjaxText" class="btn btn-info"/>
+				<input style="margin-left: 47%;" type="submit" value="보내기" id="btnAjaxText" class="btn btn-primary btn-lg"/>
 			</form>			
 					
 					
 			
 			
-		</div></div><!-- contentArea -->
+		</div>
+		</div><!-- contentArea -->
 	</div><!-- //container -->
   </section>
   <!-- contact-section end -->

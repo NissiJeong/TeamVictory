@@ -112,7 +112,9 @@ function isBlank(){
         <div class="col-lg-7">
           <div class="section-header text-center">
             <h2 class="section-title">Create Your Team!!</h2>
-            <p>On insensible possession oh particular attachment at excellence in. The books arose but miles happy she.</p>
+            <p><!-- On insensible possession oh particular attachment at excellence in. The books arose but miles happy she. -->
+            	활동할 팀을 만들어 보세요!
+            </p>
           </div>
         </div>
       </div>
@@ -153,29 +155,31 @@ function isBlank(){
           </div>
         </div>contact-item end
       </div> -->
+     <div class="container">
       <div class="row" style="margin-top: -50px">
-        <div class="col-lg-8">
+        <div class="offset-md-1 col-lg-10">
        	<c:if test="${dupliManager == 1 }" var="isDupli">
        	<script>
       
        		alert('사용자는 이미 팀장을 맡고 있습니다');
         	window.location = '<c:url value="/Team/Member/Index.do"/>';
-       
 	       
        	</script>
        	</c:if>
        	<c:if test="${not isDupli}">
 		
-          <div class="contact-form-area">
+		
+	 	
+          <div class="contact-form-area" style="background-color: #f3faff; margin-top: 35px;">
           	
             <form class="cmn-form contact-form" action="<c:url value='/Team/matching/teamJoin.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
               <div class="row">
               	<div class="col-md-6">
                   <div class="frm-group">
-                  		<label for="imgInput" class="btn btn-info">팀 로고 선택</label>
+                  		<img id="image_section" src="<c:url value='/assets/images/kickball-1.gif'/>" style="width:100px;height:100px" />
+                  		<label for="imgInput" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 0px;">팀 로고 선택</label>
 					    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
-				   		<img id="image_section" src="<c:url value='/assets/images/preloader.gif'/>" style="width:100px;height:100px" />	
 				   		<span style="color:red; font-size: 0.8em">${maxError }</span>
                   </div>
                 </div>
@@ -244,8 +248,12 @@ function isBlank(){
             </div>
            
           </div>
+        
           </c:if>
-        </div>
+          
+        </div><!-- row -->
+       </div><!-- container -->
+       
       </div>
     </div>
   </section>

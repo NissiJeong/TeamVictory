@@ -152,6 +152,7 @@
 function checkMail(){
        
        var id = $('#email').val();
+       var stat = $('#sendmail').val();
        var duplicate = "중복";
       var posible = "가능";
       
@@ -629,7 +630,7 @@ span{
                 </div> 
                 <div class="frm-group">
                   <input type="text" name="email" id="email" placeholder="Your Email" style="width: 50%" value="${param.email }" oninput="checkMail()">
-                  <%-- <input id="sendmail" name="sendmail" type="button" class="submit-btn" value="인증" style="width: 10%; background-color: gray;" onclick="location.href='<c:url value="/Team/Matching/SendMail.do"/>';"/> --%>
+                  <input id="sendmail" name="sendmail" type="hidden" value="${param.mailstatus }" style="width: 10%; background-color: gray;" />
                   <div>
                      <span id="eError">${emailError }</span>
                      </div>

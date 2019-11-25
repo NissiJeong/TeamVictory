@@ -109,17 +109,5 @@ public class HomeController {
 
 	}
 	*/
-	
-	
 
-	/* 공지사항 */
-	@RequestMapping(value = "/Team/Matching/Notice.do", method = RequestMethod.GET)
-	public String notice() {
-		return "member/Notice.tiles";
-	}
-	
-	@RequestMapping(value = "/Team/Matching/NoticeView.do", method = RequestMethod.GET)
-	public String noticeview() {
-		return "member/NoticeView.tiles";
-	}
 }

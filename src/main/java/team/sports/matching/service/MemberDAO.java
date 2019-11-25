@@ -126,7 +126,7 @@ public class MemberDAO {
 	}
 	//gameSchedule에서 inwaiting의 정보들 가져오기
 	public List<Map> selectFinishInfo(Map map) {
-		return template.selectList("selectInwaiting", map);
+		return template.selectList("selectInwaiting44", map);
 	}
 	//종료 버튼 누른 사람이 팀장인지
 	public List<Map> selectManagerId(Map map) {
