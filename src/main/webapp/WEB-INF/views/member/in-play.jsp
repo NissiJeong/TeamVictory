@@ -519,8 +519,16 @@ $(function(){
 	// 역순으로 진행된다   선택자중에 맨위의 tr은 last()로 접근  맨아래는 first()로 접근
 	//console.log( $('.all-tbody #test_tr').prevAll().first().html())	
 		
+<<<<<<< HEAD
+	//배팅카운트 롱폴링 
+=======
 	 //배팅카운트 롱폴링 
+<<<<<<< HEAD
 	//callComet();
+=======
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+	callComet();
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 	
 
 
