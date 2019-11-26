@@ -80,7 +80,7 @@ p{
 
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-lg-6">
+			<div class="col-lg-6" style="padding-top: 50px;">
 				<div class="section-header text-center">
 					<h2 class="section-title">한소인배 초등 야구</h2>
 				</div>
