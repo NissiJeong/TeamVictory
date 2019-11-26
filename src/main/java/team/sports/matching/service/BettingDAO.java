@@ -31,15 +31,18 @@ public class BettingDAO {
 		return template.selectOne("memberPoint",map);
 	}
 
+	// 배팅시 포인트 차감 
 	public int pointMinus(Map<String, Object> map) {
 		
 		return template.update("bettingPointMinus",map);
 	}
 
+	//배팅테이블에 정보 입력 
 	public int bettingInsert(Map<String, Object> map) {
 		return template.insert("bettingInsert",map);
 	}
 	 
+	//내가 배팅한
 	public  List<Map> selectMyBettingList(Map map){
 		return template.selectList("MyBettingList",map);
 	}
@@ -59,9 +62,16 @@ public class BettingDAO {
 		return template.selectList("myBettingListChk",id);
 	}
 
-	public List<Map> test( List<Map> mapperList) {
+	//배팅카운트 일정시간마다 표시하는 메서드 
+	public List<Map> countLongPolling( List<Map> mapperList) {
 		
-		return  template.selectList("test", mapperList);
+		return  template.selectList("countLongPolling", mapperList);
+	}
+
+	// 상세보기 상대전적
+	public List<Map> opponentRecordList(Map map) {
+		
+		return template.selectList("opponentRecordList",map);
 	}
 
 
