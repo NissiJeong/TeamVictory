@@ -80,7 +80,7 @@ public class AdminController{
 		}
 		model.addAttribute("records", records);
 		return "admin/insertData";
-	
+		
 	}///////
 	
 	
@@ -118,6 +118,11 @@ public class AdminController{
 		int homeScore = Integer.parseInt(tempScore[0].trim());
 		int awayScore = Integer.parseInt(tempScore[1].trim());
 		
+		
+		int horderHome = 1;
+		int horderAway = 1;
+		
+		
 		Map updateGameSchedule = new HashMap();
 		updateGameSchedule.put("FINISH", "FINISH");
 		updateGameSchedule.put("HOMESCORE", homeScore);
@@ -144,7 +149,6 @@ public class AdminController{
 		List<String> homehitters = new Vector<String>();
 		for(int v=0;v<homehitterList.size();v++) {
 			homehitters.add((homehitterList.get(v).get("ID").toString()));
-			
 		}
 		
 		Map getawayhitters = new HashMap();
@@ -171,12 +175,19 @@ public class AdminController{
 			awaypitchers.add((awaypitcherList.get(v).get("ID").toString()));
 		}
 		
+			
 		
-		for(int i=1; i<elem.size() -1;i++) {
+		for(int i=1; i<elem.size()-1;i++) {
 		
 			String id = homehitters.get(i-1);
 			
 			if( !((elem.get(i).child(0).text().trim()).isEmpty() )) { 
+				
+				int pos;
+				if(CommonUtils.isStringDouble(elem.get(i).child(2).text().substring(0,1))) {
+					pos = Integer.parseInt(elem.get(i).child(2).text().substring(0,1));
+				}
+				else pos = 10;
 				
 				int pa = Integer.parseInt(elem.get(i).child(3).text());
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
@@ -187,31 +198,28 @@ public class AdminController{
     			int bb = Integer.parseInt(elem.get(i).child(9).text());
     			int hbp = Integer.parseInt(elem.get(i).child(10).text());
     			int so = Integer.parseInt(elem.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem.get(i).child(12).text());
+    			int gdp = Integer.parseInt(elem.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
-    				b2 +=(Math.random()<0.25?1:0);
+    				b2 +=(Math.random()<0.2?1:0);
     			}
     			int b3 = 0;
     			for(int k=0;k<(h-b2);k++) {
-    				b3 +=(Math.random()<0.1?1:0);
+    				b3 +=(Math.random()<0.03?1:0);
     			}
     			int sb = 0;
-    			for(int k=0;k<(h+bb);k++) {
-    				sb +=(Math.random()<0.2?1:0);
+    			for(int k=0;k<(h+bb-b3-hr);k++) {
+    				sb +=(Math.random()<0.3?1:0);
     			}
     			int cs = 0;
-    			for(int k=0;k<(h-sb);k++) {
+    			for(int k=0;k<(h+bb-b3-hr-sb);k++) {
     				cs +=(Math.random()<0.2?1:0);
     			}
     			int e = 0;
     			for(int k=0;k<9;k++) {
-    				e +=(Math.random()<0.3?1:0);
+    				e +=(Math.random()<0.3/24?1:0);
     			}
-    			
-    			int pos = 1;
-    			int horder = 1;
     			
     			//홈팀 주전 타자 주입
     			insertHitter.put("GAMEDATE", gamedate);
@@ -235,22 +243,32 @@ public class AdminController{
     			insertHitter.put("GDP", gdp);
     			insertHitter.put("E", e);
     			insertHitter.put("POS", pos);
-    			insertHitter.put("HORDER", horder);
+    			insertHitter.put("HORDER", horderHome);
     			dao.insertHitter(insertHitter);
     			
     			insertHitter.clear();
-    			horder=i;
+    			
     			String startMember = 
 					String.format(
 					"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
 					+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);   %n", 
-					gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
+					gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horderHome);
     			start.append(startMember);
+    			
+    			horderHome +=1;
             }
 		
 			
 			//홈팀 교체타자
         	else {
+        		
+        		int horder = 10;
+        		int pos;
+				if(CommonUtils.isStringDouble(elem.get(i).child(2).text().substring(0,1))) {
+					pos = Integer.parseInt(elem.get(i).child(2).text().substring(0,1));
+				}
+				else pos = 10;
+        		
         		int pa = Integer.parseInt(elem.get(i).child(3).text());
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
     			int r = Integer.parseInt(elem.get(i).child(5).text());
@@ -260,31 +278,29 @@ public class AdminController{
     			int bb = Integer.parseInt(elem.get(i).child(9).text());
     			int hbp = Integer.parseInt(elem.get(i).child(10).text());
     			int so = Integer.parseInt(elem.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem.get(i).child(12).text());
+    			int gdp = Integer.parseInt(elem.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
-    				b2 +=(Math.random()<0.25?1:0);
+    				b2 +=(Math.random()<0.2?1:0);
     			}
     			int b3 = 0;
     			for(int k=0;k<(h-b2);k++) {
-    				b3 +=(Math.random()<0.1?1:0);
+    				b3 +=(Math.random()<0.03?1:0);
     			}
     			int sb = 0;
-    			for(int k=0;k<(h+bb);k++) {
-    				sb +=(Math.random()<0.2?1:0);
+    			for(int k=0;k<(h+bb-b3-hr);k++) {
+    				sb +=(Math.random()<0.3?1:0);
     			}
     			int cs = 0;
-    			for(int k=0;k<(h-sb);k++) {
+    			for(int k=0;k<(h+bb-b3-hr-sb);k++) {
     				cs +=(Math.random()<0.2?1:0);
     			}
     			int e = 0;
     			for(int k=0;k<9;k++) {
-    				e +=(Math.random()<0.3?1:0);
+    				e +=(Math.random()<0.3/24?1:0);
     			}
-    			
-    			int pos = 1;
-    			int horder = 1;
+				
     		
     			//홈팀 교체 타자 주입
     			insertHitter.put("GAMEDATE", gamedate);
@@ -312,7 +328,6 @@ public class AdminController{
     			dao.insertHitter(insertHitter);
     			
     			insertHitter.clear();
-    			horder=0;
     			String changeMember = 
 					String.format(
 							"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
@@ -328,12 +343,17 @@ public class AdminController{
 		System.out.println();
 		
 		//원정팀 시작
-		for(int i=1; i<elem2.size() -1;i++) {
-			
+		for(int i=1; i<elem2.size()-1;i++) {
 			
 			String id = awayhitters.get(i-1);
 			
 			if( !((elem2.get(i).child(0).text().trim()).isEmpty() )) { 
+				
+				int pos;
+				if(CommonUtils.isStringDouble(elem2.get(i).child(2).text().substring(0,1))) {
+					pos = Integer.parseInt(elem2.get(i).child(2).text().substring(0,1));
+				}
+				else pos = 10;
 				
 				int pa = Integer.parseInt(elem2.get(i).child(3).text());
     			int ab = Integer.parseInt(elem2.get(i).child(4).text());
@@ -344,31 +364,28 @@ public class AdminController{
     			int bb = Integer.parseInt(elem2.get(i).child(9).text());
     			int hbp = Integer.parseInt(elem2.get(i).child(10).text());
     			int so = Integer.parseInt(elem2.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem2.get(i).child(12).text());
+    			int gdp = Integer.parseInt(elem2.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
-    				b2 +=(Math.random()<0.25?1:0);
+    				b2 +=(Math.random()<0.2?1:0);
     			}
     			int b3 = 0;
     			for(int k=0;k<(h-b2);k++) {
-    				b3 +=(Math.random()<0.1?1:0);
+    				b3 +=(Math.random()<0.03?1:0);
     			}
     			int sb = 0;
-    			for(int k=0;k<(h+bb);k++) {
-    				sb +=(Math.random()<0.2?1:0);
+    			for(int k=0;k<(h+bb-b3-hr);k++) {
+    				sb +=(Math.random()<0.3?1:0);
     			}
     			int cs = 0;
-    			for(int k=0;k<(h-sb);k++) {
+    			for(int k=0;k<(h+bb-b3-hr-sb);k++) {
     				cs +=(Math.random()<0.2?1:0);
     			}
     			int e = 0;
     			for(int k=0;k<9;k++) {
-    				e +=(Math.random()<0.3?1:0);
+    				e +=(Math.random()<0.3/24?1:0);
     			}
-    			
-    			int pos = 1;
-    			int horder = 1;
     			
     			//원정팀 주전타자 주입
     			insertHitter.put("GAMEDATE", gamedate);
@@ -392,20 +409,29 @@ public class AdminController{
     			insertHitter.put("GDP", gdp);
     			insertHitter.put("E", e);
     			insertHitter.put("POS", pos);
-    			insertHitter.put("HORDER", horder);
+    			insertHitter.put("HORDER", horderAway);
     			dao.insertHitter(insertHitter);
     			
     			insertHitter.clear();
-    			horder=i;
+    			
     			String startMember2 = 
     					String.format(
 						"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
 						+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);%n", 
-						gamedate,stadium,time,id,awayteam,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
+						gamedate,stadium,time,id,awayteam,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horderAway);
     			start2.append(startMember2);
+    			horderAway++;
             }
 		
         	else {
+        		
+        		int horder = 10;
+        		int pos;
+				if(CommonUtils.isStringDouble(elem2.get(i).child(2).text().substring(0,1))) {
+					pos = Integer.parseInt(elem2.get(i).child(2).text().substring(0,1));
+				}
+				else pos = 10;
+        		
         		int pa = Integer.parseInt(elem2.get(i).child(3).text());
     			int ab = Integer.parseInt(elem2.get(i).child(4).text());
     			int r = Integer.parseInt(elem2.get(i).child(5).text());
@@ -415,31 +441,29 @@ public class AdminController{
     			int bb = Integer.parseInt(elem2.get(i).child(9).text());
     			int hbp = Integer.parseInt(elem2.get(i).child(10).text());
     			int so = Integer.parseInt(elem2.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem2.get(i).child(12).text());
+    			int gdp = Integer.parseInt(elem2.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
-    				b2 +=(Math.random()<0.25?1:0);
+    				b2 +=(Math.random()<0.2?1:0);
     			}
     			int b3 = 0;
     			for(int k=0;k<(h-b2);k++) {
-    				b3 +=(Math.random()<0.1?1:0);
+    				b3 +=(Math.random()<0.03?1:0);
     			}
     			int sb = 0;
-    			for(int k=0;k<(h+bb);k++) {
-    				sb +=(Math.random()<0.2?1:0);
+    			for(int k=0;k<(h+bb-b3-hr);k++) {
+    				sb +=(Math.random()<0.3?1:0);
     			}
     			int cs = 0;
-    			for(int k=0;k<(h-sb);k++) {
+    			for(int k=0;k<(h+bb-b3-hr-sb);k++) {
     				cs +=(Math.random()<0.2?1:0);
     			}
     			int e = 0;
     			for(int k=0;k<9;k++) {
-    				e +=(Math.random()<0.3?1:0);
+    				e +=(Math.random()<0.3/24?1:0);
     			}
-    			
-    			int pos = 1;
-    			int horder = 1;
+
     			//원정팀 교체 타자 주입
     			insertHitter.put("GAMEDATE", gamedate);
     			insertHitter.put("STADIUM", stadium);
@@ -466,7 +490,6 @@ public class AdminController{
     			dao.insertHitter(insertHitter);
     			
     			insertHitter.clear();
-    			horder=0;
     			String changeMember2 = 
 					String.format(
 							"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
@@ -512,11 +535,11 @@ public class AdminController{
     			int so = Integer.parseInt(elem3.get(i).child(8).text());
     			int hr = Integer.parseInt(elem3.get(i).child(9).text());
     			
-    			String[] tempPitch=elem3.get(i).child(12).text().split("-");
+    			String[] tempPitch=elem3.get(i).child(11).text().split("-");
     			int pitch = Integer.parseInt(tempPitch[0]);
     			
-    			int b2 = 0; for(int k=0;k<h;k++) {b2 +=(Math.random()<0.25?1:0);}
-    			int b3 = 0; for(int k=0;k<(h-b2);k++) {b3 +=(Math.random()<0.1?1:0);}
+    			int b2 = 0; for(int k=0;k<h;k++) {b2 +=(Math.random()<0.2?1:0);}
+    			int b3 = 0; for(int k=0;k<(h-b2);k++) {b3 +=(Math.random()<0.05?1:0);}
     			int hol = 0;
     			int blsv = 0;
     			int sv = 0;
@@ -588,11 +611,11 @@ public class AdminController{
     			int so = Integer.parseInt(elem4.get(i).child(8).text());
     			int hr = Integer.parseInt(elem4.get(i).child(9).text());
     			
-    			String[] tempPitch=elem4.get(i).child(12).text().split("-");
+    			String[] tempPitch=elem4.get(i).child(11).text().split("-");
     			int pitch = Integer.parseInt(tempPitch[0]);
     			
-    			int b2 = 0; for(int k=0;k<h;k++) {b2 +=(Math.random()<0.25?1:0);}
-    			int b3 = 0; for(int k=0;k<(h-b2);k++) {b3 +=(Math.random()<0.1?1:0);}
+    			int b2 = 0; for(int k=0;k<h;k++) {b2 +=(Math.random()<0.2?1:0);}
+    			int b3 = 0; for(int k=0;k<(h-b2);k++) {b3 +=(Math.random()<0.05?1:0);}
     			int hol = 0;
     			int blsv = 0;
     			int sv = 0;
@@ -717,6 +740,11 @@ public class AdminController{
 		
 		List<Map> newList = new Vector<Map>();
 		Map newMap = new HashMap();
+		System.out.println(wSTR);
+		System.out.println(b2STR);
+		System.out.println(b3STR);
+		System.out.println(hrSTR);
+		
 		newMap.put("wSTR", wSTR);
 		newMap.put("b2STR", b2STR);
 		newMap.put("b3STR", b3STR);

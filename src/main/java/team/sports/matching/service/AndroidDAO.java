@@ -18,6 +18,7 @@ public class AndroidDAO {
 		return template.selectList("andSelectTeams", map);
 	}
 
+
 	public int insertmatch(Map map) {
 		return template.insert("insertMatch", map);
 	}
@@ -196,4 +197,5 @@ public class AndroidDAO {
 	public int updatePoint22(Map resultMap) {
 		return template.update("updatePoint2222", resultMap);
 	}
+
 }

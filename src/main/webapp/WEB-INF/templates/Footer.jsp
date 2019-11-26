@@ -6,9 +6,9 @@
  <!-- footer-section start -->
   <footer class="footer-section">
     <div class="footer-top">
-      <div class="container">
+      <div class="">
         <div class="row">
-          <div class="col-lg-3 col-sm-6">
+          <div class="col-lg-3 col-sm-6" style="padding-left: 30px !important;">
             <div class="footer-widget widget-about">
               <a class="logo"><img src="<c:url value='/assets/images/logo2smalledit.png'/>" alt="image" style="height: 200px !important;"/></a>
               <ul class="address-list">
@@ -48,7 +48,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-lg-5 col-sm-6">
+          <div class="col-lg-3 col-sm-6">
             <div class="footer-widget widget-subscribe">
               <h3 class="widget-title">subscribe</h3>
               <div class="widget-subscribe-body">
@@ -61,7 +61,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div><!-- row -->
       </div>
     </div><!-- footer-top end -->
     <div class="footer-bottom text-center">

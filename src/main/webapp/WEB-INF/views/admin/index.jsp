@@ -185,7 +185,7 @@ $(function(){
                 </div>
                 <div class="mr-5">문의 게시판</div>
               </div>
-              <a class="card-footer text-white clearfix small z-1" href="<c:url value='/Team/admin/qa.do'/>">
+              <a href="<c:url value='/Team/admin/qa.do'/>" class="card-footer text-white clearfix small z-1" >
                 <span class="float-left">게시판 이동</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>

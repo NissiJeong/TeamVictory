@@ -7,6 +7,8 @@ public class MessageDTO {
 	private String id;
 	private String title;
 	private String content;
+	private String mailname;	
+	private String mail;
 	private java.sql.Date postDate;
 	
 	//프로그램 효율성을 위한 속성 추가]
@@ -78,6 +80,31 @@ public class MessageDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+	public String getMail() {
+		return mail;
+	}
+
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+
+	public String getMailname() {
+		return mailname;
+	}
+
+
+	public void setMailname(String mailname) {
+		this.mailname = mailname;
+	}
+
+
+
+
+	
 
 	
 	

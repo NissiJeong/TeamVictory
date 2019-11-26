@@ -24,13 +24,13 @@
 <!-- Custom fonts for this template-->
 <link href="<c:url value='/assets/bootstrap/vendor/fontawesome-free/css/all.min.css'/>" rel="stylesheet" type="text/css">
 <!-- Page level plugin CSS-->
-<link href="<c:url value='/assets/bootstrap/vendor/datatables/dataTables.bootstrap4.css'/>" rel="stylesheet">
+<%-- <link href="<c:url value='/assets/bootstrap/vendor/datatables/dataTables.bootstrap4.css'/>" rel="stylesheet"> --%>
 
 <!-- Custom styles for this template-->
 <link href="<c:url value='/assets/bootstrap/css/sb-admin.css'/>" rel="stylesheet">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
@@ -45,6 +45,12 @@
   <script src="<c:url value='/assets/js/jquery-3.3.1.min.js'/>"></script>
   <!-- bootstrap js file -->
   <script src="<c:url value='/assets/js/bootstrap.min.js'/>"></script>
+
+
+<script	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+
+
 
 
 <style>  
@@ -121,46 +127,21 @@ div.modal-body {
       </li>
     </ul>
   </nav>
-  <div id="wrapper">
+  <div id="wrapper" style="margin-top : -15px;"> 
 	  <ul class="sidebar navbar-nav">
 	      <li class="nav-item active">
 	        <a class="nav-link" href="index.jsp">
 	          <i class="fas fa-fw fa-tachometer-alt"></i>
-	          <span>게시판 관리</span>
+	          <span>데이터 입력 폼</span>
 	        </a>
 	      </li>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          <i class="fas fa-fw fa-folder"></i>
-	          <span>메뉴</span>
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-	          <a class="dropdown-item" href="login.html">Login</a>
-	          <a class="dropdown-item" href="register.html">Register</a>
-	          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-	        </div>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="charts.html">
-	          <i class="fas fa-fw fa-chart-area"></i>
-	          <span>Charts</span></a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="tables.html">
-	          <i class="fas fa-fw fa-table"></i>
-	          <span>Tables</span></a>
-	      </li>
-	       <li class="nav-item active">
-	        <a class="nav-link" href="index.jsp">
-	          <i class="fas fa-baseball-ball"></i>
-	          <span >메뉴 추가</span>
-	        </a>
-	      </li>
+	      
+	       
 	    </ul>
 	    <div class="card mb-3">
-	          <div class="card-header">
+	          <div class="card-header" style="margin-top : 20px;">>
 	            <i class="fas fa-table"></i>
-	            Data Table Example
+	            Match Table
 	            </div>
 	          <div class="card-body">
 	            <div class="table-responsive">
@@ -177,6 +158,7 @@ div.modal-body {
 	                    <th>비고</th>
 	                  </tr>
 	                </thead>
+	                <!-- 
 	                <tfoot> 
 	                  <tr>
 	                    <th>정보1</th>
@@ -189,6 +171,7 @@ div.modal-body {
 	                    <th>정보8</th>
 	                  </tr>   
 	                </tfoot>
+	                 -->
 	                <tbody>
 	                  <c:forEach var="data" items="${records}">
 		                  <tr>
@@ -209,6 +192,7 @@ div.modal-body {
 			                   		<td>${data.GAMESTATUS}</td>
 				                    <td><input type="button" value="입력" class="insertBtn" 
 					                    data1="${data.GAMEDATE}" data2="${data.TIME}" data3="${data.STADIUM}" data4="${data.TEAMNAME }" data5="${data.AWAYTEAM }"/></td>
+					                <td></td>
 			                    </c:otherwise>
 		                    </c:choose>
 		                    <td>......</td>
@@ -222,6 +206,7 @@ div.modal-body {
 	    </div>
 	</div>    
 </body>
+
 
 
 <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -290,193 +275,258 @@ div.modal-body {
 
 <script>
 
-/* var gameDetail =  */
+$(function() {
 	
-$('.detailBtn').click(function(){
+	jQuery(function($) {
+		$("#dataTable").DataTable({
+			"order": [],
+			"iDisplayLength": 20
+		});
+	});
 	
-	$.ajax({
-		url: "<c:url value='/Team/admin/showDetailLogo.do'/>",
-		data : { GAMEDATE : $(this).attr('data1'),
-   		 TIME : $(this).attr('data2'),
-   		 STADIUM : $(this).attr('data3'),
-   		 TEAMNAME : $(this).attr('data4'),
-   		 AWAYTEAM : $(this).attr('data5'),
-   		'_csrf' : '${_csrf.token}'},
-		type: 'post',
+	var chart = new Chart('canvas', {
+		type: 'horizontalBar',
+		data: {       
+	        labels: ["안타", "홈런", "도루", "삼진", "볼넷"],
+	        datasets: [{
+	            label: this.TEAMNAME,
+	            backgroundColor: 'rgba(22, 34, 127,0.75)',
+	            data: [
+	                -0,
+	                -0,
+	                -0,
+	                -0, 
+	                -0 
+	           ]
+	        }, {
+	            label: this.AWAYTEAM,
+	            backgroundColor: 'rgba(255, 65, 3,0.75)',
+	            data: [
+	                0,
+	                0,
+	                0,
+	                0,
+	                0
+	            ],
+	        }]
+	    },
+		options: 
+			{
+			responsive: true,
+             scales: {
+                 xAxes: [{
+                     stacked: true,
+                     scaleLabel: {
+                         //display: true,
+                     },
+                     position : "left",
+                     ticks: {
+          		        max: -15,
+          		        min: 15,
+          		        stepSize: -3
+          		    }
+                 }], 
+                 
+                 yAxes: [{
+                     stacked: true,
+                     scaleLabel: {
+                         //display: true,
+                     },
+                     position : "right",
+                     ticks: {
+          		        max: -15,
+          		        min: 15,
+          		        stepSize: 3
+          		    }
+                }]
+             }
+         }
+	}); //chart
+	
+	$('.detailBtn').click(function(){
 		
-		beforeSend : function(xhr)
-        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-        },
-		dataType: 'json',
-		success : function(data){
-		/*  $(".detailData").text(""); */
-			if (data != "") {
-				console.log(data);
-				$(data).each(
-					function() {
-						$('.homeScore').text(this.HOMESCORE);
-						$('.awayScore').text(this.AWAYSCORE);
-						$('.awayLogo').attr('src', "/matching/Upload/"+this.AWAYLOGO);
-						$('.homeLogo').attr('src', "/matching/Upload/"+this.HOMELOGO);
-						$('.awayTeam').text(this.AWAYTEAM);
-						$('.homeTeam').text(this.TEAMNAME);
-					}
-				);// each 
-			}
-			else { 
-				alert("불러올 데이터가 없습니다.");
-			}// else
-		}
-	});  // ajax 
-	
-	$.ajax({
-		url: "<c:url value='/Team/admin/showChart.do'/>",
-		data : { GAMEDATE : $(this).attr('data1'),
-   		 TIME : $(this).attr('data2'),
-   		 STADIUM : $(this).attr('data3'),
-   		 TEAMNAME : $(this).attr('data4'),
-   		 AWAYTEAM : $(this).attr('data5'),
-   		'_csrf' : '${_csrf.token}'},
-		type: 'post',
-		
-		beforeSend : function(xhr)
-        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-        },
-		dataType: 'json',
-		success : function(data){
-		/*  $(".detailData").text(""); */
-			if (data != "") {
-				console.log(data);
-				$(data).each(
-					function() {
-						var chart = new Chart('canvas', {
-							type: 'horizontalBar',
-							data: {       
-						        labels: ["안타", "홈런", "도루", "삼진", "볼넷"],
-						        datasets: [{
-						            label: this.TEAMNAME,
-						            backgroundColor: "#1E90FF",
-						            data: [
-						                -this.HOMEH,
-						                -this.HOMEHR,
-						                -this.HOMESB,
-						                -this.HOMESO,
-						                -this.HOMEBB 
-						           ]
-						        }, {
-						            label: this.AWAYTEAM,
-						            backgroundColor: "#F7464A",
-						            data: [
-						                this.AWAYH,
-						                this.AWAYHR,
-						                this.AWAYSB,
-						                this.AWAYSO,
-						                this.AWAYBB
-						            ],
-						        }]
-						    },
-							options: 
-								{
-								responsive: true,
-					             scales: {
-					                 xAxes: [{
-					                     stacked: true,
-					                     scaleLabel: {
-					                         //display: true,
-					                     },
-					                     position : "left",
-					                     ticks: {
-					          		        max: -15,
-					          		        min: 15,
-					          		        stepSize: -3
-					          		    }
-					                 }], 
-					                 
-					                 yAxes: [{
-					                     stacked: true,
-					                     scaleLabel: {
-					                         //display: true,
-					                     },
-					                     position : "right",
-					                     ticks: {
-					          		        max: -15,
-					          		        min: 15,
-					          		        stepSize: 3
-					          		    }
-					                }]
-					             }
-					         }
-						});
-					}
-				);// each 
-			}
-			else { 
-				alert("불러올 데이터가 없습니다.");
-			}// else
-		}
-	});  // ajax
-	
-	
-	$.ajax({
-		url: "<c:url value='/Team/admin/getEachResult.do'/>",
-		data : { GAMEDATE : $(this).attr('data1'),
-   		 TIME : $(this).attr('data2'),
-   		 STADIUM : $(this).attr('data3'),
-   		'_csrf' : '${_csrf.token}'},
-		type: 'post',
-		
-		beforeSend : function(xhr)
-        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-        },
-		dataType: 'json',
-		success : function(data){
-		/*  $(".detailData").text(""); */
-			if (data != "") {
-				var str="";
-				var isEmpty = function(value){ 
-					if(value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
-						return true;
+		$.ajax({
+			url: "<c:url value='/Team/admin/showDetailLogo.do'/>",
+			data : { GAMEDATE : $(this).attr('data1'),
+	   		 TIME : $(this).attr('data2'),
+	   		 STADIUM : $(this).attr('data3'),
+	   		 TEAMNAME : $(this).attr('data4'),
+	   		 AWAYTEAM : $(this).attr('data5'),
+	   		'_csrf' : '${_csrf.token}'},
+			type: 'post',
+			
+			beforeSend : function(xhr)
+	        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	        },
+			dataType: 'json',
+			success : function(data){
+			/*  $(".detailData").text(""); */
+				if (data != "") {
+					console.log(data);
+					$(data).each(
+						function() {
+							$('.homeScore').text(this.HOMESCORE);
+							$('.awayScore').text(this.AWAYSCORE);
+							$('.awayLogo').attr('src', "/matching/Upload/"+this.AWAYLOGO);
+							$('.homeLogo').attr('src', "/matching/Upload/"+this.HOMELOGO);
+							$('.awayTeam').text(this.AWAYTEAM);
+							$('.homeTeam').text(this.TEAMNAME);
 						}
-					else { 
-						return false;
+					);// each 
+				}
+				else { 
+					alert("불러올 데이터가 없습니다.");
+				}// else
+			}
+		});  // ajax 
+		
+		$.ajax({
+			url: "<c:url value='/Team/admin/showChart.do'/>",
+			data : { GAMEDATE : $(this).attr('data1'),
+	   		 TIME : $(this).attr('data2'),
+	   		 STADIUM : $(this).attr('data3'),
+	   		 TEAMNAME : $(this).attr('data4'),
+	   		 AWAYTEAM : $(this).attr('data5'),
+	   		'_csrf' : '${_csrf.token}'},
+			type: 'post',
+			
+			beforeSend : function(xhr)
+	        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	        },
+			dataType: 'json',
+			success : function(data){
+			/*  $(".detailData").text(""); */
+				if (data != "") {
+					console.log(data);
+					chart.clear();
+					$(data).each(
+						function() {
+							//label: this.TEAMNAME,
+							chart.data.datasets[0].label = this.TEAMNAME;
+							chart.data.datasets[1].label = this.AWAYTEAM;
+							chart.data.datasets[0].data = [-this.HOMEH, -this.HOMEHR, -this.HOMESB, -this.HOMESO, -this.HOMEBB];
+							chart.data.datasets[1].data = [this.AWAYH, this.AWAYHR, this.AWAYSB, this.AWAYSO, this.AWAYBB];
+							chart.update();
+						}
+					);// each 
+				}
+				else { 
+					alert("불러올 데이터가 없습니다.");
+				}// else
+			}
+		});  // ajax
+		
+		$.ajax({
+			url: "<c:url value='/Team/admin/getEachResult.do'/>",
+			data : { GAMEDATE : $(this).attr('data1'),
+	   		 TIME : $(this).attr('data2'),
+	   		 STADIUM : $(this).attr('data3'),
+	   		'_csrf' : '${_csrf.token}'},
+			type: 'post',
+			
+			beforeSend : function(xhr)
+	        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	        },
+			dataType: 'json',
+			success : function(data){
+				if (data != "") {
+					var str="";
+					var isEmpty = function(value){ 
+						if(value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+							return true;
+						}
+						else { 
+							return false;
 						} 
 					};
-
-				console.log(data);
-				$(data).each(
-					function() {
-						if(!isEmpty(this.wSTR)) {
-							$('.wSTR1').text("승리투수 : ");
-							$('.wSTR2').text(this.wSTR);
+					$('.wSTR1').html("");
+					$('.b2STR1').html("");
+					$('.b3STR1').html("");
+					$('.hrSTR1').html("");
+					$('.wSTR2').html("");
+					$('.b2STR2').html("");
+					$('.b3STR2').html("");
+					$('.hrSTR2').html("");
+					
+					console.log(data);
+					$(data).each(
+						function() {
+							if(!isEmpty(this.wSTR)) {
+								$('.wSTR1').text("승리투수 : ");
+								$('.wSTR2').text(this.wSTR);
+							}
+							if(!isEmpty(this.b2STR)) {
+								$('.b2STR1').html("2루타 : ");
+								$('.b2STR2').html(this.b2STR);
+								
+								/*
+								$('.b2STR1').text("2루타 : ");
+								$('.b2STR2').text("");
+								$('.b2STR2').text(this.b2STR);
+								*/
+							}	
+							if(!isEmpty(this.b3STR)) {
+								
+								$('.b3STR1').html("3루타 : ");
+								$('.b3STR2').html(this.b3STR);
+								
+								/*
+								$('.b3STR1').text("3루타 : ");
+								$('.b3STR2').text("");
+								$('.b3STR2').text(this.b3STR);
+								*/
+							}	
+							if(!isEmpty(this.hrSTR)) {
+								$('.hrSTR1').text("홈런 : ");
+								$('.hrSTR2').text(this.hrSTR);
+							}
 						}
-						if(!isEmpty(this.b2STR)) {
-							$('.b2STR1').text("2루타 : ");
-							$('.b2STR2').text(this.b2STR);
-						}	
-						if(!isEmpty(this.b3STR)) {
-							$('.b3STR1').text("3루타 : ");
-							$('.b3STR2').text(this.b3STR);
-						}	
-						if(!isEmpty(this.hrSTR)) {
-							$('.hrSTR1').text("홈런 : ");
-							$('.hrSTR2').text(this.hrSTR);
-						}
-					}
-				);// each 
-				
-				$("#addPoint:last").after(str);
+					);// each 
+					
+					$("#addPoint:last").after(str);
+					
+				}
+				else { 
+					alert("불러올 데이터가 없습니다.");
+					$('.wSTR1').html("");
+					$('.b2STR1').html("");
+					$('.b3STR1').html("");
+					$('.hrSTR1').html("");
+					$('.wSTR2').html("");
+					$('.b2STR2').html("");
+					$('.b3STR2').html("");
+					$('.hrSTR2').html("");
+				}// else
 			}
-			else { 
-				alert("불러올 데이터가 없습니다.");
-			}// else
-		}
-	});  // ajax
-	$("#testModal").modal();
+		});  // ajax
+		$("#testModal").modal();
+		
+	});////////  clickDetailBtn
 	
-});////////  clickDetailBtn
+	
+	
+	
+	
+});
+
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+
+/* var gameDetail =  */
+	
+
 
 $(".insertBtn").click(function () {
     
@@ -503,7 +553,7 @@ $(".insertBtn").click(function () {
 			}
         },
         error: function (e) {
-            alert("왜않되");
+            alert("입력실패");
         }  
     });
 });

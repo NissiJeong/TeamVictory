@@ -1,16 +1,17 @@
 package team.sports.matching.contoller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Resource;
 
-import org.json.simple.JSONArray;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,17 +23,19 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import team.sports.matching.service.AndBettingDTO;
 import team.sports.matching.service.AndroidDAO;
+
 import team.sports.matching.service.CommonUtils;
 import team.sports.matching.service.FinishGameDTO;
 import team.sports.matching.service.GameDTO;
 import team.sports.matching.service.MatchDTO;
+
+
 import team.sports.matching.service.TeamDTO;
 
 @RestController
 public class AndroidController {
 	@Resource(name="android")
 	private AndroidDAO dao;
-	
 	
 	@CrossOrigin
 	@RequestMapping(value="/ANDROID/MatchInfo.do",produces="application/json; charset=UTF-8")
@@ -47,21 +50,13 @@ public class AndroidController {
 	public String matching(@RequestParam Map map){
 		System.out.println("들어왔다!!");
 		for(Object key : map.keySet()) {
-			System.out.println(key+":"+map.get(key));
-		}
-		if(map.get("matchTime").toString().substring(0,3).trim().equals("AM")) {
-			map.put("matchTime", map.get("matchTime").toString().substring(3,map.get("matchTime").toString().indexOf("시")).trim()+map.get("matchTime").toString().substring(6,map.get("matchTime").toString().indexOf("분")).trim());
-		}
-		else {
-			map.put("matchTime", Integer.parseInt(map.get("matchTime").toString().substring(3,map.get("matchTime").toString().indexOf("시")).trim())+12+map.get("matchTime").toString().substring(6,map.get("matchTime").toString().indexOf("분")).trim());
-		}
-		map.put("matchDate", map.get("matchDate").toString().split("/")[0].trim()+"-"+map.get("matchDate").toString().split("/")[1].trim()+"-"+map.get("matchDate").toString().split("/")[2].trim());
-		for(Object key : map.keySet()) {
 			System.out.println(key+":"+map.get(key)+"  /  ");
 		}
-		int match = dao.insertmatch(map);
-		return match==1?"yes":"no";
+		//List<TeamDTO> teams = new Vector<TeamDTO>();
+		//teams = dao.selectTeam(map);
+		return "12312";
 	}
+
 	///////
 	@CrossOrigin
 	@RequestMapping(value="/ANDROID/saveToken.do",produces="text/plain; charset=UTF-8")
@@ -527,4 +522,5 @@ public class AndroidController {
 		}
 		return "no";
 	}
+
 }

@@ -241,8 +241,10 @@ function notifyme(message){
       <div class="row justify-content-center">
       		<div class="col-lg-6" style="padding-top: 0 !important; ">
 	          <div class="section-header text-center" style="margin-bottom: 5px !important;">
-	            <h2 class="section-title fadeIn"  style="color:black">Start Matching!</h2>
-	            <p>On insensible possession oh particular attachment at excellence in. The books arose but miles happy she.</p>
+	            <h2 class="section-title fadeIn">Start Matching!</h2>
+	            <p><!-- On insensible possession oh particular attachment at excellence in. The books arose but miles happy she. -->
+	            	당신의 시합 상대를 선택하세요!
+	            </p>
 	          </div>
 	        </div>
         <div class="col-lg-12" style="padding-left: 0px !important;">

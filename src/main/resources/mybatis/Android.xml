@@ -177,6 +177,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 배당률 구하기 -->
 	<select id="selectBettings2222" parameterType="java.util.Map" resultType="Map">
 		select * from betting where gamedate = #{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
+=======
+		select * from team
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 	</select>
 	<!-- waiting인 것 가져오기 -->
 	<select id="selectWaitingGame2222" parameterType="java.util.Map" resultType="FinishGameDTO">

@@ -110,7 +110,8 @@
    </table>     
  -->         
 
- <div class="col-md-12 text-center mt-5 bg-info" style="font-weight: bold;height: 50px;line-height: 50px;">
+ <div class="col-md-12 text-center mt-5 bg-info" 
+ style="font-size: 20px; font-weight: bold; height: 50px; line-height: 50px; background-color: dodgerblue !important;">
  최근 10경기 전적 
  </div>
 
