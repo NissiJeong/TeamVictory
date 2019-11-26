@@ -382,6 +382,7 @@
       </dependency>
 
 
+	
 
       <!-- https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api -->
 
@@ -397,6 +398,28 @@
 
       </dependency>
       
+     
+      <!-- Mail -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context-support</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+         <groupId>com.sun.mail</groupId>
+         <artifactId>javax.mail</artifactId>
+         <version>1.6.1</version>
+      </dependency>
+    
+    <!-- 정규분포~!@!#@!# -->
+     <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-math3</artifactId>
+		    <version>3.6.1</version>
+		</dependency>
+     
+     
+     
       <!--  Spring-Security관련 라이브러리 -->
       <dependency>
           <groupId>org.springframework.security</groupId>

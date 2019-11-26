@@ -171,10 +171,10 @@ public class ChartController {
 		
 		int inningRate = CommonUtils.scoreByNormDist(myInning, allInning, inningSigma);
 		int kbbRate = CommonUtils.scoreByNormDist(myKBB, allKBB, kbbSigma);
-		int wHIPRate = CommonUtils.scoreByNormDist(myWHIP, allWHIP, wHIPSigma);
-		int eRARate = CommonUtils.scoreByNormDist(myERA, allERA, eRASigma);
+		int wHIPRate = CommonUtils.scoreByNormDist(allWHIP, myWHIP, wHIPSigma);
+		int eRARate = CommonUtils.scoreByNormDist(allERA, myERA, eRASigma);
 		int homeRunRate = CommonUtils.scoreByNormDist(myHOMERUN, allHOMERUN, homeRunSigma);
-		int pittingRate = CommonUtils.scoreByNormDist(myPitting, allPitting, pittingSigma);
+		int pittingRate = CommonUtils.scoreByNormDist(allPitting, myPitting, pittingSigma);
 		
 		listMap.put("INNINGRATE", inningRate);
 		listMap.put("KBBRATE", kbbRate);

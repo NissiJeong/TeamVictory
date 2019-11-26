@@ -1932,11 +1932,7 @@ $(window).scroll(function() { // ① 스크롤 이벤트 최초 발생
 												+ '<td>'
 												+ this.SUMPSO + '<br /></td>' + '</tr>' + '</tbody>' + '</table>';
 									}
-									
 								
-									
-									
-									
 									str += '</div>' + '</div>';
 								});// each 
 						var position2 = $(".scrollLocation:last").offset();

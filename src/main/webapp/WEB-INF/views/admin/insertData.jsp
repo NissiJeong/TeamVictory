@@ -135,8 +135,6 @@ div.modal-body {
 	          <span>데이터 입력 폼</span>
 	        </a>
 	      </li>
-	      
-	       
 	    </ul>
 	    <div class="card mb-3">
 	          <div class="card-header" style="margin-top : 20px;">>
@@ -180,7 +178,7 @@ div.modal-body {
 		                    <td>${data.TEAMNAME}</td>
 		                    <td>${data.AWAYTEAM}</td>
 		                    <c:choose>
-		                   		<c:when test="${data.GAMESTATUS eq 'FINISH'}">
+		                   		<c:when test="${data.GAMESTATUS eq 'finish'}">
 			                   		<td>${data.HOMESCORE} : ${data.AWAYSCORE }</td>
 				                    <td><input type="button" value="완료" class="insertBtnEnd" /></td>
 				                    <td>
@@ -206,8 +204,6 @@ div.modal-body {
 	    </div>
 	</div>    
 </body>
-
-
 
 <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog  modal-lg" role="document">
