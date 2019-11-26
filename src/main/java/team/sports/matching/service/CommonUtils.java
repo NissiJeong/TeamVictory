@@ -349,50 +349,14 @@ public class CommonUtils {
    
    public static void main(String[] args) {
 
-      
-      makeLeaderNMembers("한화이글스");
-      makeLeaderNMembers("두산베어스");
-      makeLeaderNMembers("바르셀로나");
-      makeLeaderNMembers("레알마드리드");
-      makeLeaderNMembers("맨체스터유나이티드");
-      makeLeaderNMembers("아스톤빌라");
-      
-      /**
-      makeLeaderNMembers("NC다이노스");
-      makeLeaderNMembers("SK와이번스");
-      makeLeaderNMembers("롯데자이언츠");
-      makeLeaderNMembers("kt wiz");
-      makeLeaderNMembers("엘지트윈스");
-      makeLeaderNMembers("맨체스터시티");
-      **/
-      
-      
-      /**
-      makeGameSchedule("HanWha Eagles", "한화이글스");
-      makeGameSchedule("맨체스터시티", "HanWha Eagles");
-      makeGameSchedule("엘지트윈스", "HanWha Eagles");
-      makeGameSchedule("SK WYVERSE", "kt wiz");
-      makeGameSchedule("HanWha Eagles", "NC다이노스");
-      makeGameSchedule("HanWha Eagles", "롯데자이언츠");
-      makeGameSchedule("두산베어스", "바르셀로나");
-      makeGameSchedule("HanWha Eagles", "바르셀로나");
-      makeGameSchedule("아스톤빌라", "HanWha Eagles");
-      makeGameSchedule("맨체스터시티", "맨체스터유나이티드");
-      makeGameSchedule("한화이글스", "HanWha Eagles");
-      makeGameSchedule("HanWha Eagles", "엘지트윈스");
-      makeGameSchedule("엘지트윈스", "두산베어스");
-      makeGameSchedule("두산베어스", "SK WYVERSE");
-      makeGameSchedule("SK WYVERSE", "한화이글스");
-      makeGameSchedule("SK WYVERSE", "바르셀로나");
-      makeGameSchedule("kt wiz", "SK WYVERSE");
-      makeGameSchedule("HanWha Eagles", "롯데자이언츠");
-      makeGameSchedule("레알마드리드", "HanWha Eagles");
-      makeGameSchedule("SK WYVERSE", "레알마드리드");
-      makeGameSchedule("롯데자이언츠", "엘지트윈스");
-      makeGameSchedule("레알마드리드", "SK WYVERSE");
-      makeGameSchedule("SK WYVERSE", "kt wiz");
-      makeGameSchedule("SK WYVERSE", "kt wiz");
-      **/
+	   
+	   
+	
+	  makeTeamMembers("HanWha Eagles");
+	  makeTeamMembers("sk wyverns");
+	  
+	  
+	  
       
       
       
