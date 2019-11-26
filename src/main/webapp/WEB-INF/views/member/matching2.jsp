@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  	<link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication property="principal.username" var="id"/>
 <script>
@@ -89,7 +89,7 @@ $( function() {
     	time = $('#sel2').val();
     	stadium =$('#sel3').val();
     	//console.log(websocket)
-    	//websocket.send('awayteam:'+teamname+',date:'+date+',time:'+time+",stadium:"+stadium);
+    	websocket.send('awayteam:'+teamname+',date:'+date+',time:'+time+",stadium:"+stadium);
     	$.ajax({
     		url:"<c:url value='/Team/Matching/matching.do'/>",
     		type:'post',
@@ -214,6 +214,14 @@ function notifyme(message){
 };
 </script>
 
+<style>
+	#change:hover, #match:hover {
+		background-color: var(--main-color);
+		border: none;
+	}
+</style>
+
+
    <!-- banner-section start -->  
   <section class="breadcum-section" style="margin-bottom: -70px">
   	<%-- <img src="<c:url value='/assets/images/Betting.jpg'/>"> --%>
@@ -293,20 +301,24 @@ function notifyme(message){
 						          <div class="post-item">
 						            <div class="thumb">
 						            <c:if test="${! empty item.teamLogo }" var="isLogo">
-						              <img src="/matching/Upload/${item.teamLogo }" alt="image" style="width:329px; height:231px"/>
+						              <img src="/matching/Upload/${item.teamLogo }" alt="image" style="width:100%; height:250px"/>
 					              	</c:if>
 					              	<c:if test="${not isLogo}">
 					              		<img src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6" alt="image" style="width:329px; height:231px"/>
 					              	</c:if>
+					              	<div style="background-color: slateblue;">　</div>
 						            </div>
-						            <div class="content">
-						              <ul class="post-meta">
+						            
+						            
+						            
+						            <div class="content" style="padding: 0px 0px 20px 20px;">
+						              <!-- <ul class="post-meta">
 						                <li><a href="#"><i class="fa fa-calendar"></i>04, March, 2019</a></li>
-						              </ul>
+						              </ul> -->
 						              <h3 class="post-title"><a href="#0"><label class="teamName" title="${item.teamName }" >${item.teamName }</label></a></h3>
-						             	 지역 <span style="font-size: 1.3em; color: navy; font-weight: bold"> ${item.teamLoc }</span>
-						              <p>Rating <span style="font-size: 1.3em; color: navy; font-weight: bold">${item.teamRating }</span> </p>
-						              <button style="margin-top: 5px;" type="button" class="btn btn-primary upModal"  data-toggle="modal" data-target="#myModal" title="${loop.index }">
+						             	 지역 <span style="font-size: 1.3em; color: mediumseagreen; font-weight: bold"> ${item.teamLoc }</span>
+						              <p>Rating <span style="font-size: 1.3em; color: darksalmon; font-weight: bold">${item.teamRating }</span> </p>
+						              <button id="change" style="margin-top: 15px;" type="button" class="btn btn-primary upModal"  data-toggle="modal" data-target="#myModal" title="${loop.index }">
 									    Matching Start!
 									  </button>
 						            </div>
@@ -650,10 +662,10 @@ function notifyme(message){
         <div class="modal-body">
          <div class="container">
             <div class="row justify-content-center">
-              <div class="col-lg-10">
+              <div class="col-lg-10" style="text-align: center;">
                 <!-- Portfolio Modal - Title -->
                 
-	              <img id="teamLogo" src="/matching/Upload/${item.teamLogo }" alt="image" style="width:329px; height:231px"/>
+	              <img id="teamLogo" src="/matching/Upload/${item.teamLogo }" alt="image" style="width:auto; height:auto;"/>
               	
                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="display: inline" id="teamName"></h2>
                 <h5 id="teamRating"></h5>
@@ -677,7 +689,6 @@ function notifyme(message){
 				        <td id="result4"></td>
 				      </tr>
 				      
-				      
 				    </tbody>
 				  </table>
 				  </div>
@@ -686,14 +697,14 @@ function notifyme(message){
                 </div>
                 <div class="col-lg-8">
                 <!-- Icon Divider -->
-                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" >Matching정보 입력</h3>
+                <h3 class="portfolio-modal-title text-secondary text-uppercase mb-0" style="text-align: center;">Matching정보 입력</h3>
                	<form id="frm">
                	<input type="hidden" id="user" value="${id }"/>
                	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                	<input name="awayteam" id="awayteam" type="hidden" value='sdfg'/>
 			    <div class="form-group" style="margin-bottom:-10px ">
 			      <label for="sel1">Date</label>
-			      <p><input name='date' type="text" id="datepicker" style="width:100%" ></p>
+			      <p><input name='date' type="text" id="datepicker" style="width:100%; padding-left: 15px;" ></p>
 			      <br>			   
 			    </div>
 			    <div class="form-group" style="margin-bottom:-10px ">
@@ -732,10 +743,10 @@ function notifyme(message){
 			      <label for="sel3" >Stadium</label>
 			      <select class="form-control" id="sel3" name="stadium" onchange="checkDateTime(this.value)" disabled="true"  >
 			        <option value="stadium">경기장</option>
-			        <option value="1">1</option>
-			        <option value="2">2</option>
-			        <option value="3">3</option>
-			        <option value="4">4</option>
+			        <option value="잠실경기장">잠실경기장</option>
+			        <option value="문학경기장">문학경기장</option>
+			        <option value="사직경기장">사직경기장</option>
+			        <option value="고척스카이돔">고척스카이돔</option>
 			      </select>
 			      <span id="stadiumError" style="color:red; font-size: 0.8em"></span>
 			      <br>			   
@@ -752,6 +763,5 @@ function notifyme(message){
         </div>
       </div>
     </div>
-  </div>
   
 

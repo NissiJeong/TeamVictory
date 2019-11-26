@@ -298,6 +298,13 @@ public class TeamController {
 			List<Map> AwayGameList = dao.selectAwayGameSchedule(map);
 			String hometeam = HomeGameList.get(0).get("TEAMNAME").toString();
 			double homeRating = Double.parseDouble(HomeGameList.get(HomeGameList.size()-1).get("TEAMRATING").toString());
+			System.out.println("=========================================================================");
+			for(int i=0;i<HomeGameList.size();i++) {
+				for(Object key : HomeGameList.get(i).keySet()) {
+					System.out.print(key+":"+HomeGameList.get(i).get(key)+" / ");
+				}					
+				System.out.println();
+			}
 			int home_homescore = Integer.parseInt(HomeGameList.get(0).get("HOMESCORE").toString());
 			int home_awayscore = Integer.parseInt(HomeGameList.get(0).get("AWAYSCORE").toString());
 			int homeMatchCount = HomeGameList.size();
@@ -308,7 +315,7 @@ public class TeamController {
 			int away_homescore = Integer.parseInt(AwayGameList.get(0).get("AWAYSCORE").toString());
 			double homeNewRating = CommonUtils.calcRating(homeRating, awayRating, homeMatchCount, home_homescore, home_awayscore);
 			double awayNewRating = CommonUtils.calcRating(awayRating, homeRating, awayMatchCount, away_homescore, away_awayscore);
-			System.out.println("home Rating:"+hometeam+":"+homeNewRating+"away Rating:"+awayteam+":"+awayNewRating);
+			//System.out.println("home Rating:"+hometeam+":"+homeNewRating+"away Rating:"+awayteam+":"+awayNewRating);
 			map.put("homeNewRating", homeNewRating);
 			map.put("awayNewRating", awayNewRating);
 			int isHomeUpdate = dao.updateHomeRating(map);
@@ -323,7 +330,7 @@ public class TeamController {
 			map.put("time",HomeGameList.get(0).get("TIME"));
 			map.put("stadium", HomeGameList.get(0).get("STADIUM"));
 			for(Object key : map.keySet()) {
-				System.out.println(key+":"+map.get(key));
+				//System.out.println(key+":"+map.get(key));
 			}
 			List<Map> bettingPersons = dao.selectBettings(map);
 			double totalMileage = 0;

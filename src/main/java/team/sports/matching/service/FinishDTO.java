@@ -1,6 +1,6 @@
 package team.sports.matching.service;
 
-public class FinishGameDTO {
+public class FinishDTO {
 	private String no;
 	private String gamedate;
 	private String time;
@@ -10,8 +10,6 @@ public class FinishGameDTO {
 	private String homelogo;
 	private String awayteam;
 	private String awaylogo;
-	private String stadium;
-	private String myteam;
 	
 	public String getNo() {
 		return no;
@@ -67,17 +65,4 @@ public class FinishGameDTO {
 	public void setAwaylogo(String awaylogo) {
 		this.awaylogo = awaylogo;
 	}
-	public String getStadium() {
-		return stadium;
-	}
-	public void setStadium(String stadium) {
-		this.stadium = stadium;
-	}
-	public String getMyteam() {
-		return myteam;
-	}
-	public void setMyteam(String myteam) {
-		this.myteam = myteam;
-	}
-	
 }

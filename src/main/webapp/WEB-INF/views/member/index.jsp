@@ -163,7 +163,7 @@
   </section> -->
  
 
-<section class="service-section section-padding section-bg" style="padding-top: 80px !important;">
+<section class="service-section section-padding" style="padding-top: 80px !important;">
     <div class="service-chart-image">
      
     </div>
@@ -177,7 +177,7 @@
         </div>
         <!-- Map Start -->
          <div class="map_wrap">
-            <div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden; float: right;"></div>
+            <div id="map" style="box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.15); width: 100%; height: 100%; position: relative; overflow: hidden; float: right;"></div>
             <div id="menu_wrap" class="bg_white" style="float: left;">
                <div class="option">
                   <div>

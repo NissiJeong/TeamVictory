@@ -577,11 +577,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<!-- 경기 최종 종료 누른 후 경기 끝난 Home 팀의 쿼리 가져오기 -->
 	<select id="selectHomeGameSchedule" parameterType="java.util.Map" resultType="Map">
-		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.teamname = t.teamname where (g.teamname = #{hometeam} or g.awayteam = #{hometeam}) order by no desc
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.teamname = t.teamname where (g.teamname = #{hometeam} or g.awayteam = #{hometeam}) and g.gamestatus='finish' order by no desc
 	</select>
 	<!-- 경기 최종 종료 누른 후 경기 끝난 Away 팀의 쿼리 가져오기 -->
 	<select id="selectAwayGameList" parameterType="java.util.Map" resultType="Map">
-		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.awayteam = t.teamname where (g.teamname = #{awayteam} or g.awayteam = #{awayteam}) order by no desc
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.awayteam = t.teamname where (g.teamname = #{awayteam} or g.awayteam = #{awayteam}) and g.gamestatus='finish' order by no desc
 	</select>
 	<!-- Home team rating update -->
 	<update id="updateHomeRating" parameterType="java.util.Map">

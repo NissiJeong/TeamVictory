@@ -11,6 +11,229 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from member where id=#{id} and pwd=#{pwd}
 	</select>
 	<select id="andSelectTeams" parameterType="java.util.Map" resultType="TeamDTO">
-		select * from team
+		select * from team where not manager_id=#{id}
 	</select>
+	<!-- 안드로이드에서 매칭 신청하면 isert -->
+	<insert id="insertMatch" parameterType="java.util.Map">
+		INSERT INTO matching VALUES(SEQ_MATCHING.NEXTVAL,(select teamname from team where manager_id=#{id}),#{awayteam},#{matchStadium},#{matchDate},#{matchTime},default)
+	</insert>
+	<!-- 안드로이드에 토큰 추가 -->
+	<insert id="insertToken" parameterType="java.util.Map">
+		INSERT INTO fcm_tokens values(SEQ_fcm_tokens.nextval,#{token})
+	</insert>
+	<!-- 나에게 신청한 매칭 리스트 가져오기 -->
+	<select id="selectMatchList" parameterType="java.util.Map" resultType="MatchDTO">
+		select m.*,t.teamloc,t.teamlogo,t.teamrating from matching m join team t on m.teamname = t.teamname 
+		where m.enemyteam = (select teamname from team where manager_id=#{id}) and m.matchstatus='waiting' order by m.matchingno desc
+	</select>
+	<!-- 매칭 승인후 -->
+	<update id="updateMatchStatus22222" parameterType="java.util.Map">
+		update matching set matchstatus='finish' where matchingno = #{no}
+	</update>
+	<!-- 매칭 거절 후  -->
+	<update id="updateMatchStatus333" parameterType="java.util.Map">
+		update matching set matchstatus='cancle' where matchingno = #{no}
+	</update>
+	<!-- 매칭 승인 후 경기 정보 가져오기 -->
+	<select id="selectGame2222" parameterType="java.util.Map" resultType="Map">
+		select * from matching where matchingno = #{no}
+	</select>
+	<!-- 매칭 승인 후 경기 입력 -->
+	<insert id="insertGameSchedule22222" parameterType="java.util.Map">
+		insert into gameschedule(no,gamedate,stadium,time,awayteam,gamestatus,teamname)
+		values(SEQ_GAMESCHEDULE.nextval,#{REQDATE},#{STADIUM},#{TIME},#{ENEMYTEAM},default,#{TEAMNAME})
+	</insert>
+	<!-- 게임 list가져오기 -->
+	<select id="selectGameList2333" parameterType="java.util.Map" resultType="GameDTO">
+		select g.gamedate,g.time,g.stadium,t.teamname,t.teamrating,t.teaminfo,t.teamlogo from gameschedule g join team t on g.awayteam = t.teamname or g.teamname = t.teamname 
+		where (g.teamname = (select teamname from team where manager_id=#{id}) or g.awayteam = (select teamname from team where manager_id=#{id})) 
+		and not t.teamname = (select teamname from team where manager_id=#{id}) order by g.gamedate desc
+	</select>
+	<!-- Betting List가져오기 -->
+	<select id="selectBettingList222" parameterType="java.util.Map" resultType="AndBettingDTO">
+		select g.no,g.gamedate,g.stadium,g.time,t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname
+		where (g.teamname != (select teamname from team where manager_id = #{id}) and g.awayteam != (select teamname from team where manager_id = #{id})) and gamestatus = 'waiting'
+	</select>
+	<!-- finish list가져오기 -->
+	<select id="selectFinishList222" parameterType="java.util.Map" resultType="FinishGameDTO">
+		select g.no,g.gamedate,g.time,g.homescore,g.awayscore, t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname where gamestatus = 'finish'
+	</select>
+	<!-- 내 마일리지 가져오기 -->
+	<select id="selectMyMileage222" parameterType="java.util.Map" resultType="int">
+		select point from member where id = #{id}
+	</select>
+	<!-- home팀 5경기 정보 가져오기 -->
+	<select id="selectHomeList222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule where (teamname = #{hometeam} or awayteam = #{hometeam}) and GAMESTATUS ='finish' order by gamedate desc)
+		<![CDATA[  
+		where rownum <= 5
+		]]> 
+	</select>
+	<!-- away팀 5경기 정보 가져오기 -->
+	<select id="selectAwayList222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule where (teamname = #{awayteam} or awayteam = #{awayteam}) and GAMESTATUS ='finish' order by gamedate desc)
+		<![CDATA[  
+		where rownum <= 5
+		]]> 
+	</select>
+	<!-- hometeam rating -->
+	<select id="selectHomeRating222" parameterType="java.util.Map" resultType="int">
+		select teamrating from team where teamname = #{hometeam}
+	</select>
+	<!-- awayteam rating -->
+	<select id="selectAwayRating222" parameterType="java.util.Map" resultType="int">
+		select teamrating from team where teamname = #{awayteam}
+	</select>
+	<!-- 배팅버튼 클릭시 insert -->
+	<insert id="insertBetting2222" parameterType="java.util.Map">
+		insert into betting values(seq_bettingno.nextval,#{date},#{stadium},#{time},#{id},#{selectteam},#{bettingmileage})
+	</insert>
+	<!-- 배팅 후에 마일리지 차감 -->
+	<update id="updateMyMileage222222" parameterType="java.util.Map">
+		update member set point=point-#{bettingmileage} where id=#{id}
+	</update>
+	<!-- 내 아이디로 해당 경기에 베팅 기록 있는지 -->
+	<select id="selectBettingMyId" parameterType="java.util.Map" resultType="Map">
+		select * from betting where id=#{id} and gamedate=#{date} and time=#{time} and stadium=#{stadium}
+	</select>
+	<!-- 프로필 업데이트 -->
+	<update id="updatePfrofile222" parameterType="java.util.Map">
+		update member set PROFILE= #{profile} where id=#{id} 
+	</update>
+	<!-- 내 프로필 가져오기 -->
+	<select id="selectProfile222" parameterType="java.util.Map" resultType="String">
+		select profile from member where id=#{id}
+	</select>
+	<!-- 이름 가져오기 -->
+	<select id="selectName222" parameterType="java.util.Map" resultType="String">
+		select name from member where id=#{id}
+	</select>
+	<!-- 생일 가져오기 -->
+	<select id="selectBirth222" parameterType="java.util.Map" resultType="String">
+		select BIRTH from member where id=#{id}
+	</select>
+	<!-- 연락처 가져오기 -->
+	<select id="selectContact222" parameterType="java.util.Map" resultType="String">
+		select PHONE from member where id=#{id}
+	</select>
+	<!-- 총 타수 가져오기 -->
+	<select id="tasu222" parameterType="java.util.Map" resultType="String">
+		select sum(pa) tpa from hitter where id=#{id}
+	</select>
+	<!-- 총 안타 가져오기 -->
+	<select id="anta222" parameterType="java.util.Map" resultType="String">
+		select sum(h) th from hitter where id=#{id}
+	</select>
+	<!-- 총 타점 가져오기 -->
+	<select id="tajeom222" parameterType="java.util.Map" resultType="String">
+		select sum(rbi) trbi from hitter where id=#{id}
+	</select>
+	<!-- 총 볼넷 가져오기 -->
+	<select id="ballnet222" parameterType="java.util.Map" resultType="String">
+		select sum(bb) tbb from hitter where id=#{id}
+	</select>
+	<!-- 총 타율 가져오기 -->
+	<select id="tayoul222" parameterType="java.util.Map" resultType="String">
+		select nvl(sum(h)/decode(sum(ab),0,null,sum(ab)),0) avg from hitter where id=#{id}
+	</select>
+	<!-- 한경기 타수 가져오기 -->
+	<select id="tasu333" parameterType="java.util.Map" resultType="String">
+		select pa from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 한경기 안타 가져오기 -->
+	<select id="anta333" parameterType="java.util.Map" resultType="String">
+		select h from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 한경기 타점 가져오기 -->
+	<select id="tajeom333" parameterType="java.util.Map" resultType="String">
+		select rbi from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 한경기 볼넷 가져오기 -->
+	<select id="ballnet333" parameterType="java.util.Map" resultType="String">
+		select bb from hitter where id=#{id} and rownum = 1 order by gamedate desc
+	</select>
+	<!-- 내팀 5경기 정보 가져오기 -->
+	<select id="selectMyTeamGameList222" parameterType="java.util.Map" resultType="Map">
+		select * from (select * from gameschedule where (teamname = (select teamname from team where manager_id=#{id}) or awayteam = (select teamname from team where manager_id=#{id})) and GAMESTATUS ='finish' order by gamedate desc)
+		<![CDATA[  
+		where rownum <= 5
+		]]> 
+	</select>
+	<!-- 내 팀 정보 가져오기 -->
+	<select id="selectRegidate222" parameterType="java.util.Map" resultType="Map">
+		select * from team where manager_id='nissi'
+	</select>
+	<!-- 팀원 수 구하기 -->
+	<select id="selectMember2222" parameterType="java.util.Map" resultType="String">
+		select count(*) from teammember where teamname = (select teamname from team where manager_id=#{id})
+	</select>
+	<!-- 최근 1경기 경기 이력 가져오기 -->
+	<select id="selectLastPredic222" parameterType="java.util.Map" resultType="Map">
+		select b.*,g.* from betting b join gameschedule g on b.gamedate = g.gamedate and b.time = g.time and b.stadium = g.stadium where b.id=#{id} and rownum=1 and g.gamestatus='finish' order by b.no desc
+	</select>
+	
+	<!-- 배당률 구하기 -->
+	<select id="selectBettings2222" parameterType="java.util.Map" resultType="Map">
+		select * from betting where gamedate = #{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
+=======
+		select * from team
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
+	</select>
+	<!-- waiting인 것 가져오기 -->
+	<select id="selectWaitingGame2222" parameterType="java.util.Map" resultType="FinishGameDTO">
+		select g.no,g.gamedate,g.stadium,g.time,g.homescore,g.awayscore, t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo,
+		(select teamname from team where manager_id=#{id}) myteam from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname 
+		where (g.teamname = (select teamname from team where manager_id=#{id}) or g.awayteam=(select teamname from team where manager_id=#{id})) 
+		and g.gamestatus = 'waiting'
+	</select>
+	<!-- gameStatus waiting -> inwaiting -->
+	<update id="updateInwating22222" parameterType="java.util.Map">
+		update gameschedule set gamestatus='inwaiting',homescore=#{homescore},awayscore=#{awaysocre} where no=#{no}
+	</update>
+	<update id="updateMileage3333" parameterType="java.util.Map">
+		MERGE INTO member m USING teammember t ON (m.id = t.id)  WHEN MATCHED THEN UPDATE SET m.point = m.point+200 where t.teamname = (select teamname from team where team.manager_id=#{id})
+	</update>
+	<!-- 상대방이 게임 종료한 게임 정보 가져오기 -->
+	<select id="selectInWaitingGame2222" parameterType="java.util.Map" resultType="FinishGameDTO">
+		select g.no,g.gamedate,g.stadium,g.time,g.homescore,g.awayscore, t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo,
+		(select teamname from team where manager_id=#{id}) myteam from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname 
+		where (g.teamname = (select teamname from team where manager_id=#{id}) or g.awayteam=(select teamname from team where manager_id=#{id})) 
+		and g.gamestatus = 'inwaiting'
+	</select>
+	<!-- 게임 마지막 finish -->
+	<update id="updateFinish2222" parameterType="java.util.Map">
+		update gameschedule set gamestatus='finish' where no=#{no}
+	</update>
+	<!-- 내가 finish누른 게임의 팀 이름 가져오기 위한 쿼리문 -->
+	<select id="selectGameSchedule2222" parameterType="java.util.Map" resultType="Map">
+		select * from gameschedule where no=#{no}
+	</select>
+	<!-- hometeam의 게임 정보 레이팅 올리기! -->
+	<select id="selectHomeGameSchedule2222" parameterType="java.util.Map" resultType="Map">
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.teamname = t.teamname where (g.teamname = #{TEAMNAME} or g.awayteam = #{TEAMNAME}) and g.gamestatus='finish' order by no desc
+	</select>
+	<!-- awayteam의 게임 정보 레이팅 올리기! -->
+	<select id="selectAwayGameList2222" parameterType="java.util.Map" resultType="Map">
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.awayteam = t.teamname where (g.teamname = #{AWAYTEAM} or g.awayteam = #{AWAYTEAM}) and g.gamestatus='finish' order by no desc
+	</select>
+	<!-- Home team rating update -->
+	<update id="updateHomeRating2222" parameterType="java.util.Map">
+		update team set TEAMRATING = #{homeNewRating} where teamname = #{TEAMNAME}
+	</update>
+	<!-- away team rating update -->
+	<update id="updateAwayRaing2222" parameterType="java.util.Map">
+		update team set TEAMRATING = #{awayNewRating} where teamname = #{AWAYTEAM}
+	</update>
+	<!-- 경기 끝난 팀에 베팅한 사람들 가져오기 -->
+	<select id="selectBettings22222222" parameterType="java.util.Map" resultType="Map">
+		select * from betting where gamedate = #{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
+	</select>
+	<!-- 경기 종료 후 경기 결과에 따라 point update -->
+	<update id="updatePoint2222" parameterType="java.util.Map">
+		UPDATE member SET point = point + #{myMileage} WHERE id=#{id}
+	</update>
 </mapper>

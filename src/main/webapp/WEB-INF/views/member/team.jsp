@@ -694,10 +694,19 @@ input:checked+label {
 <!-- banner-section end -->
 
 <!-- blog-details-section start -->
-<section class="blog-details-section section-padding"
-	style="margin-top: -50px;">
+<section class="blog-details-section "
+	style="margin-top: 40px;">
 
 	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7">
+	          <div class="section-header text-center">
+	            <h2 class="section-title">Team Infomation</h2>
+	            <p>팀 데이터와 매칭 정보를 확인 하세요!</p>
+	          </div>
+	        </div>
+	    </div>
+	
 		<div class="row">
 			<%-- <div class="row" id="team-name">
 				<div class="col-md-3" style="margin-bottom:10px">			      
@@ -710,6 +719,7 @@ input:checked+label {
 		    	</div>
 		    	
 			</div> --%>
+			
 			<div class="col-lg-2">
 				<input type="hidden" value="${id}" id="auth" />
 				<div id="team-name" style="margin-bottom: 10px">
