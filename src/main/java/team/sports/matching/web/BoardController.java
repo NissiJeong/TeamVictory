@@ -49,6 +49,8 @@ public class BoardController {
 	@RequestMapping("/Team/Matching/Board.do")
 	public String list(@RequestParam Map map, Model model, HttpServletRequest req,
 			@RequestParam(required = false, defaultValue = "1") int nowPage) {
+		for(Object key:map.keySet())
+			System.out.println(key+""+map.get(key));
 		// 서비스 호출]
 		// 페이징을 위한 로직 시작]
 		// 전체 레코드수
@@ -70,9 +72,14 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("pagingString", pagingString);
 		model.addAttribute("totalRecordCount", totalRecordCount);
+<<<<<<< HEAD
+		model.addAttribute("nowPage", nowPage);	
+		model.addAttribute("pageSize", pageSize);		
+=======
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("pageSize", pageSize);
 		System.out.println(map.get("searchWord"));
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 		// 뷰정보 반환]
 		return "community/bbs/Board.tiles";
 	}
@@ -109,7 +116,7 @@ public class BoardController {
 	@RequestMapping("/Team/Matching/View.do")
 	public String view(@RequestParam Map map, Model model) {
 		// 조회수 올리는 코드
-		boardService.getCountNo(map);
+		boardService.getCount(map);
 		// 서비스 호출]
 		BoardDTO record = boardService.selectOne(map);
 		// 데이타 저장]
@@ -131,6 +138,10 @@ public class BoardController {
 			// 수정 폼으로 이동]
 			return "community/bbs/Edit.tiles";
 		}
+<<<<<<< HEAD
+		
+=======
+>>>>>>> branch 'master' of https://github.com/NissiJeong/TeamVictory.git
 		// 수정처리후 메시지 뿌려주는 페이지(Message.jsp)로 이동
 		int sucFail = boardService.update(map);
 		req.setAttribute("WHERE", "EDT");
@@ -184,7 +195,7 @@ public class BoardController {
 	@RequestMapping("/Team/Matching/NoticeView.do")
 	public String noticeview(@RequestParam Map map, Model model) {
 		// 조회수 올리는 코드
-		boardService.getCountNo(map);
+		boardService.getCount(map);
 		// 서비스 호출]
 		BoardDTO record = boardService.selectOne(map);
 		// 데이타 저장]

@@ -14,6 +14,7 @@
 
 .w-2 {
 	width: 800px;
+	text-align:center;
 	border: 1px solid #333333;
 }
 
@@ -29,7 +30,7 @@
 	border: 1px solid #40A940;
 }
 .w-5 {
-	width: 650px;
+	width: 400px;
 	text-align:center;
 	border: 1px solid #40A940;
 }
@@ -64,7 +65,7 @@
 							<th class="w-2">제목</th>
 							<th class="w-3">작성자</th>
 							<th class="w-4">작성일</th>
-							<!-- <th class="w-5">메일</th> -->
+							<th class="w-5">메일</th>
 						</tr>
 					</thead>
 
@@ -76,14 +77,14 @@
 					<c:if test="${!isEmpty }">
 						<c:forEach var="item" items="${list }" varStatus="loop">
 							<tr>
-								<td class="w-1">${item.no }</td>
-								<td class="text-left"><a
-									href="<c:url value='/Team/Matching/Qview.do?no=${item.no }&nowPage='/>
-									<c:out value='${param.nowPage}' default='1'/>">${item.title }</a>
+								<td class="w-1">${loop.count }</td>
+								<td class="w-2"><!-- "text-left" --><%-- <a
+									href="<c:url value='/Team/admin/Qview.do?no=${item.no }&nowPage='/>
+									<c:out value='${param.nowPage}' default='1'/>"> --%>${item.title }<!-- </a> -->
 								</td>
 								<td  class="w-3">${item.id }</td>
 								<td  class="w-4">${item.postDate }</td>		
-								<td  class="w-5">${item.mail }</td>
+								<td  class="w-5">${item.mailname }@${item.mail }</td>
 							</tr>
 						</c:forEach>
 					</c:if>

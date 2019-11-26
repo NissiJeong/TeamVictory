@@ -35,7 +35,7 @@ public class BoardDAO implements BoardService {
 	}
 	
 	//조회수 올리는 메소드]
-	public int getCountNo(Map map) {
+	public int getCount(Map map) {
 		return template.update("updateboardcount",map);
 	}
 

@@ -87,7 +87,7 @@
 												<h5>아이디 ${record.id }</h5>
 												<%-- <i id="unread${totalRecordCount - (((nowPage -1) * pageSize)+ loop.index)}">Unread</i> --%>
 												
-												<span>조회수 ${record.countNo}</span>
+												<span>조회수 ${record.count}</span>
 												
 												<h4>
 													${record.title }

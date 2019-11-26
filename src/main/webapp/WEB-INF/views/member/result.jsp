@@ -11,7 +11,10 @@ video {
 	background: black;
 	border: 1px solid gray;
 }
-
+element.style {
+    margin-left: 150px;
+    text-align: center;
+}
 .call-page {
 	position: relative;
 	display: block;
@@ -21,7 +24,8 @@ video {
 }
 
 #localVideo {
-	width: 400px;
+	text-align: center;
+	width: 664px;
 	height: 500px;
 	position: absolute;
 	top: 15px;
@@ -35,15 +39,19 @@ video {
 p{
        text-align: center;
  }
+ 
+.justify-content-end {
+	padding: 0px 50px !important;
+}
 
 </style>
 
 
 <!-- league-result-section start -->
 
-<section class="league-result-section section-padding section-bg">
+<section class="league-result-section section-padding" style="padding-top: 70px; background-color: white;">
 
-<div id="loginPage" class="container text-center">
+<%-- <div id="loginPage" class="container text-center">
 		<script src="<c:url value='/assets/js/client.js'/>"></script>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
@@ -57,7 +65,7 @@ p{
 			</div>
 		</div>
 
-	</div>
+</div> --%>
 
 	<div id="callPage" class="call-page">
 		<video id="localVideo" autoplay></video>
@@ -79,13 +87,28 @@ p{
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-12">
+		<div id="loginPage" class="container text-center">
+		<script src="<c:url value='/assets/js/client.js'/>"></script>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4" style="text-align: left;">
+
+				<label for="usernameInput" class="sr-only">이름</label> <input
+					type="email" id="usernameInput" c lass="form-control formgroup"
+					placeholder="이름" required="" autofocus="">
+				<button id="loginBtn" class="btn btn-lg btn-primary btnblock" style="margin-top: 5px; margin-bottom: 15px;">
+					Live 방송보기</button>
+
+			</div>
+		</div>
+
+</div>
+			<div class="col-lg-12" style="box-shadow: 0 0 15px -1px rgba(55, 107, 255, 0.2); padding: 15px; background-color: #f3faff;">
 				<div class="league-result-area">
 					<div class="league-result-area-inner">
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>AM 09
+								<span class="date">04, Dec</br>AM 09
 								</span>
 							</div>
 							<div
@@ -109,7 +132,7 @@ p{
 							</div>
 							<div class="button-block justify-content-end">
 								<p>
-								<a href="#0" style="background-color:gray" class="cmn-btn btn-lg">경기 끝</a>
+								<a href="#0" style="background-color: var(--main-color); border: none;" class="cmn-btn btn-lg">경기 끝</a>
 								</p>
 							</div>
 						</div>
@@ -117,7 +140,7 @@ p{
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>AM 11
+								<span class="date">04, Dec</br>AM 11
 								</span>
 							</div>
 							<div
@@ -139,14 +162,14 @@ p{
 								</p>
 							</div>
 							<div class="button-block justify-content-end">
-								<a href="#0" class="cmn-btn btn-lg">경기중</a>
+								<a href="#0" style="background-color: #3CB371; border: none;" class="cmn-btn btn-lg">경기중</a>
 							</div>
 						</div>
 						<!-- league-result-item end -->
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>PM 02
+								<span class="date">04, Dec</br>PM 02
 								</span>
 							</div>
 							<div
@@ -168,14 +191,14 @@ p{
 								</p>
 							</div>
 							<div class="button-block justify-content-end">
-								<a href="#0" style="background-color:burlywood" class="cmn-btn btn-lg">경기 예정</a>
+								<a href="#0" style="background-color: #f76c12e8; border: none;" class="cmn-btn btn-lg">경기 예정</a>
 							</div>
 						</div>
 						<!-- league-result-item end -->
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>PM 04
+								<span class="date">04, Dec</br>PM 04
 								</span>
 							</div>
 							<div
@@ -197,7 +220,7 @@ p{
 								</p>
 							</div>
 							<div class="button-block justify-content-end">
-								<a href="#0" style="background-color:burlywood" class="cmn-btn btn-lg">경기 예정</a>
+								<a href="#0" style="background-color: #f76c12e8; border: none;" class="cmn-btn btn-lg">경기 예정</a>
 							</div>
 						</div>
 						<!-- league-result-item end -->

@@ -5,9 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <sec:authentication property="principal.username" var="id" />
 <sec:authentication property="principal.authorities" var="auth" />
-<c:forEach items="${auth}" var="item">
-	<h2>${item }</h2>
-</c:forEach>
+
 <style>
 .w-1 {
 	width: 80px;
@@ -85,10 +83,9 @@
 			<ul id="pillMenu" class="nav nav-pills center-block"
 				style="width: 280px">
 				<c:if test="${id == record.id }">					
-					<li><a class="btn btn-success" href="javascript:isQDelete()">삭제</a></li>
+					<li><a class="btn btn-success" href="javascript:isDelete()">삭제</a></li>
 				</c:if>
-				<li><a class="btn btn-success"
-					href="<c:url value='/Team/Matching/qa.do?nowPage=${param.nowPage}'/>">목록</a></li>
+					<li><a class="btn btn-success" href="<c:url value='/Team/admin/qa.do?nowPage=${param.nowPage}'/>">목록</a></li>
 			</ul>
 		</div>
 	</div>
@@ -101,10 +98,10 @@
 <!-- 실제 내용 끝 -->
 
 <script>
-	function isQDelete() {
+	function isDelete() {
 		if (confirm("정말로 삭제 하시겠습니까?")) {
 			location
-					.replace("<c:url value='/Team/Matching/Delete.do?no=${record.no}'/>");
+					.replace("<c:url value='/Team/admin/QDelete.do?no=${record.no}'/>");
 		}
 	}
 	function fnMovePage() {

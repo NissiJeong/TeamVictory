@@ -60,8 +60,8 @@
   </section>
   <!-- banner-section end -->
   
-  <section class="play-section section-padding section-bg">
-	<div class="container" style="border:1px solid red">
+  <section class="play-section section-padding" style="padding-top: 70px;">
+	<div class="container"><!--  style="border:1px solid red" -->
 
 		<div class="row justify-content-center">
 			<div class="col-lg-6">

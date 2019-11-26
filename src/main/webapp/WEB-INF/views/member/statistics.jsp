@@ -37,6 +37,15 @@
 	position: absolute;
 	right: 20%;
 }
+
+thead tr th {
+	 border: 1px solid #dee2e6;
+}
+
+tbody tr td {
+	 border: 1px solid #dee2e6;
+}
+
 </style>
 
 <!-- banner-section start -->
@@ -80,7 +89,7 @@
 										</span>
 										<h1 class="my-4">${PROFILE.NAME}</h1>
 									</c:forEach>
-									<div class="list-group">
+									<div class="list-group" style="box-shadow: 0 5px 15px -2px rgba(0, 0, 64, 0.15);">
 
 										<a href="#" class="list-group-item" id="hitterDetailbtn"
 											data-toggle="modal" data-target="#recordModal">타자 기록</a> <a
@@ -104,8 +113,9 @@
 								<div class="col-lg-1"></div>
 							</div> 
 							<!-- div col-lg-5 -->
-							<div class="col-lg-6"> <!-- style="border: 1px solid gold"  > -->
-								<div style="margin-top: -100px; text-align: center">
+							
+							<div class="col-lg-6" style="padding-top: 50px !important;">
+								<div style="margin-top: -100px; text-align: center;">
 									<!-- 데이터 출력!!! -->
 									<c:forEach var="hitters" items="${records}">
 										<div class="play-table-part listToChange scrollLocation">
@@ -125,7 +135,7 @@
 															</dl>
 														</div>
 														<div class="parent1" style="margin-top: 50px">
-															<div class="child1">
+															<div class="child1" style="box-shadow: 0 5px 15px -2px rgba(0, 0, 64, 0.15);"> 
 																<dl>
 																	<dt>
 																		<a href="/club/?club_idx=14322"> <img
@@ -154,7 +164,7 @@
 																	</dd>
 																</dl>
 															</div>
-															<div class="child2">
+															<div class="child2" style="box-shadow: 0 5px 15px -2px rgba(0, 0, 64, 0.15);">
 																<dl>
 																	<dt>
 																		<a href="/club/?club_idx=19031"> <img
@@ -511,8 +521,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<div class="modal-content">
 			<!-- Modal Header -->
-			<div class="modal-header text-center"
-				style="background-color: #000040;">
+			<div class="modal-header text-center" style="background-color: #000040;">
 				<h5 class="modal-title w-100" style="color: white">정보 수정</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					style="color: white; font-weight: bold;">×</button>
@@ -520,27 +529,30 @@
 			<!--Body-->
 			<div class="modal-body">
 				<div class="row">
-					<div class="col">
-						<form class="cmn-form contact-form"
-							action="<c:url value='/Team/Matching/profileChange.do?${_csrf.parameterName}=${_csrf.token}'/>"
-							id="form" runat="server" method="post"
-							enctype="multipart/form-data">
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
-							<div class="row">
-								<div class="col-md-6">
-									<div class="frm-group">
-										<input type='file' id="imgInput" name="upload"
-											style="display: none" />
-										<c:forEach var="PROFILE" items="${profile }">
-											<span class="image"> <img id="image_section"
-												src="<c:url value='/Upload/${PROFILE.PROFILE}'/>"
-												style="width: 190px; height: 190px" />
-											</span>
-										</c:forEach>
-										<label for="imgInput" class="btn btn-info">사진 선택</label>
-									</div>
-								</div>
+				<div class="col">
+					<form class="cmn-form contact-form" action="<c:url value='/Team/Matching/profileChange.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
+         			   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			              <div class="row">
+			              	<div class="col-md-6">
+			                  <div class="frm-group">
+								    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
+							   		<c:forEach var="PROFILE" items="${profile }" >
+										<span class="image">
+											<img id="image_section" src="<c:url value='/Upload/${PROFILE.PROFILE}'/>" style="width:190px;height:190px" />
+										</span>
+									</c:forEach>
+							   		<label for="imgInput" class="btn btn-info">사진 선택</label>
+			                  </div>
+			                </div>
+			               
+			                <div class="col-md-6">
+			                  <div class="frm-group">
+			                  <label for="sel3" >ID</label>
+			                    <input type="text"  id="manager_id" name="manager_id" disabled value="${id }">
+			                  <label for="sel3" >이름</label>
+			                    <input type="text" id="infoName" name="infoName">
+			                  </div>
+			                </div>
 
 								<div class="col-md-6">
 									<div class="frm-group">
