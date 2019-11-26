@@ -1035,7 +1035,7 @@ $(function() {
 			$("#dataTable2").DataTable();
 		})
 	});
-});
+}); 
 
 </script>
 
