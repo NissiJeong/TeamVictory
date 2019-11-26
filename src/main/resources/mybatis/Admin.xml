@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 파싱데이터 주입 -->
 	<select id="openInsertData" parameterType="java.util.Map" resultType="java.util.Map">
-		select * from gameschedule order by no
+		select * from gameschedule order by gamestatus desc,gamedate desc,time desc
 		<!-- select  g.* ,(select count(*) from betting b 
 			where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) count
 			from gameschedule g join team t on g.teamname =  t.teamname  order by  g.gamedate desc -->
@@ -89,6 +89,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getEachResult" parameterType="java.util.Map" resultType="java.util.Map">
+		
+		select aa.*, c.w,c.l,c.sv,c.hol,c.blsv,c.ci,c.co,c.tbf,c.pitch,c.pr,c.per,c.ph,c.pb2,c.pb3,c.phr,c.pbb,c.phbp,c.pso
+			from 
+			(select a.gamedate,a.stadium,a.time,a.id, b.name,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder from
+			(select h.* from hitter h join gameschedule g on h.gamedate=g.gamedate and h.stadium=g.stadium and h.time=g.time) a
+			join member b on a.id=b.id) aa left join pitcher c
+			on aa.id=c.id and aa.stadium=c.stadium and aa.time=c.time and aa.gamedate=c.gamedate
+			where aa.stadium=#{STADIUM} and aa.time=#{TIME} and aa.gamedate=#{GAMEDATE}
+		
+		
+		
+		<!-- 
 		select aa.*, c.w,c.l,c.sv,c.hol,c.blsv,c.ci,c.co,c.tbf,c.pitch,c.pr,c.per,c.ph,c.pb2,c.pb3,c.phr,c.pbb,c.phbp,c.pso
 			from 
 			(select a.gamedate,a.stadium,a.time,a.id, b.name,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder from
@@ -96,5 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			join member b on a.id=b.id) aa left join pitcher c
 			on aa.id=c.id
 			where aa.gamedate=#{GAMEDATE} and aa.stadium=#{STADIUM} and aa.time=#{TIME}
+			 -->
+			
 	</select>
 </mapper>

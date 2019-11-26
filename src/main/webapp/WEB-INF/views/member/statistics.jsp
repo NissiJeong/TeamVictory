@@ -7,9 +7,10 @@
 <sec:authentication property="principal.username" var="id" />
 <sec:authentication property="principal.authorities" var="auth" />
 <input type="hidden" value="${id}" id="auth" />
-<!-- 1.4.2 -->
-<script src='http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-<script	src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="//code.jquery.com/ui/jquery-ui-git.js"></script>
+
 <script	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
 <script src="<c:url value='/assets/js/utils.js' />"></script>
@@ -17,10 +18,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
-
-
 
 
 
@@ -69,16 +67,16 @@
 				<!-- blog-details-section start -->
 				<section class="blog-details-section section-padding">
 					<div class="container">
-						<div class="row">
-							<div class="col-lg-5"
-								style="border: 1px solid magenta; text-align: center">
+						<div class="row" class="banner">
+							<div class="col-lg-4" id="flyingDiv"
+								style="text-align: center;" > <!-- style="border: 1px solid magenta;  -->
 								<div></div>
 								<div>
 									<c:forEach var="PROFILE" items="${profile }">
 										<span class="image"> <img
 											src="<c:url value='/Upload/${PROFILE.PROFILE}'/>" alt="대표사진"
 											style="min-height: 190px; height: 300px;" for="imgInput"
-											id="please">
+					 						id="please">
 										</span>
 										<h1 class="my-4">${PROFILE.NAME}</h1>
 									</c:forEach>
@@ -104,9 +102,9 @@
 									</div>
 								</div>
 								<div class="col-lg-1"></div>
-							</div>
+							</div> 
 							<!-- div col-lg-5 -->
-							<div class="col-lg-6" style="border: 1px solid gold">
+							<div class="col-lg-6"> <!-- style="border: 1px solid gold"  > -->
 								<div style="margin-top: -100px; text-align: center">
 									<!-- 데이터 출력!!! -->
 									<c:forEach var="hitters" items="${records}">
@@ -119,10 +117,10 @@
 														<div>
 															<dl class="info">
 																<dt>
-																	<h1>${hitters.GAMEDATE}__ ${hitters.TIME}</h1>
+																	<h1>${hitters.GAMEDATE}_ ${hitters.TIME}</h1>
 																</dt>
 																<dd>
-																	<h1>${hitters.STADIUM}파크</h1>
+																	<h1>${hitters.STADIUM}</h1>
 																</dd>
 															</dl>
 														</div>
@@ -190,11 +188,44 @@
 														<br />
 														<div style="margin-top: 200px">
 															<p>
-																<strong>${hitters.HORDER}번 타자</strong>
-
+																<c:if test="${hitters.PA ne 0 }">
+																	<!-- c:choose - 타순 -->
+																	<c:choose>
+																		<c:when test="${hitters.HORDER == 1}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 2}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 3}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 4}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 5}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 6}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 7}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 8}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+																		<c:when test="${hitters.HORDER == 9}">
+																			<strong>${hitters.HORDER}번 타자</strong>
+																		</c:when>
+														 				<c:otherwise>
+																			<strong>교체 출전</strong>
+																		</c:otherwise>
+																	</c:choose>
+																</c:if>
 																<!-- c:choose - 포지션 출력 -->
 																<c:choose>
-																	<c:when test="${hitters.POS == 1}">
+																	<c:when test="${hitters.POS == 1 or hitters.TBF ne null}">
 																		<span>(투수)</span>
 																	</c:when>
 																	<c:when test="${hitters.POS == 2}">
@@ -221,8 +252,11 @@
 																	<c:when test="${hitters.POS == 9}">
 																		<span>(우익수)</span>
 																	</c:when>
-																	<c:otherwise>
+																	<c:when test="${hitters.POS == 0}">
 																		<span>(지명타자)</span>
+																	</c:when>
+																	<c:otherwise>
+																		<span>(대타/대주자)</span>
 																	</c:otherwise>
 																</c:choose>
 																<strong>${hitters.NAME }</strong>(${hitters.BACKNUMBER })
@@ -230,11 +264,11 @@
 														</div>
 													</div>
 												</div>
-												<c:if test="${hitters.PA ne null }">
-													<table>
+												<c:if test="${hitters.PA ne 0 }">
+													<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 														<thead>
 															<tr>
-																<th>타자기록</th>
+																<th>　　</th>
 																<th>타수</th>
 																<th>안타</th>
 																<th>타점</th>
@@ -255,10 +289,10 @@
 															</tr>
 														</tbody>
 													</table>
-													<table>
+													<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 														<thead>
 															<tr>
-																<th>통산기록</th>
+																<th>통산</th>
 																<th>타수</th>
 																<th>안타</th>
 																<th>타점</th>
@@ -282,37 +316,37 @@
 												</c:if>
 
 												<c:if test="${hitters.TBF ne null }">
-													<table>
+													<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 														<thead>
 															<tr>
-																<th>투수기록</th>
+																<th>　　</th>
 																<th>이닝</th>
-																<th>자책</th>
-																<th>피안타</th>
+																<th>ERA</th>
+																<th>자책점</th>
+																<th>안타</th>
 																<th>삼진</th>
 																<th>볼넷</th>
-																<th>평균자책</th>
 															</tr>
 														</thead>
 														<tbody>
 															<tr>
 																<td></td>
-																<td>${hitters.CI}.${hitters.CO }</td>
+																<td>${hitters.IP}</td>
+																<td>${hitters.ERA}</td>
 																<td>${hitters.PER}</td>
 																<td>${hitters.PH}</td>
 																<td>${hitters.PSO}</td>
 																<td>${hitters.PBB}</td>
-																<td>계산필요</td>
 															</tr>
 														</tbody>
 													</table>
-													<table>
+													<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 														<thead>
 															<tr>
-																<th>통산기록</th>
-																<th>출장</th>
+																<th>통산</th>
 																<th>이닝</th>
-																<th>평균자책</th>
+																<th>ERA</th>
+																<th>타자</th>
 																<th>승</th>
 																<th>패</th>
 																<th>삼진</th>
@@ -321,9 +355,9 @@
 														<tbody>
 															<tr>
 																<td></td>
-																<td>따로계산</td>
-																<td>계산필요</td>
-																<td>계산필요</td>
+																<td>${hitters.SUMIP}</td>
+																<td>${hitters.SUMERA}</td>
+																<td>${hitters.SUMTBF}</td>
 																<td>${hitters.SUMW}</td>
 																<td>${hitters.SUML }</td>
 																<td>${hitters.SUMPSO }<br /></td>
@@ -377,6 +411,10 @@
 								</div>
 
 								<div class="col-md-6">
+									
+								</div>
+
+								<div class="col-md-6">
 									<div class="frm-group">
 										<label for="sel3">키</label> <input type="text" id="infoHeight"
 											name="infoHeight" />
@@ -390,12 +428,7 @@
 									</div>
 								</div>
 
-								<div class="col-md-6">
-									<div class="frm-group">
-										<label for="sel3">뭐 넣지</label> <input type="button"
-											placeholder="뭐 넣지" />
-									</div>
-								</div>
+								
 
 								<div class="col-md-6">
 									<div class="frm-group">
@@ -412,53 +445,49 @@
 								</div>
 
 								<div class="col-md-6">
-									<div class="frm-group"></div>
-								</div>
-
-								<div class="col-md-6">
 									<div class="frm-group">
-										<p>
-											<strong>Checkbox</strong>
-										</p>
-
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" id="jb-checkbox1"
-												class="custom-control-input"> <label
-												class="custom-control-label" for="jb-checkbox1">체크할거</label>
-										</div>
-										<div class="custom-control custom-checkbox">
-											<input type="checkbox" id="jb-checkbox2"
-												class="custom-control-input"> <label
-												class="custom-control-label" for="jb-checkbox2">있나</label>
-										</div>
+										<label for="sel3">등번호</label> <input type="text"
+											id="infoBackNumber" name="infoBackNumber" />
 									</div>
 								</div>
-
-								<div class="col-md-6">
+								
+								<div class="col-md-12">
 									<div class="frm-group">
 										<p>
 											<strong>투타 구분</strong>
 										</p>
-										<div class="custom-control custom-radio">
-											<input type="radio" name="jb-radio" id="jb-radio-1"
-												class="custom-control-input"> <label
-												class="custom-control-label" for="jb-radio-1">우투우타</label>
+										<div class="custom-control custom-radio" style="display:inline;">
+											<input type="radio" name="jb-radio" id="jb-radio-1" class="custom-control-input">
+											<label class="custom-control-label" for="jb-radio-1">우투우타</label>
 										</div>
-										<div class="custom-control custom-radio">
-											<input type="radio" name="jb-radio" id="jb-radio-2"
-												class="custom-control-input"> <label
-												class="custom-control-label" for="jb-radio-2">우투좌타</label>
+										<div class="custom-control custom-radio" style="display:inline;">
+											<input type="radio" name="jb-radio" id="jb-radio-2" class="custom-control-input"> 
+											<label class="custom-control-label" for="jb-radio-2">우투좌타</label>
 										</div>
-										<div class="custom-control custom-radio">
-											<input type="radio" name="jb-radio" id="jb-radio-3"
-												class="custom-control-input"> <label
-												class="custom-control-label" for="jb-radio-3">좌투좌타</label>
+										<div class="custom-control custom-radio" style="display:inline;">
+											<input type="radio" name="jb-radio" id="jb-radio-3" class="custom-control-input"> 
+											<label class="custom-control-label" for="jb-radio-3">좌투좌타</label>
 										</div>
-										<div class="custom-control custom-radio">
-											<input type="radio" name="jb-radio" id="jb-radio-4"
-												class="custom-control-input"> <label
-												class="custom-control-label" for="jb-radio-4">좌투우타</label>
+										<div class="custom-control custom-radio" style="display:inline;">
+											<input type="radio" name="jb-radio" id="jb-radio-4" class="custom-control-input"> 
+											<label class="custom-control-label" for="jb-radio-4">좌투우타</label>
 										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="frm-group">
+										<p>
+											<strong>선출 구분</strong>
+										</p>
+										<div class="custom-control custom-radio" style="display:inline;">
+											<input type="radio" name="jb" id="jb-1" class="custom-control-input">
+											<label class="custom-control-label" for="jb-1">우투우타</label>
+										</div>
+										<div class="custom-control custom-radio" style="display:inline;">
+											<input type="radio" name="jb" id="jb-2" class="custom-control-input"> 
+											<label class="custom-control-label" for="jb-2">우투좌타</label>
+										</div>
+										
 									</div>
 								</div>
 
@@ -521,7 +550,6 @@
 											name="infoName">
 									</div>
 								</div>
-
 								<div class="col-md-6">
 									<div class="frm-group">
 										<label for="sel3">비밀번호</label> <input type="text"
@@ -534,21 +562,18 @@
 											id="infoPass2" disabled value="●●●●●●●●●">
 									</div>
 								</div>
-
 								<div class="col-md-6">
 									<div class="frm-group">
 										<label for="sel3">생년 월일</label> <input type="text"
 											id="infoBirth" name="infoBirth" />
 									</div>
 								</div>
-
 								<div class="col-md-6">
 									<div class="frm-group">
 										<label for="sel3">연락처</label> <input type="text"
 											id="infoCall" name="infoCall" />
 									</div>
 								</div>
-
 								<div class="col-md-6">
 									<div class="frm-group">
 										<label for="sel3" onClick="sample4_execDaumPostcode()">주소</label>
@@ -557,22 +582,12 @@
 											id="sample4_roadAddress" />
 									</div>
 								</div>
-
 								<div class="col-md-6">
 									<div class="frm-group">
-										<label for="sel3">상세주소 입력</label> <input type="text"
+										<label for="sel3">상세주소</label> <input type="text"
 											id="infoDetailAddress" name="infoDetailAddress" />
 									</div>
 								</div>
-
-								<div class="col-md-6">
-									<div class="frm-group">
-										<label for="sel3">등번호</label> <input type="text"
-											id="infoBackNumber" name="infoBackNumber" />
-									</div>
-								</div>
-
-
 								<div class="col-md-12">
 									<div class="frm-group text-center">
 										<button type="submit" class="submit-btn" id="register">수정</button>
@@ -609,12 +624,12 @@
 						</c:forEach>
 					</select>
 					<div class="wrapper">
-						<canvas id="chart-0"></canvas>
+						<canvas id="chartHitter"></canvas>
 					</div>
 					<div>
 						<div class="play-table-part">
 							<div class="play-table">
-								<table style="text-align: center">
+								<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 									<thead>
 										<tr>
 											<th>경기</th>
@@ -639,14 +654,14 @@
 										</tr>
 									</tbody>
 								</table>
-								<table style="text-align: center">
+								<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 									<thead>
 										<tr>
 											<th>2루타</th>
 											<th>3루타</th>
 											<th>루타</th>
 											<th>도루</th>
-											<th>도실</th>
+											<th>삼진</th>
 											<th>사구</th>
 											<th>병살</th>
 										</tr>
@@ -663,11 +678,11 @@
 										</tr>
 									</tbody>
 								</table>
-								<table style="text-align: center">
+								<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 									<thead>
 										<tr>
 											<th>K%</th>
-											<th>BB/K%</th>
+											<th>BB/K</th>
 											<th>타율</th>
 											<th>출루율</th>
 											<th>장타율</th>
@@ -683,7 +698,7 @@
 											<td id="hd18" class="detailData"></td>
 											<td id="hd19" class="detailData"></td>
 											<td id="hd20" class="detailData"></td>
-											<td id="hd21" class="detailData"><br /></td>
+											<td id="hd21" class="detailData"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -723,21 +738,21 @@
 						</c:forEach>
 					</select>
 					<div class="wrapper">
-						<canvas id="chart-1"></canvas>
+						<canvas id="chartPitcher"></canvas>
 					</div>
 					<div>
 						<div class="play-table-part">
 							<div class="play-table">
-								<table style="text-align: center">
+								<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 									<thead>
 										<tr>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
+											<th>출장</th>
+											<th>ERA</th>
+											<th>승</th>
+											<th>패</th>
+											<th>승률</th>
+											<th>타자</th>
+											<th>투구수</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -752,16 +767,16 @@
 										</tr>
 									</tbody>
 								</table>
-								<table style="text-align: center">
+								<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 									<thead>
 										<tr>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
+											<th>이닝</th>
+											<th>피안타</th>
+											<th>피2타</th>
+											<th>피3타</th>
+											<th>피홈런</th>
+											<th>볼넷</th>
+											<th>사구</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -776,16 +791,16 @@
 										</tr>
 									</tbody>
 								</table>
-								<table style="text-align: center">
+								<table style="text-align: center;table-layout:fixed; word-break:break-all;">
 									<thead>
 										<tr>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
-											<th>정보</th>
+											<th>실점</th>
+											<th>자책점</th>
+											<th>K/9</th>
+											<th>BB/9</th>
+											<th>K/BB</th>
+											<th>WHIP</th>
+											<th>FIP</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -815,7 +830,6 @@
 </div>
 
 
-
 <!-- 베팅 이력 모달 -->
 <div class="modal fade" id="bettingModal">
 	<div class="modal-dialog  modal-lg" role="document">
@@ -829,6 +843,10 @@
 			</div>
 
 			<div class="modal-body">
+				<div>	
+					<div style="display:inline; font-size:2em">나의 마일리지 : </div>
+					<div id="myMileage" style="display:inline; font-size:2.6em; color:red;"></div>
+				</div>
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
 					<thead>
@@ -865,254 +883,403 @@
 </div>
 
 
-<!-- 사진 쓱싹변경 -->
+
+<!-- 로딩시 불러올 부분 - 사진 변경 -->
 <script>
-	$(function() {
+$(function() {
+	
+	// 사진 변경부분	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
 
-		// 사진 변경부분	
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-
-				reader.onload = function(e) {
-					$('#image_section').attr('src', e.target.result);
-				}
-				reader.readAsDataURL(input.files[0]);
+			reader.onload = function(e) {
+				$('#image_section').attr('src', e.target.result);
 			}
+			reader.readAsDataURL(input.files[0]);
 		}
+	}
 
-		$("#imgInput").change(function() {
-			readURL(this);
-		});
+	$("#imgInput").change(function() {
+		readURL(this);
 	});
+});
 </script>
 
 
 <!--프로필 정보 불러오기 // 프로필 변경  -->
 <script>
-	$(function() {
-		$("#infoBtn").click(function() {
-
-			$.ajax({
-				url : "<c:url value='/Team/Matching/memberInfo.do'/>",
-				type : "post",
-				data : {
-					USER_ID : $('#auth').val(),
-					'_csrf' : '${_csrf.token}'
-				},
-
-				success : function(data) {
-					if (data != "") {
-						$(data).each(function() {
-							$('#infoName').val(this.NAME);
-							$('#infoBirth').val(this.BIRTH);
-							$('#infoCall').val(this.PHONE);
-							$('#sample4_roadAddress').val(this.LOCATION);
-							$('#infoDetailAddress').val(this.LOCATION_2);
-							$('#infoBackNumber').val(this.BACKNUMBER);
-						});// each 
-					}
-				},
-				error : function(e) {
-					alert("회원정보 불러오기 실패");
-				}
-			});
-		});
-
-		$("#playerBtn").click(function() {
-
-			$.ajax({
-				url : "<c:url value='/Team/Matching/playerInfo.do'/>",
-				type : "post",
-				data : {
-					USER_ID : $('#auth').val(),
-					'_csrf' : '${_csrf.token}'
-				},
-
-				success : function(data) {
-					if (data != "") {
-						$(data).each(function() {
-							$('#infoSchool').val(this.SCHOOL);
-							$('#infoHeight').val(this.HEIGHT + " cm");
-							$('#infoWeight').val(this.WEIGHT + " kg");
-						});// each 
-					}
-				},
-				error : function(e) {
-					alert("플레이어정보 불러오기 실패");
-				}
-			});
-		});
-
+$(function() {
+	$("#infoBtn").click(function() {
 		$.ajax({
-			url : "<c:url value='/Team/Matching/bettingInfo.do'/>",
+			url : "<c:url value='/Team/Matching/memberInfo.do'/>",
 			type : "post",
 			data : {
 				USER_ID : $('#auth').val(),
 				'_csrf' : '${_csrf.token}'
 			},
-
 			success : function(data) {
-				var str = "";
 				if (data != "") {
 					$(data).each(function() {
-						str += '<tr>' + '<th>' + this.GAME + '</th>' + '<th>' + this.SELECTTEAM + '</th>' + '<th>' + this.COUNT + '</th>' + '<th>' + this.RATE + '</th>' + '</tr>';
-					});// each 
-					$("#dataTableTarget").append(str);
+						
+						$('#infoName').val(this.NAME);
+						$('#infoBirth').val(this.BIRTH);
+						$('#infoCall').val(this.PHONE);
+						$('#sample4_roadAddress').val(this.LOCATION);
+						$('#infoDetailAddress').val(this.LOCATION_2);
+					});// each
 				}
 			},
 			error : function(e) {
-				alert("플레이어정보 불러오기 실패");
+				alert("회원정보 불러오기 실패");
 			}
 		});
-
-		$.ajax({
-			url : "<c:url value='/Team/Matching/bettingInfo2.do'/>",
-			type : "post",
-			data : {
-				USER_ID : $('#auth').val(),
-				'_csrf' : '${_csrf.token}'
-			},
-
-			success : function(data) {
-				var str = "";
-				if (data != "") {
-					$(data).each(function() {
-						str += '<tr>' + '<th>' + this.GAME + '</th>' + '<th>' + this.GAMERESULT + '</th>' + '<th>' + this.CORRECT + '</th>' + '<th>' + this.INCORDEC + '</th>' + '</tr>';
-					});// each 
-					$("#dataTableTarget2").append(str);
-				}
-			},
-			error : function(e) {
-				alert("플레이어정보 불러오기 실패");
-			}
-		});
-
-		$("#bettingBtn").click(function() {
-
-			jQuery(function($) {
-				$("#dataTable").DataTable();
-			});
-
-			jQuery(function($) {
-				$("#dataTable2").DataTable();
-			})
-		});
-
 	});
+
+	$("#playerBtn").click(function() {
+
+		$.ajax({
+			url : "<c:url value='/Team/Matching/playerInfo.do'/>",
+			type : "post",
+			data : {
+				USER_ID : $('#auth').val(),
+				'_csrf' : '${_csrf.token}'
+			},
+
+			success : function(data) {
+				if (data != "") {
+					$(data).each(function() {
+						$('#infoSchool').val(this.SCHOOL);
+						$('#infoHeight').val(this.HEIGHT + " cm");
+						$('#infoWeight').val(this.WEIGHT + " kg");
+						$('#infoBackNumber').val(this.BACKNUMBER);
+					});// each 
+				}
+			},
+			error : function(e) {
+				alert("플레이어정보 불러오기 실패");
+			}
+		});
+	});
+	
+	$.ajax({
+		url : "<c:url value='/Team/Matching/getMileage.do'/>",
+		type : "post",
+		data : {
+			USER_ID : $('#auth').val(),
+			'_csrf' : '${_csrf.token}'
+		},
+		success : function(data) {
+			if (data != "") {
+				$(data).each(function() {
+					$('#myMileage').text(this.MILEAGE);
+				});// each 
+			}
+		}, 
+	});
+	
+	$.ajax({
+		url : "<c:url value='/Team/Matching/bettingInfo.do'/>",
+		type : "post",
+		data : {
+			USER_ID : $('#auth').val(),
+			'_csrf' : '${_csrf.token}'
+		},
+
+		success : function(data) {
+			var str = "";
+			if (data != "") {
+				$(data).each(function() {
+					str += '<tr>' + '<th>' + this.GAME + '</th>' + '<th>' + this.SELECTTEAM + '</th>' + '<th>' + this.COUNT + '</th>' + '<th>' + this.RATE + '</th>' + '</tr>';
+				});// each 
+				$("#dataTableTarget").append(str);
+			}
+		},
+		error : function(e) {
+			alert("플레이어정보 불러오기 실패");
+		}
+	});
+
+	$.ajax({
+		url : "<c:url value='/Team/Matching/bettingInfo2.do'/>",
+		type : "post",
+		data : {
+			USER_ID : $('#auth').val(),
+			'_csrf' : '${_csrf.token}'
+		},
+		success : function(data) {
+			var str = "";
+			if (data != "") {
+				$(data).each(function() {
+					str += '<tr>' + '<th>' + this.GAME + '</th>' 
+						+ '<th>' + this.GAMERESULT + '</th>'
+						+ '<th>' + this.CORRECT + '</th>'
+						+ '<th>' + this.INCORDEC
+						+ '</th>' + '</tr>';
+				});// each 
+				$("#dataTableTarget2").append(str);
+			}
+		},
+		error : function(e) {
+			alert("플레이어정보 불러오기 실패");
+		}
+	});
+
+	$("#bettingBtn").click(function() {
+
+		jQuery(function($) {
+			$("#dataTable").DataTable();
+		});
+
+		jQuery(function($) {
+			$("#dataTable2").DataTable();
+		})
+	});
+});
+
 </script>
 
 
-<!-- 로딩시 불러올 부분 - 차트의 기본 옵션 설정 -->
+<!-- 모달 처리부  -->
 <script>
-	$(function() {
-		/* 차트 부분 */
-		var DATA_COUNT = 6;
-		var utils = Samples.utils;
-		utils.srand(110);
-		function getLineColor(ctx) {
-			return utils.color(ctx.datasetIndex);
-		}
-		function alternatePointStyles(ctx) {
-			var index = ctx.dataIndex;
-			return index % 2 === 0 ? 'circle' : 'rect';
-		}
-		function makeHalfAsOpaque(ctx) {
-			return utils.transparentize(getLineColor(ctx));
-		}
+//타자모달 버튼 클릭 
+$(function() { 
 
-		function make20PercentOpaque(ctx) {
-			return utils.transparentize(getLineColor(ctx), 0.8);
+	/* 차트 부분 */
+	var DATA_COUNT = 6;
+	var utils = Samples.utils;
+	utils.srand(110);
+	
+	
+	function getLineColor(ctx) {
+		return utils.color(ctx.datasetIndex);
+	}
+	
+	function alternatePointStyles(ctx) {
+		var index = ctx.dataIndex;
+		return index % 2 === 0 ? 'circle' : 'rect';
+	}
+	function makeHalfAsOpaque(ctx) {
+		return utils.transparentize(getLineColor(ctx));
+	}
+	
+	function make20PercentOpaque(ctx) {
+		return utils.transparentize(getLineColor(ctx), 0.8);
+	}
+	
+	function adjustRadiusBasedOnData(ctx) {
+		var v = ctx.dataset.data[ctx.dataIndex];
+		return v < 10 ? 5 : v < 25 ? 7 : v < 50 ? 9 : v < 75 ? 11 : 15;
+	}
+	
+	
+	var options = {
+		legend : false,
+		tooltips : true,
+		animation: {
+            duration: 1000
+        },
+		scale : {
+			ticks : {
+				beginAtZero : true,
+				max : 10,
+				min : 0,
+				stepSize : 2
+			}
+		},
+		elements : {
+			line : { 
+				backgroundColor: 'rgba(77, 201, 246,0.5)',
+	            borderColor: 'rgba(77, 201, 246,0.5)',
+				/*
+				backgroundColor : make20PercentOpaque,
+				borderColor : getLineColor,
+				*/
+			
+			},
+			point : {
+				backgroundColor : getLineColor,
+				hoverBackgroundColor : makeHalfAsOpaque,
+				radius : adjustRadiusBasedOnData,
+				pointStyle : alternatePointStyles,
+				hoverRadius : 15,
+			},
 		}
-
-		function adjustRadiusBasedOnData(ctx) {
-			var v = ctx.dataset.data[ctx.dataIndex];
-			return v < 10 ? 5 : v < 25 ? 7 : v < 50 ? 9 : v < 75 ? 11 : 15;
-		}
-
-		var chartData = {
-			labels : [ [ 'CONTACT', '타율' ], [ 'BATTING EYE', '선구안' ], [ 'SPEED', '속도' ], [ 'POWER', '파워' ], [ 'HOME RUN', '홈런' ], [ 'LUCK', '행운' ] ],
+	};
+	
+	
+	var chartDataBase = {
+		labels : [ ['CONTACT', '컨택'], ['BATTING EYE', '선구안'], ['POWER', '장타'], ['HOMERUN', '홈런'], ['SPEED', '속도'], ['HITTING', '종합타격능력']],
+		datasets : [ {
+			data : [0, 0, 0, 0, 0, 0]
+		} ] 
+	};
+	var chartDataBase2 = {
+			labels : [ [ 'INNING', '이닝 소화력' ], [ 'CONTROL', '제구력' ], [ 'WHIP', '억제력' ], [ 'ERA', '방어율' ], [ 'HOMERUN', '피홈런' ], [ 'PITCHING', '종합 투구능력' ] ],
 			datasets : [ {
-				data : [ 0, 0, 0, 0, 0, 0 ]
+				data : [0, 0, 0, 0, 0, 0]
 			} ]
 		};
-		
-		var chartData2 = {
-				labels : [ [ '이닝 당', '상대한 타자' ], [ '뭐 어떻게', '하는거임??' ], 'Sleeping', [ 'Designing', 'Graphics' ], 'Coding', 'Cycling' ],
-
-				datasets : [ {
-					data : [ 0, 0, 0, 0, 0, 0 ]
-				} ]
-			};
-
-		var options = {
-			legend : false,
-			tooltips : true,
-			scale : {
-				ticks : {
-					beginAtZero : true,
-					max : 10,
-					min : 0,
-					stepSize : 2
-				}
-			},
-			elements : {
-				line : {
-					backgroundColor : make20PercentOpaque,
-					borderColor : getLineColor,
-				},
-				point : {
-					backgroundColor : getLineColor,
-					hoverBackgroundColor : makeHalfAsOpaque,
-					radius : adjustRadiusBasedOnData,
-					pointStyle : alternatePointStyles,
-					hoverRadius : 15,
-				},
-
-			}
-		};
-		
-		var chart = new Chart('chart-0', {
-			type : 'radar',
-			data : chartData,
-			options : options
-		});
-		
-		var chart2 = new Chart('chart-1', {
-			type : 'radar',
-			data : chartData2,
-			options : options
-		});
-		
-
+	
+	var hitterChart = new Chart('chartHitter', {
+		type : 'radar', 
+		data : chartDataBase,
+		options : options
 	});
-</script>
-
-
-
-<!-- 타자 정보보기 클릭  -->
-<script>
-	//타자모달 버튼 클릭 
-	var clickHitterBtn = $('#hitterDetailbtn').click(function() {
-
+	var pitcherChart = new Chart('chartPitcher', {
+		type : 'radar',
+		data : chartDataBase2,
+		options : options
+	});
+	
+	var isEmpty = function(value){ 
+		if(value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+			return true;
+		}
+		else { 
+			return false;
+		} 
+	};
+	
+	
+	$('#hitterDetailbtn').click(function() {
+		//차트 변경
 		$.ajax({
-			url : "<c:url value='/Team/Matching/hitterDetailView.do'/>",
+			url : "<c:url value='/Team/Matching/getHitterChart.do'/>",
+			type : "post",
 			data : {
 				USER_ID : $('#auth').val(),
 				'_csrf' : '${_csrf.token}'
 			},
-			type : 'post',
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"
+			dataType : 'json',
+			success : function(data) {
+				if (data != "") {
+					console.log(data);
+					hitterChart.clear();
+					$(data).each(function() {
+						hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE];
+						hitterChart.update();
+						/*
+						var chartDataHitter = {
+								labels : [ ['CONTACT', '컨택'], ['BATTING EYE', '선구안'], ['POWER', '장타'], ['HOMERUN', '홈런'], ['SPEED', '속도'], ['HITTING', '종합타격능력']],
+								datasets : [ {
+									data : [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE]
+								} ]
+						};
+							
+						var hitterChart = new Chart('chartHitter', {
+							type : 'radar',
+							data : chartDataHitter,
+							options : options
+						});
+						*/
+					});// each 
+				} 
+			}
+		}); // ajax 
+		
+		$.ajax({
+			url : "<c:url value='/Team/Matching/hitterDetailView.do'/>",
+			type : "post",
+			data : {
+				USER_ID : $('#auth').val(),
+				'_csrf' : '${_csrf.token}'
 			},
 			dataType : 'json',
 			success : function(data) {
 				/*  $(".detailData").text(""); */
-				if (data != "") {
+				if (!isEmpty(data)) {
 					console.log(data);
 					$(data).each(function() {
-						$('#hd1').text(this.RECORDNO);
+						$('#hd1').text(this.COUNT);
+						$('#hd2').text(this.SUMPA);
+						$('#hd3').text(this.SUMAB);
+						$('#hd4').text(this.SUMRBI);
+						$('#hd5').text(this.SUMH);
+						$('#hd6').text(this.SUMBB);
+						$('#hd7').text(this.SUMHR);
+						$('#hd8').text(this.SUMB2);
+						$('#hd9').text(this.SUMB3);
+						$('#hd10').text(this.RUTA);
+						$('#hd11').text(this.SUMSB);
+						$('#hd12').text(this.SUMSO);
+						$('#hd13').text(this.SUMHBP);
+						$('#hd14').text(this.SUMGDP);
+						$('#hd15').text(this.KPER);
+						$('#hd16').text(this.BBKPER);
+						$('#hd17').text(this.TA);
+						$('#hd18').text(this.CHUL);
+						$('#hd19').text(this.JANG);
+						$('#hd20').text(this.OPS);
+						$('#hd21').text(this.WOBA);
+						
+					});// each 
+				} else {
+					alert("불러올 데이터가 없습니다.");
+				}// else
+			}
+		}); // ajax 
+		
+	});////////  clickDetailBtn
+	
+	$('#selectTeam').change(function() {
+		
+		//차트 변경
+		$.ajax({
+			url : "<c:url value='/Team/Matching/getHitterChartTeam.do'/>",
+			type : "post",
+			data : {
+				USER_ID : $('#auth').val(),
+				TEAMNAME : $(this).val(),
+				'_csrf' : '${_csrf.token}'
+			},
+			dataType : 'json',
+			success : function(data) {
+				if (data != "") {
+					console.log(data);
+					hitterChart.clear();
+					$(data).each(function() {
+
+						hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE];
+						hitterChart.update();
+						
+						/*
+						var chartDataHitter = {
+								labels : [ ['CONTACT', '컨택'], ['BATTING EYE', '선구안'], ['POWER', '장타'], ['HOMERUN', '홈런'], ['SPEED', '속도'], ['HITTING', '종합타격능력']],
+								datasets : [ {
+									data : [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE]
+								} ]
+						};
+						
+						
+						var hitterChart = new Chart('chartHitter', {
+							type : 'radar',
+							data : chartDataHitter,
+							options : options
+						});
+						*/
+						
+					});// each 
+				} 
+			}
+		}); // ajax
+		
+		
+		$.ajax({
+			url : "<c:url value='/Team/Matching/hitterDetailViewEachTeam.do'/>",
+			data : {
+				USER_ID : $('#auth').val(),
+				TEAMNAME : $(this).val(),
+				'_csrf' : '${_csrf.token}'
+			},
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				
+				if (!isEmpty(data)) {
+					
+					$(data).each(function() {
+						$('#hd1').text(this.COUNT);
 						$('#hd2').text(this.SUMPA);
 						$('#hd3').text(this.SUMAB);
 						$('#hd4').text(this.SUMRBI);
@@ -1133,73 +1300,46 @@
 						$('#hd19').text(this.JANG);
 						$('#hd20').text(this.OPS);
 						$('#hd21').text(this.WOBA);
-
-						chartData = {
-							labels : [ [ 'CONTACT', '타율' ], [ 'BATTING EYE', '선구안' ], [ 'SPEED', '속도' ], [ 'POWER', '파워' ], [ 'HOME RUN', '홈런' ], [ 'LUCK', '행운' ] ],
-							datasets : [ {
-								data : [ ($('#hd2').text() * 10 / $('#hd1').text()), 0, 0, 0, 0, 0 ]
-							} ]
-						};
-						chart.clear();
-						chart = new Chart('chart-0', {
-							type : 'radar',
-							data : chartData,
-							options : options
-						});
+						
 					});// each 
 				} else {
-					alert("불러올 데이터가 없습니다.");
-				}// else
-			}
-		}); // ajax 
-
-	});////////  clickDetailBtn
-</script>
-
-
-
-
-
-
-<!-- 타자 selectItem 체인지 이벤트 -->
-<script>
-	$('#selectTeam').change(function() {
-		$.ajax({
-			url : "<c:url value='/Team/Matching/hitterDetailViewEachTeam.do'/>",
-			data : {
-				USER_ID : $('#auth').val(),
-				USER_TEAMNAME : $(this).val(),
-				'_csrf' : '${_csrf.token}'
-			},
-			type : 'post',
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType : 'json',
-			success : function(data) {
-				/* $(".detailData").text(""); */
-				if (data != "") {
-					console.log(data);
-					$(data).each(function() {
-						$('#hd1').text(this.SUMAB);
-						$('#hd2').text(this.SUMH);
-						$('#hd4').text(this.SUMHR);
-
-						chartData = {
-							labels : [ [ 'CONTACT', '타율' ], [ 'BATTING EYE', '선구안' ], [ 'SPEED', '속도' ], [ 'POWER', '파워' ], [ 'HOME RUN', '홈런' ], [ 'LUCK', '행운' ] ],
-							datasets : [ {
-								data : [ ($('#hd2').text() * 100 / $('#hd1').text()), 0, 0, 0, 0, 0 ]
-							} ]
-						};
-						chart.clear();
-						chart = new Chart('chart-0', {
-							type : 'radar',
-							data : chartData,
-							options : options
-						});
-					});// each 
-				} else {
+					
+					//차트 변경
+					$.ajax({
+						url : "<c:url value='/Team/Matching/getHitterChart.do'/>",
+						type : "post",
+						data : {
+							USER_ID : $('#auth').val(),
+							'_csrf' : '${_csrf.token}'
+						},
+						dataType : 'json',
+						success : function(data) {
+							if (data != "") {
+								console.log(data);
+								hitterChart.clear();
+								$(data).each(function() {
+									
+									hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE];
+									hitterChart.update();
+									/*
+									var chartDataHitter = {
+											labels : [ ['CONTACT', '컨택'], ['BATTING EYE', '선구안'], ['POWER', '장타'], ['HOMERUN', '홈런'], ['SPEED', '속도'], ['HITTING', '종합타격능력']],
+											datasets : [ {
+												data : [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE]
+											} ]
+									};
+										
+									var hitterChart = new Chart('chartHitter', {
+										type : 'radar',
+										data : chartDataHitter,
+										options : options
+									});
+									*/
+								});// each 
+							} 
+						}
+					}); // ajax
+					
 					$.ajax({
 						url : "<c:url value='/Team/Matching/hitterDetailView.do'/>",
 						data : {
@@ -1210,23 +1350,30 @@
 						dataType : 'json',
 						success : function(data) {
 							/* $(".detailData").text(""); */
-							if (data != "") {
+							if (!isEmpty(data)) {
 								$(data).each(function() {
-									$('#hd1').text(this.SUMAB);
-									$('#hd2').text(this.SUMH);
-									$('#hd4').text(this.SUMHR);
-									chartData = {
-										labels : [ [ 'CONTACT', '타율' ], [ 'BATTING EYE', '선구안' ], [ 'SPEED', '속도' ], [ 'POWER', '파워' ], [ 'HOME RUN', '홈런' ], [ 'LUCK', '행운' ] ],
-										datasets : [ {
-											data : [ ($('#hd2').text() * 100 / $('#hd1').text()), 0, 0, 0, 0, 0 ]
-										} ]
-									};
-									chart.clear();
-									chart = new Chart('chart-0', {
-										type : 'radar',
-										data : chartData,
-										options : options
-									});
+									$('#hd1').text(this.COUNT);
+									$('#hd2').text(this.SUMPA);
+									$('#hd3').text(this.SUMAB);
+									$('#hd4').text(this.SUMRBI);
+									$('#hd5').text(this.SUMH);
+									$('#hd6').text(this.SUMBB);
+									$('#hd7').text(this.SUMHR);
+									$('#hd8').text(this.SUMB2);
+									$('#hd9').text(this.SUMB3);
+									$('#hd10').text(this.RUTA);
+									$('#hd11').text(this.SUMSB);
+									$('#hd12').text(this.SUMCS);
+									$('#hd13').text(this.SUMHBP);
+									$('#hd14').text(this.SUMGDP);
+									$('#hd15').text(this.KPER);
+									$('#hd16').text(this.BBKPER);
+									$('#hd17').text(this.TA);
+									$('#hd18').text(this.CHUL);
+									$('#hd19').text(this.JANG);
+									$('#hd20').text(this.OPS);
+									$('#hd21').text(this.WOBA);
+									
 								});// each 
 							}
 						}
@@ -1235,356 +1382,562 @@
 			}
 		}); // ajax 
 	});////////  clickSelectItem
-</script>
-
-
-<!-- 투수 정보보기 클릭 -->
-<script>
-//투수 정보 클릭 
-$('#pitcherDetailbtn').click(function() {
-	$.ajax({
-		url : "<c:url value='/Team/Matching/pitcherDetailView.do'/>",
-		data : {
-			USER_ID : $('#auth').val(),
-			'_csrf' : '${_csrf.token}'
-		},
-		type : 'post',
-		headers : {
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType : 'json',
-		success : function(data) {
-			/*  $(".detailData").text(""); */
-			if (data != "") {
-				console.log(data);
-				$(data).each(function() {
-					$('#pd1').text(this.SUMCI);
-					$('#pd2').text(this.SUMTBF);
-					$('#pd4').text(this.SUMPH);
-					chartData2 = {
-						labels : [ [ '이닝 당', '상대한 타자' ], [ '투수기록', '출력중' ], '팀전체보기', [ 'Designing', 'Graphics' ], 'Coding', 'Cycling' ],
-						datasets : [ {
-							data : [ ($('#pd2').text() * 100 / $('#pd1').text()), 0, 0, 0, 0, 0 ]
-						} ]
-					};
-					chart2.clear();
-					chart2 = new Chart('chart-1', {
-						type : 'radar',
-						data : chartData2,
-						options : options
-					});
-				});// each 
-			} else {
-				alert("불러올 데이터가 없습니다.");
-			}// else
-		}
-	}); // ajax 
-});////////  clickDetailBtn
-</script>
-
-
-
-<!-- 투수 selectItem 체인지 이벤트 -->
-<script>
-//selectItem 클릭
-$('#pSelectTeam').change(function() {
-	$.ajax({
-		url : "<c:url value='/Team/Matching/pitcherDetailViewEachTeam.do'/>",
-		data : {
-			USER_ID : $('#auth').val(),
-			USER_TEAMNAME : $(this).val(),
-			'_csrf' : '${_csrf.token}'
-		},
-		type : 'post',
-		headers : {
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "POST"
-		},
-		dataType : 'json',
-		success : function(data) {
-			/* $(".detailData").text(""); */
-			if (data != "") {
-				console.log(data);
-				$(data).each(function() {
-					$('#pd1').text(this.SUMCI);
-					$('#pd2').text(this.SUMTBF);
-					$('#pd4').text(this.SUMPH);
-					chartData2 = {
-						labels : [ [ '이닝 당', '상대한 타자' ], [ '투수기록', '출력중' ], '세부팀보기', [ 'Designing', 'Graphics' ], 'Coding', 'Cycling' ],
-						datasets : [ {
-							data : [ ($('#pd2').text() * 100 / $('#pd1').text()), 0, 0, 0, 0, 0 ]
-						} ]
-					};
-					chart2.clear();
-					chart = new Chart('chart-1', {
-						type : 'radar',
-						data : chartData2,
-						options : options
-					});
-				});// each 
-			} else {
-				$.ajax({
-					url : "<c:url value='/Team/Matching/pitcherDetailView.do'/>",
-					data : {
-						USER_ID : $('#auth').val(),
-						'_csrf' : '${_csrf.token}'
-					},
-					type : 'post',
-					dataType : 'json',
-					success : function(data) {
-						/* $(".detailData").text(""); */
-						if (data != "") {
-							$(data).each(function() {
-								$('#pd1').text(this.SUMCI);
-								$('#pd2').text(this.SUMTBF);
-								$('#pd4').text(this.SUMPH);
-								chartData2 = {
-									labels : [ [ '이닝 당', '상대한 타자' ], [ '투수기록', '출력중' ], '팀전체보기', [ 'Designing', 'Graphics' ], 'Coding', 'Cycling' ],
-									datasets : [ {
-										data : [ ($('#pd2').text() * 100 / $('#pd1').text()), 0, 0, 0, 0, 0 ]
-									} ]
-								};
-								chart2.clear();
-								chart2 = new Chart('chart-1', {
-									type : 'radar',
-									data : chartData2,
-									options : options
-								});
-							});// each 
+	
+	
+	$('#pitcherDetailbtn').click(function() {
+		
+		//차트 변경
+		$.ajax({
+			url : "<c:url value='/Team/Matching/getPitterChart.do'/>",
+			type : "post",
+			data : {
+				USER_ID : $('#auth').val(),
+				'_csrf' : '${_csrf.token}'
+			},
+			dataType : 'json',
+			success : function(data) {
+				if (data != "") {
+					console.log(data);
+					pitcherChart.clear();
+					$(data).each(function() {
+						pitcherChart.data.datasets[0].data = [this.INNINGRATE, this.KBBRATE,this.WHIPRATE, this.ERARATE, this.HOMERUNRATE, this.PITCHINGRATE];
+						pitcherChart.update();
+						/*
+						var chartDataPitcher = {
+								labels : [ [ 'INNING', '이닝 소화력' ], [ 'CONTROL', '제구력' ], [ 'WHIP', '억제력' ], [ 'ERA', '방어율' ], [ 'HOMERUN', '피홈런' ], [ 'PITCHING', '종합 투구능력' ] ],
+								datasets : [ {
+									data : [this.INNINGRATE, this.KBBRATE,this.WHIPRATE, this.ERARATE, this.HOMERUNRATE, this.PITCHINGRATE]
+								} ]
+						};
+							
+						pitcherChart = new Chart('chartPitcher', {
+							type : 'radar',
+							data : chartDataPitcher,
+							options : options
+						});
+						*/
+					});// each 
+				} 
+			}
+		}); // ajax 
+		
+		
+		$.ajax({
+			url : "<c:url value='/Team/Matching/pitcherDetailView.do'/>",
+			data : {
+				USER_ID : $('#auth').val(),
+				TEAMNAME : $(this).val(),
+				'_csrf' : '${_csrf.token}'
+			},
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				/*  $(".detailData").text(""); */
+				if (!isEmpty(data)) {
+					console.log(data);
+					$(data).each(function() {
+						$('#pd1').text(this.COUNT);
+						$('#pd2').text(this.ERA);
+						$('#pd3').text(this.SUMW);
+						$('#pd4').text(this.SUML);
+						$('#pd5').text(this.WINRATE);
+						$('#pd6').text(this.SUMTBF);
+						$('#pd7').text(this.SUMPITCH);
+						$('#pd8').text(this.IP);
+						$('#pd9').text(this.SUMPH);
+						$('#pd10').text(this.SUMPB2);
+						$('#pd11').text(this.SUMPB3);
+						$('#pd12').text(this.SUMPHR);
+						$('#pd13').text(this.SUMPBB);
+						$('#pd14').text(this.SUMPHBP);
+						$('#pd15').text(this.SUMPR);
+						$('#pd16').text(this.SUMPER);
+						$('#pd17').text(this.K9);
+						$('#pd18').text(this.BB9);
+						$('#pd19').text(this.KBB);
+						$('#pd20').text(this.WHIP);
+						$('#pd21').text(this.FIP);
+						
+					});// each 
+				} else {
+					alert("불러올 데이터가 없습니다.");
+				}// else
+			}
+		}); // ajax
+	});////////  clickDetailBtn
+	
+	$('#pSelectTeam').change(function() {
+		
+		//차트 변경
+		$.ajax({
+			url : "<c:url value='/Team/Matching/getPitterChartTeam.do'/>",
+			type : "post",
+			data : {
+				USER_ID : $('#auth').val(),
+				TEAMNAME : $(this).val(),
+				'_csrf' : '${_csrf.token}'
+			},
+			dataType : 'json',
+			success : function(data) {
+				if (data != "") {
+					console.log(data);
+					pitcherChart.clear();
+					$(data).each(function() {
+						//pitcherChart.data.datasets[0].data = [3,2,6,7,0,1];
+						pitcherChart.data.datasets[0].data = [this.INNINGRATE, this.KBBRATE,this.WHIPRATE, this.ERARATE, this.HOMERUNRATE, this.PITCHINGRATE];
+						pitcherChart.update();
+						/*
+						var chartDataPitcher = {
+								labels : [ [ 'INNING', '이닝 소화력' ], [ 'CONTROL', '제구력' ], [ 'WHIP', '억제력' ], [ 'ERA', '방어율' ], [ 'HOMERUN', '피홈런' ], [ 'PITCHING', '종합 투구능력' ] ],
+								datasets : [ {
+									data : [this.INNINGRATE, this.KBBRATE,this.WHIPRATE, this.ERARATE, this.HOMERUNRATE, this.PITCHINGRATE]
+								} ]
+						};
+							
+						pitcherChart = new Chart('chartPitcher', {
+							type : 'radar',
+							data : chartDataPitcher,
+							options : options
+						});
+						*/
+					});// each 
+				} 
+			}
+		}); // ajax 
+		
+		$.ajax({
+			url : "<c:url value='/Team/Matching/pitcherDetailViewEachTeam.do'/>",
+			data : {
+				USER_ID : $('#auth').val(),
+				TEAMNAME : $(this).val(),
+				'_csrf' : '${_csrf.token}'
+			},
+			type : 'post',
+			dataType : 'json',
+			success : function(data) {
+				/* $(".detailData").text(""); */
+				if (!isEmpty(data)) {
+					console.log(data);
+					$(data).each(function() {
+						$('#pd1').text(this.COUNT);
+						$('#pd2').text(this.ERA);
+						$('#pd3').text(this.SUMW);
+						$('#pd4').text(this.SUML);
+						$('#pd5').text(this.WINRATE);
+						$('#pd6').text(this.SUMTBF);
+						$('#pd7').text(this.SUMPITCH);
+						$('#pd8').text(this.IP);
+						$('#pd9').text(this.SUMPH);
+						$('#pd10').text(this.SUMPB2);
+						$('#pd11').text(this.SUMPB3);
+						$('#pd12').text(this.SUMPHR);
+						$('#pd13').text(this.SUMPBB);
+						$('#pd14').text(this.SUMPHBP);
+						$('#pd15').text(this.SUMPR);
+						$('#pd16').text(this.SUMPER);
+						$('#pd17').text(this.K9);
+						$('#pd18').text(this.BB9);
+						$('#pd19').text(this.KBB);
+						$('#pd20').text(this.WHIP);
+						$('#pd21').text(this.FIP);
+						
+						
+					});// each 
+				} else {
+					
+					//차트 변경
+					$.ajax({
+						url : "<c:url value='/Team/Matching/getPitterChart.do'/>",
+						type : "post",
+						data : {
+							USER_ID : $('#auth').val(),
+							'_csrf' : '${_csrf.token}'
+						},
+						dataType : 'json',
+						success : function(data) {
+							if (data != "") {
+								console.log(data);
+								pitcherChart.clear();
+								$(data).each(function() {
+									pitcherChart.data.datasets[0].data = [this.INNINGRATE, this.KBBRATE,this.WHIPRATE, this.ERARATE, this.HOMERUNRATE, this.PITCHINGRATE];
+									pitcherChart.update();
+									/*
+									var chartDataPitcher = {
+											labels : [ [ 'INNING', '이닝 소화력' ], [ 'CONTROL', '제구력' ], [ 'WHIP', '억제력' ], [ 'ERA', '방어율' ], [ 'HOMERUN', '피홈런' ], [ 'PITCHING', '종합 투구능력' ] ],
+											datasets : [ {
+												data : [this.INNINGRATE, this.KBBRATE,this.WHIPRATE, this.ERARATE, this.HOMERUNRATE, this.PITCHINGRATE]
+											} ]
+									};
+										
+									pitcherChart = new Chart('chartPitcher', {
+										type : 'radar',
+										data : chartDataPitcher,
+										options : options
+									});
+									*/
+								});// each 
+							} 
 						}
-					}
-				}); // ajax 
-			}// else
-		}
-	}); // ajax 
-});////////  clickSelectItem
+					}); // ajax 
+					
+					
+					$.ajax({
+						url : "<c:url value='/Team/Matching/pitcherDetailView.do'/>",
+						data : {
+							USER_ID : $('#auth').val(),
+							'_csrf' : '${_csrf.token}'
+						},
+						type : 'post',
+						dataType : 'json',
+						success : function(data) {
+							/* $(".detailData").text(""); */
+							if (!isEmpty(data)) {
+								$(data).each(function() {
+									$('#pd1').text(this.COUNT);
+									$('#pd2').text(this.ERA);
+									$('#pd3').text(this.SUMW);
+									$('#pd4').text(this.SUML);
+									$('#pd5').text(this.WINRATE);
+									$('#pd6').text(this.SUMTBF);
+									$('#pd7').text(this.SUMPITCH);
+									$('#pd8').text(this.IP);
+									$('#pd9').text(this.SUMPH);
+									$('#pd10').text(this.SUMPB2);
+									$('#pd11').text(this.SUMPB3);
+									$('#pd12').text(this.SUMPHR);
+									$('#pd13').text(this.SUMPBB);
+									$('#pd14').text(this.SUMPHBP);
+									$('#pd15').text(this.SUMPR);
+									$('#pd16').text(this.SUMPER);
+									$('#pd17').text(this.K9);
+									$('#pd18').text(this.BB9);
+									$('#pd19').text(this.KBB);
+									$('#pd20').text(this.WHIP);
+									$('#pd21').text(this.FIP);
+								});// each 
+							}
+						}
+					}); // ajax 
+				}// else
+			}
+		}); // ajax 
+	});////////  clickSelectItem
+	
+});
+	
 </script>
-
-
-
 
 
 <!-- 스크롤다운 이벤트 -->
 <script>
-	var lastScrollTop = 0;
+var lastScrollTop = 0;
+// 1. 스크롤 이벤트 발생
+$(window).scroll(function() { // ① 스크롤 이벤트 최초 발생
+	var currentScrollTop = $(window).scrollTop();
+	if (currentScrollTop - lastScrollTop > 0) {
+		console.log("down-scroll");
 
-	// 1. 스크롤 이벤트 발생
-	$(window).scroll(
-		function() { // ① 스크롤 이벤트 최초 발생
-			var currentScrollTop = $(window).scrollTop();
-			if (currentScrollTop - lastScrollTop > 0) {
-				console.log("down-scroll");
-	
-				if ($(window).scrollTop() >= ($(document).height() - $(window).height())) {
-					var lastrecordno = $(".scrolling:last").attr("data-recordno");
-	
-					$.ajax({
-						type : 'post', // 요청 method 방식 
-						url : '<c:url value="/Team/Matching/downstatostics.do"/>',// 요청할 서버의 url
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Override" : "POST"
-						},
-						dataType : 'json',
-						data : {
-							RECORDNO : lastrecordno,
-							'_csrf' : '${_csrf.token}'
-						},
-						success : function(data) {
-							var str = "";
-							if (data != "") {
-								$(data).each(
-										function() {
-	
-											str += '<div class="play-table-part listToChange scrollLocation" >' + '<input type="hidden" class="scrolling" data-recordno="'+ this.RECORDNO +'" />' + '<div class="play-table">' + '<div>'
-													+ '<div class="summary">' + '<dl class="info">' + '<dt>'
-													+ this.GAMEDATE
-													+ '(토) '
-													+ this.TIME
-													+ '</dt>'
-													+ '<dd>'
-													+ this.STADIUM
-													+ ' 파크</dd>'
-													+ '</dl>'
-													+ '<div style="display:inline">'
-													+ '<dl>'
-													+ '<dt><a href="/club/?club_idx=14322" target="_blank"><img src="/matching/Upload/'+this.HOMELOGO+'" style="float:left" ></a></dt>'
-													+ '<dd>'
-													+ '<span class="result ">패　</span>'
-													+ '<span class="name" style="width: 80px; margin-left: 5px;">'
-													+ this.TEAMNAME
-													+ '</span>'
-													+ '<span class="add_info" style="height:13px"></span>'
-													+ '</dd><!--mm-->'
-													+ '<dd><span class="score">'
-													+ this.HOMESCORE
-													+ '</span></dd>'
-													+ '</dl>'
-													+ '</div>'
-													+ '<div style="display:inline">'
-													+ '<dl>'
-													+ '<dt><a href="/club/?club_idx=19031" target="_blank"><img src="/matching/Upload/'+this.AWAYLOGO+'" style=float:left"></a></dt>'
-													+ '<dd>'
-													+ '<span class="result win">승　</span>'
-													+ '<span class="name">'
-													+ this.AWAYTEAM
-													+ '</span>'
-													+ '<span class="add_info" style="height:13px"></span>'
-													+ '</dd><!--mm-->'
-													+ '<dd><span class="score">'
-													+ this.AWAYSCORE
-													+ '</span></dd>'
-													+ '</dl>'
-													+ '</div>'
-													+ '<p>'
-													+ '<strong>'
-													+ this.HORDER
-													+ '번 타자</strong>'
-													+ '<span class="add_info">('
-													+ this.POS
-													+ ')</span>'
-													+ '<strong>'
-													+ this.NAME
-													+ '</strong>('
-													+ this.BACKNUMBER
-													+ ')'
-													+ '</p>'
-													+ '</div>'
-													+ '</div>'
-													+ '<table>'
-													+ '<thead>'
-													+ '<tr>'
-													+ '<th>타자기록</th>'
-													+ '<th>타수</th>'
-													+ '<th>안타</th>'
-													+ '<th>타점</th>'
-													+ '<th>홈런</th>'
-													+ '<th>도루</th>'
-													+ '<th>타율</th>'
-													+ '</tr>'
-													+ '</thead>'
-													+ '<tbody>'
-													+ '<tr>'
-													+ '<td></td>'
-													+ '<td>'
-													+ this.AB
-													+ '</td>'
-													+ '<td>'
-													+ this.H
-													+ '</td>'
-													+ '<td>'
-													+ this.RBI
-													+ '</td>'
-													+ '<td>'
-													+ this.HR
-													+ '</td>'
-													+ '<td>'
-													+ this.SB
-													+ '</td>'
-													+ '<td>'
-													+ this.AVG
-													+ '</td>'
-													+ '</tr>'
-													+ '</tbody>'
-													+ '</table>'
-													+ '<table class="point">'
-													+ '<thead>'
-													+ '<tr>'
-													+ '<th>통산기록</th>'
-													+ '<th>타수</th>'
-													+ '<th>안타</th>'
-													+ '<th>타점</th>'
-													+ '<th>홈런</th>'
-													+ '<th>도루</th>'
-													+ '<th>타율</th>'
-													+ '</tr>'
-													+ '</thead>'
-													+ '<tbody>'
-													+ '<tr>'
-													+ '<td></td>'
-													+ '<td>'
-													+ this.SUMAB
-													+ '</td>'
-													+ '<td>'
-													+ this.SUMH
-													+ '</td>'
-													+ '<td>'
-													+ this.SUMRBI
-													+ '</td>'
-													+ '<td>'
-													+ this.SUMHR
-													+ '</td>'
-													+ '<td>'
-													+ this.SUMSB
-													+ '</td>'
-													+ '<td>'
-													+ this.SUMAVG
-													+ '</td>'
-													+ '</tr>' + '</tbody>' + '</table>';
-	
-											if (this.TBF != -1) {
-	
-												str += '<table>' + '<thead>' + '<tr>' + '<th>투수기록</th>' + '<th>이닝</th>' + '<th>자책</th>' + '<th>피안타</th>' + '<th>삼진</th>' + '<th>볼넷</th>' + '<th>평균자책</th>' + '</tr>' + '</thead>'
-														+ '<tbody>' + '<tr>' + '<td></td>' + '<td>'
-														+ this.CI
-														+ '</td>'
-														+ '<td>'
-														+ this.PER
-														+ '</td>'
-														+ '<td>'
-														+ this.PH
-														+ '</td>'
-														+ '<td>'
-														+ this.PSO
-														+ '</td>'
-														+ '<td>'
-														+ this.PBB
-														+ '</td>'
-														+ '<td>계산필요</td>'
-														+ '</tr>'
-														+ '</tbody>'
-														+ '</table>'
-														+ '<table>'
-														+ '<thead>'
-														+ '<tr>'
-														+ '<th>통산기록</th>'
-														+ '<th>출장</th>'
-														+ '<th>이닝</th>'
-														+ '<th>평균자책</th>'
-														+ '<th>승</th>'
-														+ '<th>패</th>'
-														+ '<th>삼진</th>'
-														+ '</tr>'
-														+ '</thead>'
-														+ '<tbody>'
-														+ '<tr>'
-														+ '<td></td>'
-														+ '<td>따로계산</td>'
-														+ '<td>계산필요</td>'
-														+ '<td>계산필요</td>'
-														+ '<td>'
-														+ this.SUMW
-														+ '</td>'
-														+ '<td>'
-														+ this.SUML
-														+ '</td>'
-														+ '<td>'
-														+ this.SUMPSO + '<br /></td>' + '</tr>' + '</tbody>' + '</table>';
+		if ($(window).scrollTop() >= ($(document).height() - $(window).height())) {
+			var lastrecordno = $(".scrolling:last").attr("data-recordno");
+
+			$.ajax({
+				type : 'post', // 요청 method 방식 
+				url : '<c:url value="/Team/Matching/downstatostics.do"/>',// 요청할 서버의 url
+				dataType : 'json',
+				data : {
+					RECORDNO : lastrecordno,
+					'_csrf' : '${_csrf.token}'
+				},
+				success : function(data) {
+					var str = "";
+					if (data != "") {
+						$(data).each(
+								function() {
+									
+									
+									
+
+									str += '<div class="play-table-part listToChange scrollLocation" >' + '<input type="hidden" class="scrolling" data-recordno="'+ this.RECORDNO +'" />' + '<div class="play-table">' + '<div>'
+											+ '<div class="summary">' 
+											+ '<div>'
+											+ '<dl class="info">' + '<dt>'
+											+  '<h1>'+this.GAMEDATE +'__ '+ this.TIME +'</h1>'
+											+ '</dt>'
+											+ '<dd><h1>'
+											+ this.STADIUM
+											+ '</h1></dd>'
+											+ '</dl></div>'
+											+ '<div class="parent1" style="margin-top: 50px"><div class="child1">'
+											+ '<dl>'
+											+ '<dt><a href="#"><img src="/matching/Upload/'+this.HOMELOGO+'" style="float: left; width: 125px; height: 125px" ></a></dt>'
+											+ '<dd>';
+											//+ '<span class="result ">패　</span>'
+											
+											if(this.HOMESCORE > this.AWAYSCORE) {
+												str+= '<span class="result"><h4>승</h4></span>';
 											}
-											str += '</div>' + '</div>';
-										});// each 
-								var position2 = $(".scrollLocation:last").offset();
-								$(".scrollLocation:last").after(str);
-							}// if : data!=null
-							else { // 9. 만약 서버로 부터 받아온 데이터가 없으면 그냥 아무것도 하지말까..
-								alert("더 불러올 데이터가 없습니다.");
-							}// else
-						}// success
-					});// ajax
-				}//if : 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
-				// lastScrollTop을 현재 currentScrollTop으로 갱신해준다.
-				lastScrollTop = currentScrollTop;
-			}// 다운스크롤인 상태
-		});// scroll event
+											else if(this.HOMESCORE < this.AWAYSCORE) {
+												str+= '<span class="result"><h4>패</h4></span>';
+											}
+											else {
+												str+= '<span class="result"><h4>무</h4></span>';
+											}
+											
+											
+											str+= '<span class="name">'
+											+ this.TEAMNAME
+											+ '</span>'
+											+ '</dd>'
+											+ '<dd><span class="score"><h5>'
+											+ this.HOMESCORE
+											+ '</h5></span></dd>'
+											+ '</dl>'
+											+ '</div>'
+											+ '<div class="child2">'
+											+ '<dl>'
+											+ '<dt><a href="#"><img src="/matching/Upload/'+this.AWAYLOGO+'" style="float: left; width: 125px; height: 125px"></a></dt>'
+											+ '<dd>';
+											
+											if(this.HOMESCORE > this.AWAYSCORE) {
+												str+= '<span class="result"><h4>패</h4></span>';
+											}
+											else if(this.HOMESCORE < this.AWAYSCORE) {
+												str+= '<span class="result"><h4>승</h4></span>';
+											}
+											else {
+												str+= '<span class="result"><h4>무</h4></span>';
+											}
+											
+											str += '<span class="name">'
+											+ this.AWAYTEAM
+											+ '</span>'
+											+ '</dd><!--mm-->'
+											+ '<dd><span class="score"><h5>'
+											+ this.AWAYSCORE
+											+ '</h5></span></dd>'
+											+ '</dl>'
+											+ '</div>'
+											+ '</div>'
+											+ '<br/>'
+											+ '<div style="margin-top: 200px">'
+											+ '<p>';
+											
+											if(this.PA!=0) {
+												if(this.HORDER==1) {
+													str+= '<strong>1번 타자</strong>';
+												}
+												else if(this.HORDER==2) {
+													str+= '<strong>2번 타자</strong>';
+												}
+												else if(this.HORDER==3) {
+													str+= '<strong>3번 타자</strong>';												
+												}
+												else if(this.HORDER==4) {
+													str+= '<strong>4번 타자</strong>';
+												}
+												else if(this.HORDER==5) {
+													str+= '<strong>5번 타자</strong>';
+												}
+												else if(this.HORDER==6) {
+													str+= '<strong>6번 타자</strong>';
+												}
+												else if(this.HORDER==7) {
+													str+= '<strong>7번 타자</strong>';
+												}
+												else if(this.HORDER==8) {
+													str+= '<strong>8번 타자</strong>';
+												}
+												else if(this.HORDER==9) {
+													str+= '<strong>9번 타자</strong>';
+												}
+												else {
+													str+= '<strong>교체 출전</strong>';
+												}
+											}
+											
+											if(this.POS==1 || this.TBF!=null) {
+												str+= '<span>(투수)</span>';
+											}
+											else if(this.POS==2) {
+												str+= '<span>(포수)</span>';
+											}
+											else if(this.POS==3) {
+												str+= '<span>(1루수)</span>';
+											}
+											else if(this.POS==4) {
+												str+= '<span>(2루수)</span>';
+											}
+											else if(this.POS==5) {
+												str+= '<span>(3루수)</span>';
+											}
+											else if(this.POS==6) {
+												str+= '<span>(유격수)</span>';
+											}
+											else if(this.POS==7) {
+												str+= '<span>(좌익수)</span>';
+											}
+											else if(this.POS==8) {
+												str+= '<span>(중견수)</span>';
+											}
+											else if(this.POS==9) {
+												str+= '<span>(우익수)</span>';
+											}
+											else if(this.POS==0) {
+												str+= '<span>(지명타자)</span>';
+											}
+											else {
+												str+= '<span>(대타/대주자)</span>';
+											}
+											
+											str+= '<strong>'
+											+ this.NAME
+											+ '</strong>('
+											+ this.BACKNUMBER
+											+ ')'
+											+ '</p>'
+											+ '</div>'
+											+ '</div>'
+											+ '</div>';
+											
+											if(this.PA != 0) {
+												str+= '<table style="text-align: center;table-layout:fixed; word-break:break-all;">'
+												+ '<thead>'
+												+ '<tr>'
+												+ '<th>　　</th>'
+												+ '<th>타수</th>'
+												+ '<th>안타</th>'
+												+ '<th>타점</th>'
+												+ '<th>홈런</th>'
+												+ '<th>도루</th>'
+												+ '<th>타율</th>'
+												+ '</tr>'
+												+ '</thead>'
+												+ '<tbody>'
+												+ '<tr>'
+												+ '<td></td>'
+												+ '<td>'
+												+ this.AB
+												+ '</td>'
+												+ '<td>'
+												+ this.H
+												+ '</td>'
+												+ '<td>'
+												+ this.RBI
+												+ '</td>'
+												+ '<td>'
+												+ this.HR
+												+ '</td>'
+												+ '<td>'
+												+ this.SB
+												+ '</td>'
+												+ '<td>'
+												+ this.AVG
+												+ '</td>'
+												+ '</tr>'
+												+ '</tbody>'
+												+ '</table>'
+												+ '<table style="text-align: center;table-layout:fixed; word-break:break-all;">'
+												+ '<thead>'
+												+ '<tr>'
+												+ '<th>통산</th>'
+												+ '<th>타수</th>'
+												+ '<th>안타</th>'
+												+ '<th>타점</th>'
+												+ '<th>홈런</th>'
+												+ '<th>도루</th>'
+												+ '<th>타율</th>'
+												+ '</tr>'
+												+ '</thead>'
+												+ '<tbody>'
+												+ '<tr>'
+												+ '<td></td>'
+												+ '<td>'
+												+ this.SUMAB
+												+ '</td>'
+												+ '<td>'
+												+ this.SUMH
+												+ '</td>'
+												+ '<td>'
+												+ this.SUMRBI
+												+ '</td>'
+												+ '<td>'
+												+ this.SUMHR
+												+ '</td>'
+												+ '<td>'
+												+ this.SUMSB
+												+ '</td>'
+												+ '<td>'
+												+ this.SUMAVG
+												+ '</td>'
+												+ '</tr>' + '</tbody>' + '</table>';
+											
+											}
+									if (this.TBF != -1) {
+										str += '<table style="text-align: center;table-layout:fixed; word-break:break-all;">' + '<thead>' + '<tr>' + '<th>　　</th>' + '<th>이닝</th>' + '<th>ERA</th>' + '<th>자책점</th>' + '<th>피안타</th>' + '<th>삼진</th>' + '<th>볼넷</th>' + '</tr>' + '</thead>'
+												+ '<tbody>' + '<tr>' + '<td></td>' + '<td>'
+												+ this.IP
+												+ '</td>'
+												+ '<td>'
+												+ this.ERA
+												+ '</td>'
+												+ '<td>'
+												+ this.PER
+												+ '</td>'
+												+ '<td>'
+												+ this.PH
+												+ '</td>'
+												+ '<td>'
+												+ this.PSO
+												+ '</td>'
+												+ '<td>'+this.PBB+'</td>'
+												+ '</tr>'
+												+ '</tbody>'
+												+ '</table>'
+												+ '<table style="text-align: center;table-layout:fixed; word-break:break-all;">'
+												+ '<thead>'
+												+ '<tr>'
+												+ '<th>통산</th>'
+												+ '<th>이닝</th>'
+												+ '<th>ERA</th>'
+												+ '<th>타자</th>'
+												+ '<th>승</th>'
+												+ '<th>패</th>'
+												+ '<th>삼진</th>'
+												+ '</tr>'
+												+ '</thead>'
+												+ '<tbody>'
+												+ '<tr>'
+												+ '<td></td>'
+												+ '<td>'+this.SUMIP+'</td>'
+												+ '<td>'+this.SUMERA+'</td>'
+												+ '<td>'+this.SUMTBF+'</td>'
+												+ '<td>'
+												+ this.SUMW
+												+ '</td>'
+												+ '<td>'
+												+ this.SUML
+												+ '</td>'
+												+ '<td>'
+												+ this.SUMPSO + '<br /></td>' + '</tr>' + '</tbody>' + '</table>';
+									}
+									
+								
+									
+									
+									
+									str += '</div>' + '</div>';
+								});// each 
+						var position2 = $(".scrollLocation:last").offset();
+						$(".scrollLocation:last").after(str);
+					}// if : data!=null
+					else { // 9. 만약 서버로 부터 받아온 데이터가 없으면 그냥 아무것도 하지말까..
+						alert("더 불러올 데이터가 없습니다.");
+					}// else
+				}// success
+			});// ajax
+		}//if : 현재 스크롤의 top 좌표가  > (게시글을 불러온 화면 height - 윈도우창의 height) 되는 순간
+		// lastScrollTop을 현재 currentScrollTop으로 갱신해준다.
+		lastScrollTop = currentScrollTop;
+	}// 다운스크롤인 상태
+});// scroll event
 </script>
