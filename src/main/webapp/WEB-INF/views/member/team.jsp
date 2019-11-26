@@ -199,7 +199,7 @@ input:checked+label {
 }
 
 #record-picther-tab:checked>.record-rank {
-	width: 100%;
+	width: 136%;
 }
 
 #record-batter-tab:checked ~ #record-batter, #record-batter-tab:checked 
@@ -208,7 +208,7 @@ input:checked+label {
 }
 
 #record-batter-tab:checked>.record-rank {
-	width: 100%;
+	width: 130%;
 }
 
 #team-name {
@@ -680,8 +680,8 @@ input:checked+label {
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcum-content text-center">
-					<h3 class="title">Team</h3>
-						<!-- <ol class="breadcrumb">
+<!-- 						<h3 class="title">팀사진 넣는곳</h3>
+						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="index.html">home</a></li>
 							<li class="breadcrumb-item active">Promotions</li>
 						</ol> -->
@@ -714,11 +714,11 @@ input:checked+label {
 				<input type="hidden" value="${id}" id="auth" />
 				<div id="team-name" style="margin-bottom: 10px">
 					<select class="form" id="teamName" name="stadium" onchange="window.open(value,'_self');">
-				        <option value="">팀선택</option>
-				        <c:forEach var="item" items="${teams}" varStatus="loop">
-				        	<option value="<c:url value='/Team/Matching/Team.do?TEAMNAME222=${item}'/>">${item }</option>
-				        </c:forEach>
-				    </select>		
+		        <option value="">팀선택</option>
+		        <c:forEach var="item" items="${teams}" varStatus="loop">
+		        	<option value="<c:url value='/Team/Matching/Team.do?TEAMNAME222=${item}'/>">${item }</option>
+		        </c:forEach>
+		      </select>		
 				</div>
 
 				<div class="sidebar">
@@ -742,19 +742,23 @@ input:checked+label {
 								<dl id="teaminfo" class="info"
 									style="padding: 30px 0px 5px 0px; text-align: center;">
 									<dt
-										style="background-color: var(--second-color); color: white;">팀명</dt>
+										style="background-color: var(- -second-color); color: black;">팀
+										명</dt>
 									<dd>${item.teamname }</dd>
 									<dt
-										style="background-color: var(--second-color); color: white;">팀장</dt>
+										style="background-color: var(- -second-color); color: white;">팀
+										장</dt>
 									<dd>${item.name }</dd>
 									<dt
-										style="background-color: var(--second-color); color: white;">창단일</dt>
+										style="background-color: var(- -second-color); color: white;">창단일</dt>
 									<dd>${item.regidate }</dd>
 									<dt
-										style="background-color: var(--second-color); color: white;">지역</dt>
+										style="background-color: var(- -second-color); color: white;">지
+										역</dt>
 									<dd>${item.teamloc }</dd>
 									<dt
-										style="background-color: var(--second-color); color: white;">팀정보</dt>
+										style="background-color: var(- -second-color); color: white;">팀
+										정보</dt>
 									<dd style="word-break: break-all">${item.teaminfo  }</dd>
 								</dl>
 							</c:forEach>
@@ -1021,55 +1025,51 @@ input:checked+label {
 
 									<!-- 투수 -->
 									<section class="record-picther" id="record-picther">
-										<div class="row m-auto" id="record-border-top" style="overflow: auto;">
-											<div class="play-table">
-												<table style="" class="table table-bordered" id="record-rank-table">
+										<div class="row mt-mb-15" id="record-border-top">
+											<div class="play-table" style="width: 100%;">
+												<table class="table table-bordered" id="record-rank-table">
 													<thead id="th1">
 														<tr id="record-border-menu">
-															<!-- <th style="width: 0.8%">순위</th>
+															<th style="width: 2%">순위</th>
 															<th style="width: 3%">선 수 명</th>
-															<th style="width: 2%">방어율</th>
-															<th style="width: 0.8%">승</th>
-															<th style="width: 0.8%">패</th>
-															<th style="width: 5%">블론세이브</th>
-															<th style="width: 3%">교체이닝</th>
-															<th style="width: 3%">교체타수</th>
-															<th style="width: 2%">세이브</th>
+															<th style="width: 4%">방어율</th>
+															<th style="width: 1%">승</th>
+															<th style="width: 1%">패</th>
+															<th style="width: 7%">블론세이브</th>
+															<th style="width: 6%">교체이닝</th>
+															<th style="width: 6%">교체타수</th>
+															<th style="width: 4%">세이브</th>
+															<th style="width: 2%">홀드</th>
+															<th style="width: 7%">상대타자수</th>
+															<th style="width: 4%">피안타</th>
+															<th style="width: 4%">피홈런</th>
+															<th style="width: 2%">볼넷</th>
+															<th style="width: 2%">사구</th>
+															<th style="width: 2%">삼진</th>
+															<th style="width: 2%">실점</th>
+															<th style="width: 4%">자책점</th>
+															<th style="width: 2%">투구수</th>
+															<th style="width: 2%">2루타</th>
+															<th style="width: 2%">3루타</th>
+															<!-- <th style="width: 0.8%">순위</th>
+															<th style="width: 4%">이름</th>
+															<th style="width: 2.2%">방어율</th>
+															<th style="width: 0.1%">승</th>
+															<th style="width: 0.1%">패</th>
+															<th style="width: 3.8%">블론세이브</th>
+															<th style="width: 3.2%">교체이닝</th>
+															<th style="width: 3.2%">교체타수</th>
+															<th style="width: 2.2%">세이브</th>
 															<th style="width: 0.8%">홀드</th>
-															<th style="width: 5%">상대타자수</th>
-															<th style="width: 2%">피안타</th>
-															<th style="width: 2%">피홈런</th>
+														 	<th style="width: 3.8%">상대타자수</th>
+															<th style="width: 0.8%">이닝</th>
+															<th style="width: 2.2%">피안타</th>
+															<th style="width: 2.2%">피홈런</th>
 															<th style="width: 0.8%">볼넷</th>
 															<th style="width: 0.8%">사구</th>
 															<th style="width: 0.8%">삼진</th>
 															<th style="width: 0.8%">실점</th>
-															<th style="width: 2%">자책점</th>
-															<th style="width: 2%">투구수</th>
-															<th style="width: 2%">2루타</th>
-															<th style="width: 2%">3루타</th> -->
-															
-															<th style="">순위</th>
-															<th style="">이름</th>
-															<th style="">방어율</th>
-															<th style="">승</th>
-															<th style="">패</th>
-															<th style="">블론</th>
-															<th style="">교체이닝</th>
-															<th style="">교체타수</th>
-															<th style="">세이브</th>
-															<th style="">홀드</th>
-														 	<th style="">상대타자수</th>
-															<th style="">이닝</th>
-															<th style="">피안타</th>
-															<th style="">피홈런</th>
-															<th style="">볼넷</th>
-															<th style="">사구</th>
-															<th style="">삼진</th>
-															<th style="">실점</th>
-															<th style="">자책점</th>
-															<th style="">투구수</th>
-															<th style="">2루타</th>
-															<th style="">3루타</th>
+															<th style="width: 2.2%">자책점</th> -->
 														</tr>
 														<!-- <tr id="record-border-menu1">
 															<th >상대타자수</th>
@@ -1151,29 +1151,29 @@ input:checked+label {
 
 									<!-- 타자 -->
 									<section class="record-batter" id="record-batter">
-										<div class="row m-auto" id="record-border-top" style="overflow: auto;">
+										<div class="row mt-mb-15" id="record-border-top">
 											<div class="play-table">
 												<table class="table table-bordered" id="record-rank-table2">
 													<thead id="th1">
 														<tr id="record-border-menu">
-															<th style="">순위</th>
-															<th style="">이름</th>
-															<th style="">타율</th>
-															<th style="">타석</th>
-															<th style="">타수</th>
-															<th style="">안타</th>
-															<th style="">2루타</th>
-															<th style="">3루타</th>
-															<th style="">홈런</th>
-															<th style="">득점</th>
-															<th style="">타점</th>
-															<th style="">도루</th>
-															<th style="">도루실패</th>
-															<th style="">볼넷</th>
-															<th style="">사구</th>
-															<th style="">삼진</th>
-															<th style="">병살</th>
-															<th style="">실책</th>
+															<th style="width: 0.8%">순위</th>
+															<th style="width: 4%">이름</th>
+															<th style="width: 0.8%">타율</th>
+															<th style="width: 0.8%">타석</th>
+															<th style="width: 0.8%">타수</th>
+															<th style="width: 0.8%">안타</th>
+															<th style="width: 2.2%">2루타</th>
+															<th style="width: 2.2%">3루타</th>
+															<th style="width: 0.8%">홈런</th>
+															<th style="width: 0.8%">득점</th>
+															<th style="width: 0.8%">타점</th>
+															<th style="width: 0.8%">도루</th>
+															<th style="width: 3.2%">도루실패</th>
+															<th style="width: 0.8%">볼넷</th>
+															<th style="width: 0.8%">사구</th>
+															<th style="width: 0.8%">삼진</th>
+															<th style="width: 0.8%">병살</th>
+															<th style="width: 0.8%">실책</th>
 														</tr>
 													</thead>
 													<!-- 테이블 데이터 시작  -->
@@ -1394,90 +1394,126 @@ input:checked+label {
 			</div>
 			<!-- div col-lg-9 -->
 
-			
-			<!--=================================== --><!--=================================== -->
 
-			<div class="Top3-div col-lg-2 col-md-2"	style="padding-left: 0px !important; padding-top: 35px;" >
-				<div class="widget widget-most-view-post" id="top3" style="width:255px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);">
+			<div class="Top3-div col-lg-2 col-md-2"
+				style="padding-left: 20px !important; padding-top: 35px;" >
+				<!-- <div class="row" style="margin-top: 0px; margin-bottom: 50px;">
+					<div class="col-md-3" style="margin-bottom: 15px">
+			    		<button type="button" class="btn btn-primary upModal" id="newMatching" data-toggle="modal" data-target="#myModal" style="width:160px">
+					  		<h4 style="display:inline-block;">Matching</h4> <span id="badge-warning" style="font-size: 1.3em; " class="badge badge-warning"></span>
+						</button>
+			    	</div>
+				</div>
+				<div class="row" style="margin-top: -60px; ">
+					<div class="col-md-3">
+			    		<button type="button" class="btn btn-primary upModal" id="fisishButton" data-toggle="modal" data-target="#finishModal" style="width:160px; margin-bottom: 15px;">
+					  		<h4 style="display:inline-block;">Finish</h4> <span id="finish" style="font-size: 1.3em; margin-left: 37px;" class="badge badge-warning"></span>
+						</button>
+			    	</div>
+				</div> -->
+				<!-- right -->
+				<%-- <div class="team-history" style="box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);">
+					<c:forEach var="item" items="${list8 }" varStatus="loop">
+						<dl id="teaminfo" class="info">
+							<dt>팀명</dt>
+							<dd>${item.teamname }</dd>
+							<dt>팀장</dt>
+							<dd>${item.name }</dd>
+							<dt>창단일</dt>
+							<dd>${item.regidate }</dd>
+							<dt>지역</dt>
+							<dd>${item.teamloc }</dd>
+							<dt>팀소개</dt>
+							<dd>${item.teaminfo  }</dd>
+						</dl>
+					</c:forEach>
+				</div> --%>
 				<c:forEach var="item" items="${list8}" varStatus="loop">
 					<c:if test="${id == item.manager_id }">
-						<div class="container" style="padding-top: 5px !important">
-							<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
-								<div class="col-md-3" style="margin-bottom: 15px">
-									<button type="button" class="btn btn-primary upModal"
-										id="newMatching" data-toggle="modal" data-target="#myModal"
-										style="width: 215px">
-										<h4 style="display: inline-block;">Matching</h4>
-										<span id="badge-warning" style="font-size: 1.3em;"
-											class="badge badge-warning"></span>
-									</button>
+						<div class="widget widget-most-view-post" id="top3"
+							style="width: 255px; box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1); padding-bottom: 20px; margin-bottom: 20px;">
+							<div class="container" style="padding-top: 5px !important">
+								<div class="row" style="margin-top: 0px; margin-bottom: 50px;">
+									<div class="col-md-3" style="margin-bottom: 15px">
+										<button type="button" class="btn btn-primary upModal"
+											id="newMatching" data-toggle="modal" data-target="#myModal"
+											style="width: 215px">
+											<h4 style="display: inline-block;">Matching</h4>
+											<span id="badge-warning" style="font-size: 1.3em;"
+												class="badge badge-warning"></span>
+										</button>
+									</div>
 								</div>
-							</div>
 
-							<div class="row" style="margin-top: 0px;">
-								<div class="col-md-3">
-									<button type="button" class="btn btn-primary upModal"
-										id="fisishButton" data-toggle="modal"
-										data-target="#finishModal"
-										style="width: 215px; margin-bottom: 15px;">
-										<h4 style="display: inline-block;">Finish</h4>
-										<span id="finish"
-											style="font-size: 1.3em; margin-left: 37px;"
-											class="badge badge-warning"></span>
-									</button>
+								<div class="row" style="margin-top: -60px;">
+									<div class="col-md-3">
+										<button type="button" class="btn btn-primary upModal"
+											id="fisishButton" data-toggle="modal"
+											data-target="#finishModal"
+											style="width: 215px; margin-bottom: 15px;">
+											<h4 style="display: inline-block;">Finish</h4>
+											<span id="finish"
+												style="font-size: 1.3em; margin-left: 37px;"
+												class="badge badge-warning"></span>
+										</button>
+									</div>
 								</div>
-							</div>
 
-							<div class="row" style="margin-top: 0px;">
-								<div class="col-md-3">
-									<button type="button" class="btn btn-primary upModal"
-										id="signupButton" data-toggle="modal"
-										data-target="#signupModal" style="width: 215px; margin-bottom: 15px;">
-										<h4 style="display: inline-block;">Sign Up</h4>
-										<span id="signup"
-											style="font-size: 1.3em; margin-left: 14px;"
-											class="badge badge-warning"></span>
-									</button>
+								<div class="row" style="margin-top: -10px;">
+									<div class="col-md-3">
+										<button type="button" class="btn btn-primary upModal"
+											id="signupButton" data-toggle="modal"
+											data-target="#signupModal" style="width: 215px; margin-bottom: 115px;">
+											<h4 style="display: inline-block;">Sign Up</h4>
+											<span id="signup"
+												style="font-size: 1.3em; margin-left: 14px;"
+												class="badge badge-warning"></span>
+										</button>
+									</div>
 								</div>
-							</div>
 
-							<div class="row" style="margin-top: 0px;">
-								<div class="col-md-3">
-									<button type="button" class="btn btn-primary upModal"
-										id="managementButton" data-toggle="modal"
-										data-target="#managementModal" style="width: 215px; margin-bottom: 15px;">
-										<h4 style="display: inline-block;">Management</h4>
-									</button>
+								<div class="row" style="margin-top: -110px;">
+									<div class="col-md-3">
+										<button type="button" class="btn btn-primary upModal"
+											id="managementButton" data-toggle="modal"
+											data-target="#managementModal" style="width: 215px; margin-bottom: 0px;">
+											<h4 style="display: inline-block;">Management</h4>
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
+
 					</c:if>
-			</c:forEach>
+				</c:forEach>
 
-					
-				
-						<h4 class="widget-title">TOP3 플레이어</h4>
+				<h4 class="widget-title">TOP3 플레이어</h4>
 
-						<input id="top3-player-score-tab" type="radio" name="tabs" checked>
-						<label for="top3-player-score-tab">최다득점</label> 
-						
-						<input id="top3-player-out-tab" type="radio" name="tabs"> 
-						<label for="top3-player-out-tab">최다삼진</label> 
-						
-						<input id="top3-player-hit-tab" type="radio" name="tabs"> 
-						<label for="top3-player-hit-tab">최다홈런</label> 
-						
-						<input id="top3-player-run-tab" type="radio" name="tabs"> 
-						<label for="top3-player-run-tab">최다도루</label>
+				<input id="top3-player-score-tab" type="radio" name="tabs" checked>
+					<label for="top3-player-score-tab">최다득점</label> <input
+						id="top3-player-out-tab" type="radio" name="tabs"> <label
+						for="top3-player-out-tab">최다삼진</label> <input
+						id="top3-player-hit-tab" type="radio" name="tabs"> <label
+						for="top3-player-hit-tab">최다홈런</label> <input
+						id="top3-player-run-tab" type="radio" name="tabs"> <label
+						for="top3-player-run-tab">최다도루</label>
 
-						<!-- score start -->
-						<%-- <section class="top3-player-score" id="top3-player-score">
-						
+				<!-- score start -->
+				<section class="top3-player-score" id="top3-player-score">
+					<!-- 기록 있을시 -->
+					<c:if test="${! empty list3 }" var="isRbi">
 						<c:forEach var="item" items="${list3}" varStatus="loop">
 							<div class="small-post-item">
 								<div class="small-post-thumb">
-									<img src="<c:url value='/matching/Upload/${item.profile }'/>"
-										alt="image" style="width: 80px; height: 80px" />
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
 								</div>
 								<div class="small-post-content">
 									<h6>
@@ -1488,106 +1524,134 @@ input:checked+label {
 									</ul>
 								</div>
 							</div>
-							
 						</c:forEach>
-						</section> --%>
-						
-						
-						
-						<!-- ====================================================== -->
-						
-						<!-- score start -->
-						<section class="top3-player-score" id="top3-player-score">
-							<c:forEach var="item" items="${list3}" varStatus="loop">
-								<div class="small-post-item">
-									<div class="small-post-thumb">
-										<img src="<c:url value='https://placeimg.com/80/80/people'/>"
-											alt="image" />
-									</div>
-									<div class="small-post-content">
-										<h6>
-											<a href="#0">${item.name }</a>
-										</h6>
-										<ul class="post-meta">
-											<li style="font-weight: bold;">${item.rbi}점</li>
-										</ul>
-									</div>
-								</div>
-							</c:forEach>
-							</section>
-							<!-- score end -->
-	
-							<!-- out start -->
-							<section class="top3-player-out" id="top3-player-out">
-								<c:forEach var="item" items="${list4}" varStatus="loop">
-									<div class="small-post-item">
-										<div class="small-post-thumb">
-											<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-												alt="image" />
-										</div>
-										<div class="small-post-content">
-											<h6>
-												<a href="#0">${item.name }</a>
-											</h6>
-											<ul class="post-meta">
-												<li style="font-weight: bold;">${item.so}개</li>
-											</ul>
-										</div>
-									</div>
-								</c:forEach>
-							</section>
-							<!-- out end -->
-	
-							<!-- hit start -->
-							<section class="top3-player-hit" id="top3-player-hit">
-								<c:forEach var="item" items="${list5}" varStatus="loop">
-									<div class="small-post-item">
-										<div class="small-post-thumb">
-											<img src="<c:url value='https://placeimg.com/80/80/nature'/>"
-												alt="image" />
-										</div>
-										<div class="small-post-content">
-											<h6>
-												<a href="#0">${item.name }</a>
-											</h6>
-											<ul class="post-meta">
-												<li style="font-weight: bold;">${item.hr}개</li>
-											</ul>
-										</div>
-									</div>
-								</c:forEach>
-							</section>
-							<!-- hit end -->
-	
-							<!-- run start -->
-							<section class="top3-player-run" id="top3-player-run">
-								<c:forEach var="item" items="${list6}" varStatus="loop">
-									<div class="small-post-item">
-										<div class="small-post-thumb">
-											<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-												alt="image" />
-										</div>
-										<div class="small-post-content">
-											<h6>
-												<a href="#0">${item.name }</a>
-											</h6>
-											<ul class="post-meta">
-												<li style="font-weight: bold;">${item.sb}개</li>
-											</ul>
-										</div>
-									</div>
-								</c:forEach>
-							</section>
-							<!-- run end -->
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isRbi }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
 						</div>
-						<!-- top3 end -->
-				</div>
-				
+					</c:if>
+				</section>
+				<!-- score end -->
+
+				<!-- out start -->
+				<section class="top3-player-out" id="top3-player-out">
+					<!-- 기록 있을시 -->
+					<c:if test="${! empty list4 }" var="isSo">
+						<c:forEach var="item" items="${list4}" varStatus="loop">
+							<div class="small-post-item">
+								<div class="small-post-thumb">
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
+								</div>
+								<div class="small-post-content">
+									<h6>
+										<a href="#0">${item.name }</a>
+									</h6>
+									<ul class="post-meta">
+										<li style="font-weight: bold;">${item.pso}개</li>
+									</ul>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isSo }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
+						</div>
+					</c:if>
+				</section>
+				<!-- out end -->
+
+				<!-- hit start -->
+				<section class="top3-player-hit" id="top3-player-hit">
+					<!-- 기록 있을시 -->
+					<c:if test="${! empty list5 }" var="isHr">
+						<c:forEach var="item" items="${list5}" varStatus="loop">
+							<div class="small-post-item">
+								<div class="small-post-thumb">
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
+								</div>
+								<div class="small-post-content">
+									<h6>
+										<a href="#0">${item.name }</a>
+									</h6>
+									<ul class="post-meta">
+										<li style="font-weight: bold;">${item.hr}개</li>
+									</ul>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isHr }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
+						</div>
+					</c:if>
+				</section>
+				<!-- hit end -->
+
+				<!-- run start -->
+				<section class="top3-player-run" id="top3-player-run">
+					<!-- 기록 있을시 -->
+					<c:if test="${! empty list6 }" var="isSb">
+						<c:forEach var="item" items="${list6}" varStatus="loop">
+							<div class="small-post-item">
+								<div class="small-post-thumb">
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
+								</div>
+								<div class="small-post-content">
+									<h6>
+										<a href="#0">${item.name }</a>
+									</h6>
+									<ul class="post-meta">
+										<li style="font-weight: bold;">${item.sb}개</li>
+									</ul>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isSb }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
+						</div>
+					</c:if>
+				</section>
+				<!-- run end -->
+			</div>
 			<!-- top3 end -->
 			<!-- widget end -->
 		</div>
 
 
+	</div>
 	</div>
 	<!-- container -->
 </section>
