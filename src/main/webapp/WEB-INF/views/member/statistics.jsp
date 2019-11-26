@@ -88,11 +88,19 @@ tbody tr td {
 
 <!-- 메인파트 -->
 <div class="container">
+	<div class="row justify-content-center" style="margin-top: 60px;">
+		<div class="col-lg-7">
+          <div class="section-header text-center">
+            <h2 class="section-title">Statistics</h2>
+            <p>기록과 통계</p>
+          </div>
+        </div>
+    </div>
 	<div class="row justify-content-center">
 		<div class="col-lg-12">
 			<div class="statistics-table-result-part">
 				<!-- blog-details-section start -->
-				<section class="blog-details-section section-padding">
+				<section class="blog-details-section">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-5"
@@ -269,7 +277,7 @@ tbody tr td {
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
+															<tr style="background-color: white;">
 																<td></td>
 																<td>${hitters.AB}</td>
 																<td>${hitters.H}</td>
@@ -293,7 +301,7 @@ tbody tr td {
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
+															<tr style="background-color: white;">
 																<td></td>
 																<td>${hitters.SUMAB}</td>
 																<td>${hitters.SUMH}</td>
@@ -320,7 +328,7 @@ tbody tr td {
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
+															<tr style="background-color: white;">
 																<td></td>
 																<td>${hitters.CI}.${hitters.CO }</td>
 																<td>${hitters.PER}</td>
@@ -344,7 +352,7 @@ tbody tr td {
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
+															<tr style="background-color: white;">
 																<td></td>
 																<td>따로계산</td>
 																<td>계산필요</td>

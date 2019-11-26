@@ -763,7 +763,7 @@ background-repeat: no-repeat;
 	        <!-- Insert Text Start -->
 	        <div class="footer-chat" style="box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1); width:96%; height: 50px;">
 	          <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
-	          <input style="width: 70%;" id="message" type="text" class="write-message" placeholder="Type your message here"></input>
+	          <input style="width: 75%;" id="message" type="text" class="write-message" placeholder="Type your message here"></input>
 	          <button id="sendBtn" style="background-color: transparent; padding-left: 30px; padding-bottom: 5px;">
 	          	<i style="position: inherit !important;" class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i>
 	          </button>
@@ -777,16 +777,16 @@ background-repeat: no-repeat;
             <div class="sidebar">
               
                   <form class="widget-search-form">
-                     <input type="button" class="btn btn-danger" style="margin-top: 50px; background-color: #DC143C; text-align: center;" value="      Get Ready" onclick="readyButton()" id="readyBtn"/>
+                     <input type="button" class="btn btn-danger" style="font-weight: bold; margin-top: 50px; background-color: #DC143C; text-align: center; padding: 15px 15px 15px 15px;" value="Get Ready" onclick="readyButton()" id="readyBtn"/>
                      
                   </form>
                
                <div style="text-align: center; margin-top: 15px">
-                  <button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="width: 50%; background-color: dodgerblue;" id="makeRoom">방만들기</button>
+                  <button data-toggle="modal" data-target="#myModal" class="btn btn-info" style="font-weight: bold; width: 100%; background-color: dodgerblue; padding: 15px 15px 15px 15px;" id="makeRoom">방 만들기</button>
                </div>
                <!-- widget end -->
-               <div class="widget widget-categories" style="margin-top: 15px">
-                  <h4 class="widget-title" style="text-align: center;">User List</h4>
+               <div class="widget widget-categories" style="margin-top: 15px;">
+                  <h4 class="widget-title" style="text-align: center; margin-bottom: 10px;">User List</h4>
                   <ul id="userList">
                     
                   </ul>
@@ -794,7 +794,7 @@ background-repeat: no-repeat;
                
                <!-- widget end -->
                <div class="widget widget-categories" style="overflow: auto;" id="ddo">
-                  <h4 class="widget-title" style="text-align: center;">Waiting Room</h4>
+                  <h4 class="widget-title" style="text-align: center; margin-bottom: 10px;">Waiting Room</h4>
                   
                     <form action="<c:url value='/Team/Matching/Ent.do'/>">
                      <div id="chattingRoom1" style="text-align: center;">

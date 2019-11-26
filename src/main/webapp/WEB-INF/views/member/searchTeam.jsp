@@ -174,9 +174,9 @@ $(function(){
 <!-- banner-section end -->
 
 <!-- service-section start -->
-<section class="service-section section-padding section-bg">
+<section class="service-section">
 	<div class="container">
-		<div class="row justify-content-center">
+		<div class="row justify-content-center" style="padding-top: 80px;">
 			<div class="col-lg-7">
 				<div class="section-header text-center">
 					<h2 class="section-title">Search Team!</h2>
@@ -192,17 +192,24 @@ $(function(){
 							<!-- 팀등록현황 Search Form -->
 							<div class="container">
 								<input type="text" placeholder="팀명을 입력하세요" class="form-input" id="keyword_a" name="TEAM_NAME_SEARCH" title="팀검색" />
-								<button class="btn-submit" type="submit">검색</button>
-								<button class="btn-submit" type="submit" style="margin-left: -3px;">전체보기</button>
+								<button class="btn-submit" type="submit" style="background-color: dodgerblue; 
+																							border-radius: .2em;
+															    							color: white;">검색
+								</button>
+								<button class="btn-submit" type="submit" style="margin-left: -3px; 
+																				background-color: slateblue;
+																			    border-radius: .2em;
+																			    color: white;">전체보기
+								</button>
 							</div>
 						</form>
 						<!-- //팀등록현황 Search Form start -->
-						<section>
+						<section style="box-shadow: 0 0 10px 2px rgba(55, 107, 255, 0.1);">
 							<c:if test="${! empty list }" var="isList">
 								<c:forEach var="item" items="${list}" varStatus="loop">
 								
 									<div class="search_team">
-										<div class="search_contents">
+										<div class="search_contents" style="padding-left: 15px;">
 											<div class="team-image">
 												<c:if test="${! empty item.TEAMLOGO }" var="isLogo">
 													<img src="/matching/Upload/${item.TEAMLOGO }" alt="image" style="width:80px; height:80px"/>
@@ -219,7 +226,11 @@ $(function(){
 												</li>
 												<li style="display: none;"><span>${item.TEAMINFO}</span></li>
 											</ul>
-											<button type="button" class="signup-button" data-toggle="modal" data-target="#joinModal">가입신청</button>
+											<button type="button" class="signup-button" data-toggle="modal" data-target="#joinModal" 
+													style="background-color: mediumseagreen; 
+															border-radius: .2em; 
+															color: white;">가입신청
+											</button>
 										</div>
 									</div>
 								</c:forEach>
