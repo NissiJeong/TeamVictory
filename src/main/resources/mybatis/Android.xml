@@ -173,12 +173,64 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectLastPredic222" parameterType="java.util.Map" resultType="Map">
 		select b.*,g.* from betting b join gameschedule g on b.gamedate = g.gamedate and b.time = g.time and b.stadium = g.stadium where b.id=#{id} and rownum=1 and g.gamestatus='finish' order by b.no desc
 	</select>
-	<!-- 내가 배팅한 팀의 배당률 구하려고 -->
-	<select id="selectBettings" parameterType="java.util.Map" resultType="Map">
-		select * from betting where gamedate = #{gamedate} and stadium=#{stadium} and time=#{time}
-	</select>
+	
 	<!-- 배당률 구하기 -->
 	<select id="selectBettings2222" parameterType="java.util.Map" resultType="Map">
 		select * from betting where gamedate = #{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
 	</select>
+	<!-- waiting인 것 가져오기 -->
+	<select id="selectWaitingGame2222" parameterType="java.util.Map" resultType="FinishGameDTO">
+		select g.no,g.gamedate,g.stadium,g.time,g.homescore,g.awayscore, t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo,
+		(select teamname from team where manager_id=#{id}) myteam from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname 
+		where (g.teamname = (select teamname from team where manager_id=#{id}) or g.awayteam=(select teamname from team where manager_id=#{id})) 
+		and g.gamestatus = 'waiting'
+	</select>
+	<!-- gameStatus waiting -> inwaiting -->
+	<update id="updateInwating22222" parameterType="java.util.Map">
+		update gameschedule set gamestatus='inwaiting',homescore=#{homescore},awayscore=#{awaysocre} where no=#{no}
+	</update>
+	<update id="updateMileage3333" parameterType="java.util.Map">
+		MERGE INTO member m USING teammember t ON (m.id = t.id)  WHEN MATCHED THEN UPDATE SET m.point = m.point+200 where t.teamname = (select teamname from team where team.manager_id=#{id})
+	</update>
+	<!-- 상대방이 게임 종료한 게임 정보 가져오기 -->
+	<select id="selectInWaitingGame2222" parameterType="java.util.Map" resultType="FinishGameDTO">
+		select g.no,g.gamedate,g.stadium,g.time,g.homescore,g.awayscore, t.teamname hometeam,t.teamlogo homelogo,m.teamname awayteam,m.teamlogo awaylogo,
+		(select teamname from team where manager_id=#{id}) myteam from gameschedule g 
+		join team t on g.teamname = t.teamname join team m on g.awayteam = m.teamname 
+		where (g.teamname = (select teamname from team where manager_id=#{id}) or g.awayteam=(select teamname from team where manager_id=#{id})) 
+		and g.gamestatus = 'inwaiting'
+	</select>
+	<!-- 게임 마지막 finish -->
+	<update id="updateFinish2222" parameterType="java.util.Map">
+		update gameschedule set gamestatus='finish' where no=#{no}
+	</update>
+	<!-- 내가 finish누른 게임의 팀 이름 가져오기 위한 쿼리문 -->
+	<select id="selectGameSchedule2222" parameterType="java.util.Map" resultType="Map">
+		select * from gameschedule where no=#{no}
+	</select>
+	<!-- hometeam의 게임 정보 레이팅 올리기! -->
+	<select id="selectHomeGameSchedule2222" parameterType="java.util.Map" resultType="Map">
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.teamname = t.teamname where (g.teamname = #{TEAMNAME} or g.awayteam = #{TEAMNAME}) and g.gamestatus='finish' order by no desc
+	</select>
+	<!-- awayteam의 게임 정보 레이팅 올리기! -->
+	<select id="selectAwayGameList2222" parameterType="java.util.Map" resultType="Map">
+		select g.*, t.teamrating, t.teamname hometeam from gameschedule g join team t on g.awayteam = t.teamname where (g.teamname = #{AWAYTEAM} or g.awayteam = #{AWAYTEAM}) and g.gamestatus='finish' order by no desc
+	</select>
+	<!-- Home team rating update -->
+	<update id="updateHomeRating2222" parameterType="java.util.Map">
+		update team set TEAMRATING = #{homeNewRating} where teamname = #{TEAMNAME}
+	</update>
+	<!-- away team rating update -->
+	<update id="updateAwayRaing2222" parameterType="java.util.Map">
+		update team set TEAMRATING = #{awayNewRating} where teamname = #{AWAYTEAM}
+	</update>
+	<!-- 경기 끝난 팀에 베팅한 사람들 가져오기 -->
+	<select id="selectBettings22222222" parameterType="java.util.Map" resultType="Map">
+		select * from betting where gamedate = #{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
+	</select>
+	<!-- 경기 종료 후 경기 결과에 따라 point update -->
+	<update id="updatePoint2222" parameterType="java.util.Map">
+		UPDATE member SET point = point + #{myMileage} WHERE id=#{id}
+	</update>
 </mapper>

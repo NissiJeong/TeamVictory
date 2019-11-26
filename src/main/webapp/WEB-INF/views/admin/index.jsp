@@ -13,7 +13,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>백엔드 시작페이지</title>
+  <title>관리자 페이지</title>
 
   <!-- Custom fonts for this template-->
   
@@ -203,7 +203,7 @@ $(function(){
  					게임 결과 입력 <span id="scheduleCount" class="badge badge-pill badge-dark">0</span>  					
                </div>
               </div>
-              <a id="scheduleDtail" class="card-footer text-white clearfix small z-1" href="#">
+              <a id="scheduleDtail" class="card-footer text-white clearfix small z-1" href="<c:url value='/Team/admin/gameRecord.do'/>">
                 <span class="float-left">View Details</span>
                 <span class="float-right">
                   <i class="fas fa-angle-right"></i>

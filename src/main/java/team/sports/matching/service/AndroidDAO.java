@@ -148,6 +148,52 @@ public class AndroidDAO {
 	public List<Map> selectBettings222(Map map) {
 		return template.selectList("selectBettings2222", map);
 	}
-	
-	
+	//게임 상태 waiting인 것 가져오기
+	public List<FinishGameDTO> selectWaitingList(Map map) {
+		return template.selectList("selectWaitingGame2222", map);
+	}
+	//게임 상태 inwaiting으로 업데이트
+	public int updateInwating222(Map map) {
+		return template.update("updateInwating22222", map);
+	}
+	//팀원들 마일리지 올리기
+	public int updateTeamMemberMileage(Map map) {
+		return template.update("updateMileage3333",map);
+	}
+	//상대방이 게임 종료한 것 가져오기
+	public List<FinishGameDTO> selectInWaitingList(Map map) {
+		return template.selectList("selectInWaitingGame2222", map);
+	}
+	//게임 마지막 finish
+	public int updateFinish222(Map map) {
+		return template.update("updateFinish2222", map);
+	}
+	//내가 finish버튼 누른 팀의 팀 이름 가져오기
+	public Map selectGameSchedule222222(Map map) {
+		return template.selectOne("selectGameSchedule2222", map);
+	}
+	//홈팀의 게임 정보 가져오기 - 레이팅
+	public List<Map> selectHomeGameShcedule(Map recentGame) {
+		return template.selectList("selectHomeGameSchedule2222", recentGame);
+	}
+	//어웨이 팀의 게임 정보 가져오기 - 레이팅
+	public List<Map> selectAwayGameShcedule(Map recentGame) {
+		return template.selectList("selectAwayGameList2222", recentGame);
+	}
+	//경기 종료 후 홈팀의 레이팅 점수 변경
+	public int updateHomeRating(Map recentGame) {
+		return template.update("updateHomeRating2222", recentGame);
+	}
+	//경기 종료 후 어웨이 팀의 레이팅 점수 변경
+	public int updateAwayRating(Map recentGame) {
+		return template.update("updateAwayRaing2222", recentGame);
+	}
+	//경기 종료 버튼 누른 경기에 배팅한 사람들과 그 정보 가져오기
+	public List<Map> selectBettings3333(Map recentGame) {
+		return template.selectList("selectBettings22222222", recentGame);
+	}
+	//경기 종료 버튼 누른 후 그 경기에 배팅한 사람들의 마일리지 변경해주기
+	public int updatePoint22(Map resultMap) {
+		return template.update("updatePoint2222", resultMap);
+	}
 }

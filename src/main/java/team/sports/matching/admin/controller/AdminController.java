@@ -40,6 +40,13 @@ public class AdminController{
 		return "admin/index";
 	}///////
 	
+	//리액트 페이지로 이동
+	@RequestMapping("/Team/admin/gameRecord.do")
+	public String toReact() {
+		newCount = 0;
+		return "admin/recordEdit";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/Team/admin/scheduleUpdate.do")
 	public String scheduleUpdate() {
