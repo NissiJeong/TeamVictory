@@ -397,46 +397,35 @@ public class BettingController {
 	
 		}////////////////
 		
+		
 		@ResponseBody 
-		@RequestMapping(value="/Team/Matching/longpoll.do" ,produces = "text/html; charset=UTF-8",method = RequestMethod.POST)
-		public String longPolling(@RequestParam String param) {
+		@RequestMapping(value="/Team/Matching/longpoll.do" ,produces = "application/json; charset=UTF-8",method = RequestMethod.POST)
+		public String longPolling(@RequestBody String param) throws org.json.simple.parser.ParseException {
+			JSONParser jsonParser = new JSONParser();
+			 JSONArray paramToJsonArr = (JSONArray)jsonParser.parse(param);
+			 Map map = new HashMap();
+			 List<Map>mapperList = new Vector<Map>();
+			 
 			
-			System.out.println("롱폴링중입니다.");
+			 
+			for (int i=0; i<paramToJsonArr.size(); i++) {
+				
+				mapperList.add((Map)paramToJsonArr.get(i));
+				
+			}////
+			 List<Map>  list =bettingDao.test(mapperList);
 			
-			JSONObject json = new JSONObject();
-			json.put("msg", "long polling 중입니다.");
-
-			return  json.toJSONString();
+			 
+			 for (int i=0; i<paramToJsonArr.size(); i++) {
+					((Map)paramToJsonArr.get(i)).put("count",list.get(i).get("COUNT") );
+					
+				}////
+	     
+			return paramToJsonArr.toJSONString();
 		}////////////////		
 			
 			
-		
-		/*
-		@ResponseBody
-		@RequestMapping(value="/Team/Matching/Point.do" ,produces = "text/html; charset=UTF-8")
-		public String  modalPoint(@RequestParam Map map) {
-			
-			    System.out.println("id값 : "+map.get("id").toString());
-			  
-			    for(Object key :  map.keySet())
-			    	System.out.println(String.format("%s  |  %s",key ,map.get(key).toString()));
-			    
-			    MemberDTO mDto =  bettingDao.memberPoint(map);
-			
-			     Gson gson = new Gson();
-			     String memberDTOGson = gson.toJson(mDto);
-			     System.out.println("gson으로 json만들기  memberdto");
-			     System.out.println(memberDTOGson);
-			
-			    String  point ="";
-			   if( mDto !=null)
-				   point= mDto.getPoint();
-			
-			return point;
-		
-		}////////////////////////
-		
-		*/
+	
 		
 		
 		

@@ -290,19 +290,19 @@ public class TeamController {
 		}
 		int affected = dao.updateGameStatus222(map);
 		//finish누른 사람이 manager일때
-		if(affected == 1) {
+		if(affected == 1) {			
 			//팀원들의 마일리지 올리기
 			int mileage = dao.updateMileage222(map);
 			//팀 rating 계산하는 로직
 			List<Map> HomeGameList = dao.selectHomeGameSchedule(map);
 			List<Map> AwayGameList = dao.selectAwayGameSchedule(map);
 			String hometeam = HomeGameList.get(0).get("TEAMNAME").toString();
-			int homeRating = Integer.parseInt(HomeGameList.get(HomeGameList.size()-1).get("TEAMRATING").toString());
+			double homeRating = Double.parseDouble(HomeGameList.get(HomeGameList.size()-1).get("TEAMRATING").toString());
 			int home_homescore = Integer.parseInt(HomeGameList.get(0).get("HOMESCORE").toString());
 			int home_awayscore = Integer.parseInt(HomeGameList.get(0).get("AWAYSCORE").toString());
 			int homeMatchCount = HomeGameList.size();
 			String awayteam = AwayGameList.get(0).get("AWAYTEAM").toString();
-			int awayRating = Integer.parseInt(AwayGameList.get(AwayGameList.size()-1).get("TEAMRATING").toString());
+			double awayRating = Double.parseDouble(AwayGameList.get(AwayGameList.size()-1).get("TEAMRATING").toString());
 			int awayMatchCount = AwayGameList.size();
 			int away_awayscore = Integer.parseInt(AwayGameList.get(0).get("HOMESCORE").toString());
 			int away_homescore = Integer.parseInt(AwayGameList.get(0).get("AWAYSCORE").toString());
@@ -313,6 +313,83 @@ public class TeamController {
 			map.put("awayNewRating", awayNewRating);
 			int isHomeUpdate = dao.updateHomeRating(map);
 			int isAwayUpdate = dao.updateAwayRating(map);
+			for(int i=0; i<HomeGameList.size();i++) {
+				for(Object key : HomeGameList.get(i).keySet()) {
+					//System.out.print(key+":"+HomeGameList.get(i).get(key)+"/");
+				}
+				//System.out.println();
+			}
+			map.put("gamedate", HomeGameList.get(0).get("GAMEDATE"));
+			map.put("time",HomeGameList.get(0).get("TIME"));
+			map.put("stadium", HomeGameList.get(0).get("STADIUM"));
+			for(Object key : map.keySet()) {
+				System.out.println(key+":"+map.get(key));
+			}
+			List<Map> bettingPersons = dao.selectBettings(map);
+			double totalMileage = 0;
+			double homeMileage = 0;
+			double drawMileage = 0;
+			double awayMileage = 0;
+			
+			for(int i=0; i<bettingPersons.size();i++) {
+				totalMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+				if(hometeam.equals(bettingPersons.get(i).get("SELECTTEAM").toString())) {
+					homeMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+				}
+				else if("DRAW".equals(bettingPersons.get(i).get("SELECTTEAM").toString())) {
+					drawMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+				}
+				else {
+					awayMileage += Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString());
+				}				
+				for(Object key : bettingPersons.get(i).keySet()) {
+					System.out.print(key+":"+bettingPersons.get(i).get(key)+"/");
+				}
+				System.out.println();
+			}
+			Map resultMap = new HashMap(); 
+			for(int i=0; i<bettingPersons.size();i++) {
+				resultMap.put("id", bettingPersons.get(i).get("ID").toString());
+				if(home_homescore>home_awayscore) {
+					if(hometeam.equals(bettingPersons.get(i).get("SELECTTEAM").toString())) {
+						double myMileage =  totalMileage * (Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString())/homeMileage);
+						System.out.println("홈팀이 이겼을 때 내가 딴 돈:"+myMileage);
+						resultMap.put("myMileage", myMileage);
+						int update = dao.updatePoint(resultMap);
+					}
+					else {
+						double myMileage = 0;
+						resultMap.put("myMileage", myMileage);
+						int update = dao.updatePoint(resultMap);
+					}					
+				}
+				else if(home_homescore==home_awayscore) {
+					if("DRAW".equals(bettingPersons.get(i).get("SELECTTEAM").toString())) {
+						double myMileage = totalMileage * (Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString())/drawMileage);
+						System.out.println("draw했을 떄 내가 딴 돈:"+myMileage);
+						resultMap.put("myMileage", myMileage);
+						int update = dao.updatePoint(resultMap);
+					}
+					else {
+						double myMileage = 0;
+						resultMap.put("myMileage", myMileage);
+						int update = dao.updatePoint(resultMap);
+					}
+				}
+				else {
+					if(awayteam.equals(bettingPersons.get(i).get("SELECTTEAM").toString())) {
+						double myMileage =  totalMileage * (Double.parseDouble(bettingPersons.get(i).get("MILEAGE").toString())/awayMileage);
+						System.out.println("away팀이 이겼을 때 내가 딴 돈:"+myMileage);
+						resultMap.put("myMileage", myMileage);
+						int update = dao.updatePoint(resultMap);
+					}
+					else {
+						double myMileage = 0;
+						resultMap.put("myMileage", myMileage);
+						int update = dao.updatePoint(resultMap);
+					}
+				}
+			}			
 			return "yes";
 		}
 		return null;
@@ -401,7 +478,7 @@ public class TeamController {
 	}
 	
 	//팀 바꾸기 ajax
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping(value="/Team/Matching/teamSelect.do",produces = "text/html; charset=UTF-8")
 	public String match(@RequestParam Map map,Authentication auth) {
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
@@ -414,5 +491,5 @@ public class TeamController {
 		//map에 내 팀 no 입력해야함 
 		String ass= "no";	
 		return ass;
-	}
+	}*/
 }

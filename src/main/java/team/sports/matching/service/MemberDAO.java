@@ -126,7 +126,7 @@ public class MemberDAO {
 	}
 	//gameSchedule에서 inwaiting의 정보들 가져오기
 	public List<Map> selectFinishInfo(Map map) {
-		return template.selectList("selectInwaiting", map);
+		return template.selectList("selectInwaiting44", map);
 	}
 	//종료 버튼 누른 사람이 팀장인지
 	public List<Map> selectManagerId(Map map) {
@@ -160,6 +160,23 @@ public class MemberDAO {
 	public boolean andLogin(Map map) {
 		return (Integer)template.selectOne("AndLogin", map)==1?true:false;
 	}
+	//경기가 끝난 경기에 베팅한 사람들 가져오기
+	public List<Map> selectBettings(Map map) {
+		return template.selectList("selectBettings", map);
+	}
+	//경기 끝난 후 경기 결과에 따라 point update
+	public int updatePoint(Map map) {
+		return template.update("updatePoint", map);
+	}
 	
+	//email key
+	public void updateMailkey(Map map) throws Exception {
+		template.update("updateMailkey", map);
+	}
+	
+	public void updateMailstatus(Map map) throws Exception {
+		template.update("updateMailstatus", map);
+	}
+
 
 }/////class

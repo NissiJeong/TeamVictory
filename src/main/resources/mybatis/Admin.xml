@@ -11,4 +11,90 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from gameschedule where gamestatus='finish'
 	</select>
 	
+	<!-- 파싱데이터 주입 -->
+	<select id="openInsertData" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from gameschedule order by no
+		<!-- select  g.* ,(select count(*) from betting b 
+			where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) count
+			from gameschedule g join team t on g.teamname =  t.teamname  order by  g.gamedate desc -->
+	</select>
+	
+	<select id="insertParsingData" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT MATCHINGNO, TEAMNAME, ENEMYTEAM AWAYTEAM, STADIUM, REQDATE GAMEDATE, TIME, MATCHSTATUS FROM MATCHING ORDER BY GAMEDATE, TIME DESC
+		
+		<!-- select  g.* ,(select count(*) from betting b 
+			where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) count
+			from gameschedule g join team t on g.teamname =  t.teamname  order by  g.gamedate desc -->
+	</select>
+	
+	<select id="getMembersWithParsing" parameterType="java.util.Map" resultType="java.util.Map">
+		select t.ID,t.TEAMNAME,hitpower from teammember t join  member m on t.id=m.id where teamname=#{TEAMNAME} order by hitpower desc
+	</select>
+	<select id="getMembersWithParsingPITCHER" parameterType="java.util.Map" resultType="java.util.Map">
+		select t.ID,t.TEAMNAME,pitpower from teammember t join  member m on t.id=m.id where teamname=#{TEAMNAME} order by pitpower desc
+	</select>
+	
+	
+	<update id="updateScheduleWithParsing" parameterType="java.util.Map">
+		update gameschedule set gamestatus=#{FINISH},
+		 homescore=#{HOMESCORE}, awayscore=#{AWAYSCORE} where gamedate=#{GAMEDATE} and stadium=#{STADIUM} and
+		  time=#{TIME} and teamname=#{TEAMNAME} and awayteam=#{AWAYTEAM}
+	</update>
+	
+	<insert id="insertHitterWithParsing" parameterType="java.util.Map">
+		insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder)
+				values(#{GAMEDATE},#{STADIUM},#{TIME},#{ID},#{TEAMNAME},#{PA},#{AB},
+				#{H},#{B2},#{B3},#{HR},#{R},#{RBI},#{SB},#{CS},
+				#{BB},#{HBP},#{SO},#{GDP},#{E},#{POS},#{HORDER})
+	</insert>
+	
+	<insert id="insertPitcherWithParsing" parameterType="java.util.Map">
+		insert into pitcher(gamedate,stadium,time,id,teamname,W,L,SV,HOL,BLSV,CI,CO,TBF,PITCH,PR,PER,PH,PB2,PB3,PHR,PBB,PHBP,PSO)
+				values(#{GAMEDATE},#{STADIUM},#{TIME},#{ID},#{TEAMNAME},#{W},#{L},#{SV},#{HOL},#{BLSV},#{CI},
+				#{CO},#{TBF},#{PITCH},#{PR},#{PER},#{PH},#{PB2},#{PB3},#{PHR},#{PBB},#{PHBP},#{PSO})
+	</insert>
+	
+	
+	
+	<!-- detailView 구성 -->
+	
+	<select id="getScoreLogo" parameterType="java.util.Map" resultType="java.util.Map">
+		select gg.*, tt.teamlogo awaylogo from 
+		(select g.*, t.teamlogo homelogo from gameschedule g join team t on g.teamname = t.teamname) gg 
+		join team tt on gg.awayteam = tt.teamname
+		where gamedate=#{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
+	</select>
+	
+	
+	<select id="getSummary" parameterType="java.util.Map" resultType="java.util.Map">
+		select a.*, b.* from  
+			(select g.gamedate, g.stadium, g.time, g.teamname TEAMNAME,
+			SUM(PA) HOMEPA,SUM(AB) HOMEAB,SUM(H) HOMEH,SUM(B2) HOMEB2,
+			SUM(B3) HOMEB3,SUM(HR) HOMEHR,SUM(R) HOMER,SUM(RBI) HOMERBI,
+			SUM(SB) HOMESB,SUM(CS) HOMECS,SUM(BB) HOMEBB,SUM(HBP) HOMEHBP, 
+			SUM(SO) HOMESO,SUM(GDP) HOMEGDP,SUM(E) HOMEE
+			from hitter h join gameschedule g on h.gamedate=g.gamedate and h.stadium=g.stadium and h.time=g.time
+			where h.gamedate=#{GAMEDATE} and h.stadium=#{STADIUM} and h.time=#{TIME} AND h.teamname=#{TEAMNAME}
+			group by g.gamedate, g.stadium, g.time, g.teamname)
+			a join
+			(select g.gamedate, g.stadium, g.time, g.awayteam AWAYTEAM,
+			SUM(PA) AWAYPA,SUM(AB) AWAYAB,SUM(H) AWAYH,SUM(B2) AWAYB2,
+			SUM(B3) AWAYB3,SUM(HR) AWAYHR,SUM(R) AWAYR,SUM(RBI) AWAYRBI,
+			SUM(SB) AWAYSB,SUM(CS) AWAYCS,SUM(BB) AWAYBB,SUM(HBP) AWAYHBP, 
+			SUM(SO) AWAYSO,SUM(GDP) AWAYGDP,SUM(E) AWAYE
+			from hitter h join gameschedule g on h.gamedate=g.gamedate and h.stadium=g.stadium and h.time=g.time
+			where h.gamedate=#{GAMEDATE} and h.stadium=#{STADIUM} and h.time=#{TIME} AND h.teamname=#{AWAYTEAM}
+			group by g.gamedate, g.stadium, g.time, g.awayteam)
+			b on a.gamedate = b.gamedate and a.stadium=b.stadium and a.time=b.time
+	</select>
+	
+	<select id="getEachResult" parameterType="java.util.Map" resultType="java.util.Map">
+		select aa.*, c.w,c.l,c.sv,c.hol,c.blsv,c.ci,c.co,c.tbf,c.pitch,c.pr,c.per,c.ph,c.pb2,c.pb3,c.phr,c.pbb,c.phbp,c.pso
+			from 
+			(select a.gamedate,a.stadium,a.time,a.id, b.name,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder from
+			(select h.* from hitter h join gameschedule g on h.gamedate=g.gamedate and h.stadium=g.stadium and h.time=g.time) a
+			join member b on a.id=b.id) aa left join pitcher c
+			on aa.id=c.id
+			where aa.gamedate=#{GAMEDATE} and aa.stadium=#{STADIUM} and aa.time=#{TIME}
+	</select>
 </mapper>

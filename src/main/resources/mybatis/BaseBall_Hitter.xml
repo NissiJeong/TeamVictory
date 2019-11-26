@@ -72,8 +72,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	
-	
 	<select id="hitterDetailViewEachTeam" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM (SELECT ROWNUM AS RECORDNO,  A.* FROM 
 		    (SELECT GAMEDATE, STADIUM, TIME, ID,TEAMNAME, PA, AB, H, B2, B3, HR, R, RBI, SB, CS, BB, HBP, SO, GDP, E, POS, HORDER,
@@ -114,19 +112,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			        ]]>
 			        ORDER BY GAMEDATE DESC, TIME DESC
 		
-		
 	</select>
-	
-	
-	
-	
-	
 	
 	
 	
 	<select id="hitterSelectList" parameterType="java.util.Map" resultType="java.util.Map">
 		
+		select recordno, gamedate, stadium, time, id, name, teamname, pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, pos, horder, sumpa, sumab, sumh, sumb2, sumb3, sumhr, sumr, sumrbi, sumsb, sumcs, sumbb, sumhbp, sumso, sumgdp, sume, W, L, SV,  HOL,BLSV, CI, CO, TBF, PITCH, PR, PER, PH, PB2, PB3, PHR, PBB, PHBP, PSO, SUMW, SUML, SUMSV, SUMHOL, SUMBLSV, SUMCI, SUMCO, SUMTBF, SUMPR , SUMPER, SUMPH, SUMPB2, SUMPB3, SUMPHR, SUMPBB, SUMPHBP, SUMPSO, AWAYTEAM, HOMELOGO, AWAYLOGO, HOMESCORE, AWAYSCORE, BACKNUMBER
+			from
+			(select rownum as recordno, aaaa.* from
+			(select aaa.*, name, base_backnumber backnumber from
+			(select aa.*, bb.awayteam, bb.homelogo, bb.awaylogo, bb.homescore, bb.awayscore from 
+			(SELECT h.gamedate, h.stadium, h.time, h.id, h.teamname, pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, pos, horder,SUMPA,SUMAB,SUMH,SUMB2,SUMB3,SUMHR,SUMR,SUMRBI,SUMSB,SUMCS,SUMBB,SUMHBP,SUMSO,SUMGDP,SUME,W, L, SV, HOL, BLSV, CI, CO, TBF,PITCH, PR, PER, PH, PB2, PB3, PHR, PBB, PHBP,PSO,SUMW,SUML,SUMSV,SUMHOL,SUMBLSV,SUMCI,SUMCO,SUMTBF,SUMPR,SUMPER,SUMPH,SUMPB2,SUMPB3,SUMPHR,SUMPBB,SUMPHBP,SUMPSO
+			FROM 
+			(select gamedate, stadium, time, id, teamname, pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, pos, horder,SUM(PA) OVER(ORDER BY GAMEDATE, TIME) SUMPA,SUM(AB) OVER(ORDER BY GAMEDATE, TIME) SUMAB,SUM(H) OVER(ORDER BY GAMEDATE, TIME) SUMH,SUM(B2) OVER(ORDER BY GAMEDATE, TIME) SUMB2,SUM(B3) OVER(ORDER BY GAMEDATE, TIME) SUMB3,SUM(HR) OVER(ORDER BY GAMEDATE, TIME) SUMHR,SUM(R) OVER(ORDER BY GAMEDATE, TIME) SUMR,SUM(RBI) OVER(ORDER BY GAMEDATE, TIME) SUMRBI,SUM(SB) OVER(ORDER BY GAMEDATE, TIME) SUMSB,SUM(CS) OVER(ORDER BY GAMEDATE, TIME) SUMCS,SUM(BB) OVER(ORDER BY GAMEDATE, TIME) SUMBB,SUM(HBP) OVER(ORDER BY GAMEDATE, TIME) SUMHBP,SUM(SO) OVER(ORDER BY GAMEDATE, TIME) SUMSO,SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
+			from hitter WHERE ID= #{USER_ID} )
+			h LEFT JOIN 
+			(SELECT GAMEDATE, STADIUM, TIME, ID, TEAMNAME, W, L, SV, HOL, BLSV, CI, CO, TBF,PITCH, PR, PER, PH, PB2, PB3, PHR, PBB, PHBP,PSO,SUM(W) OVER(ORDER BY GAMEDATE, TIME) SUMW,SUM(L) OVER(ORDER BY GAMEDATE, TIME) SUML,SUM(SV) OVER(ORDER BY GAMEDATE, TIME) SUMSV,SUM(HOL) OVER(ORDER BY GAMEDATE, TIME) SUMHOL,SUM(BLSV) OVER(ORDER BY GAMEDATE, TIME) SUMBLSV,SUM(CI) OVER(ORDER BY GAMEDATE, TIME) SUMCI,SUM(CO) OVER(ORDER BY GAMEDATE, TIME) SUMCO,SUM(TBF) OVER(ORDER BY GAMEDATE, TIME) SUMTBF,SUM(PR) OVER(ORDER BY GAMEDATE, TIME) SUMPR,SUM(PER) OVER(ORDER BY GAMEDATE, TIME) SUMPER,SUM(PH) OVER(ORDER BY GAMEDATE, TIME) SUMPH,SUM(PB2) OVER(ORDER BY GAMEDATE, TIME) SUMPB2,SUM(PB3) OVER(ORDER BY GAMEDATE, TIME) SUMPB3,SUM(PHR) OVER(ORDER BY GAMEDATE, TIME) SUMPHR,SUM(PBB) OVER(ORDER BY GAMEDATE, TIME) SUMPBB,SUM(PHBP) OVER(ORDER BY GAMEDATE, TIME) SUMPHBP,SUM(PSO) OVER(ORDER BY GAMEDATE, TIME) SUMPSO
+			from pitcher WHERE ID= #{USER_ID} ) 
+			p on h.id=p.id and h.gamedate=p.gamedate and h.stadium=p.stadium and h.time=p.time
+			where H.ID=#{USER_ID}
+			ORDER BY h.GAMEDATE, h.TIME) aa
+			join 
+			(select e.gamedate, e.stadium, e.time, e.teamname hometeam, e.awayteam awayteam, e.gamestatus, e.homescore, e.awayscore,e.myteamlogo homelogo, f.teamlogo awaylogo from
+			(select c.gamedate, c.stadium, c.time, c.awayteam, c.gamestatus, c.homescore, c.awayscore, c.teamname, d.teamlogo myteamlogo from
+			(select * from gameschedule) c join team d on c.teamname=d.teamname) e join team f on e.awayteam=f.teamname) bb
+			on aa.gamedate=bb.gamedate and aa.time=bb.time and aa.stadium= bb.stadium) aaa
+			join  member bbb on aaa.id=bbb.id) aaaa)
+			<![CDATA[
+			where recordno<=(select count(*) from hitter where id=#{USER_ID}) AND 
+			]]>
+			<![CDATA[
+			RECORDNO>((SELECT COUNT(*) FROM HITTER WHERE ID=#{USER_ID}) -5)
+			]]>
+			order by recordno desc
 		
+		
+	<!--
 	select ttt1.*, ttt2.W, ttt2.L, ttt2.SV, ttt2.HOL, ttt2.BLSV, ttt2.CI, ttt2.CO, ttt2.TBF, ttt2.PITCH, ttt2.PR, ttt2.PER, ttt2.PH, ttt2.PB2, ttt2.PB3, ttt2.PHR, ttt2.PBB, ttt2.PHBP, ttt2.PSO, ttt2.SUMW, ttt2.SUML, ttt2.SUMSV, ttt2.SUMHOL, ttt2.SUMBLSV, ttt2.SUMHOL, ttt2.SUMBLSV, ttt2.SUMCI, ttt2.SUMCO, ttt2.SUMTBF, ttt2.SUMPR, ttt2.SUMPER, ttt2.SUMPH, ttt2.SUMPB2, ttt2.SUMPB3, ttt2.SUMPHR, ttt2.SUMPBB, ttt2.SUMPHBP, ttt2.SUMPSO from
 		(select tt1.*,tt2.name,tt2.base_backnumber backnumber from
 		    (SELECT t1.recordno, t1.gamedate, t1.stadium, t1.time, t1.id, t1.teamname, t1.pa, t1.ab, t1.h, t1.b2, t1.b3, t1.hr, t1.r, t1.rbi, t1.sb, t1.cs, t1.bb, t1.hbp, t1.so, t1.gdp, t1.e, t1.pos, t1.horder, t1.sumpa, t1.sumab, t1.sumh, t1.sumb2, t1.sumb3, t1.sumhr, t1.sumr, t1.sumrbi, t1.sumsb, t1.sumcs, t1.sumbb, t1.sumhbp, t1.sumso, t1.sumgdp, t1.sume, t2.awayteam, t2.homescore, t2.awayscore, t2.teamlogo, t2.awayteamlogo
@@ -148,7 +170,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            join member tt2 on tt1.id=tt2.id) ttt1
 		            left join (SELECT GAMEDATE, STADIUM, TIME, ID,TEAMNAME, W, L, SV, HOL, BLSV, CI, CO, TBF,PITCH, PR, PER, PH, PB2, PB3, PHR, PBB, PHBP,PSO,SUM(W) OVER(ORDER BY GAMEDATE, TIME) SUMW,SUM(L) OVER(ORDER BY GAMEDATE, TIME) SUML,SUM(SV) OVER(ORDER BY GAMEDATE, TIME) SUMSV,SUM(HOL) OVER(ORDER BY GAMEDATE, TIME) SUMHOL,SUM(BLSV) OVER(ORDER BY GAMEDATE, TIME) SUMBLSV,SUM(CI) OVER(ORDER BY GAMEDATE, TIME) SUMCI,SUM(CO) OVER(ORDER BY GAMEDATE, TIME) SUMCO,SUM(TBF) OVER(ORDER BY GAMEDATE, TIME) SUMTBF,SUM(PR) OVER(ORDER BY GAMEDATE, TIME) SUMPR,SUM(PER) OVER(ORDER BY GAMEDATE, TIME) SUMPER,SUM(PH) OVER(ORDER BY GAMEDATE, TIME) SUMPH,SUM(PB2) OVER(ORDER BY GAMEDATE, TIME) SUMPB2,SUM(PB3) OVER(ORDER BY GAMEDATE, TIME) SUMPB3,SUM(PHR) OVER(ORDER BY GAMEDATE, TIME) SUMPHR,SUM(PBB) OVER(ORDER BY GAMEDATE, TIME) SUMPBB,SUM(PHBP) OVER(ORDER BY GAMEDATE, TIME) SUMPHBP,SUM(PSO) OVER(ORDER BY GAMEDATE, TIME) SUMPSO 
 		            FROM pitcher) ttt2 on ttt1.gamedate=ttt2.gamedate and ttt1.time=ttt2.time and ttt1.stadium=ttt2.stadium
-		
+		-->
 		
 		<!--  
 		select tt1.*,tt2.name,tt2.base_backnumber backnumber from
@@ -170,12 +192,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			        ORDER BY GAMEDATE DESC, TIME DESC) tt1
                     join member tt2 on tt1.id=tt2.id
              -->       
-		
 	</select>
 	
 	<select id="infiniteScrollDown" parameterType="java.util.Map" resultType="java.util.Map">
 	
+	select recordno, gamedate, stadium, time, id, name, teamname, pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, pos, horder, sumpa, sumab, sumh, sumb2, sumb3, sumhr, sumr, sumrbi, sumsb, sumcs, sumbb, sumhbp, sumso, sumgdp, sume, NVL(W, -1) W, NVL(L, -1) L, NVL(SV, -1) SV,  NVL(HOL, -1) HOL, NVL(BLSV, -1) BLSV, NVL(CI, -1) CI, NVL(CO, -1) CO, NVL(TBF, -1) TBF, NVL(PITCH, -1) PITCH, NVL(PR, -1) PR, NVL(PER, -1) PER, NVL(PH, -1) PH, NVL(PB2, -1) PB2, NVL(PB3, -1) PB3, NVL(PHR, -1) PHR, NVL(PBB, -1) PBB, NVL(PHBP, -1) PHBP, NVL(PSO, -1) PSO, NVL(SUMW, -1) SUMW, NVL(SUML, -1) SUML, NVL(SUMSV, -1) SUMSV, NVL(SUMHOL, -1) SUMHOL, NVL(SUMBLSV, -1) SUMBLSV, NVL(CI, -1) SUMCI, NVL(SUMCO, -1) SUMCO, NVL(SUMTBF, -1) SUMTBF, NVL(SUMPR, -1) SUMPR , NVL(SUMPER, -1) SUMPER, NVL(SUMPH, -1) SUMPH, NVL(SUMPB2, -1) SUMPB2, NVL(SUMPB3, -1) SUMPB3, NVL(SUMPHR, -1) SUMPHR, NVL(SUMPBB, -1) SUMPBB, NVL(SUMPHBP, -1) SUMPHBP, NVL(SUMPSO, -1) SUMPSO, AWAYTEAM, HOMELOGO, AWAYLOGO, HOMESCORE, AWAYSCORE, BACKNUMBER 
+			from
+			(select rownum as recordno, aaaa.* from
+			(select aaa.*, name, base_backnumber backnumber from
+			(select aa.*, bb.awayteam, bb.homelogo, bb.awaylogo, bb.homescore, bb.awayscore from 
+			(SELECT h.gamedate, h.stadium, h.time, h.id, h.teamname, pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, pos, horder,SUMPA,SUMAB,SUMH,SUMB2,SUMB3,SUMHR,SUMR,SUMRBI,SUMSB,SUMCS,SUMBB,SUMHBP,SUMSO,SUMGDP,SUME,W, L, SV, HOL, BLSV, CI, CO, TBF,PITCH, PR, PER, PH, PB2, PB3, PHR, PBB, PHBP,PSO,SUMW,SUML,SUMSV,SUMHOL,SUMBLSV,SUMCI,SUMCO,SUMTBF,SUMPR, SUMPER,SUMPH,SUMPB2,SUMPB3,SUMPHR,SUMPBB,SUMPHBP,SUMPSO
+			FROM 
+			(select gamedate, stadium, time, id, teamname, pa, ab, h, b2, b3, hr, r, rbi, sb, cs, bb, hbp, so, gdp, e, pos, horder,SUM(PA) OVER(ORDER BY GAMEDATE, TIME) SUMPA,SUM(AB) OVER(ORDER BY GAMEDATE, TIME) SUMAB,SUM(H) OVER(ORDER BY GAMEDATE, TIME) SUMH,SUM(B2) OVER(ORDER BY GAMEDATE, TIME) SUMB2,SUM(B3) OVER(ORDER BY GAMEDATE, TIME) SUMB3,SUM(HR) OVER(ORDER BY GAMEDATE, TIME) SUMHR,SUM(R) OVER(ORDER BY GAMEDATE, TIME) SUMR,SUM(RBI) OVER(ORDER BY GAMEDATE, TIME) SUMRBI,SUM(SB) OVER(ORDER BY GAMEDATE, TIME) SUMSB,SUM(CS) OVER(ORDER BY GAMEDATE, TIME) SUMCS,SUM(BB) OVER(ORDER BY GAMEDATE, TIME) SUMBB,SUM(HBP) OVER(ORDER BY GAMEDATE, TIME) SUMHBP,SUM(SO) OVER(ORDER BY GAMEDATE, TIME) SUMSO,SUM(GDP) OVER(ORDER BY GAMEDATE, TIME) SUMGDP,SUM(E) OVER(ORDER BY GAMEDATE, TIME) SUME
+			from hitter WHERE ID='KIM12')
+			h LEFT JOIN 
+			(SELECT GAMEDATE, STADIUM, TIME, ID, TEAMNAME, W, L, SV, HOL, BLSV, CI, CO, TBF,PITCH, PR, PER, PH, PB2, PB3, PHR, PBB, PHBP,PSO,SUM(W) OVER(ORDER BY GAMEDATE, TIME) SUMW,SUM(L) OVER(ORDER BY GAMEDATE, TIME) SUML,SUM(SV) OVER(ORDER BY GAMEDATE, TIME) SUMSV,SUM(HOL) OVER(ORDER BY GAMEDATE, TIME) SUMHOL,SUM(BLSV) OVER(ORDER BY GAMEDATE, TIME) SUMBLSV,SUM(CI) OVER(ORDER BY GAMEDATE, TIME) SUMCI,SUM(CO) OVER(ORDER BY GAMEDATE, TIME) SUMCO,SUM(TBF) OVER(ORDER BY GAMEDATE, TIME) SUMTBF,SUM(PR) OVER(ORDER BY GAMEDATE, TIME) SUMPR,SUM(PER) OVER(ORDER BY GAMEDATE, TIME) SUMPER,SUM(PH) OVER(ORDER BY GAMEDATE, TIME) SUMPH,SUM(PB2) OVER(ORDER BY GAMEDATE, TIME) SUMPB2,SUM(PB3) OVER(ORDER BY GAMEDATE, TIME) SUMPB3,SUM(PHR) OVER(ORDER BY GAMEDATE, TIME) SUMPHR,SUM(PBB) OVER(ORDER BY GAMEDATE, TIME) SUMPBB,SUM(PHBP) OVER(ORDER BY GAMEDATE, TIME) SUMPHBP,SUM(PSO) OVER(ORDER BY GAMEDATE, TIME) SUMPSO
+			from pitcher WHERE ID='KIM12') 
+			p on h.id=p.id and h.gamedate=p.gamedate and h.stadium=p.stadium and h.time=p.time
+			where H.ID='KIM12'
+			ORDER BY h.GAMEDATE, h.TIME) aa
+			join 
+			(select e.gamedate, e.stadium, e.time, e.teamname hometeam, e.awayteam awayteam, e.gamestatus, e.homescore, e.awayscore,e.myteamlogo homelogo, f.teamlogo awaylogo from
+			(select c.gamedate, c.stadium, c.time, c.awayteam, c.gamestatus, c.homescore, c.awayscore, c.teamname, d.teamlogo myteamlogo from
+			(select * from gameschedule) c join team d on c.teamname=d.teamname) e join team f on e.awayteam=f.teamname) bb
+			on aa.gamedate=bb.gamedate and aa.time=bb.time and aa.stadium= bb.stadium) aaa
+			join  member bbb on aaa.id=bbb.id) aaaa)
+			<![CDATA[
+			where recordno<= (#{RECORDNO } -1) AND 
+			]]>
+			<![CDATA[
+			RECORDNO>(#{RECORDNO } -1 -5)
+			]]>
+			order by recordno desc
 	
+	<!--
 	select ttt1.*, NVL(ttt2.W, -1) W, NVL(ttt2.L, -1) L, NVL(ttt2.SV, -1) SV,  NVL(ttt2.HOL, -1) HOL, NVL(ttt2.BLSV, -1) BLSV, NVL(ttt2.CI, -1) CI, NVL(ttt2.CO, -1) CO, NVL(ttt2.TBF, -1) TBF, NVL(ttt2.PITCH, -1) PITCH, NVL(ttt2.PR, -1) PR, NVL(ttt2.PER, -1) PER, NVL(ttt2.PH, -1) PH, NVL(ttt2.PB2, -1) PB2, NVL(ttt2.PB3, -1) PB3, NVL(ttt2.PHR, -1) PHR, NVL(ttt2.PBB, -1) PBB, NVL(ttt2.PHBP, -1) PHBP, NVL(ttt2.PSO, -1) PSO, NVL(ttt2.SUMW, -1) SUMW, NVL(ttt2.SUML, -1) SUML, NVL(ttt2.SUMSV, -1) SUMSV, NVL(ttt2.SUMHOL, -1) SUMHOL, NVL(ttt2.SUMBLSV, -1) SUMBLSV, NVL(ttt2.CI, -1) SUMCI, NVL(ttt2.SUMCO, -1) SUMCO, NVL(ttt2.SUMTBF, -1) SUMTBF, NVL(ttt2.SUMPR, -1) SUMPR, NVL(ttt2.SUMPER, -1) SUMPER, NVL(ttt2.SUMPH, -1) SUMPH, NVL(ttt2.SUMPB2, -1) SUMPB2, NVL(ttt2.SUMPB3, -1) SUMPB3, NVL(ttt2.SUMPHR, -1) SUMPHR, NVL(ttt2.SUMPBB, -1) SUMPBB, NVL(ttt2.SUMPHBP, -1) SUMPHBP, NVL(ttt2.SUMPSO, -1) SUMPSO FROM
 		(select tt1.*,tt2.name,tt2.base_backnumber backnumber from
 		    (SELECT t1.recordno, t1.gamedate, t1.stadium, t1.time, t1.id, t1.teamname, t1.pa, t1.ab, t1.h, t1.b2, t1.b3, t1.hr, t1.r, t1.rbi, t1.sb, t1.cs, t1.bb, t1.hbp, t1.so, t1.gdp, t1.e, t1.pos, t1.horder, t1.sumpa, t1.sumab, t1.sumh, t1.sumb2, t1.sumb3, t1.sumhr, t1.sumr, t1.sumrbi, t1.sumsb, t1.sumcs, t1.sumbb, t1.sumhbp, t1.sumso, t1.sumgdp, t1.sume, t2.awayteam, t2.homescore, t2.awayscore, t2.teamlogo, t2.awayteamlogo
@@ -197,7 +247,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            join member tt2 on tt1.id=tt2.id) ttt1
 		            left join (SELECT GAMEDATE, STADIUM, TIME, ID,TEAMNAME, W, L, SV, HOL, BLSV, CI, CO, TBF,PITCH, PR, PER, PH, PB2, PB3, PHR, PBB, PHBP,PSO,SUM(W) OVER(ORDER BY GAMEDATE, TIME) SUMW,SUM(L) OVER(ORDER BY GAMEDATE, TIME) SUML,SUM(SV) OVER(ORDER BY GAMEDATE, TIME) SUMSV,SUM(HOL) OVER(ORDER BY GAMEDATE, TIME) SUMHOL,SUM(BLSV) OVER(ORDER BY GAMEDATE, TIME) SUMBLSV,SUM(CI) OVER(ORDER BY GAMEDATE, TIME) SUMCI,SUM(CO) OVER(ORDER BY GAMEDATE, TIME) SUMCO,SUM(TBF) OVER(ORDER BY GAMEDATE, TIME) SUMTBF,SUM(PR) OVER(ORDER BY GAMEDATE, TIME) SUMPR,SUM(PER) OVER(ORDER BY GAMEDATE, TIME) SUMPER,SUM(PH) OVER(ORDER BY GAMEDATE, TIME) SUMPH,SUM(PB2) OVER(ORDER BY GAMEDATE, TIME) SUMPB2,SUM(PB3) OVER(ORDER BY GAMEDATE, TIME) SUMPB3,SUM(PHR) OVER(ORDER BY GAMEDATE, TIME) SUMPHR,SUM(PBB) OVER(ORDER BY GAMEDATE, TIME) SUMPBB,SUM(PHBP) OVER(ORDER BY GAMEDATE, TIME) SUMPHBP,SUM(PSO) OVER(ORDER BY GAMEDATE, TIME) SUMPSO 
 		            FROM pitcher) ttt2 on ttt1.gamedate=ttt2.gamedate and ttt1.time=ttt2.time and ttt1.stadium=ttt2.stadium
-	
+	-->
 	
 	
 	
@@ -239,7 +289,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="profileChange" parameterType="java.util.Map">
 		UPDATE member SET 
 		profile = #{MEMBERPROFILE}, BIRTH = #{BIRTH},
-		LOCATION=#{LOCATION},PHONE=#{PHONE}, LOCATION_2 = #{LOCATION_2} where ID = #{USER_ID}
+		LOCATION=#{LOCATION},PHONE=#{PHONE}, LOCATION_2 = #{LOCATION_2}, BASE_BACKNUMBER=#{BACKNUMBER} where ID = #{USER_ID}
 	</update>
 	
 	<update id="playerChange" parameterType="java.util.Map">
@@ -258,6 +308,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="playerInfo" parameterType="java.util.Map" resultType="java.util.Map">
 		select NVL(SCHOOL, ' ') SCHOOL,NVL(HEIGHT, 180) HEIGHT,NVL(WEIGHT, 70) WEIGHT, NVL(LOCATION_2,' ') LOCATION_2 from member where id= #{USER_ID}
+	</select>
+	 
+	<select id="bettingInfo" parameterType="java.util.Map" resultType="java.util.Map">
+	 select aa.*, bb.point from
+		(SELECT b.gamedate, b.stadium, b.time, b.id, mileage betmileage, teamname hometeam, awayteam, gamestatus, nvl(homescore,-1) homescore, nvl(awayscore,-1) awayscore, selectteam,
+		(CASE WHEN SELECTTEAM=TEAMNAME THEN AWAYTEAM WHEN SELECTTEAM=AWAYTEAM THEN TEAMNAME ELSE  UNISTR('DRAW') END) AS deselectteam 
+		FROM BETTING b join gameschedule g on b.gamedate=g.gamedate and b.stadium=g.stadium and b.time=g.time where id=#{USER_ID})
+		aa join member bb on aa.id=bb.id
+		where gamestatus='waiting'
+	</select>
+	
+	<select id="bettingInfo2" parameterType="java.util.Map" resultType="java.util.Map">
+	 select aa.*, bb.point from
+		(SELECT b.gamedate, b.stadium, b.time, b.id, mileage betmileage, teamname hometeam, awayteam, gamestatus, nvl(homescore,-1) homescore, nvl(awayscore,-1) awayscore, selectteam,
+		(CASE WHEN SELECTTEAM=TEAMNAME THEN AWAYTEAM WHEN SELECTTEAM=AWAYTEAM THEN TEAMNAME ELSE  UNISTR('DRAW') END) AS deselectteam 
+		FROM BETTING b join gameschedule g on b.gamedate=g.gamedate and b.stadium=g.stadium and b.time=g.time where id=#{USER_ID})
+		aa join member bb on aa.id=bb.id
+		where gamestatus='FINISH'
+	</select>
+	
+	<select id="getCount" parameterType="java.util.Map" resultType="java.util.Map">
+	 select count(*) count, SUM(MILEAGE) sum from betting where gamedate=#{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME}
+	</select>
+	
+	<select id="getRate" parameterType="java.util.Map" resultType="java.util.Map">
+	 select count(id) as memberCount , sum(mileage) totalMileage , selectteam 
+          from betting
+          where gamedate=#{GAMEDATE} and stadium=#{STADIUM} and time=#{TIME} and selectteam=#{SELECTTEAM}
+          group by selectteam
 	</select>
 	
 	

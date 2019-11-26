@@ -7,15 +7,12 @@
 	<c:when test="${WHERE=='EDT' }">
 		<c:set var="successMsg" value="수정 성공했어요"/>
 		<c:set var="failMsg" value="수정 실패했어요"/>
-		<%-- <c:set var="successUrl" value="/Team/Matching/View.do?no=${param.no}&nowPage=${param.nowPage}"/> --%>
-		<c:set var="successUrl" value="/Team/Matching/Board.do?nowPage=${nowPage}"/>
-		<%-- <c:set var="successUrl" value="/Team/Matching/Board.do?nowPage=${nowPage}"/> --%>
-	</c:when>  <%-- onclick="location.href='<c:url value="/Team/Matching/Board.do?nowPage=${param.nowPage}"/>';" --%>
-				<%-- onclick="location.href='<c:url value="/Team/Matching/Board.do?no=${param.no}&nowPage=${param.nowPage}"/>';" --%>
+		<c:set var="successUrl" value="/Team/Matching/View.do?no=${param.no}&nowPage=${param.nowPage}"/>
+	</c:when>
 	<c:otherwise>
 		<c:set var="successMsg" value="삭제 성공했어요"/>
 		<c:set var="failMsg" value="삭제 실패했어요"/>
-		<c:set var="successUrl" value="/Team/Matching/Board.do?nowPage=${nowPage}"/>	
+		<c:set var="successUrl" value="/Team/Matching/Board.do?nowPage=${param.nowPage}"/>	
 	</c:otherwise>	
 </c:choose>
 <script>

@@ -10,4 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="AndLogin" parameterType="java.util.Map" resultType="int">
 		select count(*) from member where id=#{id} and pwd=#{pwd}
 	</select>
+	<select id="andSelectTeams" parameterType="java.util.Map" resultType="TeamDTO">
+		select * from team
+	</select>
 </mapper>
