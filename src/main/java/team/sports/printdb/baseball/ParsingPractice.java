@@ -15,7 +15,7 @@ public class ParsingPractice {
 public static void main(String[] args) throws IOException {
 
 		// 크롤링할 주소
-		String URL = "http://www.statiz.co.kr/boxscore.php?date=2018-10-12&stadium=%EC%9E%A0%EC%8B%A4&hour=18&opt=4";
+		String URL = "http://www.statiz.co.kr/boxscore.php?opt=4&date=2015-07-01&stadium=%EB%A7%88%EC%82%B0&hour=18";
 		Document doc = Jsoup.connect(URL).get();
 
 		Elements elem = doc.select("section.content div div:nth-child(2) div:nth-child(1) div div div.box-body.no-padding.table-responsive table tbody tr");
@@ -33,6 +33,9 @@ public static void main(String[] args) throws IOException {
 		StringBuffer start3 = new StringBuffer();
 		StringBuffer start4 = new StringBuffer();
 		
+		int horderHome = 1;
+		int horderAway = 1;
+		
 		
 		for(int i=1; i<elem.size() -1;i++) {
 		 	
@@ -44,47 +47,56 @@ public static void main(String[] args) throws IOException {
 				String id = "주전1";
 				String teamname="홈팀1";
 				
+				
+				int pos;
+        		String position = elem.get(i).child(2).text().substring(0,1);	
+				if(position=="0"||position=="1"||position=="2"||position=="3"||position=="4"||position=="5"||position=="6"||position=="7"||position=="8"||position=="9") {
+					pos = Integer.parseInt(elem.get(i).child(2).text().substring(0,1));
+				}
+				else pos = 10;
+				
+				
+				
 				int pa = Integer.parseInt(elem.get(i).child(3).text());
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
-    			int h = Integer.parseInt(elem.get(i).child(6).text());
     			int r = Integer.parseInt(elem.get(i).child(5).text());
+    			int h = Integer.parseInt(elem.get(i).child(6).text());
     			int hr = Integer.parseInt(elem.get(i).child(7).text());
     			int rbi = Integer.parseInt(elem.get(i).child(8).text());
     			int bb = Integer.parseInt(elem.get(i).child(9).text());
     			int hbp = Integer.parseInt(elem.get(i).child(10).text());
     			int so = Integer.parseInt(elem.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem.get(i).child(12).text());
+    			int gdp = Integer.parseInt(elem.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
-    				b2 +=(Math.random()<0.25?1:0);
+    				b2 +=(Math.random()<0.22?1:0);
     			}
     			int b3 = 0;
     			for(int k=0;k<(h-b2);k++) {
-    				b3 +=(Math.random()<0.1?1:0);
+    				b3 +=(Math.random()<0.06?1:0);
     			}
     			int sb = 0;
-    			for(int k=0;k<(h+bb);k++) {
+    			for(int k=0;k<(h+bb-b3-hr);k++) {
     				sb +=(Math.random()<0.2?1:0);
     			}
     			int cs = 0;
-    			for(int k=0;k<(h-sb);k++) {
+    			for(int k=0;k<(h+bb-b3-hr-sb);k++) {
     				cs +=(Math.random()<0.2?1:0);
     			}
     			int e = 0;
     			for(int k=0;k<9;k++) {
-    				e +=(Math.random()<0.1?1:0);
+    				e +=(Math.random()<0.3/24?1:0);
     			}
-    			
-    			int pos = 1;
-    			int horder = 1;
     			
     			String startMember = 
 					String.format(
 					"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
 					+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);   %n", 
-					gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
+					gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horderHome);
     			start.append(startMember);
+    			
+    			horderHome +=1;
             }
 		
         	else {
@@ -94,7 +106,7 @@ public static void main(String[] args) throws IOException {
 				String id = "교체1";
 				String teamname="홈팀1";
         		
-        		int pa = Integer.parseInt(elem.get(i).child(3).text());
+				int pa = Integer.parseInt(elem.get(i).child(3).text());
     			int ab = Integer.parseInt(elem.get(i).child(4).text());
     			int r = Integer.parseInt(elem.get(i).child(5).text());
     			int h = Integer.parseInt(elem.get(i).child(6).text());
@@ -103,7 +115,7 @@ public static void main(String[] args) throws IOException {
     			int bb = Integer.parseInt(elem.get(i).child(9).text());
     			int hbp = Integer.parseInt(elem.get(i).child(10).text());
     			int so = Integer.parseInt(elem.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem.get(i).child(12).text());
+    			int gdp = Integer.parseInt(elem.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
@@ -126,8 +138,8 @@ public static void main(String[] args) throws IOException {
     				e +=(Math.random()<0.1?1:0);
     			}
     			
-    			int pos = 1;
-    			int horder = 1;
+    			int pos = 10;
+    			int horder = 10;
     			
     			String changeMember = 
 					String.format(
@@ -135,6 +147,8 @@ public static void main(String[] args) throws IOException {
 							+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);%n", 
 							gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
     			change.append(changeMember);
+    			
+    			
             }
         	
         }
@@ -155,6 +169,13 @@ public static void main(String[] args) throws IOException {
 				String id = "주전1";
 				String teamname="원정팀1";
 				
+				int pos;
+        		String position = elem.get(i).child(2).text().substring(0,1);	
+				if(position=="0"||position=="1"||position=="2"||position=="3"||position=="4"||position=="5"||position=="6"||position=="7"||position=="8"||position=="9") {
+					pos = Integer.parseInt(elem.get(i).child(2).text().substring(0,1));
+				}
+				else pos = 10;
+				
 				int pa = Integer.parseInt(elem2.get(i).child(3).text());
     			int ab = Integer.parseInt(elem2.get(i).child(4).text());
     			int r = Integer.parseInt(elem2.get(i).child(5).text());
@@ -164,7 +185,7 @@ public static void main(String[] args) throws IOException {
     			int bb = Integer.parseInt(elem2.get(i).child(9).text());
     			int hbp = Integer.parseInt(elem2.get(i).child(10).text());
     			int so = Integer.parseInt(elem2.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem2.get(i).child(12).text());
+    			int gdp = Integer.parseInt(elem2.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
@@ -187,16 +208,15 @@ public static void main(String[] args) throws IOException {
     				e +=(Math.random()<0.1?1:0);
     			}
     			
-    			int pos = 1;
-    			int horder = 1;
+    			
     			
     			String startMember2 = 
     					String.format(
 						"insert into hitter(gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder) "
 						+ "values('%s','%s','%s','%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d);%n", 
-						gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horder);
+						gamedate,stadium,time,id,teamname,pa,ab,h,b2,b3,hr,r,rbi,sb,cs,bb,hbp,so,gdp,e,pos,horderAway);
     			start2.append(startMember2);
-    			
+    			horderAway ++;
             }
 		
         	else {
@@ -206,16 +226,16 @@ public static void main(String[] args) throws IOException {
 				String id = "교체1";
 				String teamname="원정팀1";
         	
-        		int pa = Integer.parseInt(elem2.get(i).child(3).text());
-    			int ab = Integer.parseInt(elem2.get(i).child(4).text());
-    			int r = Integer.parseInt(elem2.get(i).child(5).text());
-    			int h = Integer.parseInt(elem2.get(i).child(6).text());
-    			int hr = Integer.parseInt(elem2.get(i).child(7).text());
-    			int rbi = Integer.parseInt(elem2.get(i).child(8).text());
-    			int bb = Integer.parseInt(elem2.get(i).child(9).text());
-    			int hbp = Integer.parseInt(elem2.get(i).child(10).text());
-    			int so = Integer.parseInt(elem2.get(i).child(11).text());
-    			int gdp = Integer.parseInt(elem2.get(i).child(12).text());
+				int pa = Integer.parseInt(elem.get(i).child(3).text());
+    			int ab = Integer.parseInt(elem.get(i).child(4).text());
+    			int r = Integer.parseInt(elem.get(i).child(5).text());
+    			int h = Integer.parseInt(elem.get(i).child(6).text());
+    			int hr = Integer.parseInt(elem.get(i).child(7).text());
+    			int rbi = Integer.parseInt(elem.get(i).child(8).text());
+    			int bb = Integer.parseInt(elem.get(i).child(9).text());
+    			int hbp = Integer.parseInt(elem.get(i).child(10).text());
+    			int so = Integer.parseInt(elem.get(i).child(11).text());
+    			int gdp = Integer.parseInt(elem.get(i).child(15).text());
     			
     			int b2 = 0;
     			for(int k=0;k<h;k++) {
@@ -238,8 +258,8 @@ public static void main(String[] args) throws IOException {
     				e +=(Math.random()<0.1?1:0);
     			}
     			
-    			int pos = 1;
-    			int horder = 1;
+    			int pos = 10;
+    			int horder = 10;
     			
     			String changeMember2 = 
 					String.format(
@@ -354,6 +374,7 @@ public static void main(String[] args) throws IOException {
     			int hr = Integer.parseInt(elem4.get(i).child(9).text());
     			//System.out.println(hr);
     			
+    			
     			String[] tempPitch=elem4.get(i).child(12).text().split("-");
     			int pitch = Integer.parseInt(tempPitch[0]);
     			
@@ -373,6 +394,11 @@ public static void main(String[] args) throws IOException {
         }
 		System.out.print(start4);
 		System.out.println();
+		
+		
+		
+		
+		
 		
 		
 		

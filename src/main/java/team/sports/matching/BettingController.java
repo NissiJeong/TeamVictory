@@ -47,13 +47,15 @@ public class BettingController {
 	
 
 	// Top 메뉴 클릭시
-	@RequestMapping(value="/Team/Matching/Betting.do",method = RequestMethod.GET)
-	public String betting(Model model,Authentication auth) {
+	@RequestMapping(value="/Team/Matching/Betting.do", produces = "text/html; charset=UTF-8" )
+	public String betting(@RequestParam(required = false) Map map,Model model,Authentication auth) {
 		
+	
+		System.out.println(map !=null ? map.toString(): "");
 		UserDetails userDetails = (UserDetails)auth.getPrincipal();
 		//System.out.println("id "+userDetails.getUsername().toString());
          SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
-		List<BettingDTO> list = bettingDao.selectList(new HashMap());
+		List<BettingDTO> list = bettingDao.selectList(map);
 		List<Map> checkList = bettingDao.myBettingListChk(userDetails.getUsername().toString().trim());
         List<String> keyList = new Vector<String>();
         
@@ -134,7 +136,7 @@ public class BettingController {
 	@ResponseBody
 	@RequestMapping(value = "/Team/Matching/viewJsonArray.do", produces = "text/html; charset=UTF-8")
 	public String bettingViewAjax(@RequestParam Map map, HttpServletRequest req) {
-		
+		  
 		JSONObject json  = new JSONObject();
         for(Object key : map.keySet())
       	  System.out.println(String.format("%s : %s ",key,map.get(key).toString()));
@@ -206,6 +208,19 @@ public class BettingController {
        }
         
        json.put("away", awayeList);  
+       
+       
+       //상대전적 구하기 
+   List<Map> infoList = bettingDao.opponentRecordList(map);
+   if ( infoList.size() !=0)  {
+   for ( int i =0; i< infoList.size(); i++)
+	   infoList.get(i).put("GAMEDATE", infoList.get(i).get("GAMEDATE").toString().split(" ")[0]);
+   }
+     
+    // infoList.clear();
+     json.put("info",infoList);
+    
+       
        
        
 		//키, 값 출력하기 
@@ -398,6 +413,7 @@ public class BettingController {
 		}////////////////
 		
 		
+		// 배팅카운트  롱폴링방식으로 확인
 		@ResponseBody 
 		@RequestMapping(value="/Team/Matching/longpoll.do" ,produces = "application/json; charset=UTF-8",method = RequestMethod.POST)
 		public String longPolling(@RequestBody String param) throws org.json.simple.parser.ParseException {
@@ -413,9 +429,8 @@ public class BettingController {
 				mapperList.add((Map)paramToJsonArr.get(i));
 				
 			}////
-			 List<Map>  list =bettingDao.test(mapperList);
-			
-			 
+			 List<Map>  list =bettingDao.countLongPolling(mapperList);
+		
 			 for (int i=0; i<paramToJsonArr.size(); i++) {
 					((Map)paramToJsonArr.get(i)).put("count",list.get(i).get("COUNT") );
 					

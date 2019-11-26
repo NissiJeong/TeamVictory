@@ -13,7 +13,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		 select <!-- g.gamedate , g.stadium, g.time --> g.* ,(select count(*) from betting b 
 		where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) count ,t.category
-		from gameschedule g join team t on g.teamname =  t.teamname  order by  g.gamedate desc
+		from gameschedule g join team t on g.teamname =  t.teamname  
+		<if test='content != null and content != "all".toString() '>
+			<choose>
+			 	<when test='content == "football".toString()'>
+			 			   where category ='축구'
+			 	</when>
+			 	<when test='content == "baseball".toString()'>
+			 			  where category ='야구'
+			 	</when>
+		 </choose>
+			  
+		</if>
+		order by  g.gamedate desc
 	</select>
 	
 	<select id="myBettingListChk" parameterType="java.lang.String" resultType="java.util.Map">
@@ -74,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   	update member set point = point - #{point} where id=#{id}
 	</update>
 	
-	
+	<!-- 경기에 배팅한 인원목록 가져오기  -->
 	<select id="MyBettingList" parameterType="java.util.Map"  resultType="java.util.Map" >
 	   SELECT b.gamedate,b.time,b.stadium,
  		 LISTAGG(to_char(b.ID),',') WITHIN GROUP (ORDER BY b.gamedate) AS "BETTINGMEMBER"
@@ -83,10 +95,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
+	<!--  해당경기의 각각의 경기결과(배팅인원수, 총 마일리지 , 팀명) 가져오기 -->
 	<select id="bettingSelectOne" parameterType="java.util.Map"  resultType="java.util.Map">
-	<!--   select * from betting where  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and id=#{id} -->
+		<!--   select * from betting where  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and id=#{id} -->
 
-	select b.*,m.point from betting b join member m on b.id = m.id and  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and m.id=#{id}
+		select b.*,m.point from betting b join member m on b.id = m.id and  time=#{time} and gamedate = #{gamedate} and stadium = #{stadium} and m.id=#{id}
 	</select>
 	
    <!-- 해당매치의 배팅 버튼 클릭시 / 배팅완료 후  각각의 경기결과에 대한 총 배팅인원수 , 모든경기결과의 배팅한 마일리지합, 각팀명 으로 셀렉트  -->
@@ -105,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
  
-	<select id="test" parameterType="java.util.List" resultType="java.util.Map">
+	<select id="countLongPolling" parameterType="java.util.List" resultType="java.util.Map">
 	 select   g.gamedate ,g.stadium , g.time ,(select count(*) from betting b 
    where b.gamedate = g.gamedate and b.stadium = g.stadium and b.time= g.time) as count
    from gameschedule g join team t on g.teamname =  t.teamname 
@@ -122,10 +135,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <foreach collection="list" item="item_s" index="index" open="(" close=") " separator=",">
  #{item_s.stadium}
   </foreach>
- 
- 
  order by g.gamedate desc
+	</select>
 	
+	<select id="opponentRecordList" parameterType="java.util.List" resultType="java.util.Map">
+	select g.gamedate ,  g.time , g.stadium, teamname as hometeam , g.awayteam ,g.homescore , g.awayscore 
+from  gameschedule g where  (teamname,awayteam) in ((#{hometeam},#{awayteam}),(#{awayteam},#{hometeam}))
+and rownum between 1 and 10 and   not homescore is null
+		
 	</select>
 	
 </mapper>

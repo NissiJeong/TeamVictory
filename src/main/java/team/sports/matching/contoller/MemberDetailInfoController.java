@@ -74,7 +74,6 @@ public class MemberDetailInfoController {
 		map.put("LOCATION", mhsr.getParameter("sample4_roadAddress"));
 		map.put("BIRTH", mhsr.getParameter("infoBirth").replaceAll("[^0-9]", "").trim());
 		map.put("PHONE", mhsr.getParameter("infoCall").replaceAll("[^0-9]", "").trim());
-		map.put("BACKNUMBER", mhsr.getParameter("infoBackNumber").trim());
 
 		int affected = hitterDAO.profileChange(map);
 		model.addAttribute("SUCFAIL", affected);		
@@ -99,7 +98,8 @@ public class MemberDetailInfoController {
 		map.put("SCHOOL", req.getParameter("infoSchool").trim());
 		map.put("WEIGHT", req.getParameter("infoWeight").replaceAll("[^0-9]", "").trim());
 		map.put("HEIGHT", req.getParameter("infoHeight").replaceAll("[^0-9]", "").trim());
-		
+		map.put("BACKNUMBER", req.getParameter("infoBackNumber").trim());
+
 		int affected = hitterDAO.playerChange(map);
 		model.addAttribute("SUCFAIL", affected);		
 		
@@ -158,7 +158,12 @@ public class MemberDetailInfoController {
 		
 		return details;
 	}
-	
+	@RequestMapping(value="/Team/Matching/getMileage.do", method = RequestMethod.POST) 
+	public @ResponseBody List<Map> getMileage(@RequestParam Map map, Authentication auth) {
+		System.out.println("getMileage 소환!!!");
+		List<Map> details = hitterDAO.getMileage(map);
+		return details;
+	}
 	
 	@RequestMapping(value="/Team/Matching/bettingInfo.do", method = RequestMethod.POST) 
 	public @ResponseBody List<Map> bettingInfo(@RequestParam Map map, Authentication auth ) {
@@ -285,6 +290,7 @@ public class MemberDetailInfoController {
 		}
 		return details;
 	}
+	
 	
 }
 

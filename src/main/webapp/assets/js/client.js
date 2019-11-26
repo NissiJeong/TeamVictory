@@ -3,7 +3,7 @@ var name;
 var connectedUser;
   
 //connecting to our signaling server
-var conn = new WebSocket('ws://192.168.0.4:12090');
+var conn = new WebSocket('ws://192.168.0.36:12090');
   
 conn.onopen = function () { 
    console.log("Connected to the signaling server"); 
@@ -65,6 +65,7 @@ var callToUsernameInput = document.querySelector('#callToUsernameInput');
 var callBtn = document.querySelector('#callBtn'); 
 
 var hangUpBtn = document.querySelector('#hangUpBtn');
+
   
 var localVideo = document.querySelector('#localVideo'); 
 var remoteVideo = document.querySelector('#remoteVideo'); 
