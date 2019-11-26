@@ -17,10 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test='content != null and content != "all".toString() '>
 			<choose>
 			 	<when test='content == "football".toString()'>
-			 			   where category ='축구'
+			 			   where category ='futsal'
 			 	</when>
 			 	<when test='content == "baseball".toString()'>
-			 			  where category ='야구'
+			 			  where category ='baseball'
 			 	</when>
 		 </choose>
 			  

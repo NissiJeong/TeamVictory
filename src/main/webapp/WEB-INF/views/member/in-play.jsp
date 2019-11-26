@@ -134,7 +134,7 @@ color:blue;
 
 <!-- play-section start -->
 <section class="play-section section-padding section-bg">
-	<div class="container">
+	<div class="container" style="border: 1px solid red">
 
 		<div class="row justify-content-center">
 			<div class="col-lg-6">
@@ -209,7 +209,7 @@ color:blue;
               
 					</ul>
 		
-		 				 <form id="move">
+		  <form id="move">
 								<input type="hidden" name="content"/>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 						</form>
@@ -303,9 +303,9 @@ color:blue;
 															</c:if>
 														</td>
 
-														<td><c:if test="${item.category=='축구'}">
+														<td><c:if test="${item.category=='futsal'}">
 																<i class="far fa-futbol fa-2x"></i>
-															</c:if> <c:if test="${item.category=='야구'}">
+															</c:if> <c:if test="${item.category=='baseball'}">
 																<i class="fas fa-baseball-ball fa-2x"></i>
 															</c:if> <span class="stadium" data-value="${item.stadium}"></span>
 														</td>
@@ -327,6 +327,466 @@ color:blue;
 													</tr>
 												</c:forEach>
 											</c:if>
+
+
+
+
+
+
+
+
+											<!--  1행 -->
+
+											<tr class="test_tr">
+												<td>
+													<!-- <div class="team-name-part"> </div> --> 1
+												</td>
+												<!-- 경기 날짜  -->
+												<td><span bat="1">2019-10-10</span></td>
+												<!--  팀 vs 팀  -->
+												<td>기아&nbsp;&nbsp;<span class="blue">3</span>&nbsp;&nbsp;
+													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp; 두산
+												</td>
+												<!-- 경기결과 -->
+												<td>
+													<!--  <span class="badge badge-primary">승</span> --> <span
+													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">승</span>
+												</td>
+												</td>
+												<!-- 비고 -->
+												<td>우천</td>
+												<!-- 배팅-->
+												<td class="bettingTd"><span id="bettingSpan"
+													class="badge badge-warning" data-toggle="modal"
+													data-target="#myModal">배팅</span></td>
+
+												<!-- 상세보기 -->
+												<td id="oneView">상세보기</td>
+											</tr>
+											<!-- 1행끝 -->
+
+
+											<tr class="test_tr">
+												<!-- 번호 -->
+												<td>2</td>
+												<!-- 경기 날짜  -->
+												<td><span bat="1">2019-10-10</span></td>
+												<!--  팀 vs 팀  -->
+												<td>SK&nbsp;&nbsp;<span class="blue">2</span>&nbsp;&nbsp;
+													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp;롯데
+												</td>
+												<!-- 경기결과 -->
+												<td>
+													<!-- <div style="background-color: #847d7e;-webkit-border-radius: 5px; color:white; border:1px red solid; flex: 0 0 calc(100% - 15px);">무</div> -->
+													<span
+													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">패</span>
+												</td>
+
+
+												<!-- 비고 -->
+												<td>기타</td>
+												<td>
+													<!-- 배팅-->
+													<button type="button" class="btn btn-warning"
+														style="height: 33px;" data-toggle="modal"
+														data-target="#myModal">
+														배 팅 <span class="badge badge-secondary ml-2">15</span>
+													</button>
+												</td>
+
+
+												<!-- 상세보기 -->
+												<td><a
+													href="<c:url value='/Team/Matching/BettingView.do'/>">상세보기</a></td>
+											</tr>
+											<!-- 2행끝 -->
+
+
+											<!-- 3행 시작 -->
+
+											<tr class="test_tr">
+												<!-- 번호 -->
+												<td>3</td>
+												<!-- 경기 날짜  -->
+												<td><span bat="1">2019-10-10</span></td>
+												<!--  팀 vs 팀  -->
+												<td>넥센&nbsp;&nbsp;<span class="blue"></span>&nbsp;&nbsp;
+													: &nbsp;&nbsp;<span class="red"></span>&nbsp;&nbsp;한화
+												</td>
+												<!-- 경기결과 -->
+												<td>
+													<!-- <span style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #9a9798; border-radius: 7px;">무</span> -->
+												</td>
+												<!-- 비고 -->
+												<td></td>
+												<td>
+													<!-- 배팅--> 배팅
+
+												</td>
+
+												<!-- 상세보기 -->
+												<td><span class="aa" style="cursor: pointer;">상세보기</span></td>
+											</tr>
+											<!-- 3행끝 -->
+
+
+
+											<!-- 상세보기 <tr> 안에 시작 -->
+											<tr>
+
+												<td colspan="7">
+
+													<div class="row">
+														<div class="col-md-12">
+
+															<div
+																class="d-flex bg-light justify-content-center pt-4 w-100"
+																style="height: 150px">
+																<div class="p-2 border w-25">A팀</div>
+																<div class="p-2 border mx-5 align-self-center">VS</div>
+																<div class="p-2 border w-25">B팀</div>
+															</div>
+
+														</div>
+													</div> <!-- row -->
+													
+<!--  상대전적  시작 -->
+<div class="col-md-12 text-center mt-3 bg-info"
+		style=" height: 50px; line-height: 50px;font-size: 25px;">
+최근 &nbsp;&nbsp;10경기 &nbsp;상대 전적
+</div> 
+
+<div class="mt-3" style="border: 1px solid red">
+  	 <table class="table table-bordered opponentTable" style=";" >
+  	 	<thead style="height:2px;line-height:2px;">
+  	 		<tr class="text-center"  style="background-color: #014476">
+  	 			<td   rowspan="2" style="color:white;font-size: 20px;width:20%">경기 일시</td>
+  	 			<td  rowspan="2"  style="color:white;font-size: 20px">장 소</td>
+  	 			<td  rowspan="2"  style="color:white;font-size: 20px">스코어</td>
+  	 			<td  colspan="2"  style="color:white;font-size: 20px;border-bottom: 2px #796767 solid">결 과</td>
+  	 		</tr>
+  	 		
+  	 		<tr class="text-center">
+  	 			<td style="font-size:20px;border-right: 2px #796767 solid;background-color: #bbb8b2" >승</td>
+  	 			
+  	 			<td style="font-size:20px;background-color: #bbb8b2">패</td>
+  	 		</tr>
+  	 		
+  	 	</thead>
+  	 	<tbody class="opponentTbody">
+  	 		<tr>
+	  	 		<td style="font-size: 16px"> 19.12.03  09:50 </td>
+	  	 		<td style="font-size: 16px"> 서울</td>
+	  	 		<td style="font-weight: bold;font-size: 16px;"><span class="pr-2 opp_hs" style="color:blue">7</span>:<span class="pl-2 opp_as">5</span></td>
+	  	 		<td class="border_td"  style="border-right: 2px #796767 solid;">team2</td>
+	  	 		<td>team3</td>
+  	 		</tr>
+  	 		<tr>
+	  	 		<td>19.11.03</td>
+	  	 		<td>인천</td>
+	  	 		<td>3:5</td>
+	  	 		<td style="border-right: 2px #796767 solid;">team3</td>
+	  	 		<td>team2</td>
+  	 		</tr>
+  	 		<tr>
+	  	 		<td>19.10.03</td>
+	  	 		<td>인천</td>
+	  	 		<td>5:5</td>
+	  	 		<td colspan="2">무 승 부</td>
+  	 		</tr>
+  	 		<tr>
+  	 		  <td colspan="5">양 팀의 최근 경기 기록은 3건입니다.</td>
+  	 		</tr>
+  	 		<tr style="background-color: #014476">
+	  	 		<td colspan="5" style="padding:0px">
+	  	 			<table>
+	  	 				<tbody>
+	  	 				<tr style="height: 2px;line-height: 15px;">
+			  	 		 <td style="color:white;background-color: #014476;width:50%">team2</td>
+		  	 			 <td  style="color:white;background-color: #014476">team3</td> 
+	  	 				</tr>
+	  	 			 </tbody>
+	  	 			</table>
+	  	 		</td>
+  	 		</tr>
+  	 		<!--  홈/어웨이 승패 보여주는 tr안에 테이블 -->
+  	 		<tr>
+  	 		<td colspan="5" style="padding: 1px">
+  	 			<table class="table w-100  ">
+  	 				<tbody>
+  	 					<tr  style="height:3px;line-height:15px;">
+  	 						<td style="padding: 2px;width: 45%;padding: 0px">
+  	 							  <div class="progress" style="height: 25px">
+								    <div class="progress-bar" style="width:80%;font-size:18px;">
+								     	 2 승
+								    </div>
+								    <div class="progress-bar bg-danger" style="width:0%;font-size:18px;">
+								     	
+								    </div>
+								    <div class="progress-bar bg-danger" style="width:20%;font-size:18px;">
+								     	3 패
+								    </div>
+ 								</div>
+  	 						</td>
+  	 						
+  	 						
+  	 						<td style="width: 10%;background-color:#014476;color:white ">HOME</td>
+  	 						
+  	 						<td style="padding: 2px;width: 45%;padding: 0px">
+  	 							  <div class="progress" style="height: 25px">
+								    <div class="progress-bar" style="width:40%;font-size:18px">
+								     	 승
+								    </div>
+								    <div class="progress-bar bg-danger" style="width:0%;font-size:18px;">
+								     	
+								    </div>
+    
+								    <div class="progress-bar bg-danger" style="width:60%;font-size:18px">
+								     	패
+								    </div>
+ 								</div>
+  	 						</td>
+  	 					</tr>
+  	 				<!-- --------- ------------- -->
+  	 				<tr style="height:3px;line-height:15px;">
+  	 						<td style="padding: 2px;width: 45%;padding: 0px">
+  	 							  <div class="progress" style="height: 25px">
+								    <div class="progress-bar" style="width:80%;font-size:18px">
+								     	 승
+								    </div>
+    
+								    <div class="progress-bar bg-danger" style="width:20%;font-size:18px">
+								     	패
+								    </div>
+ 								</div>
+  	 						</td>
+  	 						
+  	 						<td style="width: 10%;background-color:#014476;color:white ">AWAY</td>
+  	 						
+  	 						<td style="padding: 2px;width: 45%;padding: 0px">
+  	 							  <div class="progress" style="height: 25px">
+								    <div class="progress-bar" style="width:40%;font-size:18px">
+								     	 승
+								    </div>
+    
+								    <div class="progress-bar bg-danger" style="width:60%;font-size:18px">
+								     	패
+								    </div>
+ 								</div>
+  	 						</td>
+  	 					</tr>
+  	 				<!-- ----------------------- -->
+  	 				<tr style="height:2px;line-height:15px;">
+  	 					<!-- <td style="padding: 2px;width: 45%;padding: 0px">
+  	 							  <div class="progress" style="height: 25px">
+								    <div class="progress-bar" style="width:30%;font-size:18px">
+								     	 승
+								    </div>
+    
+								    <div class="progress-bar bg-danger" style="width:70%;font-size:18px">
+								     	패
+								    </div>
+ 								</div>
+  	 						</td> -->
+  	 						<td >
+  	 						5전 2승 3패  (80%)
+  	 						</td> 
+  	 						
+  	 						<td style="width: 10%;background-color:#014476;color:white ">전체</td>
+  	 						<td >
+  	 						   5전 3승 2패 (50%)
+  	 						</td>
+  	 						
+  	 						<!-- <td style="padding: 2px;width: 45%;padding: 0px">
+  	 							  <div class="progress" style="height: 25px">
+								    <div class="progress-bar" style="width:70%;font-size:18px">
+								     	 승
+								    </div>
+								    
+    
+								    <div class="progress-bar bg-danger" style="width:30%;font-size:18px">
+								     	패
+								    </div>
+ 								</div> -->
+  	 						</td>
+  	 					</tr>
+  	 				</tbody>
+  	 			
+  	 			
+  	 			</table>
+  	 		</td>
+  	 		    
+  	 		    
+  	 		</tr>
+  	 		</tbody>
+  		 </table>
+</div>
+														
+														
+
+											<div class="col-md-12 text-center mt-5 bg-info"
+														style="font-weight: bold; height: 50px; line-height: 50px;">
+														최근 10경기 전적
+											</div>
+
+													<div class="row mt-2" style="border: 1px solid red">
+														<div class="col-6">
+															<table class="table table-bordered">
+																<thead>
+																	<tr class="text-center">
+																		<th style="background-color: #000040; color: white;"
+																			colspan="4">Home</th>
+																	</tr>
+
+																	<tr class="text-center">
+
+																		<th class="w-25">경기일시</th>
+																		<th class="w-25">상대팀</th>
+																		<th class="w-25">스코어</th>
+																		<th class="w-25">결과</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<!-- <tr class="text-center"> 
+																	         <td><span>19.10.08</span><small style="">07:20</small></td>  
+																	         <td>SK</td>
+																	         <td>3 : 0 </td>
+																	         <td ><span style="width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px; ">승</span></td>
+																	       </tr> -->
+																	<tr>
+																		<td colspan="4">경기가 존재하지 않습니다.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+																	<tr>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																		<td>.</td>
+																	</tr>
+
+
+
+
+
+
+
+
+
+
+
+																	<tr class="text-center">
+																		<th style="background-color: #c6c8ca" colspan="4">10전
+																			3승 3무 4패</th>
+																	</tr>
+
+																</tbody>
+
+															</table>
+
+														</div>
+														<!-- table 감싸는 div -->
+
+
+
+
+
+														<!-- AWAY 테이블 -->
+
+														<div class="col-6 ml-0">
+															<table class="table table-bordered">
+																<thead>
+																	<tr class="text-center">
+																		<th style="background-color: #000040; color: white;"
+																			colspan="4">AWAY</th>
+																	</tr>
+
+																	<tr class="text-center" style="display:">
+
+																		<th class="w-25">경기일시</th>
+																		<th class="w-25">상대팀</th>
+																		<th class="w-25">스코어</th>
+																		<th class="w-25">결과</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr class="text-center">
+																		<td style="height: 15px; overflow: hidden;">2019-10-08</td>
+																		<td>SK</td>
+																		<td>3 : 0</td>
+																		<td><span
+																			style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #cd2e57; border-radius: 7px;">승</span></td>
+																	</tr>
+																	<tr class="text-center">
+																		<th style="background-color: #c6c8ca" colspan="4">10전
+																			3승 3무 4패</th>
+																	</tr>
+																</tbody>
+
+															</table>
+
+														</div>
+														<!-- table 감싸는 div -->
+
+
+
+
+
+													</div> <!-- row -->
+												</td>
+
+											</tr>
+											<!--  상세보기 tr끝 -->
+
+
+
+
 										</tbody>
 									</table>
 
@@ -340,6 +800,91 @@ color:blue;
 
 
 							<!--  ==================================================================  -->
+
+
+
+
+							<div class="row" id="viewTarget">
+
+								<div class="table-responsive col-md-6 ml-0">
+									<!--  A팀 테이블 -->
+									<table class="table  table-bordered " class="A_tableMatchTen">
+										<thead>
+											<tr class="text-center">
+												<th style="background-color: #000040; color: white;"
+													colspan="4">Home</th>
+											</tr>
+
+											<tr class="text-center">
+
+												<th class="w-25">경기일시</th>
+												<th class="w-25">상대팀</th>
+												<th class="w-25">스코어</th>
+												<th class="w-25">결과</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr class="text-center">
+												<td>2019-10-08</td>
+												<td>SK</td>
+												<td>3 : 0</td>
+												<td><span
+													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #6495ED; border-radius: 7px;">승</span></td>
+											</tr>
+
+											<tr class="text-center">
+												<th style="background-color: #c6c8ca" colspan="4">10전
+													3승 3무 4패</th>
+											</tr>
+
+										</tbody>
+
+									</table>
+								</div>
+
+
+								<div class="table-responsive col-md-6">
+									<!--  B팀 테이블 -->
+									<table class="table table-bordered" id="B_tableMatchTen">
+										<thead>
+											<tr class="text-center">
+												<th style="background-color: #000040; color: white;"
+													colspan="4">Away</th>
+											</tr>
+											<tr class="text-center">
+												<th class="w-25">경기일시</th>
+												<th class="w-25">상대팀</th>
+												<th class="w-25">스코어</th>
+												<th class="w-25">결과</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="text-center">
+												<td>2019-10-08</td>
+												<td>기아</td>
+												<td>3 : 0</td>
+												<td><span
+													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">패</span></td>
+											</tr>
+											<tr class="text-center">
+												<th style="background-color: #c6c8ca" colspan="4">10전
+													6승 4패</th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+							<!--  상세보기 row -->
+
+
+
+
+							<!--  ================================================================== -->
+
+    
+
 
 
 
@@ -508,9 +1053,1257 @@ color:blue;
 					
 
 
-													
-						
-	
+							<!--  축구 선택  -->
+
+							<div class="tab-pane fade" id="football" role="tabpanel"
+								aria-labelledby="football-tab">
+								<div class="play-table-part">
+									<div class="play-table">
+										<table>
+											<thead>
+												<tr>
+													<th class="team-name">name of the team</th>
+													<th class="goal">goal</th>
+													<th class="choice-team">bet your choose team</th>
+													<th class="bet-num">total bet</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!--  축구 끝 -->
+
+
+
+							<!-- 농구 선택  -->
+
+							<div class="tab-pane fade" id="bascketball" role="tabpanel"
+								aria-labelledby="bascketball-tab">
+								<div class="play-table-part">
+									<div class="play-table">
+										<table>
+											<thead>
+												<tr>
+													<th class="team-name">name of the team</th>
+													<th class="goal">goal</th>
+													<th class="choice-team">bet your choose team</th>
+													<th class="bet-num">total bet</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-basketball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-basketball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-basketball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-basketball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-basketball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-basketball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-basketball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="tab-pane fade" id="baseball" role="tabpanel"
+								aria-labelledby="baseball-tab">
+								<div class="play-table-part">
+									<div class="play-table">
+										<table>
+											<thead>
+												<tr>
+													<th class="team-name">name of the team</th>
+													<th class="goal">goal</th>
+													<th class="choice-team">bet your choose team</th>
+													<th class="bet-num">total bet</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-softball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-softball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-softball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-softball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-softball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-softball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="flaticon-softball"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!--  야구 끝 -->
+
+							<!--  농구 선택 -->
+							<div class="tab-pane fade" id="more" role="tabpanel"
+								aria-labelledby="more-tab">
+								<div class="play-table-part">
+									<div class="play-table">
+										<table>
+											<thead>
+												<tr>
+													<th class="team-name">name of the team</th>
+													<th class="goal">goal</th>
+													<th class="choice-team">bet your choose team</th>
+													<th class="bet-num">total bet</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+												<tr>
+													<td>
+														<div class="team-name-part">
+															<i class="fa fa-futbol-o"></i>
+															<div class="content">
+																<span class="name">Barcelona</span> <span class="name">Real
+																	madrid</span>
+															</div>
+														</div>
+													</td>
+													<td>
+														<div class="score">
+															<span class="first-team-score">2</span> <span
+																class="second-team-score">2</span>
+														</div>
+													</td>
+													<td>
+														<div class="choice-team-part">
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-down"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+															<div class="single-item">
+																<span>Barcelona</span>
+																<p>
+																	2.5<i class="fa fa-angle-up"></i>
+																</p>
+															</div>
+														</div>
+													</td>
+													<td><span class="bet-count-num">+19<i
+															class="fa fa-angle-right"></i></span></td>
+												</tr>
+											</tbody>
+											<!--  테이블바디-->
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- online-play-tab-part end -->
+				</div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+	</div>
 </section>
 <!-- play-section end -->
 <script>
@@ -520,7 +2313,7 @@ $(function(){
 	//console.log( $('.all-tbody #test_tr').prevAll().first().html())	
 		
 	 //배팅카운트 롱폴링 
-	//callComet();
+	callComet();
 	
 
 
@@ -1637,7 +3430,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 					
 				
 					callComet();
-					},3000);    //loop
+					},10000);    //loop
 		};
 	
 		
@@ -1833,21 +3626,15 @@ function combineMatch(obj,home,away){
     }/////////////////////
     
     
+    // home,away 별 전적 
  function    homeNAwayProgressBar(){
     	var upper =['HOME','AWAY'];
     	var lower = ['home','away'];
     	$('tbody.progress_tbody tr').not('tr:last').each(function(){
     		var bar  = $(this).children('td:eq(0)').find('.progress').children('div');
     	         bar.each(function(){
-    	           
-    	         });
-    	         
-    	        
+    	       });
     	});
-    	
-    
-    
- 
     }
     
 
