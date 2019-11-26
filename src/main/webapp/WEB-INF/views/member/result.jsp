@@ -11,7 +11,10 @@ video {
 	background: black;
 	border: 1px solid gray;
 }
-
+element.style {
+    margin-left: 150px;
+    text-align: center;
+}
 .call-page {
 	position: relative;
 	display: block;
@@ -21,7 +24,8 @@ video {
 }
 
 #localVideo {
-	width: 400px;
+	text-align: center;
+	width: 664px;
 	height: 500px;
 	position: absolute;
 	top: 15px;
@@ -85,7 +89,7 @@ p{
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>AM 09
+								<span class="date">04, Dec</br>AM 09
 								</span>
 							</div>
 							<div
@@ -117,7 +121,7 @@ p{
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>AM 11
+								<span class="date">04, Dec</br>AM 11
 								</span>
 							</div>
 							<div
@@ -146,7 +150,7 @@ p{
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>PM 02
+								<span class="date">04, Dec</br>PM 02
 								</span>
 							</div>
 							<div
@@ -175,7 +179,7 @@ p{
 						<div
 							class="league-result-item d-flex align-items-center justify-content-between">
 							<div class="date-block">
-								<span class="date">05, Oct</br>PM 04
+								<span class="date">04, Dec</br>PM 04
 								</span>
 							</div>
 							<div

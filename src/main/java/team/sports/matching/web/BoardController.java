@@ -70,8 +70,7 @@ public class BoardController {
 		model.addAttribute("pagingString", pagingString);
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		model.addAttribute("nowPage", nowPage);	
-		model.addAttribute("pageSize", pageSize);
-		System.out.println(map.get("searchWord"));
+		model.addAttribute("pageSize", pageSize);		
 		// 뷰정보 반환]
 		return "community/bbs/Board.tiles";
 	}
@@ -152,7 +151,7 @@ public class BoardController {
 			return "community/bbs/Edit.tiles";
 			
 		}
-		System.out.println("야발려차야발");
+		
 		// 수정처리후 메시지 뿌려주는 페이지(Message.jsp)로 이동
 		int sucFail = boardService.update(map);
 		req.setAttribute("WHERE", "EDT");
