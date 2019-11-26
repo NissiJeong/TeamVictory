@@ -191,10 +191,10 @@ public class CommonUtils {
 				getRandomName(), "MAN", "2000/01/01", "123123123", (long) (Math.ceil(Math.random() * 10000000000l)), leaderID + "@" + leaderID + ".com", "주작동", Math.ceil(Math.random() * 10000) / 10000.0,
 				Math.ceil(Math.random() * 10000) / 10000.0));
 
-		System.out.println(String.format("insert into team(teamname,category,teamloc,teamrating,manager_id,teaminfo,regidate,teamlogo values(" + teamName + ",'baseball','gura',1500," + leaderName + ",'주작팀',SYSDATE,'team_default.jpg'"));
+		System.out.println(String.format("insert into team(teamname,category,teamloc,teamrating,manager_id,teaminfo,regidate,teamlogo values(" + teamName + ",'baseball','gura',1500,'" + leaderName + "','주작팀',SYSDATE,'team_default.jpg'"));
 
 		String id = dummyID;
-
+ 
 		for (int i = 11; i <= 40; i++) {
 			System.out.println(String.format(
 					"insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');",
@@ -213,13 +213,13 @@ public class CommonUtils {
 				getRandomName(), "MAN", "2000/01/01", "123123123", (long) (Math.ceil(Math.random() * 10000000000l)), leaderID + "@" + leaderID + ".com", "주작동", Math.ceil(Math.random() * 10000) / 10000.0,
 				Math.ceil(Math.random() * 10000) / 10000.0));
 
-		System.out.println(String.format("insert into team(teamname,category,teamloc,teamrating,manager_id,teaminfo,regidate,teamlogo values(" + teamName + ",'baseball','gura',1500," + leaderName + ",'주작팀',SYSDATE,'team_default.jpg'"));
+		System.out.println(String.format("insert into team(teamname,category,teamloc,teamrating,manager_id,teaminfo,regidate,teamlogo) values('" + teamName + "','baseball','gura',1500,'" + leaderName + "','주작팀',SYSDATE,'team_default.jpg');"));
 
 		for (int i = 11; i <= 40; i++) {
 			System.out.println(String.format(
 					"insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');",
 					id + i, getRandomName(), "MAN", "2000/01/01", "password", "010111100" + i, id + i + "@" + id + ".com", "가산동", Math.ceil(Math.random() * 10000) / 10000.0, Math.ceil(Math.random() * 10000) / 10000.0));
-			System.out.println(String.format("insert into teammember(TEAMNAME,ID,NO,SELF,REGISTATUS,REGIDATE ) values (" + teamName + "," + id + i + ",SEQ_teammember.NEXTVAL,'ㅎㅇㅎㅇ잘지내자','complete',SYSDATE );"));
+			System.out.println(String.format("insert into teammember(TEAMNAME,ID,NO,SELF,REGISTATUS,REGIDATE ) values ('" + teamName + "','" + id + i + "',SEQ_teammember.NEXTVAL,'ㅎㅇㅎㅇ잘지내자','complete',SYSDATE );"));
 		}
 	}
 	
@@ -328,9 +328,60 @@ public class CommonUtils {
 
 	public static void main(String[] args) {
 
-		makeGameSchedule("김씨네야구단", "이씨네야구단");
-		makeGameSchedule("이씨네야구단", "김씨네야구단");
+	      /**
+	      makeLeaderNMembers("한화이글스");
+	      makeLeaderNMembers("두산베어스");
+	      makeLeaderNMembers("바르셀로나");
+	      makeLeaderNMembers("레알마드리드");
+	      makeLeaderNMembers("맨체스터유나이티드");
+	      makeLeaderNMembers("아스톤빌라");
+	      **/
+	      /**
+	      makeLeaderNMembers("NC다이노스");
+	      makeLeaderNMembers("SK와이번스");
+	      makeLeaderNMembers("롯데자이언츠");
+	      makeLeaderNMembers("kt wiz");
+	      makeLeaderNMembers("엘지트윈스");
+	      makeLeaderNMembers("맨체스터시티");
+	      **/
+	      
+	      
+	      /*
+	      makeGameSchedule("HanWha Eagles", "한화이글스");
+	      makeGameSchedule("맨체스터시티", "HanWha Eagles");
+	      makeGameSchedule("엘지트윈스", "HanWha Eagles");
+	      makeGameSchedule("SK WYVERSE", "kt wiz");
+	      makeGameSchedule("HanWha Eagles", "NC다이노스");
+	      makeGameSchedule("HanWha Eagles", "롯데자이언츠");
+	      makeGameSchedule("두산베어스", "바르셀로나");
+	      makeGameSchedule("HanWha Eagles", "바르셀로나");
+	      makeGameSchedule("아스톤빌라", "HanWha Eagles");
+	      makeGameSchedule("맨체스터시티", "맨체스터유나이티드");
+	      makeGameSchedule("한화이글스", "HanWha Eagles");
+	      makeGameSchedule("HanWha Eagles", "엘지트윈스");
+	      makeGameSchedule("엘지트윈스", "두산베어스");
+	      makeGameSchedule("두산베어스", "SK WYVERSE");
+	      makeGameSchedule("SK WYVERSE", "한화이글스");
+	      makeGameSchedule("SK WYVERSE", "바르셀로나");
+	      makeGameSchedule("kt wiz", "SK WYVERSE");
+	      makeGameSchedule("HanWha Eagles", "롯데자이언츠");
+	      makeGameSchedule("레알마드리드", "HanWha Eagles");
+	      makeGameSchedule("SK WYVERSE", "레알마드리드");
+	      makeGameSchedule("롯데자이언츠", "엘지트윈스");
+	      makeGameSchedule("레알마드리드", "SK WYVERSE");
+	      makeGameSchedule("SK WYVERSE", "kt wiz");
+	      makeGameSchedule("SK WYVERSE", "kt wiz");
+	      */
+	      
+		
+		makeTeamMembers("SK WYVERSE");
+		makeTeamMembers("HanWha Eagles");
+		
+	      
+	      
+	      
+	      
 
-	}
+	   }
 
 }

@@ -10,7 +10,46 @@
 
 <script>
    //이메일 입력방식 선택
-
+    
+ $(function(){
+    //$('div').hide();
+    $("#collapseOne").hide();
+    $("#collapseTwo").hide();
+    $("#collapseThree").hide();
+    $("#collapseFour").hide();
+    $("#collapseFive").hide();
+    $("#collapseSix").hide();
+    $("#collapseSeven").hide();
+    $("#collapseEight").hide();
+    
+  
+    $('#collapseOne1').click(function(){
+        $('#collapseOne').toggle(600)
+     })
+    $('#collapseTwo2').click(function(){
+       $('#collapseTwo').toggle(700)
+    })
+    $('#collapseThree2').click(function(){
+       $('#collapseThree').toggle(800)
+    })
+    $('#collapseFour2').click(function(){
+       $('#collapseFour').toggle(900)
+    })
+    $('#collapseFive2').click(function(){
+       $('#collapseFive').toggle(1000)
+    })
+    $('#collapseSix2').click(function(){
+       $('#collapseSix').toggle(500)
+    })
+    $('#collapseSeven2').click(function(){
+       $('#collapseSeven').toggle(400)
+    })
+    $('#collapseEight2').click(function(){
+       $('#collapseEight').toggle(300)
+    })
+    
+ })//////////
+      
    function select() {
       $("#selectEmail option:selected").each(function() {
          if ($(this).val() == '1') { //직접입력일 경우 
@@ -36,6 +75,9 @@
 
       });
    });///////////
+   
+
+   
 </script>
 
 <!-- faq-section start  -->
@@ -57,7 +99,7 @@
                <div class="card">
                   <div class="card-header" id="headingOne">
                      <h2 class="mb-0">
-                        <button class="btn btn-link" type="button"
+                        <button class="btn btn-link" type="button" id="collapseOne1"
                            data-toggle="collapse" data-target="#collapseOne"
                            aria-expanded="false" aria-controls="collapseOne">
                            <i class="fa fa-question-circle"></i>팀 폐쇄 방법 안내
@@ -142,7 +184,7 @@
                <div class="card">
                   <div class="card-header" id="headingTwo">
                      <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button"
+                        <button class="btn btn-link collapsed" type="button" id="collapseTwo2"
                            data-toggle="collapse" data-target="#collapseTwo"
                            aria-expanded="false" aria-controls="collapseTwo">
                            <i class="fa fa-question-circle"></i>팀 탈퇴 방법
@@ -176,7 +218,7 @@
                <div class="card">
                   <div class="card-header" id="headingThree">
                      <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button"
+                        <button class="btn btn-link collapsed" type="button" id="collapseThree2"
                            data-toggle="collapse" data-target="#collapseThree"
                            aria-expanded="false" aria-controls="collapseThree">
                            <i class="fa fa-question-circle"></i>팀 폐쇄방법
@@ -198,7 +240,7 @@
                <div class="card">
                   <div class="card-header" id="headingFour">
                      <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button"
+                        <button class="btn btn-link collapsed" type="button" id="collapseFour2"
                            data-toggle="collapse" data-target="#collapseFour"
                            aria-expanded="false" aria-controls="collapseFour">
                            <i class="fa fa-question-circle"></i>이름변경(개명) 신청안내
@@ -259,7 +301,7 @@
                <div class="card">
                   <div class="card-header" id="headingFive">
                      <h2 class="mb-0">
-                        <button class="btn btn-link" type="button"
+                        <button class="btn btn-link" type="button" id="collapseFive2"
                            data-toggle="collapse" data-target="#collapseFive"
                            aria-expanded="false" aria-controls="collapseFive">
                            <i class="fa fa-question-circle"></i>이메일주소 무단수집거부
@@ -296,7 +338,7 @@
                <div class="card">
                   <div class="card-header" id="headingSix">
                      <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button"
+                        <button class="btn btn-link collapsed" type="button" id="collapseSix2"
                            data-toggle="collapse" data-target="#collapseSix"
                            aria-expanded="false" aria-controls="collapseSix">
                            <i class="fa fa-question-circle"></i>팀마스터 선수사진 등록방법
@@ -355,7 +397,7 @@
                <div class="card">
                   <div class="card-header" id="headingSeven">
                      <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button"
+                        <button class="btn btn-link collapsed" type="button" id="collapseSeven2"
                            data-toggle="collapse" data-target="#collapseSeven"
                            aria-expanded="false" aria-controls="collapseSeven">
                            <i class="fa fa-question-circle"></i>팀마스터 변경요청 안내 (팀 양도 요청서)
@@ -415,7 +457,7 @@
                <div class="card">
                   <div class="card-header" id="headingEight">
                      <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button"
+                        <button class="btn btn-link collapsed" type="button" id="collapseEight2"
                            data-toggle="collapse" data-target="#collapseEight"
                            aria-expanded="false" aria-controls="collapseEight">
                            <i class="fa fa-question-circle"></i>팀명 변경 방법
