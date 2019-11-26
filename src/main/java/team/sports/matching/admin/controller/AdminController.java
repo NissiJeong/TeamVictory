@@ -74,7 +74,6 @@ public class AdminController{
 		model.addAttribute("records", records);
 		return "admin/insertData";
 		
-	
 	}///////
 	
 	
