@@ -1277,25 +1277,25 @@ input:checked+label {
 									<tbody class="all-tbody">
 
 										<!--  1행 -->
-										<tr>
-											<!-- 기네스 제목 -->
+										<!-- <tr>
+											기네스 제목
 											<td><span>통산 최다 연승</span></td>
-											<!-- 기네스 수치 -->
+											기네스 수치
 											<td>38연승</td>
-											<!-- 기네스 날짜 -->
+											기네스 날짜
 											<td>어캐하냐 경기날짜(승)~경기날짜(패전)</td>
 										</tr>
-										<!-- 1행끝 -->
+										1행끝
 
-										<!-- 2행 -->
+										2행
 										<tr>
-											<!-- 기네스 제목 -->
+											기네스 제목
 											<td><span>통산 최다 연패</span></td>
-											<!-- 기네스 수치 -->
+											기네스 수치
 											<td>2연패</td>
-											<!-- 기네스 날짜 -->
+											기네스 날짜
 											<td>어캐하냐 경기날짜(패)~경기날짜(승전)</td>
-										</tr>
+										</tr> -->
 										<!-- 2행끝 -->
 
 										<!-- 3행 -->
@@ -1506,85 +1506,149 @@ input:checked+label {
 						
 						<!-- score start -->
 						<section class="top3-player-score" id="top3-player-score">
-							<c:forEach var="item" items="${list3}" varStatus="loop">
-								<div class="small-post-item">
-									<div class="small-post-thumb">
-										<img src="<c:url value='https://placeimg.com/80/80/people'/>"
-											alt="image" />
-									</div>
-									<div class="small-post-content">
-										<h6>
-											<a href="#0">${item.name }</a>
-										</h6>
-										<ul class="post-meta">
-											<li style="font-weight: bold;">${item.rbi}점</li>
-										</ul>
-									</div>
+							<!-- 기록 있을시 -->
+					<c:if test="${! empty list3 }" var="isRbi">
+						<c:forEach var="item" items="${list3}" varStatus="loop">
+							<div class="small-post-item">
+								<div class="small-post-thumb">
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
 								</div>
-							</c:forEach>
+								<div class="small-post-content">
+									<h6>
+										<a href="#0">${item.name }</a>
+									</h6>
+									<ul class="post-meta">
+										<li style="font-weight: bold;">${item.rbi}점</li>
+									</ul>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isRbi }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
+						</div>
+					</c:if>
 							</section>
 							<!-- score end -->
 	
 							<!-- out start -->
 							<section class="top3-player-out" id="top3-player-out">
-								<c:forEach var="item" items="${list4}" varStatus="loop">
-									<div class="small-post-item">
-										<div class="small-post-thumb">
-											<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-												alt="image" />
-										</div>
-										<div class="small-post-content">
-											<h6>
-												<a href="#0">${item.name }</a>
-											</h6>
-											<ul class="post-meta">
-												<li style="font-weight: bold;">${item.so}개</li>
-											</ul>
-										</div>
-									</div>
-								</c:forEach>
+								<!-- 기록 있을시 -->
+					<c:if test="${! empty list4 }" var="isSo">
+						<c:forEach var="item" items="${list4}" varStatus="loop">
+							<div class="small-post-item">
+								<div class="small-post-thumb">
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
+								</div>
+								<div class="small-post-content">
+									<h6>
+										<a href="#0">${item.name }</a>
+									</h6>
+									<ul class="post-meta">
+										<li style="font-weight: bold;">${item.pso}개</li>
+									</ul>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isSo }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
+						</div>
+					</c:if>
 							</section>
 							<!-- out end -->
 	
 							<!-- hit start -->
 							<section class="top3-player-hit" id="top3-player-hit">
-								<c:forEach var="item" items="${list5}" varStatus="loop">
-									<div class="small-post-item">
-										<div class="small-post-thumb">
-											<img src="<c:url value='https://placeimg.com/80/80/nature'/>"
-												alt="image" />
-										</div>
-										<div class="small-post-content">
-											<h6>
-												<a href="#0">${item.name }</a>
-											</h6>
-											<ul class="post-meta">
-												<li style="font-weight: bold;">${item.hr}개</li>
-											</ul>
-										</div>
-									</div>
-								</c:forEach>
+								<!-- 기록 있을시 -->
+					<c:if test="${! empty list5 }" var="isHr">
+						<c:forEach var="item" items="${list5}" varStatus="loop">
+							<div class="small-post-item">
+								<div class="small-post-thumb">
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
+								</div>
+								<div class="small-post-content">
+									<h6>
+										<a href="#0">${item.name }</a>
+									</h6>
+									<ul class="post-meta">
+										<li style="font-weight: bold;">${item.hr}개</li>
+									</ul>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isHr }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
+						</div>
+					</c:if>
 							</section>
 							<!-- hit end -->
 	
 							<!-- run start -->
 							<section class="top3-player-run" id="top3-player-run">
-								<c:forEach var="item" items="${list6}" varStatus="loop">
-									<div class="small-post-item">
-										<div class="small-post-thumb">
-											<img src="<c:url value='/assets/images/blog/s1.jpg'/>"
-												alt="image" />
-										</div>
-										<div class="small-post-content">
-											<h6>
-												<a href="#0">${item.name }</a>
-											</h6>
-											<ul class="post-meta">
-												<li style="font-weight: bold;">${item.sb}개</li>
-											</ul>
-										</div>
-									</div>
-								</c:forEach>
+								<!-- 기록 있을시 -->
+					<c:if test="${! empty list6 }" var="isSb">
+						<c:forEach var="item" items="${list6}" varStatus="loop">
+							<div class="small-post-item">
+								<div class="small-post-thumb">
+									<c:if test="${! empty item.profile }" var="isLogo">
+										<img src="/matching/Upload/${item.profile }" alt="image"
+											style="width: 80px; height: 80px" />
+									</c:if>
+									<c:if test="${not isLogo}">
+										<img
+											src="https://us.123rf.com/450wm/martialred/martialred1507/martialred150700789/42614399-%EC%9D%91%EC%9A%A9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8-%EB%B0%8F-%EC%9B%B9-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%B4%AC%EC%98%81-%EB%9D%BC%EC%9D%B8-%EC%95%84%ED%8A%B8-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6"
+											alt="image" style="width: 80px; height: 80px" />
+									</c:if>
+								</div>
+								<div class="small-post-content">
+									<h6>
+										<a href="#0">${item.name }</a>
+									</h6>
+									<ul class="post-meta">
+										<li style="font-weight: bold;">${item.sb}개</li>
+									</ul>
+								</div>
+							</div>
+						</c:forEach>
+					</c:if>
+					<!-- 기록 없을시 -->
+					<c:if test="${not isSb }">
+						<div class="small-post-item">
+							<h4 style="margin-left: 8%">경기기록이 없습니다</h4>
+						</div>
+					</c:if>
 							</section>
 						</div>
 							<!-- run end -->
