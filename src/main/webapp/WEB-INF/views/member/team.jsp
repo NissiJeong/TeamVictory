@@ -1861,8 +1861,9 @@ input:checked+label {
 								class="portfolio-modal-title text-secondary text-uppercase mb-0">팀가입
 								신청</h3>
 							<form id="frm">
-								<input type="hidden" id="user" value="${id }" /> <input
-									type="hidden" name="${_csrf.parameterName}"
+								<input type="hidden" id="user" value="${id }" /> <
+
+
 									value="${_csrf.token}" />
 								<div id="sginupdiv"></div>
 							</form>
