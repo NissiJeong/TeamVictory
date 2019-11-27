@@ -65,4 +65,15 @@ public class AdminDAO {
 	
 	}
 	
+	public List<Map> selectRating(Map map) {
+      return template.selectList("selectRating", map);
+   }
+   public List<Map> selectCount(Map map) {
+      return template.selectList("selectCount", map);
+   }
+   
+   public List<Map> updateRating(Map map) {
+      return template.selectList("updateRating", map);
+   }
+	
 }

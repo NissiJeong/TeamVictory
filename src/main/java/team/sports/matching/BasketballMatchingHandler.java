@@ -133,14 +133,6 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
         System.out.println("접속한 방 : "+title);
         System.out.println("방접속인원 : "+count);
         
-        if(count == 2) {
-           
-           TextMessage notice = new TextMessage("full:"+title);
-         for(WebSocketSession room : rooms) {
-                         
-              room.sendMessage(notice);
-            }
-        }
         
         if(count == 3) {
            
@@ -211,6 +203,15 @@ public class BasketballMatchingHandler extends TextWebSocketHandler{
         
            room.sendMessage(msg2);
            
+        }
+        
+        if(count == 2) {
+           
+           TextMessage notice = new TextMessage("full:"+title);
+         for(WebSocketSession room : rooms) {
+                         
+              room.sendMessage(notice);
+            }
         }
         
         //이전방의 카운트

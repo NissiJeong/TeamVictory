@@ -141,7 +141,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="opponentRecordList" parameterType="java.util.List" resultType="java.util.Map">
 	select g.gamedate ,  g.time , g.stadium, teamname as hometeam , g.awayteam ,g.homescore , g.awayscore 
 from  gameschedule g where  (teamname,awayteam) in ((#{hometeam},#{awayteam}),(#{awayteam},#{hometeam}))
-and rownum between 1 and 10 and   not homescore is null
+and rownum between 1 and 10 and   not homescore is null order by g.gamedate desc
 		
 	</select>
 	

@@ -13,7 +13,7 @@
 var websocket;
 var user;
 var teamname;
-var wsUri = "ws://localhost:8080<c:url value='/push.do'/>";
+var wsUri = "ws://192.168.0.63:8080<c:url value='/push.do'/>";
 var time;
 var date;
 var stadium;

@@ -62,6 +62,7 @@ public class AndroidController {
 		for(Object key : map.keySet()) {
 			System.out.println(key+":"+map.get(key)+"  /  ");
 		}
+		System.out.println(map);
 		int match = dao.insertmatch(map);
 		return match==1?"yes":"no";
 		//List<TeamDTO> teams = new Vector<TeamDTO>();

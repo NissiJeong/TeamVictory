@@ -135,6 +135,27 @@ public class AdminController{
 		// 게임스케쥴 업데이트
 		dao.updateGameSchedule(updateGameSchedule);
 		
+		Map homeRatingMap = new HashMap();
+		Map awayRatingMap = new HashMap();
+		  
+		homeRatingMap.put("TEAMNAME", teamname);
+		awayRatingMap.put("TEAMNAME", awayteam);
+		  
+		double homeRating = Double.parseDouble(dao.selectRating(homeRatingMap).get(0).get("TEAMRATING").toString());
+		double awayRating = Double.parseDouble(dao.selectRating(awayRatingMap).get(0).get("TEAMRATING").toString());
+		  
+		int homeCount = Integer.parseInt(dao.selectCount(homeRatingMap).get(0).get("COUNT").toString());
+		int awayCount = Integer.parseInt(dao.selectCount(awayRatingMap).get(0).get("COUNT").toString());
+		  
+		homeRating = CommonUtils.calcRating(homeRating, awayRating, homeCount, homeScore, awayScore);
+		awayRating = CommonUtils.calcRating(awayRating, homeRating, awayCount, awayScore, homeScore);
+		
+		homeRatingMap.put("TEAMRATING", String.format("%.4f", homeRating));
+		awayRatingMap.put("TEAMRATING", String.format("%.4f", awayRating));
+		  
+		dao.updateRating(homeRatingMap);
+		dao.updateRating(awayRatingMap);
+		
 		System.out.println(String.format(
 					"update gameschedule set gamestatus='finish', homescore=%d ,awayscore=%d where gamedate='%s' and stadium='%s' and time='%s' and teamname='%s' and awayteam='%s';  ", 
 					homeScore,awayScore,gamedate,stadium, time, teamname, awayteam));

@@ -111,4 +111,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 -->
 			
 	</select>
+	
+	<select id="selectRating" parameterType="java.util.Map" resultType="java.util.Map">
+      select teamrating from team where teamname = #{TEAMNAME}
+   </select>
+   <select id="selectCount" parameterType="java.util.Map" resultType="java.util.Map">
+      select count(*) count from gameschedule where teamname=#{TEAMNAME} or awayteam=#{TEAMNAME}
+   </select>
+   
+   
+   <update id="updateRating" parameterType="java.util.Map" >
+      update team set teamrating = #{TEAMRATING} where teamname= #{TEAMNAME}
+   </update>
+	
+	
+	
 </mapper>

@@ -138,7 +138,7 @@ function isBlank(){
        	</c:if>
        	<c:if test="${not isDupli}">
 	 	
-          <div class="contact-form-area" style="background-color: #f3faff; margin-top: 35px;">
+          <div class="contact-form-area" style="background-color: #3981b5; margin-top: 35px;">
           	
             <form class="cmn-form contact-form" action="<c:url value='/Team/matching/teamJoin.do?${_csrf.parameterName}=${_csrf.token}'/>" id="form" runat="server" method="post" enctype="multipart/form-data">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -146,7 +146,7 @@ function isBlank(){
               	<div class="col-md-6">
                   <div class="frm-group">
                   		<img id="image_section" src="<c:url value='/assets/images/kickball-1.gif'/>" style="width:100px;height:100px;" />
-                  		<label id="loading" for="imgInput" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 0px;" onclick="loading()">팀 로고 선택</label>
+                  		<label id="loading" for="imgInput" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 0px; background-color: #d36f19; border: none;" onclick="loading()">팀 로고 선택</label>
 					    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
 				   		<span style="color:red; font-size: 0.8em">${maxError }</span>
                   </div>
@@ -155,7 +155,7 @@ function isBlank(){
                   <div class="frm-group">
                   	
                   	<label for="sel3">팀 명</label>
-                    <input type="text" name="teamName" id="teamName" placeholder="Team Name*" oninput="checkTeam(this.value)">
+                    <input style="border-radius: 10px;" type="text" name="teamName" id="teamName" placeholder="Team Name*" oninput="checkTeam(this.value)">
                     <span id="TeamNameError" style="color:red; font-size: 0.8em"></span>
                   </div>
                 </div>
@@ -163,32 +163,32 @@ function isBlank(){
                 <div class="col-md-6">
                   <div class="frm-group">
                   
-                  	<label for="sel3" >종목</label>
-                   <select class="form-control" id="category" name="category" onchange="isSelect()">
-                   	<option value="">종목</option>
-			        <option value="futsal">풋살</option>
-			        <option value="baseball">야구</option>
-			        <option value="basketball">농구</option>
+                  	<label for="sel3" >종 목</label>
+                   <select style="border-radius: 5px; padding-left: 20px; height: 53px;" class="form-control" id="category" name="category" onchange="isSelect()">
+                   	<option value="">종 목</option>
+			        <option value="futsal">풋 살</option>
+			        <option value="baseball">야 구</option>
+			        <option value="basketball">농 구</option>
 			      </select>
 			      <span id="cateError" style="color:red; font-size: 0.8em"></span>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="frm-group">
-                  <label for="sel3" >팀장 ID</label>
-                    <input type="text" name="manager_id" id="manager_id" placeholder="${id }" disabled value="${id }">
+                  <label for="sel3" >팀 장 ID</label>
+                    <input style="background-color: #c1ffd1; border-radius: 10px;" type="text" name="manager_id" id="manager_id" placeholder="${id }" disabled value="${id }">
                   </div>
                 </div>
                 <div class="col-md-6" >
                   <div class="frm-group">
                   <label for="sel3" >RATING</label>
-                    <input type="text" name="teamRating" id="teamRating" placeholder="1500" disabled value="1500">
+                    <input style="background-color: #c1ffd1; border-radius: 10px;" type="text" name="teamRating" id="teamRating" placeholder="1500" disabled value="1500">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="frm-group">
                   	<label for="sel3" >팀 활동 지역</label>
-                   <select class="form-control" id="teamLoc" name="teamLoc" onchange="isSelect()">
+                   <select style="border-radius: 5px; padding-left: 20px; height: 53px;" class="form-control" id="teamLoc" name="teamLoc" onchange="isSelect()">
                    	<option value="">지역</option>
 			        <option value="guro">구로구</option>
 			        <option value="gumcheon">금천구</option>
@@ -200,13 +200,13 @@ function isBlank(){
                 <div class="col-md-12">
                   <div class="frm-group">
                   <label for="sel3" >간단한 팀 소개</label>
-                    <textarea name="teamInfo" id="teamInto" placeholder="Write Message" onkeyup="isBlank()"></textarea>
+                    <textarea style="border-radius: 10px;" name="teamInfo" id="teamInto" placeholder="Write Message" onkeyup="isBlank()"></textarea>
                      <span id="infoError" style="color:red; font-size: 0.8em"></span>
                   </div>
                 </div>
                 <div class="col-md-12">
                   <div class="frm-group text-center">
-                    <button type="submit" class="submit-btn" id="register" disabled="true" style="background-color:gray;">등록</button>
+                    <button type="submit" class="submit-btn" id="register" disabled="true" style="background-color:gray; border-radius: 10px;">등 록</button>
                   </div>
                 </div>
               </div>

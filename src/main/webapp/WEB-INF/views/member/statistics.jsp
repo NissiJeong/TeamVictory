@@ -1174,7 +1174,7 @@ $(function() {
                console.log(data);
                hitterChart.clear();
                $(data).each(function() {
-                  hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE];
+                  hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, 6, this.HITTINGRATE];
                   hitterChart.update();
                });// each 
             }
@@ -1242,7 +1242,7 @@ $(function() {
             if (data != "") {
                console.log(data);
                $(data).each(function() {
-                  hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE];
+                  hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, 6, this.HITTINGRATE];
                   hitterChart.update();
                });// each 
             } 
@@ -1301,7 +1301,7 @@ $(function() {
                         console.log(data);
                         hitterChart.clear();
                         $(data).each(function() {
-                           hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, this.SPEEDRATE, this.HITTINGRATE];
+                           hitterChart.data.datasets[0].data = [this.TARATE, this.CHULRATE, this.JANGRATE, this.HOMERUNRATE, 6, this.HITTINGRATE];
                            hitterChart.update();
                         });// each 
                      }

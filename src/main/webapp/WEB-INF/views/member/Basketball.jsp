@@ -25,7 +25,7 @@
            var auth = $("#auth").val();
            console.log(auth) 
            if(auth == 'ADMIN'){
-              wsocket = new WebSocket("ws://localhost:8080<c:url value='/chat-ws.do'/>");
+              wsocket = new WebSocket("ws://192.168.0.63:8080<c:url value='/chat-ws.do'/>");
               //console.log('ADMIN으로 접속')
            }
            else{
@@ -47,6 +47,7 @@
                   $('.comment-area').append("<div class='from-them'>"+msg+"</div></br>").scrollTop('9999999');
                   return;
                }
+               
                if(chat.substring(0,4) === 'user'){//방클릭시 유저목록 서버에서 받을 때
                   
                   chat = JSON.parse('"user"',msgg.data)
@@ -65,7 +66,6 @@
                   $("#chattingRoom").text('')
                   chat = JSON.parse('"list"',msgg.data) //서버에서 넘어온 문자열(list)+json객체
                      var chat2 = msgg.data.substring(4); //list 잘라내기
-                     
                      var chat3 = JSON.parse(chat2)//다시 파싱
                         $.each(chat3, function(index, element){
                         titles=element['title']
@@ -74,20 +74,25 @@
                         
                         $("#chattingRoom").append("<li  id='"+titles+"'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span value='"+area+"'>"+area+"</span></a></li>");      
                      })
-                     
                   return;
                }
+               else if(chat.substring(0,5) === "full:"){
+                  console.log('풀방인 타이틀 : ',chat.substring(5).trim())
+                  var full = chat.substring(5).trim();
+                  console.log('풀방인 타이틀 : ',full)
+                  //$("#"+full).css('background-color', '#A9A9A9');
+               }
+               
                if(chat.substring(0,5) === "start"){
                   
                   $("#chattingRoom").text('')
                    chat = JSON.parse('"start"',msgg.data)
                    var chat2 = msgg.data.substring(5);
-                   
                    var chat3 = JSON.parse(chat2); //JSON 배열 앞 문자열 지운거 다시 파싱하기.
                        $.each(chat3, function(index, element){
                          titles = element['title']
                           regidate = element['regidate']
-                         area = element['position']
+                         area = element['area']
                      $("#chattingRoom").append("<li id='"+titles+"'><a class='enter' onclick='roomBtn(\""+titles+"\")'><i class='flaticon-basketball' style='float:left'></i>"+titles+"<span>"+area+"</span></a></li>");      
                })    
                }
@@ -163,15 +168,7 @@
                       
                    });
                }
-               if(chat.substring(0,5) === "full:"){
-                  console.log('풀방인 타이틀 : ',chat.substring(5).trim())
-                  var full = chat.substring(5).trim();
-                  console.log('풀방인 타이틀 : ',full)
-                  /*왜~~~~~~~~안돼?*/
-                  $("#"+full).css('background-color', '#00FA9A');
-                 
-                  $("#"+full).text('야이이이이이이잉')
-               }
+              
                /*
                if(chat.substring(0,7)=== "priUser"){
                   console.log('From handleTextMessage to clients : priUser')
@@ -213,6 +210,11 @@
                    dataType : 'text',
                    type:'post',
                    success:function(data){
+                    //$("#makeRoom").after("<span id='myChat'>"+data+"</span>")
+                    $("#makeRoom").after("<button data-toggle='modal' data-target='#myModal' class='btn btn-info'"
+                          +"style='font-weight: bold; border:none ; width: 100%; background-color: #FF1493   ; margin-top:10px; padding: 15px 15px 15px 15px;'"
+                          +"id='makeRoom'>"+data+"</button>")
+                    //$('#currentRoom').append("<span id='myChat'>"+data+"</span>")
                     console.log('방만들때',auth)
                     
                    $('#connectionList').text('');
@@ -282,6 +284,9 @@
                type:'get',
                success:function(data){
                   if(auth != null && data == possible){
+                     $("#makeRoom").after("<button data-toggle='modal' data-target='#myModal' class='btn btn-info'"
+                            +"style='font-weight: bold; border:none ; width: 100%; background-color: #FF1493   ; margin-top:10px; padding: 15px 15px 15px 15px;'"
+                            +"id='makeRoom'>"+room+"</button>")
                           wsocket.send("title="+room+"="+auth+"="+area)
                           swal(title2+"에 접속하셨습니다!", "", "success");
                   }  
@@ -751,6 +756,9 @@ background-repeat: no-repeat;
 <!-- banner-section end -->
 <!-- blog-details-section start -->
 <section class="blog-details-section section-padding">
+   <div id="currentRoom" style="text-align: center;">
+      
+   </div>
    <div class="container">
       <div class="row">
          <div class="col-lg-8" style="border-color: black;">

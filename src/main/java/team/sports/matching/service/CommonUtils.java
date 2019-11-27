@@ -386,22 +386,18 @@ public class CommonUtils {
             "오류짹짹이","개봉라이온","대방치킨즈","용산트윈스","남영베어스");
       
       Collections.shuffle(dummyTeams);
-      if(Math.random()<0.5)
+      if(true)
          makeGameSchedule(teamname, dummyTeams.get(0));
-      else 
-         makeGameSchedule(dummyTeams.get(0), teamname);
-      
+//      
+//      else 
+//         makeGameSchedule(dummyTeams.get(0), teamname);
+//      
    }
-   
-   
-   
-   
    
    public static void main(String[] args) {
       
-      makeGameScheduleVSDummy("이씨네야구단");
-      
-      
+	   
+	 
       
    }
 

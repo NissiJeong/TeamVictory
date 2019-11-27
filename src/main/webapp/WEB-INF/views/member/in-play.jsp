@@ -103,6 +103,8 @@ border-right: 2px #796767 solid;
 color:blue;
 }
 
+
+
 </style>
 
 <%-- <meta name="_csrf" content="${_csrf.token}"/>
@@ -209,7 +211,7 @@ color:blue;
               
 					</ul>
 		
-		 				 <form id="move">
+		  <form id="move">
 								<input type="hidden" name="content"/>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 						</form>
@@ -262,8 +264,7 @@ color:blue;
 														<td>${loop.count}</td>
 
 
-														<td><c:if test="${formatNow < formatGameDate }"
-																var="isDeadLine">
+														<td><c:if test="${formatNow < formatGameDate }" var="isDeadLine">
 																<span class="pr-1 date"> <fmt:formatDate
 																		value="${item.gameDate}" pattern="yy.MM.dd" /></span>
 																<span class="pr-1">${item.gameDay}</span>
@@ -327,28 +328,6 @@ color:blue;
 													</tr>
 												</c:forEach>
 											</c:if>
-										</tbody>
-									</table>
-
-								</div>
-								<!--  play-table end -->
-
-
-							</div>
-							<!--  전체선택 끝  -->
-
-
-
-							<!--  ==================================================================  -->
-
-
-
-
-
-
-
-
-
 
 
 
@@ -508,9 +487,6 @@ color:blue;
 					
 
 
-													
-						
-	
 </section>
 <!-- play-section end -->
 <script>
@@ -519,14 +495,7 @@ $(function(){
 	// 역순으로 진행된다   선택자중에 맨위의 tr은 last()로 접근  맨아래는 first()로 접근
 	//console.log( $('.all-tbody #test_tr').prevAll().first().html())	
 		
-
-	//배팅카운트 롱폴링 
-
 	 //배팅카운트 롱폴링 
-
-	//callComet();
-
-
 	callComet();
 
 	
@@ -535,6 +504,7 @@ $(function(){
 	//스프링 시큐리티 아이디 가져오기
 	 console.log( $('#auth').val() )
 	 //myBettingList( $.trim($('#auth').val()));
+	//deadLineCheck();
 	 scoreStyle('main');
 	 
 	 var target =  $('.all-tbody tr:eq(0)');
@@ -608,7 +578,7 @@ $(function(){
 			  $('.modal-body :radio:eq(0)').next().text(betObj.home);
 		  	  $('.modal-body :radio:eq(1)').next().text(betObj.away);
 			 
-		     console.log('flag '   , flag);
+		     console.log('flag '  , flag);
 	
 	
 			$.ajax({
@@ -628,7 +598,6 @@ $(function(){
 							    // 모달창이 떳을떄 선택한 경기의 배당및  퍼센트 세팅   Number(clickBtn.find('span').text())
 						        progressState(data,data.totalCount);
 						
-							   
 						       if (flag) { // 배팅을 한경우
 									 alreadyBetting(data.already);
 						       }
@@ -666,7 +635,7 @@ $(function(){
 	  $('#btnJoin').click(function(){
 		  //console.log( parseInt($('#bettingPoint').val().replace(',',''))  );
 		 // 콤마제거함수 호출해서 반환값을 넘긴다.
-	      console.log ( 'btnjoin 클릭이벤트'	,	 commaRemove($('#bettingPoint').val()) );
+	      console.log ( 'btnjoin 클릭이벤트'	,	commaRemove($('#bettingPoint').val()) );
 		  bettingJoin(betObj,target);
 	  
 	 });	
@@ -770,11 +739,12 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 						success : function(data){
 							if(data != null) {
 							bettingView(data,viewIndex,home,away);
+						
 							}
-						 	if ( $('.tenViewHome').is(':visible')  &&  $('.tenViewAway').is(':visible')  ) {
-						 		
-								var tenView = ['.tenViewHome','.tenViewAway'];
-									scoreStyle(tenView);
+						 	if ( $('.tenViewHome').is(':visible')  &&  $('.tenViewAway').is(':visible')   && $('.opponentTbody').is(':visible') )  {
+										opponentTableStyle();
+										homeNAwayProgressBar();
+										scoreStyle(['.tenViewHome','.tenViewAway']);
 									
 									// 셀 높이 55로 맞추기
 									$('.tenViewHome tr, .tenViewAway tr').each(function(){
@@ -792,7 +762,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 								} 
 								
 							 $('span.colon').css({ 'font-weight':'bold'});
-							 $('.awayViewTable , .homeViewTable').css('table-layout','fixed');
+							 $('.awayViewTable , .homeViewTable, .opponentTable').css('table-layout','fixed');
 							// $('td.opponent').css({'overflow': 'hidden',  'text-overflow': 'ellipsis', 'white-space': 'nowrap'});
 							 
 							if ( //$('.tenViewHome').is(':visible') && 
@@ -820,24 +790,28 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 								}
 							}); 
 							
-						 if ( $('tbody.progress_tbody').is(':visible')) {
-							/*  $('tbody.progress_tbody tr').not('tr:last').each(function(){
-								  console.log($(this).children('td:eq(1)').text());
-							 }); */
-						      //  homeNAwayProgressBar();  
-						     }
 							
-							
+						
 						 	}//// if
+						 /*	
+						 	//홈 어웨이 전적 테이블 
+						if (   $('.opponentTbody').is(':visible')){
+							homeNAwayProgressBar();
+							opponentTableStyle();
+						}
+						 	*/
+						 	
 						}, //success
 						error:function(data){
 							console.log('에러 : '+data); // 에러코드 출력 
 							console.log('에러 : '+data.responseText); //  에러내용 출력
 						}
+						
+						
 					}); // ajax 
 				$(this).text('접기')  // 문자열 변경
 				
-	
+			
 			 
 		   }  // if
 		   else{
@@ -917,7 +891,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 							 +"<td style='font-size: 16px'>"+item['STADIUM']+"</td>"
 							 +"<td style='font-weight: bold;font-size: 16px;'><span class='pr-2 opp_hs'>"+item.HOMESCORE+"</span>:<span class='pl-2 opp_as'>"+item.AWAYSCORE+"</span></td>";
 							 if (item.HOMESCORE ===  item.AWAYSCORE){
-								 infoContent +="<td colspan='2'> 무 승 부</td></tr>";
+								 infoContent +="<td colspan='2' style='font-size:17px'> 무 승 부</td></tr>";
 								 if(item.HOMETEAM === home ){
 									 match['home']._HOME.draw =  match['home']._HOME.draw+1;
 									 match['away']._AWAY.draw =  match['away']._AWAY.draw+1;
@@ -928,7 +902,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 								 }
 							 }///IF 
 							 else if(item.HOMESCORE >  item.AWAYSCORE ){
-								 infoContent += "<td class='border_td' style='border-right: 1px #796767 solid;'>"+item.HOMETEAM+"</td><td>"+item.AWAYTEAM+"</td></tr>";
+								 infoContent += "<td class='border_td' style='border-right: 1px #796767 solid;'>"+item.HOMETEAM+"</td><td >"+item.AWAYTEAM+"</td></tr>";
 								 if(item.HOMETEAM === home ){
 									 match['home']._HOME.win =  match['home']._HOME.win+1;
 									 match['away']._AWAY.lose =  match['away']._AWAY.lose+1;
@@ -956,7 +930,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 					//console.log( 'combineMatch 후 total',total)
 						 if (10 - length !== 0){
 							     
-							infoContent +="<tr class='lastContent'><td colspan='5' style='font-size:17px'>양 팀의 최근 경기 정보는 [ <span  class='totalMatch' style='font-size:17px'>"+(length)+"</span> ] 건 입니다 </tr>";
+							infoContent +="<tr class='lastContent'><td colspan='5' style='font-size:17px'>양 팀의 최근 경기 정보는 [ <span  class='totalMatch' style='font-size:17px;color:red'>"+(length)+"</span> ] 건 입니다 </tr>";
 						 }
 						 
 						 infoContent += "<tr style='background-color: #014476'><td colspan='5' style='padding:0px'>"	
@@ -989,7 +963,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 				                       
 						} //// if
 					else {
-						infoContent  += "<tr> <td colspan='5' style='font-size: 18px;'>상대전적 기록이 존재하지 않습니다.</td><tr></tbody></table></div>";
+						infoContent  += "<tr> <td colspan='5' style='font-size: 18px;'>상대전적 기록이 존재하지 않습니다.</td></tr></tbody></table></div>";
 					}
 					
 					
@@ -1151,9 +1125,22 @@ $('#myModal').on('hidden.bs.modal', function (e) {
  
 		 
 		 // 상대전적 프로그래스바 수치 조정
-		 
-		 
-		 
+		 /*
+		  if ( $('tbody.progress_tbody').is(':visible')) {
+			   var index=[0,2];
+			   
+							 $('tbody.progress_tbody tr').not('tr:last').each(function(){
+								  console.log($(this).children('td:eq(1)').text());
+							 });
+							 
+							 for(var i=0; i<index;i++) {
+								 var target = $('tbody.progress_tbody tr:eq(0)').children('td').eq(index[i]).find('div.progress');
+							 console.log($('tbody.progress_tbody tr:eq(0)').children('td').eq(index[i]).find('div.progress').find('.home_winprogress-bar').text());
+						      // homeNAwayProgressBar(match);  
+						     target 
+					}//for
+			   }
+		 */
 		 
 	}; /// bettingView
 	
@@ -1817,12 +1804,21 @@ function combineMatch(obj,home,away){
 		 +"<div class='progress-bar bg-secondary' style='width:0%;font-size:18px;'>?무</div>"
 		  +"<div class='progress-bar bg-danger' style='width:60%;font-size:18px'>?패</div></div></td></tr>";
     	*/
-    	var content='';
+    	
+    	
     	 var title =['HOME','AWAY'];
-    	 console.log(obj)
+    	 var content= '';
+    	 console.log('homeNawayProgress함수 안',obj)
     	  console.log(Object.values(obj))
+    	  
+    	  //MatchTotalCount(obj,title)
+    	   var count=0;
     	   for (var i=0; i<title.length; i++) {
-    	  	  content +="<tr class='progress_tr' style='height:3px;line-height:15px;'><td style='padding:2px;width:45%;'>"
+    		   
+    		//매개변수로 받은 obj(=match객체)로 홈팀 , 어웨이팀의 home/ away별 총전적수를 구한다.   
+    		
+    	   
+    	  	  content +="<tr class='progress_tr' style='height:3px;line-height:15px;'><td class='progressTD' style='padding:2px;width:45%;'>"
     	  		  +"<div class='progress' style='height: 25px'>"
         	     +"<div class='progress-bar home_winprogress-bar' style='width:70%;font-size:18px;'>"+(obj['home']['_'+title[i]].win > 0 ? obj['home']['_'+title[i]].win+'승' :'')+"</div>"
         	     +"<div class='progress-bar bg-secondary  home_drawprogress-bar' style='width:10%;font-size:18px;'>"+(obj['home']['_'+title[i]].draw > 0 ? obj['home']['_'+title[i]].draw +'무' : '')+"</div>"
@@ -1831,7 +1827,7 @@ function combineMatch(obj,home,away){
     	       			 
     	       	+"<td style='width: 10%;background-color:#014476;color:white'>"+title[i]+"</td>"
     
-    	       	 +"<td style='padding: 2px;width: 45%;padding: 0px'><div class='progress' style='height: 25px'>"
+    	       	 +"<td  class='progressTD'  style='padding: 2px;width: 45%;padding: 0px'><div class='progress' style='height: 25px'>"
     	       	 +"<div class='progress-bar home_winprogress-bar' style='width:40%;font-size:18px'>"+(obj['away']['_'+title[i]].win > 0 ? obj['away']['_'+title[i]].win+"승" : '')+"</div>"
     	         +"<div class='progress-bar bg-secondary home_drawprogress-bar' style='width:0%;font-size:18px;'>"+(obj['away']['_'+title[i]].draw > 0 ? obj['away']['_'+title[i]].draw+"무" :'')+"</div>"
     	         +"<div class='progress-bar bg-danger home_loseprogress-bar' style='width:60%;font-size:18px'>"+(obj['away']['_'+title[i]].lose > 0 ? obj['away']['_'+title[i]].lose+"패" : '')+"</div></div></td></tr>"	 
@@ -1840,25 +1836,93 @@ function combineMatch(obj,home,away){
     	return content;
     }/////////////////////
     
+ /*
+   function MatchTotalCount(obj,arr){
+    	// obj = match , arr = title [HOME ,AWAY]
+    	var countObj={home:{},away:{}};
+    	var countArr=[];
+    	var count =0;
+     	 $.each(obj,function(key,value){  // key => home away
+    		 delete obj[key].NAME;  
+    	  
+	    	//for(var i=0; i<arr.length; i++){
+	    	//	countObj[key+'_count'].h
+	       //}
+	    	$.each(obj[key],function(k,v){  // k =>  _HOME , _AWAY
+	    		//for(var i=0; i<arr.length; i++){
+		    	//	countObj[key+'_count'].h
+		       //}
+	    	//console.log(v)  //  = obj[key][k]
+	    	    //console.log (obj[key]+'  '+obj[key][k]);
+	    	$.each(v,function(kk,vv){
+	    		 count += vv;
+	    	
+	    	});
+	    	countObj[key][k+'c']= count;	
+	    });
+	    	countArr.push(countObj[key][key+'c']);
+      });
+     	 console.log(countObj);
+    }
+*/
+    
+    
     
  function    homeNAwayProgressBar(){
-    	var upper =['HOME','AWAY'];
-    	var lower = ['home','away'];
-    	$('tbody.progress_tbody tr').not('tr:last').each(function(){
-    		var bar  = $(this).children('td:eq(0)').find('.progress').children('div');
-    	         bar.each(function(){
-    	           
-    	         });
-    	         
-    	        
-    	});
-    	
+        var count =0;
+        var countArr =[];
+        var num = [0,2];
+    	$('.opponentTbody .progress_tbody tr').not('tr:last').each(function(){  //마지막 tr을 제외하고  프로그래스바가 있는 tr만 each 
+    		    
+    		for(var i =0; i<num.length;i++){ //  프로그래스바가 있는 td의 인덱스가 순서대로 담겨있는 배열 num
+    			 $(this).children('td').eq(num[i]).find('.progress-bar').each(function(index){
+    					$(this).text().length === 0 ? count +=0  :  count += parseInt($(this).text());     // 각 프로그래스바의 텍스트를 parseInt하여 총합을 구한다.
+    			 });
+	    			 countArr.push(count);  //여기에 td(0), td(2) 안에있는  각각의 프로그래스바 총합이  들어간다. ( 최종적으로 총 4개의 숫자가 들어간다.)
+	    			 count=0; // 누적변수 초기화
+    			 $(this).children('td').eq(num[i]).find('.progress-bar').each(function(index){
+   			 		 $(this).text().length === 0  ?  $(this).css('width','0%')	:  $(this).css('width',(parseInt($(this).text())/countArr[countArr.length-1]*100)+'%');
+   			 		 // 프로그래스바의 승리 , 무승부 , 패배에 따라서  width 속성을  조정한다.
+   			 	});
+    		//console.log ( countArr);
+    		}
+     }); /// 바깥 each 
     
+  }
+  
+  
+    function deadLineCheck(){
     
- 
+   
+     $('.tRow').each(function(){
+     if ( 	 $(this).children('td:eq(1)').find('.date').data('value') ==='deadline')
+    	 $(this).css('background-color','#bbb5b5');
+     });	
     }
-    
 
+    
+    
+ function   opponentTableStyle(){
+	 
+ 
+  if ( $ ('.opponentTbody tr.oppRow').length !==0) {
+	      // oppRow가 있다면 경기전적이 존재
+	      $('tr.oppRow').each(function(){
+	    	  	var home =   $(this).children('td:eq(2)').find('span.opp_hs');
+	    	    var away = $(this).children('td:eq(2)').find('span.opp_as');
+	           if( Number(home.text()) > Number(away.text()) ){
+	        	    home.addClass('scoreColor');
+	        	    home.parent().next().addClass('scoreColor').css('font-size','17px')
+	           }
+	           else if (    Number(home.text()) < Number(away.text()) ) {
+	        	  away.addClass('scoreColor');
+	        	  away.parent().next().next().addClass('scoreColor').css('font-size','17px')
+	           }
+	      }); //each
+ 	 }
+ }
+
+ 
 </script>
 
 
