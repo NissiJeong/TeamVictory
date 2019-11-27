@@ -10,6 +10,7 @@ var flag = false;
 $(function(){
 	
 	function readURL(input) {
+		
 		 if (input.files && input.files[0]) {
 		  var reader = new FileReader();
 		  
@@ -102,6 +103,12 @@ function isBlank(){
 		$("#register").prop("disabled",false);
 	}
 }
+/* function loading(){}
+	$('#image_section').hide();
+	$('#loading').click(function(){
+		$('#image_section').toggle();
+	});
+} */
 </script>
 
   
@@ -118,43 +125,6 @@ function isBlank(){
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col-lg-4 col-md-6">
-          <div class="contact-item d-flex">
-            <div class="icon">
-              <i class="fa fa-home"></i>
-            </div>
-            <div class="content">
-              <h5 class="title">Address</h5>
-              <p>2 Country Club Street<br> Vienna, VA 22180</p>
-            </div>
-          </div>
-        </div>contact-item end
-        <div class="col-lg-4 col-md-6">
-          <div class="contact-item d-flex">
-            <div class="icon">
-              <i class="fa fa-headphones"></i>
-            </div>
-            <div class="content">
-              <h5 class="title">Phone Number</h5>
-              <p>+1-202-555-0108</p>
-              <p>+1-202-555-0109</p>
-            </div>
-          </div>
-        </div>contact-item end
-        <div class="col-lg-4 col-md-6">
-          <div class="contact-item d-flex">
-            <div class="icon">
-              <i class="fa fa-envelope"></i>
-            </div>
-            <div class="content">
-              <h5 class="title">Email Address</h5>
-              <p>random1@example.com</p>
-              <p>random2@example.com</p>
-            </div>
-          </div>
-        </div>contact-item end
-      </div> -->
      <div class="container">
       <div class="row" style="margin-top: -50px">
         <div class="offset-md-1 col-lg-10">
@@ -167,8 +137,6 @@ function isBlank(){
        	</script>
        	</c:if>
        	<c:if test="${not isDupli}">
-		
-		
 	 	
           <div class="contact-form-area" style="background-color: #f3faff; margin-top: 35px;">
           	
@@ -177,8 +145,8 @@ function isBlank(){
               <div class="row">
               	<div class="col-md-6">
                   <div class="frm-group">
-                  		<img id="image_section" src="<c:url value='/assets/images/kickball-1.gif'/>" style="width:100px;height:100px" />
-                  		<label for="imgInput" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 0px;">팀 로고 선택</label>
+                  		<img id="image_section" src="<c:url value='/assets/images/kickball-1.gif'/>" style="width:100px;height:100px;" />
+                  		<label id="loading" for="imgInput" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 0px;" onclick="loading()">팀 로고 선택</label>
 					    <input type='file' id="imgInput" name="upload" style="display: none"/>					   	
 				   		<span style="color:red; font-size: 0.8em">${maxError }</span>
                   </div>

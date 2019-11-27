@@ -21,16 +21,16 @@
 	   aaaa. a
 	git Fuck Fuck dd e
 	
-	asfdsadfsdaffaaaa11 
+	asfdsadfsdaffaaaa11aa
 as
  
 skajfslkdfjsdaklfjsdaklfjsadklfjskddlfjkfsjklfsjdklfsadjklfsdfsafs
 
    LAST!!!!        
-last!!!!!!!!!!!!!!!!!!!!!!!!!
+last!!!!!!!!!!!!!!!!!!!!!!!!!11
 
  
-12345678910
+123456789101
 11122233344455566677788899911110000
 asdfasdfasdfasdsadfsadsafdf...
 

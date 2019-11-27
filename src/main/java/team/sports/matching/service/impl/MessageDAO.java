@@ -4,14 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-
-import team.sports.matching.service.BoardDTO;
 import team.sports.matching.service.MessageDTO;
 
 
@@ -26,7 +21,7 @@ public class MessageDAO {
 	
 	//입력용]
 	public int insert(Map map) {
-		
+		 
 		return template.insert("messageInsert", map);
 	}
 

@@ -143,9 +143,7 @@
                   /*  $("#btnRegist").css("background-color","#FF3952").prop("disabled",false) */
                   regiComplete();
                 }
-              
             }
-            
          });
     }////////////CheckId
     

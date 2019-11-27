@@ -1,12 +1,20 @@
 package team.sports.matching.contoller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -28,6 +36,12 @@ import team.sports.matching.service.impl.MatchDAO;
 public class MatchController {
 	@Resource(name="match")
 	private MatchDAO dao;
+	ArrayList<String> tokens = new ArrayList<String>();  	
+	//토큰 저장용
+	final String apiKey = "AAAAYTTmLoQ:APA91bEW6YUXtn0FdQJb7uPlBMBEGvb04jxmbjqfkwrag0G08YqoWZrcSshBDScpVJnA_BO4ED3OjVh7BraefTs7Jux9gk8IJvVTTJXlQ7_NnmLAVbsb0V1CsXKZlErHkECuczHjQfPi";
+	String gcmURL ="https://fcm.googleapis.com/fcm/send";
+	JSONArray resultArray = new JSONArray();
+	
 	//로그인 하지 않고 매칭 페이지로 이동시키면 로그인 페이지로 이동
 	/*
 	@ExceptionHandler(HttpSessionRequiredException.class)
@@ -79,12 +93,46 @@ public class MatchController {
 		else if(manager == 1){
 			int affected = dao.insert(map);
 			if(affected==1) {
+				String myteam = dao.getMyTeam(map);
+				String fcmMessage = myteam+"이 "+map.get("date").toString()+" "+map.get("time").toString()+"시에 경기를 신청했습니다 \r\n경기장 "+map.get("stadium");
+				List<Map> tokens = dao.getTokens(map);
+				for(Map token:tokens) {
+					requestToFCMServer("매칭신청", fcmMessage, token.get("TOKEN").toString());
+				}
 				ass="신청완료";
 			}
 		}
 		//map에 내 팀 no 입력해야함 		
 		return ass;
 	}
+	
+	//fcm메세지 보내는 메소드
+		private void requestToFCMServer(String title, String message,String token) {
+			try {
+				URL url = new URL(gcmURL);
+				HttpURLConnection httpConn = (HttpURLConnection)url.openConnection();
+				httpConn.setRequestMethod("POST");
+				httpConn.setRequestProperty("Content-Type", "application/json");
+				httpConn.setRequestProperty("Authorization", "key=" + apiKey);
+				String msg =String.format("{\"data\":{\"noti_title\":\"%s\",\"noti_message\":\"%s\"},\"to\":\"%s\"}",title,message,token);
+				httpConn.setDoOutput(true);
+				OutputStream os = httpConn.getOutputStream();
+				os.write(msg.getBytes("UTF-8"));
+				os.flush();
+				os.close();
+				int responseCode = httpConn.getResponseCode();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
+				String responseString;
+				while((responseString=reader.readLine())!=null) {
+					System.out.println(responseString);
+					JSONParser parser = new JSONParser();
+					JSONObject object = (JSONObject)parser.parse(responseString);
+					resultArray.add(object);
+				}
+				reader.close();
+			}
+			catch(Exception e) {e.printStackTrace();}
+		}
 	
 	@ResponseBody
 	@RequestMapping(value="/Team/Matching/modal.do",produces = "text/html; charset=UTF-8")

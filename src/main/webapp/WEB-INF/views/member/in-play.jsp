@@ -12,16 +12,523 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- <script src="https://kit.fontawesome.com/1d75ae587d.js" crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+<style>
+.slash  td {
+	background: url('//cdn.zetawiki.com/png/slash.png');
+	background-size: 100% 100%;
+}
+
+.table td, .table th {
+	vertical-align: middle;
+}
+
+.swalBetting {
+	color: red;
+}
+
+.chk {
+	color: #3fb721;
+	font-size: 30px;
+	position: relative;
+	top: -41px;
+	left: -35px;
+}
+
+.opponent {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+
+
+/*  반짝반짝  */
+.blinking{
+	-webkit-animation:blink 0.8s ease-in-out infinite alternate;
+    -moz-animation:blink 0.8s ease-in-out infinite alternate;
+    animation:blink  0.8s ease-in-out infinite alternate;
+}
+@-webkit-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@-moz-keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+@keyframes blink{
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+
+.pointFont {
+	font-size: 30px;
+	color: #217f84;
+	position: relative;
+	top: 4.5px;
+}
+
+.clickColor {
+	background-color: red
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after,
+	[class*=" flaticon-"]:after {
+	font-size: 60px;
+}
+
+.show {
+	display:;
+}
+
+.hide {
+	display: none;
+}
+
+.imgClick{
+color: var(--main-color);
+}
+
+.border_td{
+
+border-right: 2px #796767 solid;
+}
+
+/* 상대전적 테이블 스코어 색 표시 */
+.scoreColor{
+color:blue;
+}
+
+</style>
+
+<%-- <meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/> --%>
+
+<!-- banner-section start -->
+<section class="breadcum-section">
+	<div class="breadcum-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcum-content text-center">
+
+						<h3 class="title">In Play</h3>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="index.html">home</a></li>
+							<li class="breadcrumb-item active">in play</li>
+						</ol>
+						<input type="hidden" value="${id}" id="auth" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</section>
+<!-- banner-section end -->
+
+
+<!-- play-section start -->
+<section class="play-section section-padding section-bg">
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="section-header text-center">
+					<h2 class="section-title">Bet & Playing Now</h2>
+					<p>On insensible possession oh particular attachment at
+						excellence in. The books arose but miles happy she.</p>  
+						
+				
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="row">
+			<!--  row  -->
+			<div class="col-lg-12">
+				<div class="online-play-tab-part">
+					
+				<ul class="nav justify-content-around" id="myTab" role="tablist">
+				
+				<!-- <li class="nav-item"><a  href="javascript:goPage('all');"> 
+						<i class="flaticon-trophy"></i> <span>All sports</span>
+						</a></li> -->
+
+						<li class="nav-item"><a class="nav-link" id="all-tab"
+							  href="javascript:goPage('all');"> <i class="flaticon-trophy"></i> <span class="pl-3">All
+									Sports</span>
+						</a></li>
+
+
+						<li class="nav-item"><a class="nav-link" id="football-tab"
+							 href="javascript:goPage('football');" > <i
+								class="flaticon-soccer-ball-variant"></i> <span  class="pl-3">Football</span>
+						</a></li>
+						<!--  
+              <li class="nav-item">
+                <a class="nav-link" id="cricket-tab" data-toggle="tab" href="#cricket" role="tab" aria-controls="cricket" aria-selected="false">
+                  <i class="flaticon-cricket"></i>
+                  <span>cricket</span>
+                </a>
+              </li>
+           
+              <li class="nav-item">
+                <a class="nav-link" id="tennis-tab" data-toggle="tab" href="#tennis" role="tab" aria-controls="tennis" aria-selected="false">
+                  <i class="flaticon-tennis-racket"></i>
+                  <span>tennis</span>
+                </a>
+              </li>
+              -->
+						<!--  
+						<li class="nav-item"><a class="nav-link" id="bascketball-tab"
+							data-toggle="tab" href="#bascketball" role="tab"
+							aria-controls="bascketball" aria-selected="false"> <i
+								class="flaticon-basketball"></i> <span>bascketball</span>
+						</a></li>
+-->
+						<li class="nav-item"><a class="nav-link" id="baseball-tab"
+							 href="javascript:goPage('baseball');" > <i
+							class="flaticon-bat"></i> <span  class="pl-3">Baseball</span>
+						</a></li>
+						<!--  
+              <li class="nav-item">
+                <a class="nav-link" id="more-tab" data-toggle="tab" href="#more" role="tab" aria-controls="more" aria-selected="false">
+                  <i class="flaticon-menu"></i>
+                  <span>more sports</span>
+                </a>
+              </li>
+              -->
+            
+              
+					</ul>
+		
+		 				 <form id="move">
+								<input type="hidden" name="content"/>
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+						</form>
+					<div class="tab-content" id="myTabContent">
+						<!--  전체 선택 -->
+						<div class="tab-pane fade show active">
+							<div class="play-table-part">
+								<div class="play-table">
+									<table class="table table-bordered" id="all-table" style="table-layout: fixed">
+										<thead id="th1">
+											<tr>
+												<th style="width: 5%;">번호</th>
+												<th style="width: 13%;">경기일시</th>
+												<th  style="width: 20%;">홈 VS 어웨이</th>
+												<th style="width: 8%;">경기결과</th>
+												<th style="width: 10%;">종목</th>
+												<th  style="width: 12%;">배팅</th>
+												<th  style="width: 13%;">상세보기</th>
+											</tr>
+										</thead>
+										<tbody class="all-tbody">
+											<c:if test="${empty list}" var="isEmpty">
+												<!-- 테이블 데이터 시작  -->
+
+												<tr>
+													<td colspan="7">등록된 경기 스케줄이 없습니다.</td>
+												</tr>
+											</c:if>
+											<c:if test="${! isEmpty}">
+												<!-- 현재날짜  -->
+												<jsp:useBean id="now" class="java.util.Date" />
+												<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm"
+													var="formatNow" />
+
+												<c:forEach var="item" items="${list}" varStatus="loop">
+													<!--  날짜  Date타입으로 파싱 및  패턴 지정  -->
+													<fmt:parseDate value="${item.gameDate} ${item.time}"
+														pattern="yyyy-MM-dd HH:mm" var="gameDate" />
+													<fmt:formatDate value="${gameDate}"
+														pattern="yyyy-MM-dd HH:mm" var="formatGameDate" />
+
+													<!--  스코어  숫자로 파싱  -->
+													<fmt:parseNumber value="${item.homeScore}" type="number"
+														var="homeScore" />
+													<fmt:parseNumber value="${item.awayScore}" type="number"
+														var="awayScore" />
+
+													<tr class="tRow">
+
+														<td>${loop.count}</td>
+
+
+														<td><c:if test="${formatNow < formatGameDate }"
+																var="isDeadLine">
+																<span class="pr-1 date"> <fmt:formatDate
+																		value="${item.gameDate}" pattern="yy.MM.dd" /></span>
+																<span class="pr-1">${item.gameDay}</span>
+																<span class="time">${item.time}</span>
+															</c:if> <c:if test="${! isDeadLine}">
+																<!--  경기일시가 현재날짜보다 이전인 경우  (날짜가 지났을때) -->
+																<span class="pr-1 date" data-value="deadline"> <fmt:formatDate
+																		value="${item.gameDate}" pattern="yy.MM.dd" /></span>
+																<span class="pr-1">${item.gameDay}</span>
+																<span class="time">${item.time}</span>
+															</c:if></td>
+														<td><span class="pr-2 ht">${item.teamname}</span><span
+															class="pr-2 hs">${item.homeScore == -1 ? '':item.homeScore}</span>:<span
+															class="px-2 as">${item.awayScore == -1 ? '':item.awayScore}</span><span
+															class="at">${item.awayTeam}</span>
+														<td>
+															<!--  -1이면 아직 경기시작전  안나옴 . -1보다 크면 경기결과 나온후 --> <c:if
+																test="${item.homeScore  >= 0 && item.awayScore >= 0  }"
+																var="isScore">
+																<c:choose>
+																	<c:when test="${homeScore  > awayScore}">
+																		<span
+																			style="width: 75%; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">홈승</span>
+																	</c:when>
+																	<c:when test="${homeScore < awayScore}">
+																		<span
+																			style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">홈패</span>
+																	</c:when>
+																	<c:when test="${homeScore  == awayScore}">
+																		<span
+																			style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #9a9798; border-radius: 7px;">무</span>
+																	</c:when>
+																</c:choose>
+															</c:if> <c:if test="${! isScore}">
+																<span
+																	style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #f76c12e8; border-radius: 7px;">예정</span>
+															</c:if>
+														</td>
+
+														<td><c:if test="${item.category=='futsal'}">
+																<i class="far fa-futbol fa-2x"></i>
+															</c:if> <c:if test="${item.category=='baseball'}">
+																<i class="fas fa-baseball-ball fa-2x"></i>
+															</c:if> <span class="stadium" data-value="${item.stadium}"></span>
+														</td>
+														<td>
+															<button type="button" class="btn btn-warning bettingBtn"
+																data-toggle="modal" data-target="#myModal"
+																style="height: 33px; width: 90.53px">
+																<!-- data-toggle="modal" data-target="#myModal" -->
+																배 팅<span class="badge badge-secondary ml-2">${item.count}</span>
+
+																<c:if test="${item.bettingConfirm}">
+																	<i class="fas fa-check chk"></i>
+																</c:if>
+
+															</button>
+														</td>
+														<!-- <i class="fas fa-sign-out-alt fa-rotate-90"></i> -->
+														<td><span class="view" style="cursor: pointer;">상세보기</span></td>
+													</tr>
+												</c:forEach>
+											</c:if>
+										</tbody>
+									</table>
+
+								</div>
+								<!--  play-table end -->
+
+
+							</div>
+							<!--  전체선택 끝  -->
+
+
+
+							<!--  ==================================================================  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+							<!-- The Modal -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-dialog-centered modal-lg">
+									<div class="modal-content">
+
+										<!-- Modal Header -->
+										<div class="modal-header text-center"
+											style="background-color: #000040;">
+
+											<h5 class="modal-title w-100" style="color: white">승부 예측</h5>
+
+											<button type="button" class="close" data-dismiss="modal"
+												style="color: white; font-weight: bold;">×</button>
+
+										</div>
+
+										<!--Body-->
+										<div class="modal-body">
+
+											<!-- Radio -->
+											<p class="text-center mb-4">
+												<strong>Your Choice</strong>
+											</p>
+											<div class="container">
+
+
+												<div class="row">
+													<div class="col-md mb-3">
+														<div class="custom-control custom-radio"
+															style="display: inline;">
+															<input type="radio" id="customRadio1" name="customRadio"
+																class="custom-control-input"> <label
+																style="font-weight: bold;"
+																class="custom-control-label homeLabel"
+																for="customRadio1">HOME</label> <span
+																class="modal_homeSpan ml-2"></span>
+														</div>
+														<div class="progress " id="homeProgressDiv "
+															style="height: 25px; width: 70%; float: right;">
+
+															<div
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger homeProgressBar"
+																style="font-weight: bold;"></div>
+
+															<div
+																class="text-center w-100  bg-info homeProgressBar_Info"
+																style="display: none">
+																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
+															</div>
+
+														</div>
+													</div>
+												</div>
+												<!--  row -->
+
+
+												<div class="row">
+													<div class="col-md mb-3">
+														<div class="custom-control custom-radio"
+															style="display: inline">
+															<input type="radio" id="customRadio2" name="customRadio"
+																class="custom-control-input"> <label
+																style="font-weight: bold;"
+																class="custom-control-label awayLabel "
+																for="customRadio2">AWAY</label> <span
+																class="modal_awaySpan ml-2"></span>
+														</div>
+														<div class="progress"
+															style="height: 25px; width: 70%; float: right;">
+															<div
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger awayProgressBar"
+																style="font-weight: bold;"></div>
+
+															<div
+																class="text-center w-100 bg-info awayProgressBar_Info"
+																style="display: none">
+																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
+															</div>
+														</div>
+
+
+													</div>
+												</div>
+												<!--  row -->
+
+
+												<div class="row">
+													<div class="col-md">
+														<div class="custom-control custom-radio"
+															style="display: inline;">
+															<input type="radio" id="customRadio3" name="customRadio"
+																class="custom-control-input"> <label
+																style="font-weight: bold;"
+																class="custom-control-label drawLabel "
+																for="customRadio3">DRAW</label> <span
+																class="modal_drawSpan ml-2"></span>
+														</div>
+														<div class="progress"
+															style="height: 25px; width: 70%; float: right;">
+															<div
+																class="progress-bar progress-bar-striped progress-bar-animated bg-danger drawProgressBar"
+																style="font-weight: bold;"></div>
+
+															<div
+																class="text-center  w-100 bg-info drawProgressBar_Info"
+																style="display: none">
+																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
+															</div>
+														</div>
+													</div>
+												</div>
+												<!--  row -->
+
+												<!-- Radio -->
+												<!--Basic textarea-->
+												<!-- 											 <div class="row">
+          <textarea type="text" id="form79textarea" class="md-textarea form-control" rows="3"></textarea>
+        </div> -->
+												<div style="height: 50px"></div>
+
+												<div class="row">
+													<div class="col-md-3 col-sm-3">
+
+														<span class="pt-4 ml-2 nowPoint" style="color: blue; font-weight: bold;"></span>
+													</div>
+													<div
+														class="input-group input-group-sm mt-3 offset-md-5 offset-sm-7  col-md-4 col-sm-5">
+														<input type="text" class="form-control text-right"
+															style="border: 1px solid gray; height: 35px;"
+															id="bettingPoint">
+														<div class="input-group-append" id="btnJoinParent">
+															<button class="btn btn-secondary " type="button"
+																id="btnJoin">참여</button>
+														</div>
+													</div>
+												</div>
+												<!--  row -->
+
+											</div>
+											<!--  Container -->
+
+										</div>
+
+										<!--  Body -->
+										<!-- Modal footer -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger"
+												data-dismiss="modal">닫기</button>
+										</div>
+
+									</div>
+								</div>
+					
+
+
+													
+						
+	
+</section>
+<!-- play-section end -->
 <script>
-
-
 $(function(){
 	
 	// 역순으로 진행된다   선택자중에 맨위의 tr은 last()로 접근  맨아래는 first()로 접근
 	//console.log( $('.all-tbody #test_tr').prevAll().first().html())	
 		
+
+	//배팅카운트 롱폴링 
+
 	 //배팅카운트 롱폴링 
+
+	//callComet();
+
+
 	callComet();
+
 	
 
 
@@ -35,11 +542,7 @@ $(function(){
 	  console.log('데이타 세팅 : ',target.data("test").isManual);
 	
 	 
-	 
-	  var testnum = 99.9876543;
-     var  number = 1/7*100;
-	  testnum.toFixed(0); // 100 출력
-	  testnum.toFixed(5); // 99.98765 출력
+
 	 
 	 /*
 	    (function poll() {
@@ -107,13 +610,6 @@ $(function(){
 			 
 		     console.log('flag '   , flag);
 	
-		     
-		   
-		 
-		    
-
-		    	
-		
 	
 			$.ajax({
 		  		 
@@ -141,8 +637,8 @@ $(function(){
 							    	   console.log('서버로부터 받은 마일리지 : '+data.POINT+' 마일리지 길이' ,data.POINT.length)
 										
 							    	   $('.nowPoint').before('<i class="fab fa-monero mr-2  pointFont"></i>');
-									   $('.nowPoint').text(data.POINT);
-										
+									  $('.nowPoint').text(data.POINT);
+										//$('.nowPoint').data("max",data.POINT);
 									  if ( data.POINT.length  > 3) 
 									   $('#bettingPoint').attr('maxlength',data.POINT.length +1);
 									  else 
@@ -179,7 +675,7 @@ $(function(){
 		
 	
 		
-		 $(".progress").hover(function(){ //마우스 오버시
+		 $(".modal-body .progress").hover(function(){ //마우스 오버시
 			  //$(this).find(".progress-bar:eq(0)").css('display','none');  // 퍼센트
 			  //$(this).find(".progress-bar:eq(1)").css('display','').css({'color':'white','width':'100%'});  // 총마일리지 / 총원 
 			
@@ -263,9 +759,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 			 console.log ('클릭한 상세보기의 인덱스', 	clickView.index(this) ); 
 			
 		   if ($(this).text()=='상세보기'){
-			   
 			  
-			       
 			   
 					$.ajax({
 						url:"<c:url value='/Team/Matching/viewJsonArray.do'/>",
@@ -319,9 +813,6 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 					 		      }
 					 		    });
 							*/
-						
-						
-						
 							$('.opponent').hover(function(){
 								console.log(isOverflowed(this));
 								if(isOverflowed(this)){
@@ -329,27 +820,36 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 								}
 							}); 
 							
+						 if ( $('tbody.progress_tbody').is(':visible')) {
+							/*  $('tbody.progress_tbody tr').not('tr:last').each(function(){
+								  console.log($(this).children('td:eq(1)').text());
+							 }); */
+						      //  homeNAwayProgressBar();  
+						     }
+							
 							
 						 	}//// if
-						
-						 	// console.log('tenViewTR 길이', $(".all-tbody .tenViewTR").length);
-						 	
 						}, //success
 						error:function(data){
 							console.log('에러 : '+data); // 에러코드 출력 
 							console.log('에러 : '+data.responseText); //  에러내용 출력
 						}
 					}); // ajax 
-					
-					
-					
-					$(this).text('접기')  // 문자열 변경
+				$(this).text('접기')  // 문자열 변경
+				
+	
+			 
 		   }  // if
 		   else{
 			 $(this).parent().parent().next().remove();
 			   $(this).text('상세보기');
 		   }
-		});  
+		});  ///////////////////////////////////////////  상세보기 클릭 함수
+		  
+		  $('li.nav-item').click(function(){
+			    $(this).css('color','#ff3952');	
+			  
+		  });
 		  
 	});/////////  onload
    
@@ -360,16 +860,35 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 	     var tenRecord ={
 	    		 win : 0, draw : 0, lose : 0 
 	     };
+	     var match = { home : { _HOME : {win:0 , lose : 0,draw:0},
+           								  _AWAY : { win:0 , lose : 0 ,draw:0},NAME: home } ,
+ 							 away : { _HOME : {win:0 , lose : 0,draw:0},
+    		  							_AWAY: { win:0 , lose : 0,draw:0 },NAME:away  }             
+							};
 		  var homeContent;
 		  var awayContent;
+		  var  infoContent ="<div class='mt-3' style='margin-bottom: 50px;'>"
+		  	+"<table class='table table-bordered opponentTable'><thead style='height:2px;line-height:2px;'>"
+	  	 	+"<tr class='text-center'  style='background-color: #014476'>"
+	  	 	+"<td  rowspan='2' style='color:white;font-size: 20px;width:20%'>경기 일시</td>"
+	  	 	+"<td  rowspan='2' style='color:white;font-size: 20px'>장 소</td>"
+	  	 	+"<td  rowspan='2' style='color:white;font-size: 20px'>스코어</td>" 
+	  	 	+"<td  colspan='2' style='color:white;font-size: 20px;border-bottom: 1px #796767 solid'>결 과</td>"
+	  	 	+"</tr><tr class='text-center'><td style='font-size:20px;border-right: 1px #796767 solid;background-color: #bbb8b2'>HOME</td>"
+	  	 	+"<td style='font-size:20px;background-color: #bbb8b2'>AWAY</td></tr></thead><tbody class='opponentTbody'>"
+	  	 	
+	  	 	
 		 var top ="<tr><td colspan='7'><div class='row'><div class='col-md-12'><div class='d-flex bg-light justify-content-center pt-4 w-100' style='height:150px'>"
 		 "<div class='p-2 border w-25'>"+home+"</div>"
 		 +"<div class='p-2 border mx-5 align-self-center'>VS</div>"
 		 +"<div class='p-2 border w-25'>B팀</div>"
 		 +"</div></div></div></td></tr>";
 		 
-		 var topBar ="<tr class='tenViewTR'><td colspan='7'>"+
-		 "<div class='col-md-12 text-center mt-3 bg-info' style='height: 50px;line-height: 50px;font-size:20px'>"
+		 var firstBar = "<td colspan='7'>"+
+		 "<div class='col-md-12 text-center mt-3 bg-info' style='height: 50px;line-height: 50px;font-size:30px'>"
+		 +"최근 10경기  상대전적</div>";
+		 
+		 var secondBar = "<div class='col-md-12 text-center mt-3 bg-info' style='height: 50px;line-height: 50px;font-size:30px'>"
 		 +"최근 10경기 전적</div>";
 			 
  /*        homeContent="<div class='row mt-3'><div class='col-6'><table class='table'><thead>"+
@@ -381,13 +900,111 @@ $('#myModal').on('hidden.bs.modal', function (e) {
       "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody>"; */
       console.log ( '서버로부터 받은 데이터 =>', data);
 		$.each(data,function(key,value){
-			if(key == 'home') {
+			// away - home  - info 순 
+			if (key ==="info"){
+				if( Object.keys(value).length !== 0){  // 상대 전적 정보가 존재한다면.
+					  
+					  var  length = Object.keys(value).length
+				      var total ={};                             
+				      
+				      var tdTitle=['HOME','AWAY','전체']
+					 // console.log ('키 목록 : ', Object.keys(data));
+					 // console.log( '밸류 목록 :', Object.values(data) )
+					
+					 $.each(value,function(index,item){
+					
+							 infoContent+="<tr class='oppRow'><td style='font-size: 16px'>"+item['GAMEDATE']+"</td>"
+							 +"<td style='font-size: 16px'>"+item['STADIUM']+"</td>"
+							 +"<td style='font-weight: bold;font-size: 16px;'><span class='pr-2 opp_hs'>"+item.HOMESCORE+"</span>:<span class='pl-2 opp_as'>"+item.AWAYSCORE+"</span></td>";
+							 if (item.HOMESCORE ===  item.AWAYSCORE){
+								 infoContent +="<td colspan='2'> 무 승 부</td></tr>";
+								 if(item.HOMETEAM === home ){
+									 match['home']._HOME.draw =  match['home']._HOME.draw+1;
+									 match['away']._AWAY.draw =  match['away']._AWAY.draw+1;
+								 }
+								 else if (item.HOMETEAM  === away ){
+									 match['away']._HOME.draw =   match['away']._HOME.draw + 1;
+									 match['home']._AWAY.draw =  match['home']._AWAY.draw+1;
+								 }
+							 }///IF 
+							 else if(item.HOMESCORE >  item.AWAYSCORE ){
+								 infoContent += "<td class='border_td' style='border-right: 1px #796767 solid;'>"+item.HOMETEAM+"</td><td>"+item.AWAYTEAM+"</td></tr>";
+								 if(item.HOMETEAM === home ){
+									 match['home']._HOME.win =  match['home']._HOME.win+1;
+									 match['away']._AWAY.lose =  match['away']._AWAY.lose+1;
+								 }
+								 else if (item.HOMETEAM  === away ){
+									 match['away']._HOME.win =   match['away']._HOME.win + 1;
+									 match['home']._AWAY.lose =  match['home']._AWAY.lose+1;
+								 }
+							 }//else if 
+							 else if (item.HOMESCORE < item.AWAYSCORE ){
+								 infoContent += "<td class='border_td' style='border-right: 1px #796767 solid;'>"+item.HOMETEAM+"</td><td>"+item.AWAYTEAM+"</td></tr>";
+								 if(item.HOMETEAM === home ){
+									 match['home']._HOME.lose =  match['home']._HOME.lose+1;
+									 match['away']._AWAY.win =  match['away']._AWAY.win+1;
+								 }
+								 else if (item.HOMETEAM  === away ){
+									 match['away']._HOME.lose =   match['away']._HOME.lose + 1;
+									 match['home']._AWAY.win =  match['home']._AWAY.win+1;
+								 }
+							 } ///else if 
+								   
+					 });/// each
+					//console.log('match',match);
+					total = combineMatch(match,home,away);  // 각팀 home ,away 성적 합치기 
+					//console.log( 'combineMatch 후 total',total)
+						 if (10 - length !== 0){
+							     
+							infoContent +="<tr class='lastContent'><td colspan='5' style='font-size:17px'>양 팀의 최근 경기 정보는 [ <span  class='totalMatch' style='font-size:17px'>"+(length)+"</span> ] 건 입니다 </tr>";
+						 }
+						 
+						 infoContent += "<tr style='background-color: #014476'><td colspan='5' style='padding:0px'>"	
+				                       +"<table class='oppo_InTable'><tbody><tr style='height:2px;line-height:15px;color:white;background-color: #014476;'>"
+				                       +"<td style='width:50%'>"+home+"</td><td>"+away+"</td></tr></tbody></table></td></tr>";
+						 infoContent += "<tr><td colspan='5' style='padding: 1px'><table class='table w-100'><tbody class='progress_tbody'>"; 
+						 
+						    infoContent +=  homeNawayProgress(match);
+						    infoContent  +=  allMatchInfo(total) ;           
+		/*
+						 for(var i=0; i<tdTitle.length; i++){  // HOME  AWAY  전체
+							    var lower='';
+							 if (i ==2 ){
+							  infoContent  +=  allMatchInfo(total) ;           
+							 }
+							 else{ // 홈팀 어웨이팀  home /away별  승 무 패 
+									   lower = tdTitle[i].toLowerCase();  // home , away
+									   console.log('lower',lower);
+									   console.log( match[lower]);
+								
+									   infoContent +="<tr class='progress_tr' style='height:3px;line-height:15px;'><td style='padding:2px;width:45%;'>"
+							           infoContent += homeNawayProgress(match);
+							
+								
+							
+								 }  
+						 }/// for
+					
+			*/
+				                       
+						} //// if
+					else {
+						infoContent  += "<tr> <td colspan='5' style='font-size: 18px;'>상대전적 기록이 존재하지 않습니다.</td><tr></tbody></table></div>";
+					}
+					
+					
+				                       
+			}///if 
+			
+				
+			else if(key === 'home') {
 				  homeContent="<div class='row mt-3'><div class='col-6'><table class='table homeViewTable'><thead>"+
 			       "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+home+"</th></tr>"+
 			       "<tr class='text-center'><th class='w-25'>경기일시</th><th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody class='tenViewHome'>";
 				var hRecord =  Object.keys(value).length;
-				console.log ( '홈팀의 레코드 개수',hRecord);
-				console.log ( 'value 개수 ',value.length);
+				console.log('home일떄 ',Object.keys(value).length)
+				//console.log ( '홈팀의 레코드 개수',hRecord);
+				//console.log ( 'value 개수 ',value.length);
 				      	if(hRecord== 0 ){  // 새로등록한 팀의 첫매치인경우 기록이 없음
 				    	   // 등록된 경기가 없음을 표시해준다.
 					    	   for (var i=0; i<10; i++){
@@ -440,8 +1057,8 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 						      homeContent+= tenMatchtString(tenRecord,value);
 							 homeContent+="</th></tr></tbody></table></div>";
 				       
-				      	console.log(JSON.stringify(tenRecord));
-				      
+				      	//console.log(JSON.stringify(tenRecord));
+							 tenRecord={win:0,draw:0,lose:0};
 				      	
 			
 					} //if 
@@ -449,12 +1066,13 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 					
 			else {  // away팀
 				var aRecord =  Object.keys(value).length;
+				console.log('away일떄 ',Object.keys(value).length)
 			awayContent="<div class='col-6'><table class='table awayViewTable'><thead>"+
 		      "<tr class='text-center'><th style='background-color: #000040;color:white;' colspan='4'>"+away+"</th></tr>"+
 		      "<tr class='text-center'><th class='w-25'>경기일시</th>"
 		     +"<th class='w-25'>상대팀</th><th class='w-25'>스코어</th><th class='w-25'>결과</th></tr></thead><tbody class='tenViewAway'>";
 		      
-				console.log ( '어웨이팀의 레코드 개수',aRecord);
+				//console.log ( '어웨이팀의 레코드 개수',aRecord);
 			
 					if(value.length ==0 ){   //경기전적이 없는 경우
 						for (var i=0; i<10; i++){
@@ -501,17 +1119,16 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 			  awayContent+= tenMatchtString(tenRecord,value);
 			  awayContent+="</tbody></table></div>";
 				
-	      			tenRecord.win=0;
-	      			tenRecord.draw=0;
-	      			tenRecord.lose=0;
+			  tenRecord={win:0,draw:0,lose:0};
+	      			
 					
 			}//else
 		});//// 바깥 each (k,v)
 		
-		 console.log ( ' [ 함수안 ] 클릭한 상세보기 인덱스 '+viewIndex);
+		console.log ( ' [ 함수안 ] 클릭한 상세보기 인덱스 '+viewIndex);
 		 var content="<tr><td colspan='7'> 동적으로 추가한 행 </td></tr>";
-		console.log( $('.view').eq(viewIndex).text()+viewIndex);  // 상세보기 + 인덱스
-		console.log ($('.view').eq(viewIndex).parent().parent().get(0).tagName); //tr
+		//console.log( $('.view').eq(viewIndex).text()+viewIndex);  // 상세보기 + 인덱스
+		//console.log ($('.view').eq(viewIndex).parent().parent().get(0).tagName); //tr
  		/* 
 		if($('.tenViewTR').length > 1){
  			$('.tenViewTR').not($('.view').eq(viewIndex).parent().parent().next('.tenViewTR')).remove();
@@ -519,7 +1136,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 		 }
 		*/	
 		 //선택한 상세보기 행의 바로밑에 <tr>추가 
-		$('.view').eq(viewIndex).parent().parent().after(topBar+homeContent+awayContent+"</div></td></tr>");
+		$('.view').eq(viewIndex).parent().parent().after("<tr class='tenViewTR'>"+firstBar+infoContent+secondBar+homeContent+awayContent+"</div></td></tr>");
 		
 		 // 상세보기 클릭시 다른 상세보기 <tr> 사라지도록 하기 
 		 var trIndex = $(".all-tbody .tenViewTR").index($('.view').eq(viewIndex).parent().parent().next('.tenViewTR'));
@@ -527,10 +1144,17 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 	
 		 if ($('.all-tbody .tenViewTR').length > 1 ){
 			
-			 $('.all-tbody .tenViewTR').not($('.all-tbody .tenViewTR').eq(trIndex)).prev().find('span.view').text('상세보기');
-			 $('.all-tbody .tenViewTR').not($('.all-tbody .tenViewTR').eq(trIndex)).remove();
+			 $('.all-tbody .tenViewTR').not($('.all-tbody .tenViewTR').eq(trIndex)).prev().find('span.view').text('상세보기').end().end().remove();
+			 //$('.all-tbody .tenViewTR').not($('.all-tbody .tenViewTR').eq(trIndex)).remove();
 			}
 		
+ 
+		 
+		 // 상대전적 프로그래스바 수치 조정
+		 
+		 
+		 
+		 
 	}; /// bettingView
 	
 	function scoreStyle(position){ 
@@ -566,7 +1190,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 		} /// if
 		
 		else {
-			console.log('매개변수가 main이 아닐떄 : ',position[0], position[1] );
+			//console.log('매개변수가 main이 아닐떄 : ',position[0], position[1] );
 			
 			for(var i=0; i<position.length; i++){
 				console.log(position[i]+' tr');
@@ -741,6 +1365,8 @@ $('#myModal').on('hidden.bs.modal', function (e) {
   									        	    
   									        	            // 보유마일리지 - 배팅마일리지 =  마일리지최신화
   									        		    	$('.nowPoint').text( $.trim(nowPoint)-point);
+  									        	           
+  									        	            
   									        		    
   									        		    	// 배팅후 프로그래스바 / 배당률 최신화.
   									        		    	
@@ -955,8 +1581,6 @@ $('#myModal').on('hidden.bs.modal', function (e) {
     			});
     		 	
     		   $('.modal-body .progress-bar').each(function(){
-    			   
-    		   
     			   parseInt($(this).text()) === over[0] ? $(this).text(parseInt($(this).text())-(sum-100)+'%') : false;
     		   });
     	   }
@@ -976,23 +1600,20 @@ $('#myModal').on('hidden.bs.modal', function (e) {
     
     
 	function callComet(){
-		
 		var pollArr=[];
-		$('.all-tbody  .tRow').each(function(index){	
+		$('.all-tbody   .tRow').each(function(index){	
 			
 			pollArr.push({index :index , 
 				       gamedate : $.trim($(this).children('td:eq(1)').find('span:eq(0)').text()),//경기일시
  				       time : $.trim($(this).children('td:eq(1)').find('span:eq(2)').text().replace(':','')), // 시간
 				       stadium : $.trim($(this).children('td:eq(4)').find('.stadium').data('value')) // 장소 data(key)로 읽어온다 data-value -> value가 key
 				       });
-	
 	  });
 		  $.ajax({ 
-			  
-					type:"POST",
-					beforeSend : function(xhr) {
-						 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		            },
+				type:"POST",
+				beforeSend : function(xhr) {
+					 xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
 				url:"<c:url value='/Team/Matching/longpoll.do'/>",
 				dataType:"json",
 				data: JSON.stringify(pollArr),
@@ -1024,7 +1645,7 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 					
 				
 					callComet();
-					},10000);    //loop
+					},3000);    //loop
 		};
 	
 		
@@ -1074,817 +1695,172 @@ $('#myModal').on('hidden.bs.modal', function (e) {
 			   })();
 	
 */
-	
+
+	function goPage(content){
+		
+		var form = $('#move');
+		form.find(':input').eq(0).val(content);
+		form.action = "<c:url value='/Team/Matching/Betting.do'/>";
+		form.get(0).method="post";
+		form.submit();
+}
    
+   
+   function opponentMatchInfo(obj){
+	   
+	   var content='';
+	   console.log('상대전적함수에서', obj)
+	   
+   
+    return ;
+   }/////////////////////////////////
+   
+function combineMatch(obj,home,away){
+	//console.log ( '컴바인 매치에서 매개변수 obj = match ',obj);
+	//var with2Decimals = num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+	/*
+	var  total={[home] : {}, [away] : {}};
+	$.each(obj,function(key, value){
+	
+			 total[key].win = value['_AWAY'].win+ value['_HOME'].win;
+			 total[key].lose =  value['_AWAY'].lose+ value['_HOME'].lose;
+			 total[key].draw = value['_AWAY'].draw+ value['_HOME'].draw;
+			 var num = total[key].win / ( total[key].win+ total[key].lose ) * 100;
+			 total[key].rate =   num % 1 !=0 ?  Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]) : num;
+	});
+	//console.log ('total' ,total)
+	*/
+	
+	var  total={home : {}, away : {}};
+	var num =0;
+	$.each(obj,function(key, value){
+	
+			 total[key].win = value['_AWAY'].win+ value['_HOME'].win;
+			 total[key].lose =  value['_AWAY'].lose+ value['_HOME'].lose;
+			 total[key].draw = value['_AWAY'].draw+ value['_HOME'].draw;
+			 total[key].count = total[key].win+ total[key].lose+total[key].draw;
+			 
+			 if( total[key].win ===0) 
+				 total[key].rate =0;
+			 else {
+				num = total[key].win /  (total[key].count-total[key].draw) * 100;
+				total[key].rate =   num % 1 !=0 ?  Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]) : num;
+			 }
+		
+			 //true면 소수 
+			// total[key].rate =   num % 1 !=0 ?  Number(num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]) : num;
+			
+			//total[key].rate  = num -  Math.floor(num) !== 0 ? Math.floor(num) : num;
+	})
+	
+	return total;
+	
+}/////////////////////////////
     
     
+  function  allMatchInfo(obj){
+	
+	  var keys ={};
+	  var content="<tr style='height:2px;line-height:15px'><td>";
+	  $.each(obj,function(key,value){
+		  keys[key+'Content'] =  "<span class='pr-1'>"+obj[key].count+"전</span>";
+	   
+			  if (obj[key].win >0){
+		    	keys[key+'Content'] += "<span class='pr-1'>"+obj[key].win+"승</span>";
+		     }
+		     if(obj[key].draw >0){
+		    	 keys[key+'Content'] += "<span class='pr-1'>"+obj[key].draw+"무</span>";
+		    }
+		     if(obj[key].lose >0){
+		    	 keys[key+'Content'] += "<span class='pr-1'>"+obj[key].lose+"패</span>";
+		     }
+		 });
+	    console.log('keys',keys)
+	    content += keys['homeContent']+"<span class='pl-1' style='font-size: 17px;'>( "+ obj['home'].rate+"</span>% )";
+	    content +="</td> <td style='width: 10%;background-color:#014476;color:white'>전체</td><td>"
+	    content += keys['awayContent']+"<span class='pl-1' style='font-size: 17px;'>( "+obj['away'].rate+"% )</span></td></tr></tbody></table></td></tr></tbody></table></div>";
+	    
+	  
+	  /*
+	  if (obj['home'].win >0){
+	    	  content += "<span class='pr-1'>"+obj['home'].win+"승</span>";
+	     }
+	     if(obj['home'].draw >0){
+	   	  content += "<span class='pr-1'>"+obj['home'].win+"무</span>";
+	    }
+	     if(obj['home'].lose >0){
+	    	  content += "<span class='pr-1''>"+obj['home'].win+"패</span>";
+	     }
+       content += "("+obj['home'].rate+"%)<td>";
+       content +=" <td style='width: 10%;background-color:#014476;color:white'>전체</td>"
+       
+       
+	  content += "<tr style='height:2px;line-height:15px'><td><span>전<span><span> ? 승<span> ? 패 (??%)</td>"
+          +"<td style='width: 10%;background-color:#014476;color:white'>전체</td>"
+          +"<td > 5전 3승 2패 (50%)</td></tr></tbody></table></td></tr></tbody></table></div>";
+         */
+          return content;
+    }
+    
+    function  homeNawayProgress (obj){
+     
+    	/*
+    	+"<div class='progress' style='height: 25px'>"
+		 +"<div class='progress-bar "+lower+"_"+lower+"Progress' style='width:70%;font-size:18px;'>?승</div>"
+		 +"<div class='progress-bar bg-secondary "+lower+"drawProgress' style='width:10%;font-size:18px;'>?무</div>"
+		 +"<div class='progress-bar  bg-danger "+lower+"' style='width:30%;font-size:18px;'>?패</div></div></td>"
+				 
+		 +"<td style='width: 10%;background-color:#014476;color:white'>"+tdTitle[i]+"</td>"
+		 
+		 +"<td style='padding: 2px;width: 45%;padding: 0px'><div class='progress' style='height: 25px'>"
+		 +"<div class='progress-bar' style='width:40%;font-size:18px'> ? 승</div>"
+		 +"<div class='progress-bar bg-secondary' style='width:0%;font-size:18px;'>?무</div>"
+		  +"<div class='progress-bar bg-danger' style='width:60%;font-size:18px'>?패</div></div></td></tr>";
+    	*/
+    	var content='';
+    	 var title =['HOME','AWAY'];
+    	 console.log(obj)
+    	  console.log(Object.values(obj))
+    	   for (var i=0; i<title.length; i++) {
+    	  	  content +="<tr class='progress_tr' style='height:3px;line-height:15px;'><td style='padding:2px;width:45%;'>"
+    	  		  +"<div class='progress' style='height: 25px'>"
+        	     +"<div class='progress-bar home_winprogress-bar' style='width:70%;font-size:18px;'>"+(obj['home']['_'+title[i]].win > 0 ? obj['home']['_'+title[i]].win+'승' :'')+"</div>"
+        	     +"<div class='progress-bar bg-secondary  home_drawprogress-bar' style='width:10%;font-size:18px;'>"+(obj['home']['_'+title[i]].draw > 0 ? obj['home']['_'+title[i]].draw +'무' : '')+"</div>"
+    	       	 + "<div class='progress-bar  bg-danger home_loseprogress-bar' style='width:30%;font-size:18px;'>"+(obj['home']['_'+title[i]].lose > 0 ? obj['home']['_'+title[i]].lose +'패' : '')+"</div></div></td>"
+    	       		
+    	       			 
+    	       	+"<td style='width: 10%;background-color:#014476;color:white'>"+title[i]+"</td>"
+    
+    	       	 +"<td style='padding: 2px;width: 45%;padding: 0px'><div class='progress' style='height: 25px'>"
+    	       	 +"<div class='progress-bar home_winprogress-bar' style='width:40%;font-size:18px'>"+(obj['away']['_'+title[i]].win > 0 ? obj['away']['_'+title[i]].win+"승" : '')+"</div>"
+    	         +"<div class='progress-bar bg-secondary home_drawprogress-bar' style='width:0%;font-size:18px;'>"+(obj['away']['_'+title[i]].draw > 0 ? obj['away']['_'+title[i]].draw+"무" :'')+"</div>"
+    	         +"<div class='progress-bar bg-danger home_loseprogress-bar' style='width:60%;font-size:18px'>"+(obj['away']['_'+title[i]].lose > 0 ? obj['away']['_'+title[i]].lose+"패" : '')+"</div></div></td></tr>"	 
+    	        
+    	   }
+    	return content;
+    }/////////////////////
+    
+    
+ function    homeNAwayProgressBar(){
+    	var upper =['HOME','AWAY'];
+    	var lower = ['home','away'];
+    	$('tbody.progress_tbody tr').not('tr:last').each(function(){
+    		var bar  = $(this).children('td:eq(0)').find('.progress').children('div');
+    	         bar.each(function(){
+    	           
+    	         });
+    	         
+    	        
+    	});
+    	
+    
+    
+ 
+    }
+    
+
 </script>
-<style>
-.slash  td {
-	background: url('//cdn.zetawiki.com/png/slash.png');
-	background-size: 100% 100%;
-}
 
-.table td, .table th {
-	vertical-align: middle;
-}
-
-.swalBetting {
-	color: red;
-}
-
-.chk {
-	color: #3fb721;
-	font-size: 30px;
-	position: relative;
-	top: -41px;
-	left: -35px;
-}
-
-.opponent {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap
-}
-
-
-/*  반짝반짝  */
-.blinking{
-	-webkit-animation:blink 0.8s ease-in-out infinite alternate;
-    -moz-animation:blink 0.8s ease-in-out infinite alternate;
-    animation:blink  0.8s ease-in-out infinite alternate;
-}
-@-webkit-keyframes blink{
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-@-moz-keyframes blink{
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-@keyframes blink{
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-
-
-.pointFont {
-	font-size: 30px;
-	color: #217f84;
-	position: relative;
-	top: 4.5px;
-}
-
-.clickColor {
-	background-color: red
-}
-
-[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after,
-	[class*=" flaticon-"]:after {
-	font-size: 60px;
-}
-
-.show {
-	display:;
-}
-
-.hide {
-	display: none;
-}
-#paddingTop{
-	padding-top: 0px !important;
-}
-</style>
-
-<%-- <meta name="_csrf" content="${_csrf.token}"/>
-<meta name="_csrf_header" content="${_csrf.headerName}"/> --%>
-
-<!-- banner-section start -->
-<section class="breadcum-section">
-	<div class="breadcum-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="breadcum-content text-center">
-
-						<h3 class="title">In Play</h3>
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="index.html">home</a></li>
-							<li class="breadcrumb-item active">in play</li>
-						</ol>
-						<input type="hidden" value="${id}" id="auth" />
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</section>
-<!-- banner-section end -->
-
-
-<!-- play-section start -->
-<section id="paddingTop" class="play-section section-padding">
-	<div class="container" ><!-- style="border: 1px solid red" -->
-		<div class="row justify-content-center">
-			<div class="col-lg-6" style="padding-top: 70px !important;">
-				<div class="section-header text-center">
-					<h2 class="section-title">Bet & Playing Now</h2>
-					<p><!-- On insensible possession oh particular attachment at
-						excellence in. The books arose but miles happy she. -->
-						팀을 선택하고 베팅하세요!
-					</p>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="row">
-			<!--  row  -->
-			<div class="col-lg-12">
-				<div class="online-play-tab-part">
-					<ul class="nav justify-content-around" id="myTab" role="tablist">
-
-						<li class="nav-item"><a class="nav-link active" id="all-tab"
-							data-toggle="tab" href="#all" role="tab" aria-controls="all"
-							aria-selected="true"> <i class="flaticon-trophy"></i> <span>All
-									sports</span>
-						</a></li>
-
-
-						<li class="nav-item"><a class="nav-link" id="football-tab"
-							data-toggle="tab" href="#" role="tab" aria-controls="football"
-							aria-selected="false"> <i
-								class="flaticon-soccer-ball-variant"></i> <span>football</span>
-						</a></li>
-						<!--  
-              <li class="nav-item">
-                <a class="nav-link" id="cricket-tab" data-toggle="tab" href="#cricket" role="tab" aria-controls="cricket" aria-selected="false">
-                  <i class="flaticon-cricket"></i>
-                  <span>cricket</span>
-                </a>
-              </li>
-           
-              <li class="nav-item">
-                <a class="nav-link" id="tennis-tab" data-toggle="tab" href="#tennis" role="tab" aria-controls="tennis" aria-selected="false">
-                  <i class="flaticon-tennis-racket"></i>
-                  <span>tennis</span>
-                </a>
-              </li>
-              -->
-						<!--  
-						<li class="nav-item"><a class="nav-link" id="bascketball-tab"
-							data-toggle="tab" href="#bascketball" role="tab"
-							aria-controls="bascketball" aria-selected="false"> <i
-								class="flaticon-basketball"></i> <span>bascketball</span>
-						</a></li>
--->
-						<li class="nav-item"><a class="nav-link" id="baseball-tab"
-							data-toggle="tab" href="#" role="tab" aria-controls="baseball"
-							aria-selected="false"> <i class="flaticon-bat"></i> <span>baseball</span>
-						</a></li>
-						<!--  
-              <li class="nav-item">
-                <a class="nav-link" id="more-tab" data-toggle="tab" href="#more" role="tab" aria-controls="more" aria-selected="false">
-                  <i class="flaticon-menu"></i>
-                  <span>more sports</span>
-                </a>
-              </li>
-              -->
-					</ul>
-
-					<div class="tab-content" id="myTabContent">
-						<!--  전체 선택 -->
-						<div class="tab-pane fade show active" id="all" role="tabpanel"
-							aria-labelledby="all-tab">
-							<div class="play-table-part">
-								<div class="play-table">
-									<table class="table table-bordered" id="all-table"
-										style="table-layout: fixed; margin-bottom: 0px;">
-										<thead id="th1">
-											<tr>
-												<th class="" style="width: 5%;">번호</th>
-												<th style="width: 13%;">경기일시</th>
-												<th class="team-name" style="width: 20%;">홈 VS 어웨이</th>
-												<th style="width: 8%;">경기결과</th>
-												<th style="width: 10%;">비고</th>
-												<th class="choice-team" style="width: 12%;">배팅</th>
-												<th class="" style="width: 13%;">상세보기</th>
-											</tr>
-										</thead>
-										<tbody class="all-tbody">
-											<c:if test="${empty list}" var="isEmpty">
-												<!-- 테이블 데이터 시작  -->
-
-												<tr>
-													<td colspan="7">등록된 경기 스케줄이 없습니다.</td>
-												</tr>
-											</c:if>
-											<c:if test="${! isEmpty}">
-												<!-- 현재날짜  -->
-												<jsp:useBean id="now" class="java.util.Date" />
-												<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm"
-													var="formatNow" />
-
-												<c:forEach var="item" items="${list}" varStatus="loop">
-													<!--  날짜  Date타입으로 파싱 및  패턴 지정  -->
-													<fmt:parseDate value="${item.gameDate} ${item.time}"
-														pattern="yyyy-MM-dd HH:mm" var="gameDate" />
-													<fmt:formatDate value="${gameDate}"
-														pattern="yyyy-MM-dd HH:mm" var="formatGameDate" />
-
-													<!--  스코어  숫자로 파싱  -->
-													<fmt:parseNumber value="${item.homeScore}" type="number"
-														var="homeScore" />
-													<fmt:parseNumber value="${item.awayScore}" type="number"
-														var="awayScore" />
-
-													<tr class="tRow">
-
-														<td>${loop.count}</td>
-
-
-														<td><c:if test="${formatNow < formatGameDate }"
-																var="isDeadLine">
-																<span class="pr-1 date"> <fmt:formatDate
-																		value="${item.gameDate}" pattern="yy.MM.dd" /></span>
-																<span class="pr-1">${item.gameDay}</span>
-																<span class="time">${item.time}</span>
-															</c:if> <c:if test="${! isDeadLine}">
-																<!--  경기일시가 현재날짜보다 이전인 경우  (날짜가 지났을때) -->
-																<span class="pr-1 date" data-value="deadline"> <fmt:formatDate
-																		value="${item.gameDate}" pattern="yy.MM.dd" /></span>
-																<span class="pr-1">${item.gameDay}</span>
-																<span class="time">${item.time}</span>
-															</c:if></td>
-														<td><span class="pr-2 ht">${item.teamname}</span><span
-															class="pr-2 hs">${item.homeScore == -1 ? '':item.homeScore}</span>:<span
-															class="px-2 as">${item.awayScore == -1 ? '':item.awayScore}</span><span
-															class="at">${item.awayTeam}</span>
-														<td>
-															<!--  -1이면 아직 경기시작전  안나옴 . -1보다 크면 경기결과 나온후 --> <c:if
-																test="${item.homeScore  >= 0 && item.awayScore >= 0  }"
-																var="isScore">
-																<c:choose>
-																	<c:when test="${homeScore  > awayScore}">
-																		<span
-																			style="width: 75%; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">홈승</span>
-																	</c:when>
-																	<c:when test="${homeScore < awayScore}">
-																		<span
-																			style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">홈패</span>
-																	</c:when>
-																	<c:when test="${homeScore  == awayScore}">
-																		<span
-																			style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #9a9798; border-radius: 7px;">무</span>
-																	</c:when>
-																</c:choose>
-															</c:if> <c:if test="${! isScore}">
-																<span
-																	style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #f76c12e8; border-radius: 7px;">예정</span>
-															</c:if>
-														</td>
-
-														<td><c:if test="${item.category=='축구'}">
-																<i class="far fa-futbol fa-2x"></i>
-															</c:if> <c:if test="${item.category=='야구'}">
-																<i class="fas fa-baseball-ball fa-2x"></i>
-															</c:if> <span class="stadium" data-value="${item.stadium}"></span>
-														</td>
-														<td>
-															<button type="button" class="btn btn-warning bettingBtn"
-																data-toggle="modal" data-target="#myModal"
-																style="height: 33px; width: 90.53px">
-																<!-- data-toggle="modal" data-target="#myModal" -->
-																배 팅<span class="badge badge-secondary ml-2">${item.count}</span>
-
-																<c:if test="${item.bettingConfirm}">
-																	<i class="fas fa-check chk"></i>
-																</c:if>
-
-															</button>
-														</td>
-														<!-- <i class="fas fa-sign-out-alt fa-rotate-90"></i> -->
-														<td><span class="view" style="cursor: pointer;">상세보기</span></td>
-													</tr>
-												</c:forEach>
-											</c:if>
-
-
-
-											<!--  1행 -->
-
-											<tr class="test_tr">
-												<td>
-													<!-- <div class="team-name-part"> </div> --> 1
-												</td>
-												<!-- 경기 날짜  -->
-												<td><span bat="1">2019-10-10</span></td>
-												<!--  팀 vs 팀  -->
-												<td>기아&nbsp;&nbsp;<span class="blue">3</span>&nbsp;&nbsp;
-													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp; 두산
-												</td>
-												<!-- 경기결과 -->
-												<td>
-													<!--  <span class="badge badge-primary">승</span> --> <span
-													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #007bff; border-radius: 7px;">승</span>
-												</td>
-												</td>
-												<!-- 비고 -->
-												<td>우천</td>
-												<!-- 배팅-->
-												<td class="bettingTd"><span id="bettingSpan"
-													class="badge badge-warning" data-toggle="modal"
-													data-target="#myModal">배팅</span></td>
-
-												<!-- 상세보기 -->
-												<td id="oneView">상세보기</td>
-											</tr>
-											<!-- 1행끝 -->
-
-
-											<tr class="test_tr">
-												<!-- 번호 -->
-												<td>2</td>
-												<!-- 경기 날짜  -->
-												<td><span bat="1">2019-10-10</span></td>
-												<!--  팀 vs 팀  -->
-												<td>SK&nbsp;&nbsp;<span class="blue">2</span>&nbsp;&nbsp;
-													: &nbsp;&nbsp;<span class="red">2</span>&nbsp;&nbsp;롯데
-												</td>
-												<!-- 경기결과 -->
-												<td>
-													<!-- <div style="background-color: #847d7e;-webkit-border-radius: 5px; color:white; border:1px red solid; flex: 0 0 calc(100% - 15px);">무</div> -->
-													<span
-													style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">패</span>
-												</td>
-
-
-												<!-- 비고 -->
-												<td>기타</td>
-												<td>
-													<!-- 배팅-->
-													<button type="button" class="btn btn-warning"
-														style="height: 33px;" data-toggle="modal"
-														data-target="#myModal">
-														배 팅 <span class="badge badge-secondary ml-2">15</span>
-													</button>
-												</td>
-
-
-												<!-- 상세보기 -->
-												<td><a
-													href="<c:url value='/Team/Matching/BettingView.do'/>">상세보기</a></td>
-											</tr>
-											<!-- 2행끝 -->
-
-
-											<!-- 3행 시작 -->
-
-											<tr class="test_tr">
-												<!-- 번호 -->
-												<td>3</td>
-												<!-- 경기 날짜  -->
-												<td><span bat="1">2019-10-10</span></td>
-												<!--  팀 vs 팀  -->
-												<td>넥센&nbsp;&nbsp;<span class="blue"></span>&nbsp;&nbsp;
-													: &nbsp;&nbsp;<span class="red"></span>&nbsp;&nbsp;한화
-												</td>
-												<!-- 경기결과 -->
-												<td>
-													<!-- <span style="height: 100%; width: 75%; display: inline-block; color: #ffffff; line-height: 30px; background-color: #9a9798; border-radius: 7px;">무</span> -->
-												</td>
-												<!-- 비고 -->
-												<td></td>
-												<td>
-													<!-- 배팅--> 배팅
-
-												</td>
-
-												<!-- 상세보기 -->
-												<td><span class="aa" style="cursor: pointer;">상세보기</span></td>
-											</tr>
-											<!-- 3행끝 -->
-
-											<!-- 상세보기 <tr> 안에 시작 -->
-											<tr>
-
-												<td colspan="7">
-
-													<div class="row">
-														<div class="col-md-12">
-
-															<div
-																class="d-flex bg-light justify-content-center pt-4 w-100"
-																style="height: 150px">
-																<div class="p-2 border w-25">A팀</div>
-																<div class="p-2 border mx-5 align-self-center">VS</div>
-																<div class="p-2 border w-25">B팀</div>
-															</div>
-
-														</div>
-													</div> <!-- row -->
-
-
-													<div class="col-md-12 text-center mt-3 bg-info"
-														style="font-size: 20px; font-weight: bold; height: 50px; line-height: 50px; background-color: dodgerblue !important;">
-														최근 10경기 전적
-													</div>
-
-													<div class="row mt-2" ><!-- style="border: 1px solid red" -->
-														<div class="col-6">
-															<table class="table table-bordered">
-																<thead>
-																	<tr class="text-center">
-																		<th style="background-color: #000040; color: white;"
-																			colspan="4">Home</th>
-																	</tr>
-
-																	<tr class="text-center">
-
-																		<th class="w-25">경기일시</th>
-																		<th class="w-25">상대팀</th>
-																		<th class="w-25">스코어</th>
-																		<th class="w-25">결과</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<!-- <tr class="text-center"> 
-																	         <td><span>19.10.08</span><small style="">07:20</small></td>  
-																	         <td>SK</td>
-																	         <td>3 : 0 </td>
-																	         <td ><span style="width:75%; float:none;display:inline-block;color:#ffffff;line-height: 30px;background-color: #007bff; border-radius:7px; ">승</span></td>
-																	       </tr> -->
-																	<tr>
-																		<td colspan="4">경기가 존재하지 않습니다.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-																	<tr>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																		<td>.</td>
-																	</tr>
-
-																	<tr class="text-center">
-																		<th style="background-color: #c6c8ca; color: black;" colspan="4">10전
-																			3승 3무 4패</th>
-																	</tr>
-
-																</tbody>
-
-															</table>
-
-														</div>
-														<!-- table 감싸는 div -->
-
-
-														<!-- AWAY 테이블 -->
-
-														<div class="col-6 ml-0">
-															<table class="table table-bordered">
-																<thead>
-																	<tr class="text-center">
-																		<th style="background-color: #000040; color: white;"
-																			colspan="4">AWAY</th>
-																	</tr>
-
-																	<tr class="text-center" style="display:">
-
-																		<th class="w-25">경기일시</th>
-																		<th class="w-25">상대팀</th>
-																		<th class="w-25">스코어</th>
-																		<th class="w-25">결과</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr class="text-center">
-																		<td style="height: 15px; overflow: hidden;">2019-10-08</td>
-																		<td>SK</td>
-																		<td>3 : 0</td>
-																		<td><span
-																			style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #cd2e57; border-radius: 7px;">승</span></td>
-																	</tr>
-																	<tr class="text-center">
-																		<th style="background-color: #c6c8ca; color: black;" colspan="4">10전
-																			3승 3무 4패</th>
-																	</tr>
-																</tbody>
-
-															</table>
-
-														</div>
-														<!-- table 감싸는 div -->
-
-													</div> <!-- row -->
-												</td>
-
-											</tr>
-											<!--  상세보기 tr끝 -->
-
-										</tbody>
-									</table>
-									<div class="row" id="viewTarget">
-
-										<div class="table-responsive col-md-6 ml-0">
-											<!--  A팀 테이블 -->
-											<table class="table  table-bordered " class="A_tableMatchTen" style="font-family: 'Hanna', serif;">
-												<thead>
-													<tr class="text-center">
-														<th style="background-color: #000040; color: white;"
-															colspan="4">Home</th>
-													</tr>
-		
-													<tr class="text-center">
-		
-														<th class="w-25">경기일시</th>
-														<th class="w-25">상대팀</th>
-														<th class="w-25">스코어</th>
-														<th class="w-25">결과</th>
-													</tr>
-												</thead>
-		
-												<tbody>
-													<tr class="text-center">
-														<td>2019-10-08</td>
-														<td>SK</td>
-														<td>3 : 0</td>
-														<td><span
-															style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #6495ED; border-radius: 7px;">승</span></td>
-													</tr>
-		
-													<tr class="text-center">
-														<th style="background-color: #c6c8ca; color: black;" colspan="4">10전
-															3승 3무 4패</th>
-													</tr>
-		
-												</tbody>
-		
-											</table>
-										</div>
-		
-		
-										<div class="table-responsive col-md-6">
-											<!--  B팀 테이블 -->
-											<table class="table table-bordered" id="B_tableMatchTen">
-												<thead>
-													<tr class="text-center">
-														<th style="background-color: #000040; color: white;"
-															colspan="4">Away</th>
-													</tr>
-													<tr class="text-center">
-														<th class="w-25">경기일시</th>
-														<th class="w-25">상대팀</th>
-														<th class="w-25">스코어</th>
-														<th class="w-25">결과</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr class="text-center">
-														<td>2019-10-08</td>
-														<td>기아</td>
-														<td>3 : 0</td>
-														<td><span
-															style="width: 75%; float: none; display: inline-block; color: #ffffff; line-height: 30px; background-color: #CD2E57; border-radius: 7px;">패</span></td>
-													</tr>
-													<tr class="text-center">
-														<th style="background-color: #c6c8ca; color: black;" colspan="4">10전
-															6승 4패</th>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-		
-									</div>
-									<!--  상세보기 row -->
-								</div>
-								<!--  play-table end -->
-
-							</div>
-							<!--  전체선택 끝  -->
-
-
-							<!--  ==================================================================  -->
-
-
-							<!--  ================================================================== -->
-
-
-							<!-- The Modal -->
-							<div class="modal fade" id="myModal">
-								<div class="modal-dialog modal-dialog-centered modal-lg">
-									<div class="modal-content">
-
-										<!-- Modal Header -->
-										<div class="modal-header text-center"
-											style="background-color: #000040;">
-
-											<h5 class="modal-title w-100" style="color: white">승부 예측</h5>
-
-											<button type="button" class="close" data-dismiss="modal"
-												style="color: white; font-weight: bold;">×</button>
-
-										</div>
-
-										<!--Body-->
-										<div class="modal-body">
-
-											<!-- Radio -->
-											<p class="text-center mb-4">
-												<strong>Your Choice</strong>
-											</p>
-											<div class="container">
-
-
-												<div class="row">
-													<div class="col-md mb-3">
-														<div class="custom-control custom-radio"
-															style="display: inline;">
-															<input type="radio" id="customRadio1" name="customRadio"
-																class="custom-control-input"> <label
-																style="font-weight: bold;"
-																class="custom-control-label homeLabel"
-																for="customRadio1">HOME</label> <span
-																class="modal_homeSpan ml-2"></span>
-														</div>
-														<div class="progress " id="homeProgressDiv "
-															style="height: 25px; width: 70%; float: right;">
-
-															<div
-																class="progress-bar progress-bar-striped progress-bar-animated bg-danger homeProgressBar"
-																style="font-weight: bold;"></div>
-
-															<div
-																class="text-center w-100  bg-info homeProgressBar_Info"
-																style="display: none">
-																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
-															</div>
-
-														</div>
-													</div>
-												</div>
-												<!--  row -->
-
-
-												<div class="row">
-													<div class="col-md mb-3">
-														<div class="custom-control custom-radio"
-															style="display: inline">
-															<input type="radio" id="customRadio2" name="customRadio"
-																class="custom-control-input"> <label
-																style="font-weight: bold;"
-																class="custom-control-label awayLabel "
-																for="customRadio2">AWAY</label> <span
-																class="modal_awaySpan ml-2"></span>
-														</div>
-														<div class="progress"
-															style="height: 25px; width: 70%; float: right;">
-															<div
-																class="progress-bar progress-bar-striped progress-bar-animated bg-danger awayProgressBar"
-																style="font-weight: bold;"></div>
-
-															<div
-																class="text-center w-100 bg-info awayProgressBar_Info"
-																style="display: none">
-																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
-															</div>
-														</div>
-
-
-													</div>
-												</div>
-												<!--  row -->
-
-
-												<div class="row">
-													<div class="col-md">
-														<div class="custom-control custom-radio"
-															style="display: inline;">
-															<input type="radio" id="customRadio3" name="customRadio"
-																class="custom-control-input"> <label
-																style="font-weight: bold;"
-																class="custom-control-label drawLabel "
-																for="customRadio3">DRAW</label> <span
-																class="modal_drawSpan ml-2"></span>
-														</div>
-														<div class="progress"
-															style="height: 25px; width: 70%; float: right;">
-															<div
-																class="progress-bar progress-bar-striped progress-bar-animated bg-danger drawProgressBar"
-																style="font-weight: bold;"></div>
-
-															<div
-																class="text-center  w-100 bg-info drawProgressBar_Info"
-																style="display: none">
-																<strong class="pr-1"></strong>포인트 / <strong class="px-1"></strong>명
-															</div>
-														</div>
-													</div>
-												</div>
-												<!--  row -->
-
-												<!-- Radio -->
-												<!--Basic textarea-->
-												<!-- 											 <div class="row">
-          <textarea type="text" id="form79textarea" class="md-textarea form-control" rows="3"></textarea>
-        </div> -->
-												<div style="height: 50px"></div>
-
-												<div class="row">
-													<div class="col-md-3 col-sm-3">
-
-														<span class="pt-4 ml-2 nowPoint"
-															style="color: blue; font-weight: bold;" data-val="#"></span>
-													</div>
-													<div
-														class="input-group input-group-sm mt-3 offset-md-5 offset-sm-7  col-md-4 col-sm-5">
-														<input type="text" class="form-control text-right"
-															style="border: 1px solid gray; height: 35px;"
-															id="bettingPoint">
-														<div class="input-group-append" id="btnJoinParent">
-															<button class="btn btn-secondary " type="button"
-																id="btnJoin">참여</button>
-														</div>
-													</div>
-												</div>
-												<!--  row -->
-
-											</div>
-											<!--  Container -->
-
-										</div>
-
-										<!--  Body -->
-										<!-- Modal footer -->
-										<div class="modal-footer">
-											<button type="button" class="btn btn-danger"
-												data-dismiss="modal">닫기</button>
-										</div>
-
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<!-- online-play-tab-part end -->
-				</div>
-			</div>
-
-		</div>
-
-
-
-	</div>
-</section>
-<!-- play-section end -->
 
 
 

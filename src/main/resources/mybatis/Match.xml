@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		or awayteam = (select teamname from (select * from teammember order by regidate) where rownum = 1 and id=#{id}))
 	</select>
 	<!-- 상대가 finish누른 경기 기록들 가져오기 -->
-	<select id="selectInwaiting" parameterType="java.util.Map" resultType="Map">
+	<select id="selectInwaiting44" parameterType="java.util.Map" resultType="Map">
 		select * from gameschedule where gamestatus = 'inwaiting' and (teamname = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1) or AWAYTEAM = (select teamname from (select * from teammember order by regidate) where id=#{id} and rownum=1))
 	</select>
 	<!-- 최종 finish누른 후 gameStatus를 finish로 바꾸기 -->
@@ -79,4 +79,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatePoint" parameterType="java.util.Map">
 		UPDATE member SET point = point + #{myMileage} WHERE id=#{id}
 	</update>
+	<select id="selectBettings" parameterType="java.util.Map" resultType="Map">
+		select * from betting where gamedate = #{gamedate} and stadium=#{stadium} and time=#{time}
+	</select>
+	<!-- 내팀 가져오기 -->
+	<select id="getMyTeam" parameterType="java.util.Map" resultType="String">
+		select teamname from team where manager_id = #{id}
+	</select>
+	<!-- 저장된 토큰들 가져오기 -->
+	<select id="getTokens" parameterType="java.util.Map" resultType="Map">
+		select * from fcm_tokens
+	</select>
 </mapper>

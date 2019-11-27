@@ -192,4 +192,22 @@ public class TeamBoardDAO {
 		// TODO Auto-generated method stub
 		return template.update("updateRegiStatus",map);
 	}
+
+	//최다세이브
+	public List<TeamBoardDTO> teamGuinnessSave(Map map) {
+		return template.selectList("TeamGuinnessSave",map);
+	}
+
+	//최다투구수
+	public List<TeamBoardDTO> teamGuinnessPitch(Map map) {
+		return template.selectList("TeamGuinnessPitch",map);
+	}
+	
+	public List<TeamBoardDTO> teamGuinnessSaveSelect(Map map) {
+		return template.selectList("TeamGuinnessSaveSelect",map);
+	}
+
+	public List<TeamBoardDTO> teamGuinnessPitchSelect(Map map) {
+		return template.selectList("TeamGuinnessPitchSelect",map);
+	}
 }

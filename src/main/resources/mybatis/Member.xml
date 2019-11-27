@@ -12,8 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="memberRegi" parameterType="java.util.Map">
-		INSERT INTO member(id, pwd, name, birth, gender, phone, location, email, regidate,hitpower,pitpower) 
-		VALUES(#{User_id}, #{pass}, #{User_name}, #{birth}, #{gender}, #{phone}, #{location}, #{email}, SYSDATE, #{HITPOWER}, #{PITPOWER})
+		INSERT INTO member(id, pwd, name, birth, gender, phone, location, email, regidate,hitpower,pitpower,profile) 
+		VALUES(#{User_id}, #{pass}, #{User_name}, #{birth}, #{gender}, #{phone}, #{location}, #{email}, SYSDATE, #{HITPOWER}, #{PITPOWER},'member_default.jpg')
 	</insert>
 	<!-- 회원가입 후 auth_security에 등록 -->
 	<insert id="regiAuth">
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE team WHERE teamname=#{teamName}
 	</delete>
 	<select id="selectTeamName" parameterType="java.lang.String" resultType="Map">
-		SELECT teamname FROM teammember where id=#{id} order by regidate DESC
+		SELECT teamname FROM teammember where id=#{id} and REGISTATUS = 'complete' order by regidate DESC
 	</select>
 
 	<select id="isDuplicate" resultType="java.lang.Integer" parameterType="java.util.Map">

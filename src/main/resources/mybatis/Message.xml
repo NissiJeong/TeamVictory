@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mybatis.Board">
 	<insert id="messageInsert">
-		INSERT INTO message (no,title,mail,content,id)
-		VALUES (SEQ_message.NEXTVAL, #{title},#{mail},#{content},#{id})
+		INSERT INTO message (no,title, mailname, mail,content,id)
+		VALUES (SEQ_message.NEXTVAL, #{title}, #{mailname}, #{mail}, #{content},#{id})
 	</insert>
 	<select id="messageSelectList" parameterType="java.util.Map" resultType="MessageDTO">
   	select * from (select t.*,rownum r from (select * from message order by no desc) t) where r between #{start} and #{end}  	
