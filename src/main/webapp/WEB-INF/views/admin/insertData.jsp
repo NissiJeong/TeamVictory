@@ -135,8 +135,6 @@ div.modal-body {
 	          <span>데이터 입력 폼</span>
 	        </a>
 	      </li>
-	      
-	       
 	    </ul>
 	    <div class="card mb-3">
 	          <div class="card-header" style="margin-top : 20px;">>
@@ -206,8 +204,6 @@ div.modal-body {
 	    </div>
 	</div>    
 </body>
-
-
 
 <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog  modal-lg" role="document">

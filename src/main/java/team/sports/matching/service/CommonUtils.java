@@ -399,10 +399,10 @@ public class CommonUtils {
    
    public static void main(String[] args) {
       
-	   
-	   
-	   manipulateMember("jeong", 3, 3);
-	  
+      makeGameScheduleVSDummy("이씨네야구단");
+      
+      
+      
    }
 
 }
