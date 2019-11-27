@@ -98,7 +98,7 @@ public class BettingController {
 		} //for
 
 		  
-		System.out.println(dataFormat.format(list.get(0).getGameDate()).equals("2020-12-05") ? "일치": "불일치" );
+		//System.out.println(dataFormat.format(list.get(0).getGameDate()).equals("2020-12-05") ? "일치": "불일치" );
 		model.addAttribute("list", list);
 		/*
 		try {

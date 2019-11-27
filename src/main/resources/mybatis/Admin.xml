@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<update id="updateScheduleWithParsing" parameterType="java.util.Map">
-		update gameschedule set gamestatus=#{FINISH},
+		update gameschedule set gamestatus='finish',
 		 homescore=#{HOMESCORE}, awayscore=#{AWAYSCORE} where gamedate=#{GAMEDATE} and stadium=#{STADIUM} and
 		  time=#{TIME} and teamname=#{TEAMNAME} and awayteam=#{AWAYTEAM}
 	</update>

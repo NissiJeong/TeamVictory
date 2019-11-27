@@ -50,11 +50,23 @@ public class AndroidController {
 	public String matching(@RequestParam Map map){
 		System.out.println("들어왔다!!");
 		for(Object key : map.keySet()) {
+			System.out.println(key+":"+map.get(key));
+		}
+		if(map.get("matchTime").toString().substring(0,3).trim().equals("AM")) {
+			map.put("matchTime", map.get("matchTime").toString().substring(3,map.get("matchTime").toString().indexOf("시")).trim()+map.get("matchTime").toString().substring(6,map.get("matchTime").toString().indexOf("분")).trim());
+		}
+		else {
+			map.put("matchTime", Integer.parseInt(map.get("matchTime").toString().substring(3,map.get("matchTime").toString().indexOf("시")).trim())+12+map.get("matchTime").toString().substring(6,map.get("matchTime").toString().indexOf("분")).trim());
+		}
+		map.put("matchDate", map.get("matchDate").toString().split("/")[0].trim()+"-"+map.get("matchDate").toString().split("/")[1].trim()+"-"+map.get("matchDate").toString().split("/")[2].trim());
+		for(Object key : map.keySet()) {
 			System.out.println(key+":"+map.get(key)+"  /  ");
 		}
+		int match = dao.insertmatch(map);
+		return match==1?"yes":"no";
 		//List<TeamDTO> teams = new Vector<TeamDTO>();
 		//teams = dao.selectTeam(map);
-		return "12312";
+		//return "12312";
 	}
 
 	///////
@@ -166,10 +178,10 @@ public class AndroidController {
 			for(Object key : homeList.get(i).keySet()) {
 				//System.out.print(key+":"+homeList.get(i).get(key)+" / ");
 			}
-			if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())>Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
+			if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())<Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
 				homewin++;
 			}
-			else if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())<Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
+			else if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())>Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
 				homelose++;
 			}
 			else {
@@ -210,11 +222,12 @@ public class AndroidController {
 		String myBettingmileage="";
 		if(myList != null ) {
 			for(Object key : myList.keySet()){
-				System.out.println(key+":"+myList.get(key));
+				//System.out.println(key+":"+myList.get(key));
 			}
 			myselectTeam = myList.get("SELECTTEAM").toString();
 			myBettingmileage = myList.get("MILEAGE").toString();
 			totalInfo = "homerating:"+homeRating+"/homerecord:"+homeRecord+"-awayrating:"+awayRating+"/awayrecord:"+aRecord+"-mileage:"+mileage+"-prevMileage:"+myBettingmileage+"/prevSelectTeam:"+myselectTeam+"-isbetting:"+1;
+			System.out.println(totalInfo);
 			return totalInfo;
 		}
 		//System.out.println("homerating:"+homeRating+" awayrating:"+awayRating+" mileage:"+mileage+" homerecord:"+homeRecord+" awayrecord:"+aRecord);
@@ -297,10 +310,10 @@ public class AndroidController {
 			for(Object key : homeList.get(i).keySet()) {
 				//System.out.print(key+":"+homeList.get(i).get(key)+" / ");
 			}
-			if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())>Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
+			if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())<Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
 				homewin++;
 			}
-			else if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())<Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
+			else if(Integer.parseInt(homeList.get(i).get("HOMESCORE").toString())>Integer.parseInt(homeList.get(i).get("AWAYSCORE").toString())) {
 				homelose++;
 			}
 			else {
@@ -331,7 +344,7 @@ public class AndroidController {
 				System.out.println(key+":"+lastPredic.get(key));
 			String hometeam = lastPredic.get("TEAMNAME").toString();
 			String awayteam = lastPredic.get("AWAYTEAM").toString();
-			String game = lastPredic.get("GAMEDATE").toString().substring(0, 11).trim()+" "+lastPredic.get("TIME").toString().substring(0,2).trim()+"시 경기장 "+lastPredic.get("STADIUM")+" "+lastPredic.get("TEAMNAME").toString()+" vs "+lastPredic.get("AWAYTEAM").toString();
+			String game = lastPredic.get("GAMEDATE").toString().substring(0, 11).trim()+" "+lastPredic.get("TIME").toString().substring(0,2).trim()+"시/Stadium "+lastPredic.get("STADIUM")+"/"+lastPredic.get("TEAMNAME").toString()+"  vs  "+lastPredic.get("AWAYTEAM").toString();
 			String mileage = lastPredic.get("MILEAGE").toString()+" point";
 			int homescore = Integer.parseInt(lastPredic.get("HOMESCORE").toString());
 			int awayscore = Integer.parseInt(lastPredic.get("AWAYSCORE").toString());

@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	 <insert id="chatMember" parameterType="java.util.Map">
-	 	INSERT INTO chatmember VALUES(SEQ_chatmember.nextval,#{id},#{title},#{position})
+	 	INSERT INTO chatmember VALUES(SEQ_chatmember.nextval,#{id},#{title},#{area})
 	 </insert>
 	 
 	<select id="roomList" parameterType="java.util.Map" resultType="BasketballDTO"> 

@@ -180,7 +180,7 @@ div.modal-body {
 		                    <td>${data.TEAMNAME}</td>
 		                    <td>${data.AWAYTEAM}</td>
 		                    <c:choose>
-		                   		<c:when test="${data.GAMESTATUS eq 'FINISH'}">
+		                   		<c:when test="${data.GAMESTATUS eq 'finish'}">
 			                   		<td>${data.HOMESCORE} : ${data.AWAYSCORE }</td>
 				                    <td><input type="button" value="완료" class="insertBtnEnd" /></td>
 				                    <td>

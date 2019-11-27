@@ -33,7 +33,7 @@ DROP TABLE TeamMember CASCADE CONSTRAINTS;
 DROP TABLE member CASCADE CONSTRAINTS;
 DROP TABLE Team CASCADE CONSTRAINTS;
 
-
+ 
 
 /* Drop Sequences */
 /*
@@ -75,223 +75,223 @@ CREATE SEQUENCE SEQ_fcm_tokens INCREMENT BY 1 START WITH 1 nocache nocycle;
 
 CREATE TABLE AUTH_SECURITY
 (
-	SECNO number NOT NULL,
-	ENABLED number(1) DEFAULT 1,
-	AUTHORITY varchar2(20) DEFAULT 'ROLE_USER',
-	ID nvarchar2(15) NOT NULL,
-	PRIMARY KEY (SECNO)
+   SECNO number NOT NULL,
+   ENABLED number(1) DEFAULT 1,
+   AUTHORITY varchar2(20) DEFAULT 'ROLE_USER',
+   ID nvarchar2(15) NOT NULL,
+   PRIMARY KEY (SECNO)
 );
 
 
 CREATE TABLE betting
 (
-	no number NOT NULL,
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	selectTeam nvarchar2(20) NOT NULL,
-	mileage number NOT NULL,
-	PRIMARY KEY (no)
+   no number NOT NULL,
+   gameDate date NOT NULL,
+   stadium nvarchar2(20) NOT NULL,
+   time number NOT NULL,
+   ID nvarchar2(15) NOT NULL,
+   selectTeam nvarchar2(20) NOT NULL,
+   mileage number NOT NULL,
+   PRIMARY KEY (no)
 );
 
 
 CREATE TABLE board
 (
-	no number NOT NULL,
-	title nvarchar2(50) NOT NULL,
-	content nvarchar2(2000) NOT NULL,
-	postDate date DEFAULT SYSDATE,
-	ID nvarchar2(15) NOT NULL,
-	count number DEFAULT 0,
-	PRIMARY KEY (no)
+   no number NOT NULL,
+   title nvarchar2(50) NOT NULL,
+   content nvarchar2(2000) NOT NULL,
+   postDate date DEFAULT SYSDATE,
+   ID nvarchar2(15) NOT NULL,
+   count number DEFAULT 0,
+   PRIMARY KEY (no)
 );
 
 
 CREATE TABLE chatmember
 (
-	no number NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	title nvarchar2(20) NOT NULL,
-	position nvarchar2(15) NOT NULL,
-	PRIMARY KEY (no)
+   no number NOT NULL,
+   ID nvarchar2(15) NOT NULL,
+   title nvarchar2(20) NOT NULL,
+   position nvarchar2(15) NOT NULL,
+   PRIMARY KEY (no)
 );
 
 
 CREATE TABLE chatroom
 (
-	title nvarchar2(20) NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	area nvarchar2(50) NOT NULL,
-	position nvarchar2(15) NOT NULL,
-	regidate date DEFAULT SYSDATE,
-	readycount number,
-	remainCount number,
-	PRIMARY KEY (title)
+   title nvarchar2(20) NOT NULL,
+   ID nvarchar2(15) NOT NULL,
+   area nvarchar2(50) NOT NULL,
+   position nvarchar2(15) NOT NULL,
+   regidate date DEFAULT SYSDATE,
+   readycount number,
+   remainCount number,
+   PRIMARY KEY (title)
 );
 
 
 CREATE TABLE fcm_tokens
 (
-	no number NOT NULL,
-	token nvarchar2(400) NOT NULL,
-	PRIMARY KEY (no)
+   no number NOT NULL,
+   token nvarchar2(400) NOT NULL,
+   PRIMARY KEY (no)
 );
 
 
 CREATE TABLE gameschedule
 (
-	no number,
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	awayteam nvarchar2(20) NOT NULL,
-	gamestatus nvarchar2(10) DEFAULT 'waiting' NOT NULL,
-	homescore number,
-	awayscore number,
-	teamName nvarchar2(20) NOT NULL,
-	CONSTRAINT gameno primary key (gameDate, stadium, time)
+   no number,
+   gameDate date NOT NULL,
+   stadium nvarchar2(20) NOT NULL,
+   time number NOT NULL,
+   awayteam nvarchar2(20) NOT NULL,
+   gamestatus nvarchar2(10) DEFAULT 'waiting' NOT NULL,
+   homescore number,
+   awayscore number,
+   teamName nvarchar2(20) NOT NULL,
+   CONSTRAINT gameno primary key (gameDate, stadium, time)
 );
 
 
 CREATE TABLE hitter
 (
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	teamName nvarchar2(20) NOT NULL,
-	pa number DEFAULT 0,
-	ab number DEFAULT 0,
-	h number DEFAULT 0,
-	b2 number DEFAULT 0,
-	b3 number DEFAULT 0,
-	hr number DEFAULT 0,
-	R number DEFAULT 0,
-	rbi number DEFAULT 0,
-	sb number DEFAULT 0,
-	cs number DEFAULT 0,
-	bb number DEFAULT 0,
-	hbp number DEFAULT 0,
-	so number DEFAULT 0,
-	gdp number DEFAULT 0,
-	e number DEFAULT 0,
-	pos number DEFAULT 0,
-	horder number DEFAULT 0,
-	CONSTRAINT pk primary key (gameDate, time, ID)
+   gameDate date NOT NULL,
+   stadium nvarchar2(20) NOT NULL,
+   time number NOT NULL,
+   ID nvarchar2(15) NOT NULL,
+   teamName nvarchar2(20) NOT NULL,
+   pa number DEFAULT 0,
+   ab number DEFAULT 0,
+   h number DEFAULT 0,
+   b2 number DEFAULT 0,
+   b3 number DEFAULT 0,
+   hr number DEFAULT 0,
+   R number DEFAULT 0,
+   rbi number DEFAULT 0,
+   sb number DEFAULT 0,
+   cs number DEFAULT 0,
+   bb number DEFAULT 0,
+   hbp number DEFAULT 0,
+   so number DEFAULT 0,
+   gdp number DEFAULT 0,
+   e number DEFAULT 0,
+   pos number DEFAULT 0,
+   horder number DEFAULT 0,
+   CONSTRAINT pk primary key (gameDate, time, ID)
 );
 
 
 CREATE TABLE matching
 (
-	matchingNo number NOT NULL,
-	teamName nvarchar2(20) NOT NULL,
-	enemyTeam varchar2(20) NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	reqDate date NOT NULL,
-	time number NOT NULL,
-	matchStatus nvarchar2(20) DEFAULT 'waiting' NOT NULL,
-	PRIMARY KEY (matchingNo)
+   matchingNo number NOT NULL,
+   teamName nvarchar2(20) NOT NULL,
+   enemyTeam varchar2(20) NOT NULL,
+   stadium nvarchar2(20) NOT NULL,
+   reqDate date NOT NULL,
+   time number NOT NULL,
+   matchStatus nvarchar2(20) DEFAULT 'waiting' NOT NULL,
+   PRIMARY KEY (matchingNo)
 );
 
 
 CREATE TABLE member
 (
-	ID nvarchar2(15) NOT NULL,
-	name nvarchar2(20) NOT NULL,
-	profile nvarchar2(50),
-	gender nvarchar2(6) NOT NULL,
-	birth nvarchar2(10),
-	PWD varchar2(200) NOT NULL,
-	phone varchar2(11) NOT NULL,
-	email nvarchar2(50) NOT NULL,
-	regidate date DEFAULT SYSDATE,
-	location nvarchar2(50) NOT NULL,
-	location_2 nvarchar2(50),
-	height number,
-	point number DEFAULT 5000,
-	weight number,
-	fut_pos nvarchar2(10),
-	basket_pos nvarchar2(10),
-	base_pos nvarchar2(10),
-	fut_mainfoot nvarchar2(20),
-	base_mainhand nvarchar2(10),
-	-- 선택하면 1
-	basket_ltmatch number DEFAULT 0,
-	school nvarchar2(20),
-	mailstatus varchar2(500),
-	mailkey varchar2(500),
-	hitpower float,
-	pitpower float,
-	base_backnumber number,
-	PRIMARY KEY (ID)
+   ID nvarchar2(15) NOT NULL,
+   name nvarchar2(20) NOT NULL,
+   profile nvarchar2(50),
+   gender nvarchar2(6) NOT NULL,
+   birth nvarchar2(10),
+   PWD varchar2(200) NOT NULL,
+   phone varchar2(11) NOT NULL,
+   email nvarchar2(50) NOT NULL,
+   regidate date DEFAULT SYSDATE,
+   location nvarchar2(50) NOT NULL,
+   location_2 nvarchar2(50),
+   height number,
+   point number DEFAULT 5000,
+   weight number,
+   fut_pos nvarchar2(10),
+   basket_pos nvarchar2(10),
+   base_pos nvarchar2(10),
+   fut_mainfoot nvarchar2(20),
+   base_mainhand nvarchar2(10),
+   -- 선택하면 1
+   basket_ltmatch number DEFAULT 0,
+   school nvarchar2(20),
+   mailstatus varchar2(500),
+   mailkey varchar2(500),
+   hitpower float,
+   pitpower float,
+   base_backnumber number,
+   PRIMARY KEY (ID)
 );
 
 
 CREATE TABLE message
 (
-	no number NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	title nvarchar2(50) NOT NULL,
-	content nvarchar2(2000) NOT NULL,
-	postDate date DEFAULT SYSDATE,
-	mail nvarchar2(30) NOT NULL,
-	PRIMARY KEY (no)
+   no number NOT NULL,
+   ID nvarchar2(15) NOT NULL,
+   title nvarchar2(50) NOT NULL,
+   content nvarchar2(2000) NOT NULL,
+   postDate date DEFAULT SYSDATE,
+   mail nvarchar2(30) NOT NULL,
+   PRIMARY KEY (no)
 );
 
 
 CREATE TABLE pitcher
 (
-	gameDate date NOT NULL,
-	stadium nvarchar2(20) NOT NULL,
-	time number NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	teamName nvarchar2(20) NOT NULL,
-	W number DEFAULT 0,
-	L number DEFAULT 0,
-	sv number DEFAULT 0,
-	hol number DEFAULT 0,
-	blsv number DEFAULT 0,
-	ci number DEFAULT 0,
-	co number DEFAULT 0,
-	tbf number DEFAULT 0,
-	pitch number DEFAULT 0,
-	pr number DEFAULT 0,
-	per number DEFAULT 0,
-	ph number DEFAULT 0,
-	pb2 number DEFAULT 0,
-	pb3 number DEFAULT 0,
-	phr number DEFAULT 0,
-	pbb number DEFAULT 0,
-	phbp number DEFAULT 0,
-	pso number DEFAULT 0,
-	CONSTRAINT pk_pitcher primary key (gameDate, time, ID)
+   gameDate date NOT NULL,
+   stadium nvarchar2(20) NOT NULL,
+   time number NOT NULL,
+   ID nvarchar2(15) NOT NULL,
+   teamName nvarchar2(20) NOT NULL,
+   W number DEFAULT 0,
+   L number DEFAULT 0,
+   sv number DEFAULT 0,
+   hol number DEFAULT 0,
+   blsv number DEFAULT 0,
+   ci number DEFAULT 0,
+   co number DEFAULT 0,
+   tbf number DEFAULT 0,
+   pitch number DEFAULT 0,
+   pr number DEFAULT 0,
+   per number DEFAULT 0,
+   ph number DEFAULT 0,
+   pb2 number DEFAULT 0,
+   pb3 number DEFAULT 0,
+   phr number DEFAULT 0,
+   pbb number DEFAULT 0,
+   phbp number DEFAULT 0,
+   pso number DEFAULT 0,
+   CONSTRAINT pk_pitcher primary key (gameDate, time, ID)
 );
 
 
 CREATE TABLE Team
 (
-	teamName nvarchar2(20) NOT NULL,
-	category nvarchar2(20) NOT NULL,
-	teamloc nvarchar2(50) NOT NULL,
-	teamRating number(10,4) NOT NULL,
-	manager_id nvarchar2(20) NOT NULL UNIQUE,
-	teamInfo nvarchar2(2000) NOT NULL,
-	regidate date DEFAULT SYSDATE,
-	teamLogo nvarchar2(200),
-	PRIMARY KEY (teamName)
+   teamName nvarchar2(20) NOT NULL,
+   category nvarchar2(20) NOT NULL,
+   teamloc nvarchar2(50) NOT NULL,
+   teamRating number(10,4) NOT NULL,
+   manager_id nvarchar2(20) NOT NULL UNIQUE,
+   teamInfo nvarchar2(2000) NOT NULL,
+   regidate date DEFAULT SYSDATE,
+   teamLogo nvarchar2(200),
+   PRIMARY KEY (teamName)
 );
 
 
 CREATE TABLE TeamMember
 (
-	teamName nvarchar2(20) NOT NULL,
-	ID nvarchar2(15) NOT NULL,
-	no number,
-	self nvarchar2(150),
-	registatus nvarchar2(10) DEFAULT 'waiting',
-	regidate date,
-	CONSTRAINT pk_teamMember primary key (teamName, ID)
+   teamName nvarchar2(20) NOT NULL,
+   ID nvarchar2(15) NOT NULL,
+   no number,
+   self nvarchar2(150),
+   registatus nvarchar2(10) DEFAULT 'waiting',
+   regidate date,
+   CONSTRAINT pk_teamMember primary key (teamName, ID)
 );
 
 
@@ -299,110 +299,111 @@ CREATE TABLE TeamMember
 /* Create Foreign Keys */
 
 ALTER TABLE chatmember
-	ADD FOREIGN KEY (title)
-	REFERENCES chatroom (title)
+   ADD FOREIGN KEY (title)
+   REFERENCES chatroom (title)
+   ON DELETE CASCADE
 ;
 
 
 ALTER TABLE betting
-	ADD FOREIGN KEY (gameDate, stadium, time)
-	REFERENCES gameschedule (gameDate, stadium, time)
+   ADD FOREIGN KEY (gameDate, stadium, time)
+   REFERENCES gameschedule (gameDate, stadium, time)
 ;
 
 
 ALTER TABLE hitter
-	ADD FOREIGN KEY (gameDate, stadium, time)
-	REFERENCES gameschedule (gameDate, stadium, time)
+   ADD FOREIGN KEY (gameDate, stadium, time)
+   REFERENCES gameschedule (gameDate, stadium, time)
 ;
 
 
 ALTER TABLE pitcher
-	ADD FOREIGN KEY (gameDate, stadium, time)
-	REFERENCES gameschedule (gameDate, stadium, time)
+   ADD FOREIGN KEY (gameDate, stadium, time)
+   REFERENCES gameschedule (gameDate, stadium, time)
 ;
 
 
 ALTER TABLE AUTH_SECURITY
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE betting
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE board
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE chatmember
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE chatroom
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE hitter
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE message
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE pitcher
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE TeamMember
-	ADD FOREIGN KEY (ID)
-	REFERENCES member (ID)
+   ADD FOREIGN KEY (ID)
+   REFERENCES member (ID)
 ;
 
 
 ALTER TABLE gameschedule
-	ADD FOREIGN KEY (teamName)
-	REFERENCES Team (teamName)
+   ADD FOREIGN KEY (teamName)
+   REFERENCES Team (teamName)
 ;
 
 
 ALTER TABLE hitter
-	ADD FOREIGN KEY (teamName)
-	REFERENCES Team (teamName)
+   ADD FOREIGN KEY (teamName)
+   REFERENCES Team (teamName)
 ;
 
 
 ALTER TABLE matching
-	ADD FOREIGN KEY (teamName)
-	REFERENCES Team (teamName)
+   ADD FOREIGN KEY (teamName)
+   REFERENCES Team (teamName)
 ;
 
 
 ALTER TABLE pitcher
-	ADD FOREIGN KEY (teamName)
-	REFERENCES Team (teamName)
+   ADD FOREIGN KEY (teamName)
+   REFERENCES Team (teamName)
 ;
 
 
 ALTER TABLE TeamMember
-	ADD FOREIGN KEY (teamName)
-	REFERENCES Team (teamName)
+   ADD FOREIGN KEY (teamName)
+   REFERENCES Team (teamName)
 ;
 
 
@@ -412,9 +413,9 @@ ALTER TABLE TeamMember
 CREATE OR REPLACE TRIGGER TRI_baseteam_baseteamno BEFORE INSERT ON baseteam
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_baseteam_baseteamno.nextval
-	INTO :new.baseteamno
-	FROM dual;
+   SELECT SEQ_baseteam_baseteamno.nextval
+   INTO :new.baseteamno
+   FROM dual;
 END;
 
 /
@@ -422,9 +423,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_Betting_bettingIndex BEFORE INSERT ON Betting
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_Betting_bettingIndex.nextval
-	INTO :new.bettingIndex
-	FROM dual;
+   SELECT SEQ_Betting_bettingIndex.nextval
+   INTO :new.bettingIndex
+   FROM dual;
 END;
 
 /
@@ -432,9 +433,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_betting_no BEFORE INSERT ON betting
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_betting_no.nextval
-	INTO :new.no
-	FROM dual;
+   SELECT SEQ_betting_no.nextval
+   INTO :new.no
+   FROM dual;
 END;
 
 /
@@ -442,9 +443,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_board_no BEFORE INSERT ON board
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_board_no.nextval
-	INTO :new.no
-	FROM dual;
+   SELECT SEQ_board_no.nextval
+   INTO :new.no
+   FROM dual;
 END;
 
 /
@@ -452,9 +453,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_chatmember_no BEFORE INSERT ON chatmember
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_chatmember_no.nextval
-	INTO :new.no
-	FROM dual;
+   SELECT SEQ_chatmember_no.nextval
+   INTO :new.no
+   FROM dual;
 END;
 
 /
@@ -462,9 +463,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_contact_no BEFORE INSERT ON contact
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_contact_no.nextval
-	INTO :new.no
-	FROM dual;
+   SELECT SEQ_contact_no.nextval
+   INTO :new.no
+   FROM dual;
 END;
 
 /
@@ -472,9 +473,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_fcm_tokens_no BEFORE INSERT ON fcm_tokens
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_fcm_tokens_no.nextval
-	INTO :new.no
-	FROM dual;
+   SELECT SEQ_fcm_tokens_no.nextval
+   INTO :new.no
+   FROM dual;
 END;
 
 /
@@ -482,9 +483,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_gameRecord_teamGameNo BEFORE INSERT ON gameRecord
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_gameRecord_teamGameNo.nextval
-	INTO :new.teamGameNo
-	FROM dual;
+   SELECT SEQ_gameRecord_teamGameNo.nextval
+   INTO :new.teamGameNo
+   FROM dual;
 END;
 
 /
@@ -492,9 +493,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_Gameschedule_gameNo BEFORE INSERT ON Gameschedule
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_Gameschedule_gameNo.nextval
-	INTO :new.gameNo
-	FROM dual;
+   SELECT SEQ_Gameschedule_gameNo.nextval
+   INTO :new.gameNo
+   FROM dual;
 END;
 
 /
@@ -502,9 +503,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_matching_matchingNo BEFORE INSERT ON matching
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_matching_matchingNo.nextval
-	INTO :new.matchingNo
-	FROM dual;
+   SELECT SEQ_matching_matchingNo.nextval
+   INTO :new.matchingNo
+   FROM dual;
 END;
 
 /
@@ -512,9 +513,9 @@ END;
 CREATE OR REPLACE TRIGGER TRI_message_no BEFORE INSERT ON message
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_message_no.nextval
-	INTO :new.no
-	FROM dual;
+   SELECT SEQ_message_no.nextval
+   INTO :new.no
+   FROM dual;
 END;
 
 /
@@ -522,13 +523,12 @@ END;
 CREATE OR REPLACE TRIGGER TRI_NEW_TABLE_no BEFORE INSERT ON NEW_TABLE
 FOR EACH ROW
 BEGIN
-	SELECT SEQ_NEW_TABLE_no.nextval
-	INTO :new.no
-	FROM dual;
+   SELECT SEQ_NEW_TABLE_no.nextval
+   INTO :new.no
+   FROM dual;
 END;
 
 /
-
 
 
 

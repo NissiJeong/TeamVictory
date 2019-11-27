@@ -147,9 +147,9 @@ public class CommonUtils {
       }
 
    }
-   
+
    public static String getRandomID() {
-      
+
       StringBuffer temp = new StringBuffer();
       Random rnd = new Random();
       for (int i = 0; i < 6; i++) {
@@ -202,25 +202,49 @@ public class CommonUtils {
          System.out.println(String.format("insert into teammember(TEAMNAME,ID,NO,SELF,REGISTATUS,REGIDATE ) values (" + teamName + "," + id + i + ",SEQ_teammember.NEXTVAL,'ㅎㅇㅎㅇ잘지내자','complete',SYSDATE );"));
       }
    }
+
    public static void makeLeaderNMembers(String teamName) {
 
-         String leaderID = getRandomID();
-         String id = getRandomID();
-         String leaderName = getRandomName();
+      String leaderID = getRandomID();
+      String id = getRandomID();
+      String leaderName = getRandomName();
+      System.out.println(String.format(
+            "insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');", leaderID,
+            getRandomName(), "MAN", "2000/01/01", "123123123", (long) (Math.ceil(Math.random() * 10000000000l)), leaderID + "@" + leaderID + ".com", "주작동", Math.ceil(Math.random() * 10000) / 10000.0,
+            Math.ceil(Math.random() * 10000) / 10000.0));
+
+      System.out.println(
+            String.format("insert into team(teamname,category,teamloc,teamrating,manager_id,teaminfo,regidate,teamlogo) values('" + teamName + "','baseball','gura',1500,'" + leaderName + "','주작팀',SYSDATE,'team_default.jpg');"));
+
+      for (int i = 11; i <= 40; i++) {
          System.out.println(String.format(
-               "insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');", leaderID,
-               getRandomName(), "MAN", "2000/01/01", "123123123", (long) (Math.ceil(Math.random() * 10000000000l)), leaderID + "@" + leaderID + ".com", "주작동", Math.ceil(Math.random() * 10000) / 10000.0,
-               Math.ceil(Math.random() * 10000) / 10000.0));
-
-         System.out.println(String.format("insert into team(teamname,category,teamloc,teamrating,manager_id,teaminfo,regidate,teamlogo) values('" + teamName + "','baseball','gura',1500,'" + leaderName + "','주작팀',SYSDATE,'team_default.jpg');"));
-
-         for (int i = 11; i <= 40; i++) {
-            System.out.println(String.format(
-                  "insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');",
-                  id + i, getRandomName(), "MAN", "2000/01/01", "password", "010111100" + i, id + i + "@" + id + ".com", "가산동", Math.ceil(Math.random() * 10000) / 10000.0, Math.ceil(Math.random() * 10000) / 10000.0));
-            System.out.println(String.format("insert into teammember(TEAMNAME,ID,NO,SELF,REGISTATUS,REGIDATE ) values ('" + teamName + "','" + id + i + "',SEQ_teammember.NEXTVAL,'ㅎㅇㅎㅇ잘지내자','complete',SYSDATE );"));
-         }
+               "insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');",
+               id + i, getRandomName(), "MAN", "2000/01/01", "password", "010111100" + i, id + i + "@" + id + ".com", "가산동", Math.ceil(Math.random() * 10000) / 10000.0, Math.ceil(Math.random() * 10000) / 10000.0));
+         System.out.println(String.format("insert into teammember(TEAMNAME,ID,NO,SELF,REGISTATUS,REGIDATE ) values ('" + teamName + "','" + id + i + "',SEQ_teammember.NEXTVAL,'ㅎㅇㅎㅇ잘지내자','complete',SYSDATE );"));
       }
+   }
+   
+   public static void makeLeaderNMembersWithLogo(String teamName) {
+
+      String leaderID = getRandomID();
+      String id = getRandomID();
+      String leaderName = getRandomName();
+      System.out.println(String.format(
+            "insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');", leaderID,
+            getRandomName(), "MAN", "2000/01/01", "123123123", (long) (Math.ceil(Math.random() * 10000000000l)), leaderID + "@" + leaderID + ".com", "주작동", Math.ceil(Math.random() * 10000) / 10000.0,
+            Math.ceil(Math.random() * 10000) / 10000.0));
+
+      System.out.println(
+            String.format("insert into team(teamname,category,teamloc,teamrating,manager_id,teaminfo,regidate,teamlogo) values('" + teamName + "','baseball','gura',1500,'" + leaderName + "','주작팀',SYSDATE,'name ("+((int)(Math.random()*280)+1)+").png');"));
+
+      for (int i = 11; i <= 40; i++) {
+         System.out.println(String.format(
+               "insert into member(ID,NAME,GENDER,BIRTH,PWD,PHONE,EMAIL," + "REGIDATE,LOCATION,POINT,PROFILE,PITPOWER,HITPOWER) VALUES(" + "'%s','%s','%s','%s','%s','%s','%s',SYSDATE,'%s',5000,'member_default.jpg', '%s','%s');",
+               id + i, getRandomName(), "MAN", "2000/01/01", "password", "010111100" + i, id + i + "@" + id + ".com", "가산동", Math.ceil(Math.random() * 10000) / 10000.0, Math.ceil(Math.random() * 10000) / 10000.0));
+         System.out.println(String.format("insert into teammember(TEAMNAME,ID,NO,SELF,REGISTATUS,REGIDATE ) values ('" + teamName + "','" + id + i + "',SEQ_teammember.NEXTVAL,'ㅎㅇㅎㅇ잘지내자','complete',SYSDATE );"));
+      }
+   }
+   
    
    
    
@@ -290,28 +314,28 @@ public class CommonUtils {
          return false;
       }
    }
-   
-   public static String getRandDay()  {
-        int[] maxDays = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        
-        int iMinMonth = 1;
-        int iMaxMonth = 12;
-        
-        int iRandomMonth = (int)(Math.random() * iMaxMonth - iMinMonth + 1) + iMinMonth;
-        int iRandomDay = (int)(Math.random() * (maxDays[iRandomMonth-1] -2) + 1);
-        
-        return "19/"+iRandomMonth+"/"+iRandomDay;
-        
-    }
 
+   public static String getRandDay() {
+      int[] maxDays = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+      int iMinMonth = 1;
+      int iMaxMonth = 12;
+
+      int iRandomMonth = (int) (Math.random() * iMaxMonth - iMinMonth + 1) + iMinMonth;
+      int iRandomDay = (int) (Math.random() * (maxDays[iRandomMonth - 1] - 2) + 1);
+
+      return "19/" + iRandomMonth + "/" + iRandomDay;
+
+   }
 
    public static void makeGameSchedule(String homeTeam, String awayTeam) {
 
       String date = getRandDay();
 
       String time = Double.toString(Math.random() * 10 + 10).substring(0, 2) + "30";
-      String[] stadiums = { "화정경기장", "까치산경기장", "구로경기장", "가산경기장", "당산경기장", "홍대경기장", "안국경기장", "논현경기장", "강남경기장", "여의도경기장", "용산경기장", "신촌경기장", "서초경기장", "합정경기장", "대화경기장", "뚝섬경기장", "방배경기장", "정발산경기장", "주엽경기장", "마두경기장", "백석경기장", "상봉경기장", "중랑경기장", "회기경기장", "이태원경기장", "명동경기장", "미추홀경기장", "도곡경기장", "판교경기장", "양재경기장", "성북경기장", "선릉경기장", "종로경기장", "태릉경기장",
-            "공릉경기장", "이촌경기장", "이수경기장", "장승배기경기장", "보라매경기장", "독산경기장", "관악경기장", "석계경기장", "노원경기장", "중계경기장", "하계경기장", "청량리경기장", "영등포경기장", "모란경기장", "곤지암경기장", "정자경기장", "서현경기장", "오리경기장", "죽전경기장" };
+      String[] stadiums = { "화정경기장", "까치산경기장", "구로경기장", "가산경기장", "당산경기장", "홍대경기장", "안국경기장", "논현경기장", "강남경기장", "여의도경기장", "용산경기장", "신촌경기장", "서초경기장", "합정경기장", "대화경기장", "뚝섬경기장", "방배경기장", "정발산경기장", "주엽경기장", "마두경기장", "백석경기장", "상봉경기장", "중랑경기장",
+            "회기경기장", "이태원경기장", "명동경기장", "미추홀경기장", "도곡경기장", "판교경기장", "양재경기장", "성북경기장", "선릉경기장", "종로경기장", "태릉경기장", "공릉경기장", "이촌경기장", "이수경기장", "장승배기경기장", "보라매경기장", "독산경기장", "관악경기장", "석계경기장", "노원경기장", "중계경기장", "하계경기장", "청량리경기장", "영등포경기장",
+            "모란경기장", "곤지암경기장", "정자경기장", "서현경기장", "오리경기장", "죽전경기장" };
       String stadium = stadiums[(int) (Math.random() * stadiums.length)];
 
       String str = "insert into gameschedule(no,gamedate,stadium,time,awayteam,gamestatus,teamname)" + "values(SEQ_GAMESCHEDULE.nextval,'" + date + "','" + stadium + "','" + time + "','" + awayTeam + "',default,'" + homeTeam + "');";
@@ -322,21 +346,21 @@ public class CommonUtils {
    public static void manipulateMember(String id, int hitPower, int pitPower) {
 
       if (hitPower == 3 && pitPower == 3)
-         System.out.println("update member set hitpower=0.99, pitpower=0.99 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.9999, pitpower=0.9999 where id='" + id + "';");
       else if (hitPower == 3 && pitPower == 2)
-         System.out.println("update member set hitpower=0.99, pitpower=0.85 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.9999, pitpower=0.90 where id='" + id + "';");
       else if (hitPower == 3 && pitPower == 1)
-         System.out.println("update member set hitpower=0.99, pitpower=0.01 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.9999, pitpower=0.01 where id='" + id + "';");
       else if (hitPower == 2 && pitPower == 3)
-         System.out.println("update member set hitpower=0.85, pitpower=0.99 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.90, pitpower=0.9999 where id='" + id + "';");
       else if (hitPower == 2 && pitPower == 2)
-         System.out.println("update member set hitpower=0.85, pitpower=0.85 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.90, pitpower=0.90 where id='" + id + "';");
       else if (hitPower == 2 && pitPower == 1)
-         System.out.println("update member set hitpower=0.85, pitpower=0.001 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.90, pitpower=0.001 where id='" + id + "';");
       else if (hitPower == 1 && pitPower == 3)
-         System.out.println("update member set hitpower=0.001, pitpower=0.99 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.001, pitpower=0.9999 where id='" + id + "';");
       else if (hitPower == 1 && pitPower == 2)
-         System.out.println("update member set hitpower=0.001, pitpower=0.85 where id='" + id + "';");
+         System.out.println("update member set hitpower=0.001, pitpower=0.90 where id='" + id + "';");
       else if (hitPower == 1 && pitPower == 1)
          System.out.println("update member set hitpower=0.001, pitpower=0.001 where id='" + id + "';");
       else
@@ -344,25 +368,41 @@ public class CommonUtils {
    }
 
    
+   public static void makeDummyGameSchedule() {
+      
+      List<String> dummyTeams = new Vector<String>();
+      dummyTeams =Arrays.asList("가산고양이","구로호랑이","신길야옹이","노량진멍멍이","신도림강아지","독산까마귀","영등포토끼","금천망이지",
+            "오류짹짹이","개봉라이온","대방치킨즈","용산트윈스","남영베어스");
+      
+      Collections.shuffle(dummyTeams);
+      makeGameSchedule(dummyTeams.get(0), dummyTeams.get(1));
+      
+   }
+   
+   public static void makeGameScheduleVSDummy(String teamname) {
+      
+      List<String> dummyTeams = new Vector<String>();
+      dummyTeams =Arrays.asList("가산고양이","구로호랑이","신길야옹이","노량진멍멍이","신도림강아지","독산까마귀","영등포토끼","금천망이지",
+            "오류짹짹이","개봉라이온","대방치킨즈","용산트윈스","남영베어스");
+      
+      Collections.shuffle(dummyTeams);
+      if(Math.random()<0.5)
+         makeGameSchedule(teamname, dummyTeams.get(0));
+      else 
+         makeGameSchedule(dummyTeams.get(0), teamname);
+      
+   }
+   
+   
    
    
    
    public static void main(String[] args) {
-
+      
 	   
 	   
-	
-	  makeTeamMembers("HanWha Eagles");
-	  makeTeamMembers("sk wyverns");
+	   manipulateMember("jeong", 3, 3);
 	  
-	  
-	  
-      
-      
-      
-      
-      
-
    }
 
 }

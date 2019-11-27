@@ -13,7 +13,7 @@
 var websocket;
 var user;
 var teamname;
-var wsUri = "ws://192.168.0.63:8080<c:url value='/push.do'/>";
+var wsUri = "ws://localhost:8080<c:url value='/push.do'/>";
 var time;
 var date;
 var stadium;
@@ -41,7 +41,6 @@ $( function() {
     $( "#datepicker" ).datepicker();
     $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
     
-
     
     $(".upModal").click(function(){
     	teamname = $('label:eq('+$(this).attr("title")+')').attr("title");
@@ -111,9 +110,6 @@ $( function() {
     });    
    
  });
-
-
-
  function checkDateTime(time){
 	if(time.length == 2){
 		console.log("222222");
@@ -167,9 +163,7 @@ $( function() {
 	    }
 	  });
 	});
-
 function notifyme(message){
-
 		console.log('들어왔따')
 		//If the user agreed to get notified
 		if (Notification && Notification.permission === "granted") {
@@ -763,5 +757,3 @@ function notifyme(message){
         </div>
       </div>
     </div>
-  
-
