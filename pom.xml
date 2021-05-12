@@ -321,7 +321,7 @@
 
          <artifactId>spring-security-web</artifactId>
 
-         <version>4.2.8.RELEASE</version>
+         <version>5.2.10.RELEASE</version>
 
       </dependency>
 
@@ -406,7 +406,7 @@
       <dependency>
           <groupId>org.springframework.security</groupId>
           <artifactId>spring-security-web</artifactId>
-          <version>4.2.8.RELEASE</version>
+          <version>5.2.10.RELEASE</version>
       </dependency>
       <dependency>
           <groupId>org.springframework.security</groupId>
