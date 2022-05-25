@@ -311,7 +311,7 @@
 
 			<artifactId>spring-security-core</artifactId>
 
-			<version>4.2.8.RELEASE</version>
+			<version>5.5.7</version>
 
 		</dependency>
 
